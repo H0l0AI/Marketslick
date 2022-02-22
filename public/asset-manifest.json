@@ -1,0 +1,41 @@
+{
+  "files": {
+    "main.css": "/static/css/main.23142406.chunk.css",
+    "main.js": "/static/js/main.66b08415.chunk.js",
+    "main.js.map": "/static/js/main.66b08415.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.85189e93.js",
+    "runtime-main.js.map": "/static/js/runtime-main.85189e93.js.map",
+    "static/js/2.85f0ea8e.chunk.js": "/static/js/2.85f0ea8e.chunk.js",
+    "static/js/2.85f0ea8e.chunk.js.map": "/static/js/2.85f0ea8e.chunk.js.map",
+    "static/js/3.74260adf.chunk.js": "/static/js/3.74260adf.chunk.js",
+    "static/js/3.74260adf.chunk.js.map": "/static/js/3.74260adf.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.23142406.chunk.css.map": "/static/css/main.23142406.chunk.css.map",
+    "static/js/2.85f0ea8e.chunk.js.LICENSE.txt": "/static/js/2.85f0ea8e.chunk.js.LICENSE.txt",
+    "static/media/App.css": "/static/media/sm_bg.e7bd0ab1.png",
+    "static/media/1sa.8c35f60e.png": "/static/media/1sa.8c35f60e.png",
+    "static/media/builder.7e3c8699.png": "/static/media/builder.7e3c8699.png",
+    "static/media/coffee.cfb08af0.png": "/static/media/coffee.cfb08af0.png",
+    "static/media/demoProduct.a94ffdb3.png": "/static/media/demoProduct.a94ffdb3.png",
+    "static/media/dreamwoodwebsite.1ca46d7a.png": "/static/media/dreamwoodwebsite.1ca46d7a.png",
+    "static/media/house1.d2b113bd.jpg": "/static/media/house1.d2b113bd.jpg",
+    "static/media/house2.16f2c606.jpg": "/static/media/house2.16f2c606.jpg",
+    "static/media/house3.49d27db1.jpg": "/static/media/house3.49d27db1.jpg",
+    "static/media/inside.3fc143ec.png": "/static/media/inside.3fc143ec.png",
+    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg",
+    "static/media/onestep.c9759b33.png": "/static/media/onestep.c9759b33.png",
+    "static/media/p1.266570b8.png": "/static/media/p1.266570b8.png",
+    "static/media/p2.9185a28c.png": "/static/media/p2.9185a28c.png",
+    "static/media/p3.95ad9edc.png": "/static/media/p3.95ad9edc.png",
+    "static/media/photo.1c8529c1.png": "/static/media/photo.1c8529c1.png",
+    "static/media/sm1.5535c73e.jpeg": "/static/media/sm1.5535c73e.jpeg",
+    "static/media/sm3.c1202b46.png": "/static/media/sm3.c1202b46.png",
+    "static/media/smicon.90417904.png": "/static/media/smicon.90417904.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.85189e93.js",
+    "static/js/2.85f0ea8e.chunk.js",
+    "static/css/main.23142406.chunk.css",
+    "static/js/main.66b08415.chunk.js"
+  ]
+}
