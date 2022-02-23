@@ -171,11 +171,12 @@ export class HeroPage extends React.Component {
                                                 Contact Us
                                             </div>
                                         </div>
-                                        <div className="altButtonOuter" onClick={()=>{
+                                        <div className="templateCTA" onClick={()=>{
                                             firebase.analytics().logEvent('view_range_btn');
-                                            }} >
+                                            window.location.href=this.state.content.mainButtonLink
+                                        }} >
                                             <div className="altButton">
-Apply Now
+                                                {this.state.content.mainButtonTitle||'Apply Now'}
                                             </div>
                                         </div>
                                     </div>

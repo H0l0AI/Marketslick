@@ -1276,6 +1276,11 @@ body.dark-discord .border-dark {
   align-content: center !important;
 }
 /*TEMPLATE*/
+.templateCTA{
+  cursor: pointer;
+  padding:10px;
+  background-color: transparent;
+}
 .mockImageBackground{
   background: url("images/dwbg.png") no-repeat center center fixed;
   -webkit-background-size: cover;
