@@ -76,7 +76,7 @@ export class Contact extends React.Component {
     render(){
         console.log('firebase:',firebase.apps.length);
         return <div>
-            <NavBar  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems}  backgroundType={this.state.content.backgroundType}/>
+            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
             <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
                 <div ref={this.contactRef} style={{paddingTop:0}}>
                     <div className={`${this.state.content.class} supportingColor`} style={{marginTop:40,padding:40,margin:0}}>
