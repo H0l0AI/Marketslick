@@ -47,7 +47,7 @@ export const NavBar = (props)=>(
     <nav className={`navbar navbar-expand-xl navbar-dark ${props.backgroundType} myNav navTextColor`}>
         <div className="container">
             <a className="navbar-brand">
-                <img onClick={()=>{window.location.href='/'}}  src={logo} alt="" width="100" />
+                <img onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" width="100" />
             </a>
             <button className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -150,12 +150,13 @@ export class HeroPage extends React.Component {
         let customerHasPaid = false;
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
-            <NavBar isMarketing={false} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
             <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100%',position:'relative'}}>
                 <div>
                     <div>
                         <div style={{position:'absolute',zIndex:8999,width:'100%'}}>
                             <div style={{paddingTop:80,marginBottom:0,display:'flex',justifyContent:'center',width:'100%'}}>
+                                <img style={{maxWidth:350}} src={this.state.content.logo||logo} />
                             </div>
                             <div style={{display:'flex',justifyContent:'center'}}>
                                 <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>

@@ -80,7 +80,7 @@ export class SecondaryPage extends React.Component {
     render(){
         console.log('firebase:',firebase.apps.length);
         return <div>
-            <NavBar  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
             <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100%',position:'relative'}}>
                 <div className={`${this.state.content.backgroundType} text-white`} style={{paddingBottom:100}}>
                     <div className="mainFontColor" style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}><h1 style={{borderBottom:'1px solid #fff',textAlign:'center',paddingTop:20,marginBottom:60}}>
