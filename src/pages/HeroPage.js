@@ -111,6 +111,9 @@ export class HeroPage extends React.Component {
                 contactTitle: contactTitle,
                 p3Content1: p3Content1,
                 p3Heading1: p3Heading1,
+
+
+
                 secondaryContent: secondaryContent,
                 secondaryContent1: secondaryContent1,
                 secondaryContentTitle:secondaryContentTitle,
@@ -119,6 +122,8 @@ export class HeroPage extends React.Component {
                 supportingHeading: supportingHeading,
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
+
+
                 backgroundType:backgroundType,
                 class:bgClass,
                 imageURLArray:imageURLArray,
@@ -193,6 +198,11 @@ export class HeroPage extends React.Component {
                     </div>
 
                 </div>
+
+
+
+
+
                 <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`} style={{ fontSize: 20,paddingBottom:50}}>
                     <div className="container">
 
@@ -207,6 +217,13 @@ export class HeroPage extends React.Component {
                         </div>
                     </div>
                 </div>
+
+
+
+
+
+
+
 
                 <div className="py-6 bg-mainColor">
                     <div className={`${this.state.content.backgroundType} text-white`}>
