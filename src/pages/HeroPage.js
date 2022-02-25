@@ -112,6 +112,7 @@ export class HeroPage extends React.Component {
                 p3Content1: p3Content1,
                 p3Heading1: p3Heading1,
                 mainButtonTitle:mainButtonTitle,
+                mainButtonLink:mainButtonLink,
 
 
 
