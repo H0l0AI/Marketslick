@@ -68,7 +68,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                     <Route path="/" exact component={HeroPage}/>
                     <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>
                     <Route path="/pages/our-staff" exact component={SecondaryPage}/>
-                    <Route path="/pages/project-management" exact component={ThirdPage}/>
+                    <Route path="/pages/mechanic" exact component={ThirdPage}/>
                     <Route path="/pages/contact" exact component={Contact}/>
                     <Route path='/pages/additional0' exact component={()=><div><TemplatedRoute index={0} /></div>}/>
                 </Switch>
