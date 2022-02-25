@@ -2,7 +2,6 @@ import React from 'react';
 import image1 from '../images/house2.jpg';
 import image2 from '../images/house3.jpg';
 import home_icon from '../images/realtor-icon-4-dark.png';
-import logo from '../images/sm3.png';
 import p2 from '../images/p2.png';
 import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
@@ -34,7 +33,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,logo
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -129,6 +128,7 @@ export class HeroPage extends React.Component {
                 imageURLArray:imageURLArray,
                 routeItems:[],
                 routeItemsDefault:RouteItems,
+                logo:logo,
 
             }
         }

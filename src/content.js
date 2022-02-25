@@ -1,9 +1,7 @@
-
-import logo from "./images/smicon.png";
 import contentImageTwo from "./images/p1.png";
 import contentImageOne from "./images/p1.png";
 import content from './contents.json';
-
+export const logo=content.logo;
 export const RouteItems = content.routeItemsDefault.concat(content.routeItems);
 export const routeItems=content.routeItems;
 export const imageURLArray = content.imageURLArray;
