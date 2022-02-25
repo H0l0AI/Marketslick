@@ -33,7 +33,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,logo
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -128,7 +128,7 @@ export class HeroPage extends React.Component {
                 imageURLArray:imageURLArray,
                 routeItems:[],
                 routeItemsDefault:RouteItems,
-                logo:logo,
+                logo:tLogo,
 
             }
         }
