@@ -1,0 +1,8 @@
+node_modules
+build
+.idea
+.firebaserc
+.DS_Store
+.firebase
+firebase.json
+.vscode/
