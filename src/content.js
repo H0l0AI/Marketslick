@@ -6,7 +6,7 @@ export const RouteItems = content.routeItemsDefault.concat(content.routeItems);
 export const routeItems=content.routeItems;
 export const imageURLArray = content.imageURLArray;
 
-export const mainButtonTitle=content.mainButtonTitle;
+export const mainButtonTitle=content.mainButtonTitle||'Apply Now';
 export const mainButtonLink =content.mainButtonLink;
 export const contactButtonTitle='Contact Us';
 

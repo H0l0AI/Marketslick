@@ -6,6 +6,7 @@ import p2 from '../images/p2.png';
 import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
 import cookie from 'js-cookie';
+import logo from '../images/smicon.png'
 
 
 import {
@@ -110,6 +111,7 @@ export class HeroPage extends React.Component {
                 contactTitle: contactTitle,
                 p3Content1: p3Content1,
                 p3Heading1: p3Heading1,
+                mainButtonTitle:mainButtonTitle,
 
 
 
@@ -177,14 +179,14 @@ export class HeroPage extends React.Component {
                                                 Contact Us
                                             </div>
                                         </div>
-                                        <div className="templateCTA" onClick={()=>{
+                                        {this.state.content.mainButtonLink&&<div className="templateCTA" onClick={()=>{
                                             firebase.analytics().logEvent('view_range_btn');
                                             window.location.href=this.state.content.mainButtonLink
                                         }} >
                                             <div className="altButton">
                                                 {this.state.content.mainButtonTitle||'Apply Now'}
                                             </div>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>

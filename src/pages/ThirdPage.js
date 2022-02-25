@@ -36,7 +36,7 @@ import {
     secondaryContent1,
     secondaryHeader,
     secondaryHeading1,
-    backgroundType,bgClass,imageURLArray
+    backgroundType,bgClass,imageURLArray,tLogo,
 } from "../content";
 import {NavBar} from "./HeroPage";
 import {rootStore} from "../stores/Store";
@@ -70,6 +70,7 @@ export class ThirdPage extends React.Component {
                 backgroundType:backgroundType,
                 class:bgClass,
                 imageURLArray,
+                logo:tLogo,
 
             }
         }
@@ -108,7 +109,7 @@ export class ThirdPage extends React.Component {
                 <div className="mainFontColor" style={{paddingTop:40,paddingBottom:100}}>
                     <h2 style={{textAlign:'center'}}>{this.state.content.contactTitle}</h2>
                     <p style={{textAlign:'center'}}>{this.state.content.businessBlurbShort}</p>
-                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/pages/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
                         {contactCTA}
 
                     </div>
