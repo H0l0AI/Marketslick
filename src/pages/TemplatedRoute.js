@@ -28,7 +28,7 @@ import {
     businessBlurbShort,
     routeItems,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo
 } from "../content";
 import {NavBar} from "./HeroPage";
 import {rootStore} from "../stores/Store";
@@ -65,6 +65,7 @@ export class TemplatedRoute extends React.Component {
                 routeItems:routeItems,
                 class:bgClass,
                 imageURLArray,
+                logo:tLogo,
 
             }
         }

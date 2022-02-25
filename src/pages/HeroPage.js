@@ -2,11 +2,11 @@ import React from 'react';
 import image1 from '../images/house2.jpg';
 import image2 from '../images/house3.jpg';
 import home_icon from '../images/realtor-icon-4-dark.png';
-import logo from '../images/sm3.png';
 import p2 from '../images/p2.png';
 import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
 import cookie from 'js-cookie';
+import logo from '../images/smicon.png'
 
 
 import {
@@ -111,6 +111,7 @@ export class HeroPage extends React.Component {
                 contactTitle: contactTitle,
                 p3Content1: p3Content1,
                 p3Heading1: p3Heading1,
+                mainButtonTitle:mainButtonTitle,
 
 
 
@@ -130,6 +131,7 @@ export class HeroPage extends React.Component {
                 imageURLArray:imageURLArray,
                 routeItems:[],
                 routeItemsDefault:RouteItems,
+                logo:tLogo,
 
             }
         }
@@ -178,14 +180,14 @@ export class HeroPage extends React.Component {
                                                 Contact Us
                                             </div>
                                         </div>
-                                        <div className="templateCTA" onClick={()=>{
+                                        {this.state.content.mainButtonLink&&<div className="templateCTA" onClick={()=>{
                                             firebase.analytics().logEvent('view_range_btn');
                                             window.location.href=this.state.content.mainButtonLink
                                         }} >
                                             <div className="altButton">
                                                 {this.state.content.mainButtonTitle||'Apply Now'}
                                             </div>
-                                        </div>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>

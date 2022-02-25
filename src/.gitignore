@@ -1,0 +1,10 @@
+build
+/build
+.idea
+.firebaserc
+.DS_Store
+.firebase
+firebase.json
+.vscode/
+node_modules
+../node_modules
