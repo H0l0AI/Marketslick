@@ -57,7 +57,6 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                 this.setState({routeItems:routeItems})
             }
         })
-
     }
     render() {
 

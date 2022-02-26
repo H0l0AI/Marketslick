@@ -28,9 +28,9 @@ import {
     businessBlurbShort,
     routeItems,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll
 } from "../content";
-import {NavBar} from "./HeroPage";
+import {NavBar,scrollActivate} from "./HeroPage";
 import {rootStore} from "../stores/Store";
 import logo from "../images/sm3.png";
 
@@ -66,6 +66,7 @@ export class TemplatedRoute extends React.Component {
                 class:bgClass,
                 imageURLArray,
                 logo:tLogo,
+                hasScroll:hasScroll,
 
             }
         }
@@ -94,7 +95,7 @@ export class TemplatedRoute extends React.Component {
 
                 <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
 
-                <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`}
+                <div className={`mainColor secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`}
                      style={{fontSize: 20, paddingBottom: 50}}>
                     <div className="container">
 

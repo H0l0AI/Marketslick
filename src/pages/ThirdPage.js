@@ -36,9 +36,9 @@ import {
     secondaryContent1,
     secondaryHeader,
     secondaryHeading1,
-    backgroundType,bgClass,imageURLArray,tLogo,
+    backgroundType,bgClass,imageURLArray,tLogo,hasScroll
 } from "../content";
-import {NavBar} from "./HeroPage";
+import {NavBar,scrollActivate} from "./HeroPage";
 import {rootStore} from "../stores/Store";
 
 
@@ -71,6 +71,7 @@ export class ThirdPage extends React.Component {
                 class:bgClass,
                 imageURLArray,
                 logo:tLogo,
+                hasScroll:hasScroll,
 
             }
         }
@@ -86,6 +87,7 @@ export class ThirdPage extends React.Component {
         })
     }
     componentDidMount(){
+        scrollActivate()
         console.log(rootStore.pageStore.code,'load code');
 
     }
@@ -106,7 +108,7 @@ export class ThirdPage extends React.Component {
                     </div>
 
                 </div>
-                <div className="mainFontColor" style={{paddingTop:40,paddingBottom:100}}>
+                <div className={`mainFontColor ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{paddingTop:40,paddingBottom:100}}>
                     <h2 style={{textAlign:'center'}}>{this.state.content.contactTitle}</h2>
                     <p style={{textAlign:'center'}}>{this.state.content.businessBlurbShort}</p>
                     <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/pages/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>

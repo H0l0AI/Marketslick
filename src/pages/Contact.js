@@ -35,7 +35,7 @@ import {
     secondaryContent1,
     secondaryHeader,
     secondaryHeading1,
-    backgroundType,tLogo
+    backgroundType,tLogo,hasScroll
 } from "../content";
 import {NavBar} from "./HeroPage";
 import {rootStore} from "../stores/Store";
@@ -78,7 +78,7 @@ export class Contact extends React.Component {
         console.log('firebase:',firebase.apps.length);
         return <div>
             <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
-            <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
+            <div className={`${this.state.content.backgroundType} text-white fadedshort`} style={{height: '100vh',position:'relative'}}>
                 <div ref={this.contactRef} style={{paddingTop:0}}>
                     <div className={`${this.state.content.class} supportingColor`} style={{marginTop:40,padding:40,margin:0}}>
                         <div style={{display:'flex',justifyContent:'center'}}>

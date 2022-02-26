@@ -34,15 +34,73 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
 import builder from "../images/builder.png";
-import content from "../contents";
+
+export const scrollActivate = ()=>{
+    const scrollElements = document.querySelectorAll(".js-scroll");
+
+    var throttleTimer;
+
+    const throttle = (callback, time) => {
+        if (throttleTimer) return;
+
+        throttleTimer = true;
+        setTimeout(() => {
+            callback();
+            throttleTimer = false;
+        }, time);
+    }
+
+    const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+
+        return (
+            elementTop <=
+            (window.innerHeight || document.documentElement.clientHeight) / dividend
+        );
+    };
+
+    const elementOutofView = (el) => {
+        const elementTop = el.getBoundingClientRect().top;
+
+        return (
+            elementTop > (window.innerHeight || document.documentElement.clientHeight)
+        );
+    };
+
+    const displayScrollElement = (element) => {
+        element.classList.add("scrolled");
+    };
+
+    const hideScrollElement = (element) => {
+        element.classList.remove("scrolled");
+    };
+
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+            if (elementInView(el, 1.25)) {
+                displayScrollElement(el);
+            } else if (elementOutofView(el)) {
+                hideScrollElement(el)
+            }
+        })
+    }
+    var timer=0;
+    var count=0;
+    var scroll = 0;
+
+    window.addEventListener("scroll", () => {
+        throttle(() => {
+            handleScrollAnimation();
+        }, 250);
+    });
 
 
-
+}
 export const NavBar = (props)=>(
     <nav className={`navbar navbar-expand-xl navbar-dark ${props.backgroundType} myNav navTextColor`}>
         <div className="container">
@@ -133,9 +191,14 @@ export class HeroPage extends React.Component {
                 routeItems:[],
                 routeItemsDefault:RouteItems,
                 logo:tLogo,
+                hasScroll:hasScroll,
 
             }
         }
+    }
+
+    componentDidMount(){
+        scrollActivate();
     }
     changeCode(e){
         this.setState({code:e.target.value})
@@ -155,6 +218,7 @@ export class HeroPage extends React.Component {
             return { content };
         });
     };
+
     render(){
         let customerHasPaid = false;
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
@@ -211,8 +275,8 @@ export class HeroPage extends React.Component {
                     <div className="container">
 
                         <div style={{paddingTop:60}}>
-                            <div>
-                                <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class}`} style={{padding:33,opacity:1,width:'100%'}}>
+                            <div className="scrollContainer">
+                                <div className={`supportingColor secondaryBackgroundColor ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'} ${this.state.content.class}`} style={{padding:33,width:'100%'}}>
                                     <div className="px-4">
                                         <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
                                     </div>
@@ -231,7 +295,7 @@ export class HeroPage extends React.Component {
 
                 <div className="py-6 bg-mainColor">
                     <div className={`${this.state.content.backgroundType} text-white`}>
-                        <div style={{borderRadius:12}} className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+                        <div style={{borderRadius:12}} className={`container secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}>
                             <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:70}}>
                                 <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[1]} alt="" width="50%"/></div>
                                 <div style={{width: '55%',minWidth:300}}>
@@ -242,7 +306,7 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
                         <div ref={this.contactRef} style={{marginTop:40}}>
-                            <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class}`} style={{marginTop:40,padding:40,margin:0}}>
+                            <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{marginTop:40,padding:40,margin:0}}>
                                 <div style={{display:'flex',justifyContent:'center'}}>
                                     <div>
                                         <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
