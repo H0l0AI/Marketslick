@@ -47,7 +47,7 @@
 }
 
 * {
-  scrollbar-color: #27302b;
+  scrollbar-color: #505050 !important;
   scrollbar-width: thin;
 }
 
@@ -56,13 +56,14 @@
 }
 
 *::-webkit-scrollbar-track {
-  background: #27302b;
+  background: #fff !important;
   width: 12px;
   border-left:solid 1px #000
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color: #996633;
+  background-color: #a4a4a4 !important;
+
   border-radius: 20px;
 }
 html {
@@ -1531,3 +1532,84 @@ body.dark-discord .border-dark {
   background: -moz-linear-gradient(rgba(20,20,100,1),rgba(255,255,255,0.8));
   background: -o-linear-gradient(rgba(20,20,100,1),rgba(255,255,255,0.8));
   background: linear-gradient(rgba(20,20,100,1),rgba(255,255,255,0.8));}
+
+
+.js-scroll {
+  width: 100%;
+  transition: background-color 500ms;
+}
+
+.js-scroll.scrolled {
+}
+
+.scrolled.fade-in {
+  animation: fade-in 1s ease-in-out both;
+}
+
+.scrolled.fade-in-bottom {
+  animation: fade-in-bottom 1s ease-in-out both;
+}
+
+.scrolled.slide-left {
+  animation: slide-in-left 1s ease-in-out both;
+}
+
+.scrolled.slide-right {
+  animation: slide-in-right 1s ease-in-out both;
+}
+
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-bottom {
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+
+.scroll-container {
+  height: 100vh !important;
+  width: 100vw !important;
+  min-height: 450px;
+  padding: 2rem 1rem;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+.starting{
+  opacity:0;
+}
