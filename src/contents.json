@@ -29,7 +29,12 @@
       },
       {
         "href": "/pages/our-staff",
-        "name": "Our Staff",
+        "name": "About Me",
+        "routeTag": "view_other_nav"
+      },
+      {
+        "href": "/pages/gallery",
+        "name": "Roofing Gallery",
         "routeTag": "view_other_nav"
       },
       {

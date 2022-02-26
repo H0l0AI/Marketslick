@@ -1226,7 +1226,7 @@ body.dark-discord .border-dark {
 .dropdown:hover .dropdown-content {display: block;}
 
 .myNav{
-  height:'12vh';
+  max-height:'12vh';
   opacity:0.95;
   z-index: 9999 !important;
 }
@@ -1612,4 +1612,16 @@ body.dark-discord .border-dark {
 }
 .starting{
   opacity:0;
+}
+
+.imageNextButton{
+  font-size:72px;
+  cursor:pointer;
+  color:#ffffff;
+  background-color: #7b7b7b;
+  border-radius:12px;
+}
+.imageNextButton:hover{
+  background-color: #404040;
+
 }

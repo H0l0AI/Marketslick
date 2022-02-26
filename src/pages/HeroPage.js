@@ -105,7 +105,7 @@ export const NavBar = (props)=>(
     <nav className={`navbar navbar-expand-xl navbar-dark ${props.backgroundType} myNav navTextColor`}>
         <div className="container">
             <a className="navbar-brand">
-                <img onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" width="100" />
+                <img style={{maxHeight:80}} onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" />
             </a>
             <button className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
