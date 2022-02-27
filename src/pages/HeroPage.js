@@ -6,7 +6,7 @@ import p2 from '../images/p2.png';
 import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
 import cookie from 'js-cookie';
-import logo from '../images/smicon.png'
+import logo from '../images/esss22.png'
 
 
 import {
