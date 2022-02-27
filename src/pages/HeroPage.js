@@ -301,7 +301,7 @@ export class HeroPage extends React.Component {
                                 <div style={{width: '55%',minWidth:300}}>
 
                                     <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
-                                    <p style={{fontSize:18,paddingLeft:15,paddingTop:10,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContent}</p>
+                                    <p style={{fontSize:18,paddingLeft:15,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent}</p>
                                 </div>
                             </div>
                         </div>
