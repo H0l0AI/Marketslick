@@ -6,7 +6,7 @@ import p2 from '../images/p2.png';
 import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
 import cookie from 'js-cookie';
-import logo from '../images/smicon.png'
+import logo from '../images/sm3.png'
 
 
 import {
@@ -181,7 +181,6 @@ export class HeroPage extends React.Component {
                 supportingHeading: supportingHeading,
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
-
 
                 backgroundType:backgroundType,
                 class:bgClass,

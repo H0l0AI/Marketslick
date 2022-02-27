@@ -1249,7 +1249,7 @@ body.dark-discord .border-dark {
   width: 100px;
   height: 100px;
   background-color: #c0c0c0;
-  opacity: 0.5;
+  opacity: 0.85;
 }
 .blurTest2{
   -webkit-filter: blur(2px);
