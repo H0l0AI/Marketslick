@@ -60,8 +60,6 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
         })
     }
     render() {
-
-
         return (
             <Router history={customHistory}>
                 <Switch>
