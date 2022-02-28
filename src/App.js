@@ -2,7 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch,useParams } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import firebase from "firebase/compat";
 import {HeroPage} from "./pages/HeroPage";
@@ -13,6 +13,7 @@ import cookie from "js-cookie";
 import {rootStore} from "./stores/Store";
 import {TemplatedRoute} from "./pages/TemplatedRoute";
 import {MarketingHeroPage} from "./pages/MarketingHeroPage";
+import {LinkPage} from "./pages/LinkPage";
 
 
 const customHistory = createBrowserHistory();
@@ -64,7 +65,9 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
         return (
             <Router history={customHistory}>
                 <Switch>
-                    <Route path="/" exact component={HeroPage}/>
+                    <Route path="/" exact component={()=>window.location.href='https://salesmagnet.co.nz'}/>
+                    <Route path="/:hostLinkPage" component={LinkPage} />
+                    <Route path="/r/:redirectTarget" component={(props)=>{let {redirectTarget} = useParams(); window.location.href=`https://${redirectTarget}.webgun.ai`}} />
                     <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>
                     <Route path="/pages/our-staff" exact component={SecondaryPage}/>
                     <Route path="/pages/project-management" exact component={ThirdPage}/>

@@ -6,3 +6,4 @@ build
 .firebase
 firebase.json
 .vscode/
+/node_modules
