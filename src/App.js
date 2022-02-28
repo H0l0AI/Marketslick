@@ -66,7 +66,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
             <Router history={customHistory}>
                 <Switch>
                     <Route path="/" exact component={()=>window.location.href='https://salesmagnet.co.nz'}/>
-                    <Route path="/:hostLinkPage" component={LinkPage} />
+                    <Route path="/l/:hostLinkPage" component={LinkPage} />
                     <Route path="/r/:redirectTarget" component={(props)=>{let {redirectTarget} = useParams(); window.location.href=`https://${redirectTarget}.webgun.ai`}} />
                     <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>
                     <Route path="/pages/our-staff" exact component={SecondaryPage}/>
