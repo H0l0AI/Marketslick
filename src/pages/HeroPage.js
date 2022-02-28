@@ -7,6 +7,8 @@ import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
 import cookie from 'js-cookie';
 import logo from '../images/esss22.png'
+import i13 from '../images/274522159_483748549942738_1765706477025994385_n.jpg'
+
 
 
 import {
@@ -229,7 +231,6 @@ export class HeroPage extends React.Component {
                     <div>
                         <div style={{position:'absolute',zIndex:8999,width:'100%'}}>
                             <div style={{paddingTop:80,marginBottom:0,display:'flex',justifyContent:'center',width:'100%'}}>
-                                <img style={{maxWidth:350}} src={this.state.content.logo||logo} />
                             </div>
                             <div style={{display:'flex',justifyContent:'center'}}>
                                 <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
@@ -261,7 +262,7 @@ export class HeroPage extends React.Component {
 
                         </div>
                         <div className="myDIV" style={{minHeight:900}}>
-                            <img onClick={()=>{this.nextImage()}}  key={this.state.currentMainImage}  src={this.state.content.imageURLArray[0]} className="fadedshort" style={{width:'100%',height:790,objectFit:'cover'}}/></div>
+                            <img onClick={()=>{this.nextImage()}}  key={this.state.currentMainImage}  src={i13} className="fadedshort" style={{width:'100%',height:790,objectFit:'cover'}}/></div>
 
                     </div>
 
