@@ -39,30 +39,30 @@ import builder from "../images/builder.png";
 import content from "../contents";
 import {scrollActivate} from "./HeroPage";
 
-export const HeroContent =(props)=>(<div className={`py-5 ${props.content.backgroundType||'purpleGradient'} text-white`}>
+export const HeroContent =(props)=>(<div className={`${props.content.backgroundType||'purpleGradient'} text-white`}>
     <div className="container">
-        <div className="row align-items-center">
+        <div className="row align-items-center noXGutter">
             <div className="col-12 col-md-5 offset-md-1">
-                <div className="px-4 px-md-0">
-                    <h2 className="mb-4">{props.content.titleContent}</h2>
+                <div className="px-4 px-md-0" style={{paddingTop:50,paddingBottom:50}}>
+                    <h3 style={{fontSize:36}} className="mb-4">{props.content.titleContent}</h3>
                     <p clas="mb-4">{props.content.titleBlurb}</p>
-                    <a
-                       className="btn btn-light btn-lg rounded-pill" style={{width:280,paddingRight:40}}><div style={{position:'relative'}}><i style={{position:'absolute',top:4,right:10 }} className={'material-icons large'}>shopping_cart</i></div> Call To Action
-                        </a>
+                    <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
+                       className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}><i style={{position:'absolute',top:4,right:-30 }} className={'material-icons large'}>shopping_cart</i></div> {props.content.mainButtonTitle||"Your shop link here"}
+                    </a>
                 </div>
             </div>
             <div className="col-12 col-md-5">
-                <img src={props.content.imageURLArray[0]} className="img-fluid d-block mx-auto"/>
+                <img style={{borderRadius:8,height:'100%',width:'100%'}} src={props.content.imageURLArray?props.content.imageURLArray[0]:logo} className="img-fluid d-block mx-auto"/>
             </div>
         </div>
     </div>
 </div>);
 export const SecondaryContent =(props)=>(<div className={`py-5 ${props.content.class||'bg-dark-blue'} text-white`}>
-    <div className="scrolLContainer">
+    <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
-            <div className="row align-items-center">
+            <div className="row align-items-center noXGutter">
                 <div className="col-12 col-md-5 offset-md-1">
-                    <img src={props.content.imageURLArray?props.content.imageURLArray[1]:logo} className="img-fluid d-block mx-auto" width="350"/>
+                    <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[1]:logo} className="img-fluid d-block mx-auto" width="350"/>
                 </div>
                 <div className="col-12 col-md-5">
                     <div className="px-4">
@@ -75,7 +75,7 @@ export const SecondaryContent =(props)=>(<div className={`py-5 ${props.content.c
     </div>
 </div>);
 export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.backgroundType||'purpleGradient'}`} id="ecosystem">
-    <div className="scrolLContainer">
+    <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
             <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
                 className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.secondaryContentTitle}</span>
@@ -83,13 +83,16 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.b
         </div>
 
         <div className=" text-white" style={{display:'flex',justifyContent:'space-around'}}>
+            <div style={{display:'flex',justifyContent:'center'}}>
 
+            </div>
             <div className="col-12 col-md-5">
-                <div className={`scroll-element js-scroll slide-left starting`}>
+                <div className={`scroll-element js-scroll slide-right starting`}>
                     <div className="bg-dark p-4 rounded-4">
-                        <p>{props.content.secondaryContent}</p>
+                        <h1>{props.content.secondaryHeading1}</h1>
+                        {props.content.secondaryContent1}
                         <div style={{display:'flex',justifyContent:'center'}}>
-                            <img src={props.content.imageURLArray?props.content.imageURLArray[2]:logo} width={300} />
+                            <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[2]:logo} width={300} />
                         </div>
 
                     </div>
@@ -97,22 +100,57 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.b
 
             </div>
             <div className="col-12 col-md-5">
-                <div className={`scroll-element js-scroll slide-right starting`}>
+                <div className={`scroll-element js-scroll slide-left starting`}>
                     <div className="bg-dark p-4 rounded-4">
                         <p>{props.content.secondaryContent}</p>
-                        <div style={{display:'flex',justifyContent:'center'}}>
-                            <img src={props.content.imageURLArray?props.content.imageURLArray[2]:logo} width={300} />
-                        </div>
 
                     </div>
                 </div>
 
             </div>
         </div>
+
     </div>
 </div>);
+export const AdditionalContent =(props)=> {
+    const route = props.content.routeItems[props.index];
+
+    return (<div key={props.index} className={`py-6 ${props.content.backgroundType || 'purpleGradient'}`} id="ecosystem">
+        <h3 style={{fontSize:28}}  className="mb-5 text-center">
+            <div className={`scroll-element js-scroll fade-in-bottom `}>
+
+                <span
+                    className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{route.secondaryHeader}</span>
+            </div>
+        </h3>
+        <div className="row row-eq-height text-white">
+            <div className="col-12 col-md-5 offset-md-1">
+                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-left':'slide-right'} `}>
+                    <div className="bg-dark p-4 rounded-4">
+                        <p>{route.supportingHeading}</p>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 8}}
+                                 src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
+                                 width="50%"/>
+                        </div>
+
+                    </div>
+                </div>
+                <div></div>
+            </div>
+            <div className="col-12 col-md-5">
+                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} `}>
+                    <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
+                        <h4>{route.secondaryHeading1}</h4>
+                        <p>{route.secondaryContent1}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>)
+};
 export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content.class||'bg-dark-blue'}`} id="community">
-    <div className="scrolLContainer">
+    <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
             <div className="container small-width">
                 <div className="px-4">
@@ -120,12 +158,13 @@ export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content
                         className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
                     </h3>
                     <p className="mb-4">{props.content.p3Content1}</p>
-                    <img src={props.content.p3ContentPhoto} />
+                    <div style={{display:'flex',justifyContent:'center'}}>
+                        <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
+                    </div>
                     <div>
                         <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
                             <h4>{props.content.contactTitle}</h4>
                             <p>{props.content.contactBlurb}</p>
-                            <p>{props.content.businessBlurb}</p>
                             <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
                                 <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>{props.content.contactEmail}</div></div>
                                 <br />
@@ -188,43 +227,6 @@ export const NavBar = (props)=>(
         </div>
     </nav>);
 
-export const AdditionalContent =(props)=> {
-    const route = props.content.routeItems[props.index];
-
-    return (<div key={props.index} className={`py-6 ${props.content.backgroundType || 'purpleGradient'}`} id="ecosystem">
-        <h3 style={{fontSize:28}}  className="mb-5 text-center">
-            <div className={`scroll-element js-scroll fade-in-bottom `}>
-
-                <span
-                    className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{route.secondaryHeader}</span>
-            </div>
-        </h3>
-        <div className="row row-eq-height text-white">
-            <div className="col-12 col-md-5 offset-md-1">
-                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-left':'slide-right'} `}>
-                    <div className="bg-dark p-4 rounded-4">
-                        <p>{route.supportingHeading}</p>
-                        <div style={{display: 'flex', justifyContent: 'center'}}>
-                            <img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 4}}
-                                 src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
-                                 width="50%"/>
-                        </div>
-
-                    </div>
-                </div>
-                <div></div>
-            </div>
-            <div className="col-12 col-md-5">
-                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} `}>
-                    <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
-                        <h4>{route.secondaryHeading1}</h4>
-                        <p>{route.secondaryContent1}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>)
-};
 
 
 export class MarketingHeroPage extends React.Component {
@@ -305,6 +307,7 @@ export class MarketingHeroPage extends React.Component {
             })}
                 <AuxiliaryContent content={this.state.content} />
                 <Footer content={this.state.content}/>
+                <div style={{width:'100%',height:40,color:'#fff'}}><img onClick={()=>{window.location.href='https://webgun.ai'}} style={{float:'right',cursor:'pointer'}} src={logo} height={40} /></div>
         </div>
 
     }
