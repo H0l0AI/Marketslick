@@ -93,56 +93,69 @@ export class TemplatedRoute extends React.Component {
             return <div>
                 <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
 
-                <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
+                <div>
+                    <NavBar content={this.state.content}  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
 
-                <div className={`mainColor secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`}
-                     style={{fontSize: 20, paddingBottom: 50}}>
-                    <div className="container">
+                    <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
 
-                        <div style={{paddingTop: 60}}>
-                            <h2>{route.secondaryHeader}</h2>
-                            <div>
-                                <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class}`}
-                                     style={{padding: 33, opacity: 1, width: '100%'}}>
-                                    <div className="px-4">
-                                        <p><h2 style={{
-                                            fontSize: '1.5rem',
-                                            whiteSpace: 'break-spaces'
-                                        }}>{route.supportingHeading}</h2></p>
+                        <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`}
+                             style={{fontSize: 20, paddingBottom: 50}}>
+                            <div className="container">
+
+                                <div style={{paddingTop: 60}}>
+                                    <h3 style={{textAlign:'center',fontSize:56}}>{route.secondaryHeader}</h3>
+                                    <div>
+                                        <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class}`}
+                                             style={{padding: 33, opacity: 1, width: '100%'}}>
+                                            <div className="px-4">
+                                                <p><h2 style={{
+                                                    fontSize: '1.5rem',
+                                                    whiteSpace: 'break-spaces'
+                                                }}>{route.supportingHeading}</h2></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+                                    <div style={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        paddingTop: 40,
+                                        flexWrap: 'wrap',
+                                        paddingBottom: 40,
+                                        marginBottom: 70
+                                    }}>
+                                        <div><img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 4}}
+                                                  src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
+                                                  width="50%"/></div>
+                                        <div style={{width: '55%', minWidth: 300}}>
+
+                                            <h3 style={{
+                                                paddingLeft: 15,
+                                                marginBottom: 0,
+                                                whiteSpace: 'break-spaces'
+                                            }}>{route.secondaryHeading1}</h3>
+                                            <p style={{
+                                                fontSize: 18,
+                                                paddingLeft: 15,
+                                                paddingTop: 10,
+                                                whiteSpace: 'break-spaces'
+                                            }}>{route.secondaryContent1}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+                                    <h2 style={{textAlign:'center'}}>{route.contactBlurb}</h2>
+                                    <p style={{textAlign:'center'}}>{route.businessBlurbShort}</p>
+                                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                                        Enquire now
+
+                                    </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                paddingTop: 40,
-                                flexWrap: 'wrap',
-                                paddingBottom: 40,
-                                marginBottom: 70
-                            }}>
-                                <div><img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 4}}
-                                          src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
-                                          width="50%"/></div>
-                                <div style={{width: '55%', minWidth: 300}}>
-
-                                    <h3 style={{
-                                        paddingLeft: 15,
-                                        marginBottom: 0,
-                                        whiteSpace: 'break-spaces'
-                                    }}>{route.secondaryHeading1}</h3>
-                                    <p style={{
-                                        fontSize: 18,
-                                        paddingLeft: 15,
-                                        paddingTop: 10,
-                                        whiteSpace: 'break-spaces'
-                                    }}>{route.secondaryContent1}</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
                 </div>
             </div>
         }else{
