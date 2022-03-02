@@ -158,7 +158,7 @@ export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content
                         className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
                     </h3>
                     <p className="mb-4">{props.content.p3Content1}</p>
-                    <div style={{display:'flex',justifyContent:'center'}}>
+                    <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
                         <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
                     </div>
                     <div>
