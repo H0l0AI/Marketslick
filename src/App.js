@@ -42,6 +42,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
 
         this.state={
             routeItems:[],
+            templateType:'pm',
         }
 
     }
@@ -54,7 +55,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                 const routeItems = dataToLoad.content.routeItemsDefault.concat(dataToLoad.content.routeItems);
                 console.log(dataToLoad,'LOAD MAIN',routeItems);
 
-                this.setState({routeItems:routeItems})
+                this.setState({routeItems:routeItems,templateType:dataToLoad.content.templateType})
             }
         })
     }
@@ -64,7 +65,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
         return (
             <Router history={customHistory}>
                 <Switch>
-                    <Route path="/" exact component={HeroPage}/>
+                    <Route path="/" exact component={this.state.templateType==='pm'?HeroPage:MarketingHeroPage}/>
                     <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>
                     <Route path="/pages/our-staff" exact component={SecondaryPage}/>
                     <Route path="/pages/project-management" exact component={ThirdPage}/>

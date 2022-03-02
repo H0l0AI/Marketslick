@@ -191,30 +191,34 @@ export const NavBar = (props)=>(
 export const AdditionalContent =(props)=> {
     const route = props.content.routeItems[props.index];
 
-    return (<div className={`py-6 ${props.content.backgroundType || 'purpleGradient'}`} id="ecosystem">
-        <div className="scrolLContainer">
-            <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} starting`}>
-                <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
-                    className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{route.secondaryHeader}</span>
-                </h3>
-                <div className="row row-eq-height text-white">
-                    <div className="col-12 col-md-5 offset-md-1">
-                        <div className="bg-dark p-4 rounded-4">
-                            <p>{route.supportingHeading}</p>
-                            <div style={{display: 'flex', justifyContent: 'center'}}>
-                                <img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 4}}
-                                     src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
-                                     width="50%"/>
-                            </div>
+    return (<div key={props.index} className={`py-6 ${props.content.backgroundType || 'purpleGradient'}`} id="ecosystem">
+        <h3 style={{fontSize:28}}  className="mb-5 text-center">
+            <div className={`scroll-element js-scroll fade-in-bottom `}>
 
+                <span
+                    className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{route.secondaryHeader}</span>
+            </div>
+        </h3>
+        <div className="row row-eq-height text-white">
+            <div className="col-12 col-md-5 offset-md-1">
+                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-left':'slide-right'} `}>
+                    <div className="bg-dark p-4 rounded-4">
+                        <p>{route.supportingHeading}</p>
+                        <div style={{display: 'flex', justifyContent: 'center'}}>
+                            <img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 4}}
+                                 src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
+                                 width="50%"/>
                         </div>
-                        <div></div>
+
                     </div>
-                    <div className="col-12 col-md-5">
-                        <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
-                            <h4>{route.secondaryHeading1}</h4>
-                            <p>{route.secondaryContent1}</p>
-                        </div>
+                </div>
+                <div></div>
+            </div>
+            <div className="col-12 col-md-5">
+                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} `}>
+                    <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
+                        <h4>{route.secondaryHeading1}</h4>
+                        <p>{route.secondaryContent1}</p>
                     </div>
                 </div>
             </div>
