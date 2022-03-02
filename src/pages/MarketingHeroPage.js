@@ -31,7 +31,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray,tLogo
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -183,7 +183,7 @@ export const NavBar = (props)=>(
     <nav className={`navbar navbar-expand-xl navbar-dark ${props.class||'bg-dark-blue'} myNav navTextColor`}>
         <div className="container">
             <a className="navbar-brand">
-                <img onClick={()=>{window.location.href='/'}}  src={logo} alt="" width="100" />
+                <img onClick={()=>{window.location.href='/'}}  src={props.content.logo||logo} alt="" width="100" />
             </a>
             <button className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -261,6 +261,7 @@ export class MarketingHeroPage extends React.Component {
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
                 backgroundType:backgroundType,
+                logo:tLogo,
                 class:bgClass,
                 routeItems:[],
                 routeItemsDefault:RouteItems,
@@ -303,7 +304,7 @@ export class MarketingHeroPage extends React.Component {
         let customerHasPaid = false;
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
-            <NavBar isMarketing={true} content={this.state.content} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
                 <SecondaryContent content={this.state.content} />
             {this.state.content.routeItems&&this.state.content.routeItems.map((i,ix)=>{

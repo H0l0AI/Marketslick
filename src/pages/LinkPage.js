@@ -68,7 +68,7 @@ export class LinkPage extends React.Component {
     render(){
         return <div>
             <div className={`${this.state.content.backgroundType}`} style={{color:'#fff',height:'100vh',width:'100vw',backgroundColor:'#ff2019',paddingTop:100}}>
-                <NavBar isMarketing={true} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
+                <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <h2 style={{textAlign:'center'}}>Our other pages</h2>
                 <div style={{display:'flex',justifyContent:'center',zIndex:99}}>
                     <ul>
