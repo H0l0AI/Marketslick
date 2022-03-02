@@ -13,6 +13,7 @@ import cookie from "js-cookie";
 import {rootStore} from "./stores/Store";
 import {TemplatedRoute} from "./pages/TemplatedRoute";
 import {MarketingHeroPage} from "./pages/MarketingHeroPage";
+import {templateType} from "./content";
 
 
 const customHistory = createBrowserHistory();
@@ -65,7 +66,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
         return (
             <Router history={customHistory}>
                 <Switch>
-                    <Route path="/" exact component={this.state.templateType==='pm'?HeroPage:MarketingHeroPage}/>
+                    <Route path="/" exact component={templateType==='pm'?HeroPage:MarketingHeroPage}/>
                     <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>
                     <Route path="/pages/our-staff" exact component={SecondaryPage}/>
                     <Route path="/pages/project-management" exact component={ThirdPage}/>
