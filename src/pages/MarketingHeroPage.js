@@ -303,7 +303,7 @@ export class MarketingHeroPage extends React.Component {
         let customerHasPaid = false;
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
-            <NavBar isMarketing={true} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
                 <SecondaryContent content={this.state.content} />
             {this.state.content.routeItems&&this.state.content.routeItems.map((i,ix)=>{
