@@ -1,6 +1,7 @@
 import contentImageTwo from "./images/p1.png";
 import contentImageOne from "./images/p1.png";
 import content from './contents.json';
+export const templateType=content.templateType;
 export const tLogo=content.logo;
 export const hasScroll=content.hasScroll
 export const RouteItems = content.routeItemsDefault.concat(content.routeItems);
