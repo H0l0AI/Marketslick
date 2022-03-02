@@ -51,15 +51,6 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
 
     componentDidMount(){
         console.log(rootStore.pageStore.code,'load code MAIN');
-        firebase.firestore().collection("templates").get().then((data)=>{
-            const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
-            if(dataToLoad) {
-                const routeItems = dataToLoad.content.routeItemsDefault.concat(dataToLoad.content.routeItems);
-                console.log(dataToLoad,'LOAD MAIN',routeItems);
-
-                this.setState({routeItems:routeItems,templateType:dataToLoad.content.templateType})
-            }
-        })
     }
     render() {
 
