@@ -73,6 +73,9 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                     <Route path="/pages/project-management" exact component={ThirdPage}/>
                     <Route path="/pages/contact" exact component={Contact}/>
                     <Route path='/pages/additional0' exact component={()=><div><TemplatedRoute index={0} /></div>}/>
+                    <Route path='/pages/additional1' exact component={()=><div><TemplatedRoute index={1} /></div>}/>
+                    <Route path='/pages/additional2' exact component={()=><div><TemplatedRoute index={2} /></div>}/>
+                    <Route path='/pages/additional3' exact component={()=><div><TemplatedRoute index={3} /></div>}/>
                 </Switch>
             </Router>
 
