@@ -31,7 +31,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -87,7 +87,7 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.b
 
             </div>
             <div className="col-12 col-md-5">
-                <div className={`scroll-element js-scroll slide-right starting`}>
+                <div className={`scroll-element js-scroll slide-left starting`}>
                     <div className="bg-dark p-4 rounded-4">
                         <h1>{props.content.secondaryHeading1}</h1>
                         {props.content.secondaryContent1}
@@ -100,7 +100,7 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.b
 
             </div>
             <div className="col-12 col-md-5">
-                <div className={`scroll-element js-scroll slide-left starting`}>
+                <div className={`scroll-element js-scroll slide-right starting`}>
                     <div className="bg-dark p-4 rounded-4">
                         <p>{props.content.secondaryContent}</p>
 
@@ -158,7 +158,7 @@ export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content
                         className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
                     </h3>
                     <p className="mb-4">{props.content.p3Content1}</p>
-                    <div style={{display:'flex',justifyContent:'center'}}>
+                    <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
                         <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
                     </div>
                     <div>
@@ -222,6 +222,10 @@ export const NavBar = (props)=>(
                             </li>);
                         }
                     })}
+                    {props.content.linkArray&&<li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
+                        window.location.href = '/pages/links';
+                    }}><a className="nav-link whiteTextNav" aria-current="page">Links</a>
+                    </li>}
                 </ul>
             </div>
         </div>
@@ -261,6 +265,7 @@ export class MarketingHeroPage extends React.Component {
                 routeItems:[],
                 routeItemsDefault:RouteItems,
                 imageURLArray,
+                linkArray:linkArray,
 
             }
         }

@@ -34,7 +34,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll,linkArray,
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -143,7 +143,11 @@ export const NavBar = (props)=>(
                             }}><a className="nav-link whiteTextNav" aria-current="page">{route.name}</a>
                             </li>);
                         }
-                    })})
+                    })}
+                    {props.content.linkArray&&<li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
+                        window.location.href = '/pages/links';
+                    }}><a className="nav-link whiteTextNav" aria-current="page">Links</a>
+                    </li>}
                 </ul>
             </div>
         </div>
@@ -189,6 +193,7 @@ export class HeroPage extends React.Component {
                 routeItemsDefault:RouteItems,
                 logo:tLogo,
                 hasScroll:hasScroll,
+                linkArray:linkArray,
 
             }
         }

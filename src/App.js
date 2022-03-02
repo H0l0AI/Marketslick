@@ -14,6 +14,7 @@ import {rootStore} from "./stores/Store";
 import {TemplatedRoute} from "./pages/TemplatedRoute";
 import {MarketingHeroPage} from "./pages/MarketingHeroPage";
 import {templateType} from "./content";
+import {LinkPage} from "./pages/LinkPage";
 
 
 const customHistory = createBrowserHistory();
@@ -71,6 +72,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                     <Route path="/pages/our-staff" exact component={SecondaryPage}/>
                     <Route path="/pages/project-management" exact component={ThirdPage}/>
                     <Route path="/pages/contact" exact component={Contact}/>
+                    <Route path='/pages/links' exact component={LinkPage} />
                     <Route path='/pages/additional0' exact component={()=><div><TemplatedRoute index={0} /></div>}/>
                     <Route path='/pages/additional1' exact component={()=><div><TemplatedRoute index={1} /></div>}/>
                     <Route path='/pages/additional2' exact component={()=><div><TemplatedRoute index={2} /></div>}/>
