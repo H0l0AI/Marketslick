@@ -447,6 +447,9 @@ a,h1,h2,h3,h4,h5,h6,.navbar-brand,
 .photoCoverBG{
   background: url("images/bg22.png") no-repeat center center fixed ;
 }
+.coolPhotoBG{
+  background:url('images/coolPhoto.png') no-repeat center center;
+}
 .styledBGCover{
   border-radius: 12px;
   background: -webkit-linear-gradient(#0e1e46, #14146450);
@@ -460,6 +463,12 @@ a,h1,h2,h3,h4,h5,h6,.navbar-brand,
   background: -moz-linear-gradient(#14146450,#0e1e46);
   background: -o-linear-gradient(#14146450,#0e1e46);
   background: linear-gradient(#14146450,#0e1e46);
+}
+.BG3xText{
+  background: -webkit-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
+  background: -moz-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
+  background: -o-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
+  background: linear-gradient(rgba(20, 20, 100, 0.8),#0e1e46);
 }
 .bg13{
   background: url("images/bg/7.png") no-repeat center center fixed;

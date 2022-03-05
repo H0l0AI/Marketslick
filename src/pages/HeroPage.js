@@ -9,6 +9,7 @@ import cookie from 'js-cookie';
 import logo from '../images/esss22.png'
 import i13 from '../images/274522159_483748549942738_1765706477025994385_n.jpg'
 import aboutMePhoto from '../images/aboutMe.jpg'
+import coolPhoto from '../images/coolPhoto.png'
 
 
 
@@ -37,7 +38,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll,supportingHeading2
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -185,6 +186,7 @@ export class HeroPage extends React.Component {
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
                 logo:tLogo,
+                supportingHeading2,
 
 
                 backgroundType:backgroundType,
@@ -274,20 +276,6 @@ export class HeroPage extends React.Component {
 
 
 
-                <div className={`mainColor secondaryBackgroundColor BG3x`} style={{ fontSize: 20,paddingBottom:50}}>
-                    <div className="container">
-
-                        <div style={{paddingTop:60}}>
-                            <div className="scrollContainer">
-                                <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
-                                    <div className="px-4">
-                                        <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
 
 
@@ -308,9 +296,30 @@ export class HeroPage extends React.Component {
                                 </div>
                             </div>
                         </div>
+
+                        <div className={`mainColor secondaryBackgroundColor coolPhotoBG`} style={{ fontSize: 20,paddingBottom:50}}>
+                            <div className="container">
+
+                                <div style={{paddingTop:60}}>
+                                    <div className="scrollContainer BG3xText">
+                                        <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
+                                            <div className="px-4">
+                                                <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
+                                            </div>
+                                            <br/>
+                                            <div>
+                                            </div>
+                                            <div className="px-4">
+                                                <p style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading2}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div ref={this.contactRef} >
                             <div className={`supportingColor secondaryBackgroundColor BG2x`} style={{marginTop:40,padding:40,margin:0,paddingBottom:200}}>
-                                <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{display:'flex',justifyContent:'center'}}>
+                                <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
                                         <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
                                         <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
