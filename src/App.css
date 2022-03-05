@@ -252,6 +252,19 @@ html {
   text-align: center;
   color:#fff !important;
 }
+.nav-link{
+  border-bottom: 2px solid transparent;
+}
+.nav-link:hover{
+  border-bottom: 2px solid #d8d8d850;
+  -o-transition:.25s;
+  -ms-transition:.25s;
+  -moz-transition:.25s;
+  -webkit-transition:.25s;
+  /* ...and now for the proper property */
+  transition:.25s;
+  color: #474958;
+}
 body{
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
@@ -1613,4 +1626,53 @@ body.dark-discord .border-dark {
 }
 .starting{
   opacity:0;
+}
+
+.BGX{
+  background: -webkit-linear-gradient(#141464, hsl(244, 33%, 25%));
+  background: -moz-linear-gradient(#141464,hsl(244, 33%, 25%));
+  background: -o-linear-gradient(#141464,hsl(244, 33%, 25%));
+  background: linear-gradient(#141464,hsl(244, 33%, 25%));
+}
+.BG2x{
+  background: -webkit-linear-gradient(#0e1e46, #14146450);
+  background: -moz-linear-gradient(#0e1e46, #14146450);
+  background: -o-linear-gradient(#0e1e46, #14146450);
+  background: linear-gradient(#0e1e46, #14146450);
+}
+.photoCoverBG{
+  background: url("images/sm1.jpeg") no-repeat center center fixed ;
+}
+.coolPhotoBG{
+background-color: transparent;
+}
+.styledBGCover{
+  border-radius: 12px;
+  background: -webkit-linear-gradient(#0e1e46, #14146450);
+  background: -moz-linear-gradient(#0e1e46, #14146450);
+  background: -o-linear-gradient(#0e1e46, #14146450);
+  background: linear-gradient(#0e1e46, #14146450);
+}
+
+.BG3x{
+  background: -webkit-linear-gradient(#14146450,#0e1e46);
+  background: -moz-linear-gradient(#14146450,#0e1e46);
+  background: -o-linear-gradient(#14146450,#0e1e46);
+  background: linear-gradient(#14146450,#0e1e46);
+}
+.BG3xText{
+  background: -webkit-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
+  background: -moz-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
+  background: -o-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
+  background: linear-gradient(rgba(20, 20, 100, 0.8),#0e1e46);
+}
+._2R-kh{
+  display:flex;
+  justify-content: center;
+  flex-direction: row;
+}
+._vzTHL{
+  max-height: 300px !important;
+  max-width: 300px !important;
+
 }

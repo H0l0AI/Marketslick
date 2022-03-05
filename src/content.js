@@ -1,6 +1,7 @@
 import contentImageTwo from "./images/p1.png";
 import contentImageOne from "./images/p1.png";
 import content from './contents.json';
+export const igT=content.igT||null;
 export const linkArray=content.linkArray||[];
 export const templateType=content.templateType;
 export const tLogo=content.logo;
@@ -16,6 +17,7 @@ export const contactButtonTitle='Contact Us';
 export const titleContent=content.titleContent;
 export const titleBlurb=content.titleBlurb;
 export const supportingHeading =content.supportingHeading;
+export const supportingHeading2 =content.supportingHeading2||'SH2 here';
 export const supportingBlurb =content.supportingBlurb;
 export const secondaryContentTitle=content.secondaryContentTitle;
 export const secondaryContent =content.secondaryContent

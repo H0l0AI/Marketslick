@@ -94,8 +94,6 @@ export class TemplatedRoute extends React.Component {
                 <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
 
                 <div>
-                    <NavBar content={this.state.content}  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
-
                     <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
 
                         <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`}
