@@ -103,7 +103,7 @@ export const scrollActivate = ()=>{
 
 }
 export const NavBar = (props)=>(
-    <nav style={{maxHeight:'24vh',minHeight:'24vh'}} className={`navbar navbar-expand-xl BGX myNav navTextColor`}>
+    <nav style={{maxHeight:'24vh',minHeight:'24vh'}} className={`navbar navbar-expand-xl ${props.content.backgroundType} myNav navTextColor`}>
         <div className="container">
             <a className="navbar-brand">
                 <img style={{height:'18vh'}} onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" />
@@ -287,7 +287,7 @@ export class HeroPage extends React.Component {
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>
-                                    <div className="scrollContainer BG3xText" style={{borderRadius:12}}>
+                                    <div className={`scrollContainer ${this.state.content.backgroundType}`} style={{borderRadius:12}}>
                                         <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
                                             <div className="px-4">
                                                 <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
@@ -304,7 +304,7 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
                         <div ref={this.contactRef} >
-                            <div className={`supportingColor secondaryBackgroundColor ${this.state.backgroundTypeFlippedUpsideDown||'BG2x'}`} style={{marginTop:40,padding:40,margin:0,paddingBottom:200}}>
+                            <div className={`supportingColor secondaryBackgroundColor ${this.state.content.backgroundType}`} style={{marginTop:40,padding:40,margin:0,paddingBottom:200}}>
                                 <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
                                         <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
