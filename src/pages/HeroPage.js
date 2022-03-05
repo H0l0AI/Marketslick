@@ -138,7 +138,7 @@ export const NavBar = (props)=>(
                             </li>)
                         }
                         else {
-                            return (<li className="nav-item" style={{cursor: 'pointer',fontSize:30}} onClick={() => {
+                            return (<li className="nav-item" style={{cursor: 'pointer',fontSize:22}} onClick={() => {
                                 firebase.analytics().logEvent(route.routeTag);
                                 window.location.href = route.href;
                             }}><a className="nav-link whiteTextNav" aria-current="page">{route.name}</a>
@@ -264,7 +264,7 @@ export class HeroPage extends React.Component {
                         <div className={`blurTest secondaryBackgroundColor ${this.state.content.class}`} style={{height:790,minWidth:375,width:'100%',zIndex:900,position:'absolute'}}>
 
                         </div>
-                        <div className="myDIV photoCoverBG" style={{minHeight:788}}>
+                        <div className="myDIV photoCoverBG" style={{minHeight:788,backgroundImage: "url(" + this.state.content.imageURLArray[0] + ")"}}>
                         </div>
 
                     </div>
@@ -283,7 +283,7 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
 
-                        <div className={`mainColor secondaryBackgroundColor coolPhotoBG`} style={{ fontSize: 20,paddingBottom:50}}>
+                        <div className={`mainColor secondaryBackgroundColor photoCoverBG`} style={{fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>

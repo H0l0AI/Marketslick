@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -1641,7 +1642,9 @@ body.dark-discord .border-dark {
   background: linear-gradient(#0e1e46, #14146450);
 }
 .photoCoverBG{
-  background: url("images/sm1.jpeg") no-repeat center center fixed ;
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: fixed; /* Resize the background image to cover the entire container */
 }
 .coolPhotoBG{
 background-color: transparent;
