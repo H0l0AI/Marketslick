@@ -287,13 +287,13 @@ export class HeroPage extends React.Component {
                 <div className="bg-mainColor">
                     <div className={`text-white`}>
                         <div style={{paddingTop:100,paddingBottom:100}} className={`secondaryBackgroundColor ${this.state.content.class}`}>
-                            <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
-                                <div><img style={{paddingLeft:100,margin:30,width:'40vw',minWidth:350,borderRadius:4}} src={aboutMePhoto} alt="" width="50%"/></div>
-                                <div style={{width: '55%',minWidth:300,paddingLeft:0,paddingRight:100}}>
+                            <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
+                                <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{paddingLeft:0,margin:30,width:'44vw',minWidth:350,borderRadius:4}} src={aboutMePhoto} alt="" width="50%"/></div></div>
+                                <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,paddingLeft:0,paddingRight:100}}>
 
-                                    <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
+                                    <h3 style={{fontSize:40,paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
                                     <p style={{minWidth:300,paddingLeft:0,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent1}</p>
-                                </div>
+                                </div></div>
                             </div>
                         </div>
 
@@ -322,7 +322,7 @@ export class HeroPage extends React.Component {
                                 <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
                                         <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
-                                        <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
+                                        <p style={{fontSize:20,marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
                                             {this.state.content.contactBlurb}
                                             <br />
                                             <br />
