@@ -91,7 +91,24 @@ body.dark-discord{
 }
 h1,h2,h3,h4,h5,h6,.navbar-brand,
 .h1,.h2,.h3,.h4,.h5,.h6,.navbar-brand{
-  font-family: 'Montserrat', sans-serif;  font-weight:900 !important;
+  font-family: 'Contrail One', cursive; font-weight: 900 !important;
+}
+p{
+  font-family: 'Montserrat', sans-serif;  font-weight:300 !important;
+
+}
+.nav-item{
+  border-bottom: 1px solid transparent;
+}
+.nav-item:hover{
+  border-bottom: 2px solid #d8d8d850;
+  -o-transition:.25s;
+  -ms-transition:.25s;
+  -moz-transition:.25s;
+  -webkit-transition:.25s;
+  /* ...and now for the proper property */
+  transition:.25s;
+  color: #474958;
 }
 .semi-bold{
   font-weight:600 !important;
@@ -270,9 +287,9 @@ body.dark-discord{
   background: rgb(46,49,54);
   color: #fff;
 }
-h1,h2,h3,h4,h5,h6,.navbar-brand,
-.h1,.h2,.h3,.h4,.h5,.h6,.navbar-brand{
-  font-family: 'Montserrat', sans-serif;  font-weight:900 !important;
+a,h1,h2,h3,h4,h5,h6,.navbar-brand,
+.h1,.h2,.h3,.h4,.h5,.h6,.navbar-brand,.altButton{
+  font-family: 'Contrail One', serif;  font-weight:900 !important;
 }
 .navbar-brand{
   cursor: pointer;
@@ -414,6 +431,35 @@ h1,h2,h3,h4,h5,h6,.navbar-brand,
 }
 .bg12{
   background: url("images/bg/6.png") no-repeat center center fixed;
+}
+.BGX{
+  background: -webkit-linear-gradient(#141464, hsl(244, 33%, 25%));
+  background: -moz-linear-gradient(#141464,hsl(244, 33%, 25%));
+  background: -o-linear-gradient(#141464,hsl(244, 33%, 25%));
+  background: linear-gradient(#141464,hsl(244, 33%, 25%));
+}
+.BG2x{
+  background: -webkit-linear-gradient(#0e1e46, #14146450);
+  background: -moz-linear-gradient(#0e1e46, #14146450);
+  background: -o-linear-gradient(#0e1e46, #14146450);
+  background: linear-gradient(#0e1e46, #14146450);
+}
+.photoCoverBG{
+  background: url("images/bg22.png") no-repeat center center fixed ;
+}
+.styledBGCover{
+  border-radius: 12px;
+  background: -webkit-linear-gradient(#0e1e46, #14146450);
+  background: -moz-linear-gradient(#0e1e46, #14146450);
+  background: -o-linear-gradient(#0e1e46, #14146450);
+  background: linear-gradient(#0e1e46, #14146450);
+}
+
+.BG3x{
+  background: -webkit-linear-gradient(#14146450,#0e1e46);
+  background: -moz-linear-gradient(#14146450,#0e1e46);
+  background: -o-linear-gradient(#14146450,#0e1e46);
+  background: linear-gradient(#14146450,#0e1e46);
 }
 .bg13{
   background: url("images/bg/7.png") no-repeat center center fixed;

@@ -82,7 +82,7 @@ export class Contact extends React.Component {
                 <div ref={this.contactRef} style={{paddingTop:0}}>
                     <div className={`${this.state.content.class} supportingColor`} style={{marginTop:40,padding:40,margin:0}}>
                         <div style={{display:'flex',justifyContent:'center'}}>
-                            <div>
+                            <div style={{width:600}}>
                                 <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
                                 <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,minWidth:350,whiteSpace:'break-spaces',textAlign:'center'}}>
                                     {this.state.content.contactBlurb}

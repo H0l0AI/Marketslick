@@ -13,7 +13,21 @@ import i10 from '../images/274295414_5192352200827730_5622816711248813753_n.jpg'
 import i11 from '../images/274316453_370579604885697_1519620923206115888_n.jpg'
 import i12 from '../images/274487379_951530185735273_7045973747244849019_n.jpg'
 import i13 from '../images/274522159_483748549942738_1765706477025994385_n.jpg'
-import i14 from '../images/274559151_991157941815715_8575293117707684266_n.jpg'
+import i15 from '../images/274956217_1833410476854574_1862543211617242058_n.jpg';
+import i16 from '../images/274950827_1388537131611708_2288298439029261268_n.jpg';
+import i17 from '../images/274957157_1079703159478352_2849576739693772170_n.jpg';
+import i18 from '../images/274915505_534649577932074_8476066078940040608_n.jpg';
+import i19 from '../images/274909511_485714213209465_6587407637635408076_n.jpg';
+import i21 from '../images/274901384_981547462784179_2960278482457382798_n.jpg';
+import i22 from '../images/274727239_939610839860186_7391419830486489001_n.jpg';
+import i23 from '../images/274674702_3009212509394327_6175718082034132667_n.jpg';
+import i24 from '../images/274615774_315243727144225_47768997631581242_n.jpg';
+import i25 from '../images/274559151_991157941815715_8575293117707684266_n.jpg';
+import i26 from '../images/274316453_370579604885697_1519620923206115888_n.jpg';
+import i27 from '../images/274282265_436681828209952_6256034973024642595_n.jpg';
+import i28 from '../images/274151325_1059978951244226_70130211996730035_n.jpg';
+import i14 from '../images/274022224_503717854488438_7894146046717457700_n.jpg';
+
 
 
 import {
@@ -95,7 +109,19 @@ export class Portfolio extends React.Component {
         return this.setState({activePage:page})
     }
     render(){
-        const images=[
+        const images=[ i15
+            , i16
+            , i17
+            , i18
+            , i28,
+             i13
+            , i14,
+            i21,
+            i22,
+            i23,
+            i24
+            , i25
+            , i19,
         i1,
         i2,
         i3,
@@ -107,10 +133,10 @@ export class Portfolio extends React.Component {
         , i10
         , i11
         , i12
-        , i13
-        , i14
+
+
         ];
-        return <div>
+        return <div style={{overflowY:'hidden'}}>
             <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
             <div style={{position:'relative',display:'flex',justifyContent:'center'}}>{this.state.imgSelected!==null&&<div style={{borderRadius:12,position:'absolute',top:10,backgroundColor:'#2c2c2c',height:'auto',width:'auto',zIndex:9000}}>
                 <div style={{position:'absolute',right:10,top:'47%'}}>
@@ -129,10 +155,10 @@ export class Portfolio extends React.Component {
                 <div style={{width:'100%',height:30}}>
                     <div onClick={()=>{this.setState({imgSelected:null})}} style={{float:'right',cursor:'pointer',paddingRight:5,paddingTop:5,color:'#fff',fontSize:20,fontWeight:900}}><i className="material-icons">close</i></div>
                 </div>
-                <div style={{padding:30,paddingTop:0, display:'flex',justifyContent:'center',width:'98vw',height:'90vh'}}>
+                <div style={{padding:30,paddingTop:0, display:'flex',justifyContent:'center',width:'98vw',height:'82vh'}}>
                     <img style={{objectFit:'scale-down',width:'100%'}}  src={images[this.state.imgSelected]}/></div>
             </div>}</div>
-            <div className={`${this.state.content.backgroundType} text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{height:'87.9vh'}}>
+            <div className={`${this.state.content.backgroundType} text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{height:'82vh'}}>
                 <div>
                     <div style={{height:'80vh',overflowY:'auto',display:'flex',justifyContent:'center'}}>
                         <div style={{display:'inline-flex',flexWrap:'wrap',placeContent:'space-around',alignContent:'space-between'}}>

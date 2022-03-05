@@ -8,6 +8,7 @@ import firebase from "firebase/compat";
 import cookie from 'js-cookie';
 import logo from '../images/esss22.png'
 import i13 from '../images/274522159_483748549942738_1765706477025994385_n.jpg'
+import aboutMePhoto from '../images/aboutMe.jpg'
 
 
 
@@ -104,11 +105,10 @@ export const scrollActivate = ()=>{
 
 }
 export const NavBar = (props)=>(
-    <nav className={`navbar navbar-expand-xl navbar-dark ${props.backgroundType} myNav navTextColor`}>
+    <nav style={{maxHeight:'18vh',minHeight:'18vh'}} className={`navbar navbar-expand-xl BGX myNav navTextColor`}>
         <div className="container">
-            <a className="navbar-brand">
-                <img style={{maxHeight:80}} onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" />
-            </a>
+            <div style={{color:'#fff'}}>                                                <div style={{position:'relative'}}><i style={{position:'absolute',top:10,left:0}} className="large material-icons ">local_phone</i> </div>
+                <h1 style={{paddingLeft:30}}>0275906002</h1></div>
             <button className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -139,7 +139,7 @@ export const NavBar = (props)=>(
                             </li>)
                         }
                         else {
-                            return (<li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
+                            return (<li className="nav-item" style={{cursor: 'pointer',fontSize:30}} onClick={() => {
                                 firebase.analytics().logEvent(route.routeTag);
                                 window.location.href = route.href;
                             }}><a className="nav-link whiteTextNav" aria-current="page">{route.name}</a>
@@ -232,9 +232,10 @@ export class HeroPage extends React.Component {
                         <div style={{position:'absolute',zIndex:8999,width:'100%'}}>
                             <div style={{paddingTop:80,marginBottom:0,display:'flex',justifyContent:'center',width:'100%'}}>
                             </div>
-                            <div style={{display:'flex',justifyContent:'center'}}>
-                                <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
-                                    <h1>{this.state.content.titleContent}</h1>                               <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
+                            <div style={{display:'flex',justifyContent:'center',paddingTop:20}}>
+                                <div className="styledBGCover" style={{padding:60}}>
+                                <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
+                                    <h1 style={{fontSize:60}}>{this.state.content.titleContent}</h1>                               <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
     {this.state.content.titleBlurb}
 </p>
                                     <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -257,12 +258,13 @@ export class HeroPage extends React.Component {
                                     </div>
                                 </div>
                             </div>
+                            </div>
                         </div>
                         <div className={`blurTest secondaryBackgroundColor ${this.state.content.class}`} style={{height:790,minWidth:375,width:'100%',zIndex:900,position:'absolute'}}>
 
                         </div>
-                        <div className="myDIV" style={{minHeight:900}}>
-                            <img onClick={()=>{this.nextImage()}}  key={this.state.currentMainImage}  src={i13} className="fadedshort" style={{width:'100%',height:790,objectFit:'cover'}}/></div>
+                        <div className="myDIV photoCoverBG" style={{minHeight:788}}>
+                        </div>
 
                     </div>
 
@@ -272,12 +274,12 @@ export class HeroPage extends React.Component {
 
 
 
-                <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`} style={{ fontSize: 20,paddingBottom:50}}>
+                <div className={`mainColor secondaryBackgroundColor BG3x`} style={{ fontSize: 20,paddingBottom:50}}>
                     <div className="container">
 
                         <div style={{paddingTop:60}}>
                             <div className="scrollContainer">
-                                <div className={`supportingColor secondaryBackgroundColor ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'} ${this.state.content.class}`} style={{padding:33,width:'100%'}}>
+                                <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
                                     <div className="px-4">
                                         <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
                                     </div>
@@ -294,21 +296,21 @@ export class HeroPage extends React.Component {
 
 
 
-                <div className="py-6 bg-mainColor">
-                    <div className={`${this.state.content.backgroundType} text-white`}>
-                        <div style={{borderRadius:12}} className={`container secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}>
-                            <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:70}}>
-                                <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[1]} alt="" width="50%"/></div>
-                                <div style={{width: '55%',minWidth:300}}>
+                <div className="bg-mainColor">
+                    <div className={`text-white`}>
+                        <div style={{paddingTop:100,paddingBottom:100}} className={`secondaryBackgroundColor ${this.state.content.class}`}>
+                            <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
+                                <div><img style={{paddingLeft:100,margin:30,width:'40vw',minWidth:350,borderRadius:4}} src={aboutMePhoto} alt="" width="50%"/></div>
+                                <div style={{width: '55%',minWidth:300,paddingLeft:0,paddingRight:100}}>
 
                                     <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
-                                    <p style={{fontSize:18,paddingLeft:15,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent}</p>
+                                    <p style={{minWidth:300,paddingLeft:0,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent1}</p>
                                 </div>
                             </div>
                         </div>
-                        <div ref={this.contactRef} style={{marginTop:40}}>
-                            <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{marginTop:40,padding:40,margin:0}}>
-                                <div style={{display:'flex',justifyContent:'center'}}>
+                        <div ref={this.contactRef} >
+                            <div className={`supportingColor secondaryBackgroundColor BG2x`} style={{marginTop:40,padding:40,margin:0,paddingBottom:200}}>
+                                <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
                                         <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
                                         <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>

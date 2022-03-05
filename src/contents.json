@@ -1,10 +1,10 @@
 {
   "hasScroll": "true",
-    "backgroundType": "bg30",
+    "backgroundType": "BGX",
     "businessBlurb": "At Ellis Solutions, we solve roofs. Contact us today for a free quote.",
     "businessBlurbShort": "At Ellis Solutions, we solve roofs. Contact us today for a free quote.",
     "class": "two",
-    "contactBlurb": "I am a roofing EXPERT who is available to help you in any way possible. I have been in the industry for over 10 years and have seen, fixed and laid all types of roofs. If you are interested at all in any of the services, such as roof diagnosis, roof repair, or laying a new roof, call me immediately. When I get on the tools, I do not suffer fools.",
+    "contactBlurb": "Get in touch for a free quote now. With current supply chain delays causing lead times being pushed out as far as 4 months, It pays to act fast if you suspect you may need a partial or full re-roofing. I look forward to hearing from you.",
     "contactEmail": "Sam.ellis243@gmail.com",
     "contactPhone": "027 590 6002",
     "contactTitle": "Get In Touch ",
@@ -14,8 +14,8 @@
       "https://firebasestorage.googleapis.com/v0/b/salesmagnet-927f3.appspot.com/o/images%2F2436%2F2?alt=media&token=748c2f65-1c56-4711-977f-10272f3004f5",
       "https://firebasestorage.googleapis.com/v0/b/salesmagnet-927f3.appspot.com/o/images%2F2436%2F3?alt=media&token=425e7b9a-f2b5-4ae0-af9b-0e55a77fca53"
     ],
-    "mainButtonLink": "https://www.facebook.com/sam.r.ellis.9",
-    "mainButtonTitle": "My Facebook Page",
+    "mainButtonLink": "/pages/gallery",
+    "mainButtonTitle": "View Gallery",
     "p3Content1": "I am a motorcycle mechanic, avid rider, and I have been working on motorcycles for over 10 years. I can diagnose any problem with your motorcycle and fabricate any part that you need, or find it if not.\n\nI have experience working on Harley Davidsons, Indian Motorcycles, Ducati, BMWs, Hondas, Kawasaki's and many more. I also work with electrical systems on motorcycles. I have rebuilt inline 4's and am currently working on my own tuning and forced induction system for a K7 GSXR. I offer my services not just as a reliable mechanic, but also a mentor of sorts.",
     "p3Heading1": "Mechanical Services",
     "preferredDomain": "http://examples-business.co.nz",
@@ -38,11 +38,11 @@
       }
     ],
     "secondaryContent": "I have been a roofer for 12 years. I am the most experienced and down to earth, 'get it done' roofer you will find in the North Island. If you name it, I've been there and solved it for someone else before. I am an expert in my trade and proud to be able to bring my labor to you at a reasonable cost, all you need to do is pick up the phone and ask. I know my stuff, and if you need a new roof, or if you need any repairs done to your roof, then call me and I'll be right there. At Ellis Solutions, we solve roofs.",
-    "secondaryContent1": "Sam is Camera shy. Here's a gixxer logo.",
+    "secondaryContent1": "My name is Sam, I have been in the industry for many years now. \nI am one of the most experienced and hard working roofers and was taught by the best. As an ex army man, my discipline sees me on time wherever I go, and a no BS attitude means you get 100% transparency throughout the entire process.\nI am a qualified Espan installer and trained in the new TRS interlocking cladding system. \nSo whatever you need I can provide the know-how and experience.",
     "secondaryContentTitle": "About Me",
     "secondaryHeader": "Our Staff",
     "secondaryHeading1": "Sam",
-    "supportingHeading": "For every problem there is a solution. We provide professional services in several fields, but ROOFING is our apex vertical. We are committed to making sure that you not just solve the problem related to your roof, but solve it with the best solution. We provide solutions to all myriad of problems that may arise regarding roofs. At Ellis Solutions, we solve roofs. ",
-    "titleBlurb": "For every problem there is a solution.\nAt Ellis Solutions, we solve roofs. \nThis is the philosophy Ellis Solutions stands by.",
+    "supportingHeading": "At Ellis Solutions, we are roofing experts and have done many roofing projects ranging from laying new roofs, reroofing and everything in between. We guarantee our work with the skills we have to do the job effectively. No job too big or small here at Ellis Solutions we can tackle it all.",
+    "titleBlurb": "For every problem there is a solution.\nHere at Ellis Solutions we are expert roofers specialising in decromastic tile to long run conversions.\n",
     "titleContent": "Ellis Solutions"
   }
