@@ -9,6 +9,8 @@ import cookie from 'js-cookie';
 import logo from '../images/esss22.png'
 import i13 from '../images/274522159_483748549942738_1765706477025994385_n.jpg'
 import aboutMePhoto from '../images/aboutMe.jpg'
+import logo1 from '../images/logo1.png'
+import logowords from '../images/logowords.png'
 import coolPhoto from '../images/coolPhoto.png'
 
 
@@ -108,8 +110,11 @@ export const scrollActivate = ()=>{
 export const NavBar = (props)=>(
     <nav style={{maxHeight:'18vh',minHeight:'18vh'}} className={`navbar navbar-expand-xl BGX myNav navTextColor`}>
         <div className="container">
-            <div style={{color:'#fff'}}>                                                <div style={{position:'relative'}}><i style={{position:'absolute',top:10,left:0}} className="large material-icons ">local_phone</i> </div>
-                <h1 style={{paddingLeft:30}}>0275906002</h1></div>
+            <div style={{position:'relative'}}>
+                <img style={{position:'absolute',right:50,top:-35}} src={logo1} height={80} />
+            </div>
+            <div style={{color:'#fff'}}>                                                <div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0,fontSize:50}} className="large material-icons ">local_phone</i> </div>
+                <h1 style={{paddingLeft:60}}>0275906002</h1></div>
             <button className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -237,7 +242,8 @@ export class HeroPage extends React.Component {
                             <div style={{display:'flex',justifyContent:'center',paddingTop:20}}>
                                 <div className="styledBGCover" style={{padding:60}}>
                                 <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
-                                    <h1 style={{fontSize:60}}>{this.state.content.titleContent}</h1>                               <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
+                                    <img src={logowords} width={600} />
+                                    <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
     {this.state.content.titleBlurb}
 </p>
                                     <div style={{display: 'flex', justifyContent: 'center'}}>
