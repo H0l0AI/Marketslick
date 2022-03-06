@@ -108,17 +108,15 @@ export const scrollActivate = ()=>{
 
 }
 export const NavBar = (props)=>(
-    <nav style={{maxHeight:'18vh',minHeight:'18vh'}} className={`navbar navbar-expand-xl BGX myNav navTextColor`}>
+    <nav style={{maxHeight:'18vh',minHeight:220}} className={`navbar navbar-expand-xl BGX myNav navTextColor`}>
         <div className="container">
             <div style={{position:'relative'}}>
-                <img style={{position:'absolute',right:50,top:-35}} src={logo1} height={80} />
+                <img style={{position:'absolute',top:-35}} src={logo1} height={80} />
             </div>
-            <div style={{color:'#fff'}}>                                                <div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0,fontSize:50}} className="large material-icons ">local_phone</i> </div>
-                <h1 style={{paddingLeft:60}}>0275906002</h1></div>
-            <button className="navbar-toggler rounded-4 shadow-sm" type="button"
+            <button style={{border:'1px solid #fff'}} className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
+                <i className="material-icons large" style={{color:'#fff'}}>menu</i>
             </button>
             <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
@@ -240,10 +238,10 @@ export class HeroPage extends React.Component {
                             <div style={{paddingTop:80,marginBottom:0,display:'flex',justifyContent:'center',width:'100%'}}>
                             </div>
                             <div style={{display:'flex',justifyContent:'center',paddingTop:20}}>
-                                <div className="styledBGCover" style={{padding:60}}>
-                                <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
-                                    <img src={logowords} width={600} />
-                                    <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
+                                <div className="styledBGCover" style={{padding:0}}>
+                                <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:0,paddingRight:0,textAlign:'center'}}>
+                                    <img src={logowords} width={'100%'} />
+                                    <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces',paddingTop:30}} className="mb-4">
     {this.state.content.titleBlurb}
 </p>
                                     <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -293,9 +291,9 @@ export class HeroPage extends React.Component {
                 <div className="bg-mainColor">
                     <div className={`text-white`}>
                         <div style={{paddingTop:100,paddingBottom:100}} className={`secondaryBackgroundColor ${this.state.content.class}`}>
-                            <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
-                                <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{paddingLeft:0,margin:30,width:'44vw',minWidth:350,borderRadius:4}} src={aboutMePhoto} alt="" width="50%"/></div></div>
-                                <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,paddingLeft:0,paddingRight:100}}>
+                            <div style={{display: 'flex', justifyContent: 'space-between',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
+                                <div style={{maxWidth:'52vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{paddingLeft:0,margin:30,width:'44vw',minWidth:350,borderRadius:4}} src={aboutMePhoto} alt="" width="50%"/></div></div>
+                                <div style={{maxWidth:'49vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,padding:20}}>
 
                                     <h3 style={{fontSize:40,paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
                                     <p style={{minWidth:300,paddingLeft:0,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent1}</p>
@@ -303,7 +301,7 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
 
-                        <div className={`mainColor secondaryBackgroundColor coolPhotoBG`} style={{ fontSize: 20,paddingBottom:50}}>
+                        <div className={`mainColor secondaryBackgroundColor coolPhotoBG`} style={{backgroundColor:'#505050', fontSize: 20,paddingBottom:50}}>
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>
