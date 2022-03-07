@@ -34,12 +34,13 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll,supportingHeading2,igT
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll,supportingHeading2,igT,mapsCenter,businessName
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
 import builder from "../images/builder.png";
 import InstagramFeed from "react-ig-feed";
+import SimpleMap from "./SimpleMap";
 
 export const scrollActivate = ()=>{
     const scrollElements = document.querySelectorAll(".js-scroll");
@@ -161,6 +162,8 @@ export class HeroPage extends React.Component {
             currentMainImage:0,
             mainArray:[image1,image2],
             content:{
+                mapsCenter:mapsCenter,
+                businessName:businessName,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
                 supportingBlurb:supportingBlurb,
@@ -322,6 +325,8 @@ export class HeroPage extends React.Component {
 
                                         </div>
                                         <div >
+                                            <div style={{display:'flex',justifyContent:'center'}}>{this.state.content.mapsCenter&&<SimpleMap center={this.state.content.mapsCenter} name={this.state.content.businessName} />}</div>
+
                                         </div>
                                     </div>
 
@@ -339,6 +344,8 @@ export class HeroPage extends React.Component {
 
                 </div>
             </div>
+            <div style={{width:'100%',height:40,color:'#fff'}}><img onClick={()=>{window.location.href='https://webgun.ai'}} style={{float:'right',cursor:'pointer'}} src={logo} height={40} /></div>
+
         </div>
 
     }

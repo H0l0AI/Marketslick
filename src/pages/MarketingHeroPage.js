@@ -38,6 +38,7 @@ import {toJS} from "mobx";
 import builder from "../images/builder.png";
 import content from "../contents";
 import {scrollActivate} from "./HeroPage";
+import SimpleMap from "./SimpleMap";
 
 export const HeroContent =(props)=>(<div className={`${props.content.backgroundType||'purpleGradient'} text-white`}>
     <div className="container">
@@ -173,6 +174,8 @@ export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content
 
                             </div>
                         </div>
+                        <div style={{display:'flex',justifyContent:'center'}}>{props.content.mapsCenter&&<SimpleMap center={props.content.mapsCenter} name={props.content.businessName} />}</div>
+
                     </div>
                 </div>
             </div>

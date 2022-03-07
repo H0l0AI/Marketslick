@@ -1646,6 +1646,12 @@ body.dark-discord .border-dark {
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: fixed; /* Resize the background image to cover the entire container */
 }
+
+*::-webkit-scrollbar {
+  background-color: #a4a4a4;
+  width: 5px !important;
+  height: 5px !important;
+}
 .coolPhotoBG{
 background-color: transparent;
 }

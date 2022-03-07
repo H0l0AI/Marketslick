@@ -2,6 +2,8 @@ import contentImageTwo from "./images/p1.png";
 import contentImageOne from "./images/p1.png";
 import content from './contents.json';
 export const igT=content.igT||null;
+export const mapsCenter=content.mapsCenter||null;
+export const businessName=content.businessName||null;
 export const linkArray=content.linkArray||[];
 export const templateType=content.templateType;
 export const tLogo=content.logo;
