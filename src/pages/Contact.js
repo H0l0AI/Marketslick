@@ -37,7 +37,7 @@ import {
     secondaryHeading1,
     backgroundType,tLogo,hasScroll,font
 } from "../content";
-import {NavBar} from "./HeroPage";
+import {NavBar} from "./MarketingHeroPage";
 import {rootStore} from "../stores/Store";
 
 

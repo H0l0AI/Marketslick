@@ -86,7 +86,7 @@ export class SecondaryPage extends React.Component {
             <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
             <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType}}>
                 <div style={{paddingBottom:100,backgroundColor:this.state.content.backgroundType}}>
-                    <div className="fadedshort" style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}><h1 style={{borderBottom:'1px solid #fff',textAlign:'center',paddingTop:20,marginBottom:60}}>
+                    <div className="fadedshort" style={{display:'flex',justifyContent:'center',color:this.state.content.font}}><div style={{width:'40%'}}><h1 style={{textAlign:'center',paddingTop:20,marginBottom:60}}>
                         {this.state.content.secondaryHeader}</h1></div></div>
                     <div className={`fadedshort`} style={{display:'flex',justifyContent:'center',flexWrap:'wrap',padding:20,backgroundColor:this.state.content.class,color:this.state.content.font}}>
                         <div style={{maxWidth:350}}>

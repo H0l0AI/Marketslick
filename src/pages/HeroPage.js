@@ -41,6 +41,7 @@ import {toJS} from "mobx";
 import builder from "../images/builder.png";
 import InstagramFeed from "react-ig-feed";
 import SimpleMap from "./SimpleMap";
+import {NavBar} from "./MarketingHeroPage";
 
 export const scrollActivate = ()=>{
     const scrollElements = document.querySelectorAll(".js-scroll");
@@ -103,54 +104,6 @@ export const scrollActivate = ()=>{
 
 
 }
-export const NavBar = (props)=>(
-    <nav style={{maxHeight:'24vh',minHeight:'24vh',backgroundColor:props.content.backgroundType,color:props.content.font}} className={`navbar navbar-expand-xl myNav navTextColor`}>
-        <div className="container">
-            <a className="navbar-brand">
-                <img style={{height:'18vh'}} onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" />
-            </a>
-            <button className="navbar-toggler rounded-4 shadow-sm" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
-                <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
-                    {props.routeItems.map((route)=>{
-                        if(route.dropArray){
-                            return(<li className="nav-item" style={{cursor:'pointer'}}>
-
-                                <div className="dropdown nav-link" style={{position:'relative'}}>
-                                    <div className="dropbtn" onClick={()=>{
-                                        firebase.analytics().logEvent(route.routeTag);
-
-                                        window.location.href=route.href
-                                    }}>{route.name}</div>
-                                    <div className="dropdown-content" style={{zIndex:999,position:'absolute'}}>
-                                        {route.dropArray.map((dropdownContent)=>
-                                            <a className="whiteTextNav" onClick={()=>{
-                                                firebase.analytics().logEvent(dropdownContent.routeTag);
-                                                window.location.href=dropdownContent.href
-                                            }} style={{textAlign:'center'}}><img width={18}
-                                                                                 src={home_icon}/> {dropdownContent.name} </a>
-                                        )}
-                                    </div>
-                                </div>
-                            </li>)
-                        }
-                        else {
-                            return (<li className="nav-item" style={{cursor: 'pointer',fontSize:22,color:props.content.font}} onClick={() => {
-                                firebase.analytics().logEvent(route.routeTag);
-                                window.location.href = route.href;
-                            }}><a className="nav-link" aria-current="page">{route.name}</a>
-                            </li>);
-                        }
-                    })})
-                </ul>
-            </div>
-        </div>
-    </nav>);
-
 export class HeroPage extends React.Component {
     constructor(props) {
         super(props);

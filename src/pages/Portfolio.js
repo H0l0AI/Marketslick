@@ -1,6 +1,6 @@
 import React from 'react';
 import firebase from "firebase/compat";
-import {NavBar} from "./HeroPage";
+import {NavBar} from "./MarketingHeroPage";
 import i1 from '../images/274022224_503717854488438_7894146046717457700_n.jpg'
 import i2 from '../images/274128837_366081201774026_3289639714308408396_n.jpg'
 import i3 from '../images/274151325_1059978951244226_70130211996730035_n.jpg'

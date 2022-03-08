@@ -30,7 +30,8 @@ import {
     contactCTA,
     secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll,font
 } from "../content";
-import {NavBar,scrollActivate} from "./HeroPage";
+import {scrollActivate} from "./HeroPage";
+import {NavBar} from "./MarketingHeroPage";
 import {rootStore} from "../stores/Store";
 import logo from "../images/sm3.png";
 

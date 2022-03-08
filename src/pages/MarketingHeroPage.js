@@ -31,7 +31,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray,tLogo,font
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray,tLogo,font,mapsCenter
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -195,7 +195,7 @@ export const NavBar = (props)=>(
             </button>
             <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
-                    {props.routeItems.map((route)=>{
+                    {props.routeItems.map((route,ix)=>{
                         if(route.dropArray){
                             return(<li className="nav-item" style={{cursor:'pointer'}}>
 
@@ -220,7 +220,12 @@ export const NavBar = (props)=>(
                         else {
                             return (<li className="nav-item" style={{cursor: 'pointer',color:props.content.font}} onClick={() => {
                                 firebase.analytics().logEvent(route.routeTag);
-                                window.location.href = route.href;
+                                if(ix===0){
+                                    return window.location.href = '/';
+
+                                }else {
+                                    window.location.href = route.href;
+                                }
                             }}><a className="nav-link" aria-current="page">{route.name}</a>
                             </li>);
                         }
@@ -246,6 +251,9 @@ export class MarketingHeroPage extends React.Component {
             currentMainImage:0,
             mainArray:[image1,image2],
             content:{
+                mapsCenter:mapsCenter,
+                mainButtonLink:mainButtonLink,
+                mainButtonTitle:mainButtonTitle,
                 font:font,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
@@ -308,7 +316,7 @@ export class MarketingHeroPage extends React.Component {
         let customerHasPaid = false;
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
-            <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
                 <SecondaryContent content={this.state.content} />
             {this.state.content.routeItems&&this.state.content.routeItems.map((i,ix)=>{
