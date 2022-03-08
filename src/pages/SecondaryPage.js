@@ -27,7 +27,7 @@ import {
     secondaryContent1,
     businessBlurbShort,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll,font
 } from "../content";
 import {NavBar,scrollActivate} from "./HeroPage";
 import {rootStore} from "../stores/Store";
@@ -62,7 +62,7 @@ export class SecondaryPage extends React.Component {
                 class:bgClass,
                 imageURLArray,
                 logo:tLogo,
-                hasScroll:hasScroll,
+                hasScroll:hasScroll,font:font,
 
             }
         }
@@ -84,15 +84,15 @@ export class SecondaryPage extends React.Component {
         console.log('firebase:',firebase.apps.length);
         return <div>
             <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
-            <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100%',position:'relative'}}>
-                <div className={`${this.state.content.backgroundType} text-white`} style={{paddingBottom:100}}>
-                    <div className="mainFontColor fadedshort" style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}><h1 style={{borderBottom:'1px solid #fff',textAlign:'center',paddingTop:20,marginBottom:60}}>
+            <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType}}>
+                <div style={{paddingBottom:100,backgroundColor:this.state.content.backgroundType}}>
+                    <div className="fadedshort" style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}><h1 style={{borderBottom:'1px solid #fff',textAlign:'center',paddingTop:20,marginBottom:60}}>
                         {this.state.content.secondaryHeader}</h1></div></div>
-                    <div className={`secondaryBackgroundColor ${this.state.content.class} fadedshort`} style={{display:'flex',justifyContent:'center',flexWrap:'wrap',padding:20}}>
+                    <div className={`fadedshort`} style={{display:'flex',justifyContent:'center',flexWrap:'wrap',padding:20,backgroundColor:this.state.content.class,color:this.state.content.font}}>
                         <div style={{maxWidth:350}}>
                             <img src={this.state.content.imageURLArray&&this.state.content.imageURLArray[2]||secondaryPhoto1} style={{borderRadius:8}} className="img-fluid d-block mx-auto" width="350"/>
                         </div>
-                        <div style={{maxWidth:600,margin:20}}><p className="mainFontColor fadedshort" style={{padding:20, whiteSpace:'break-spaces'}}>
+                        <div style={{maxWidth:600,margin:20}}><p className="fadedshort" style={{padding:20, whiteSpace:'break-spaces'}}>
                             <h1>{this.state.content.secondaryHeading1}</h1>
                             {this.state.content.secondaryContent1}
                         </p>

@@ -68,6 +68,10 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                     <Route path='/pages/additional1' exact component={()=><div><TemplatedRoute index={1} /></div>}/>
                     <Route path='/pages/additional2' exact component={()=><div><TemplatedRoute index={2} /></div>}/>
                     <Route path='/pages/additional3' exact component={()=><div><TemplatedRoute index={3} /></div>}/>
+                    <Route path='/pages/additional4' exact component={()=><div><TemplatedRoute index={4} /></div>}/>
+                    <Route path='/pages/additional5' exact component={()=><div><TemplatedRoute index={5} /></div>}/>
+                    <Route path='/pages/additional6' exact component={()=><div><TemplatedRoute index={6} /></div>}/>
+                    <Route path='/pages/additional7' exact component={()=><div><TemplatedRoute index={7} /></div>}/>
                 </Switch>
             </Router>
 

@@ -28,7 +28,7 @@ import {
     businessBlurbShort,
     routeItems,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll,font
 } from "../content";
 import {NavBar,scrollActivate} from "./HeroPage";
 import {rootStore} from "../stores/Store";
@@ -66,7 +66,7 @@ export class TemplatedRoute extends React.Component {
                 class:bgClass,
                 imageURLArray,
                 logo:tLogo,
-                hasScroll:hasScroll,
+                hasScroll:hasScroll,font:font,
 
             }
         }
@@ -94,17 +94,17 @@ export class TemplatedRoute extends React.Component {
                 <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
 
                 <div>
-                    <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
+                    <div style={{height: '100vh',position:'relative',color:this.state.content.font,backgroundColor:this.state.content.backgroundType}}>
 
-                        <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`}
-                             style={{fontSize: 20, paddingBottom: 50}}>
+                        <div
+                             style={{fontSize: 20, paddingBottom: 50,backgroundColor:this.state.content.class,color:this.state.content.font}}>
                             <div className="container">
 
                                 <div style={{paddingTop: 60}}>
                                     <h3 style={{textAlign:'center',fontSize:56}}>{route.secondaryHeader}</h3>
                                     <div>
-                                        <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class}`}
-                                             style={{padding: 33, opacity: 1, width: '100%'}}>
+                                        <div
+                                             style={{padding: 33, opacity: 1, width: '100%',backgroundColor:this.state.content.class}}>
                                             <div className="px-4">
                                                 <p><h2 style={{
                                                     fontSize: '1.5rem',
@@ -114,7 +114,7 @@ export class TemplatedRoute extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+                                <div style={{backgroundColor:this.state.content.class}} className={`container`}>
                                     <div style={{
                                         display: 'flex',
                                         justifyContent: 'center',
@@ -122,6 +122,7 @@ export class TemplatedRoute extends React.Component {
                                         flexWrap: 'wrap',
                                         paddingBottom: 40,
                                         marginBottom: 70
+
                                     }}>
                                         <div><img style={{margin: 30, width: '30vw', minWidth: 350, borderRadius: 4}}
                                                   src={route.imageURLArray && route.imageURLArray[0] || logo} alt=""
@@ -142,10 +143,10 @@ export class TemplatedRoute extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+                                <div className={`container`} style={{backgroundColor:this.state.content.class}}>
                                     <h2 style={{textAlign:'center'}}>{route.contactBlurb}</h2>
                                     <p style={{textAlign:'center'}}>{route.businessBlurbShort}</p>
-                                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center',backgroundColor:this.state.content.class,color:this.state.content.font}}>
                                         Enquire now
 
                                     </div>

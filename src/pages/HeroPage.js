@@ -34,7 +34,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll,supportingHeading2,igT,mapsCenter,businessName
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,bgClass,tLogo,hasScroll,supportingHeading2,igT,mapsCenter,businessName,font
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -104,7 +104,7 @@ export const scrollActivate = ()=>{
 
 }
 export const NavBar = (props)=>(
-    <nav style={{maxHeight:'24vh',minHeight:'24vh'}} className={`navbar navbar-expand-xl ${props.content.backgroundType} myNav navTextColor`}>
+    <nav style={{maxHeight:'24vh',minHeight:'24vh',backgroundColor:props.content.backgroundType,color:props.content.font}} className={`navbar navbar-expand-xl myNav navTextColor`}>
         <div className="container">
             <a className="navbar-brand">
                 <img style={{height:'18vh'}} onClick={()=>{window.location.href='/'}} src={props.content.logo||logo}  alt="" />
@@ -139,10 +139,10 @@ export const NavBar = (props)=>(
                             </li>)
                         }
                         else {
-                            return (<li className="nav-item" style={{cursor: 'pointer',fontSize:22}} onClick={() => {
+                            return (<li className="nav-item" style={{cursor: 'pointer',fontSize:22,color:props.content.font}} onClick={() => {
                                 firebase.analytics().logEvent(route.routeTag);
                                 window.location.href = route.href;
-                            }}><a className="nav-link whiteTextNav" aria-current="page">{route.name}</a>
+                            }}><a className="nav-link" aria-current="page">{route.name}</a>
                             </li>);
                         }
                     })})
@@ -175,6 +175,7 @@ export class HeroPage extends React.Component {
                 p3Heading1: p3Heading1,
                 mainButtonTitle:mainButtonTitle,
                 mainButtonLink:mainButtonLink,
+                font:font,
 
 
 
@@ -186,7 +187,6 @@ export class HeroPage extends React.Component {
                 supportingHeading: supportingHeading,
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
-                logo:tLogo,
                 supportingHeading2,
 
 
@@ -230,14 +230,14 @@ export class HeroPage extends React.Component {
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
             <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
-            <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100%',position:'relative'}}>
+            <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType,color:this.state.content.font}}>
                 <div>
                     <div>
                         <div style={{position:'absolute',zIndex:8999,width:'100%'}}>
                             <div style={{paddingTop:80,marginBottom:0,display:'flex',justifyContent:'center',width:'100%'}}>
                             </div>
                             <div style={{display:'flex',justifyContent:'center',paddingTop:20}}>
-                                <div className="styledBGCover" style={{padding:60}}>
+                                <div style={{padding:60,backgroundColor:this.state.content.backgroundType}}>
                                 <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
                                     <h1 style={{fontSize:60}}>{this.state.content.titleContent}</h1>                               <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
     {this.state.content.titleBlurb}
@@ -247,7 +247,7 @@ export class HeroPage extends React.Component {
                                             firebase.analytics().logEvent('view_contact_btn');
                                             this.contactRef.current.scrollIntoView();
                                         }}>
-                                            <div className="altButton">
+                                            <div className="altButton" style={{backgroundColor:this.state.content.class}}>
                                                 Contact Us
                                             </div>
                                         </div>
@@ -255,7 +255,7 @@ export class HeroPage extends React.Component {
                                             firebase.analytics().logEvent('view_range_btn');
                                             window.location.href=this.state.content.mainButtonLink
                                         }} >
-                                            <div className="altButton">
+                                            <div className="altButton" style={{backgroundColor:this.state.content.class}}>
                                                 {this.state.content.mainButtonTitle||'Apply Now'}
                                             </div>
                                         </div>}
@@ -264,7 +264,7 @@ export class HeroPage extends React.Component {
                             </div>
                             </div>
                         </div>
-                        <div className={`blurTest secondaryBackgroundColor ${this.state.content.class}`} style={{height:790,minWidth:375,width:'100%',zIndex:900,position:'absolute'}}>
+                        <div className={`blurTest`} style={{height:790,minWidth:375,width:'100%',zIndex:900,position:'absolute'}}>
 
                         </div>
                         <div className="myDIV photoCoverBG" style={{minHeight:788,backgroundImage: "url(" + this.state.content.imageURLArray[0] + ")"}}>
@@ -275,7 +275,7 @@ export class HeroPage extends React.Component {
                 </div>
                 <div className="bg-mainColor">
                     <div className={`text-white`}>
-                        <div style={{paddingTop:100,paddingBottom:100}} className={`secondaryBackgroundColor ${this.state.content.class}`}>
+                        <div style={{paddingTop:100,paddingBottom:100,backgroundColor:this.state.content.class}}>
                             <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
                                 <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{paddingLeft:0,margin:30,width:'44vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray[2]} alt="" width="50%"/></div></div>
                                 <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,paddingLeft:0,paddingRight:100}}>
@@ -286,11 +286,11 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
 
-                        <div className={`mainColor secondaryBackgroundColor photoCoverBG`} style={{fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
+                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>
-                                    <div className={`scrollContainer ${this.state.content.backgroundType}`} style={{borderRadius:12}}>
+                                    <div className={`scrollContainer`} style={{borderRadius:12,backgroundColor:this.state.content.backgroundType}}>
                                         <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
                                             <div className="px-4">
                                                 <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
@@ -307,7 +307,7 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
                         <div ref={this.contactRef} >
-                            <div className={`supportingColor secondaryBackgroundColor ${this.state.content.backgroundType}`} style={{marginTop:40,padding:40,margin:0,paddingBottom:200}}>
+                            <div style={{marginTop:40,padding:40,margin:0,paddingBottom:200,backgroundColor:this.state.content.backgroundType}}>
                                 <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
                                         <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>

@@ -31,7 +31,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
-    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray,tLogo
+    secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType,imageURLArray,routeItems,bgClass,linkArray,tLogo,font
 } from "../content";
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
@@ -40,7 +40,7 @@ import content from "../contents";
 import {scrollActivate} from "./HeroPage";
 import SimpleMap from "./SimpleMap";
 
-export const HeroContent =(props)=>(<div className={`${props.content.backgroundType||'purpleGradient'} text-white`}>
+export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div className="container">
         <div className="row align-items-center noXGutter">
             <div className="col-12 col-md-5 offset-md-1">
@@ -58,7 +58,7 @@ export const HeroContent =(props)=>(<div className={`${props.content.backgroundT
         </div>
     </div>
 </div>);
-export const SecondaryContent =(props)=>(<div className={`py-5 ${props.content.class||'bg-dark-blue'} text-white`}>
+export const SecondaryContent =(props)=>(<div className='py-5' style={{color:props.content.font,backgroundColor:props.content.class}}>
     <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
             <div className="row align-items-center noXGutter">
@@ -75,7 +75,7 @@ export const SecondaryContent =(props)=>(<div className={`py-5 ${props.content.c
         </div>
     </div>
 </div>);
-export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.backgroundType||'purpleGradient'}`} id="ecosystem">
+export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}} id="ecosystem">
     <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
             <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
@@ -116,7 +116,7 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6 ${props.content.b
 export const AdditionalContent =(props)=> {
     const route = props.content.routeItems[props.index];
 
-    return (<div key={props.index} className={`py-6 ${props.content.backgroundType || 'purpleGradient'}`} id="ecosystem">
+    return (<div key={props.index} className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}} id="ecosystem">
         <h3 style={{fontSize:28}}  className="mb-5 text-center">
             <div className={`scroll-element js-scroll fade-in-bottom `}>
 
@@ -150,7 +150,7 @@ export const AdditionalContent =(props)=> {
         </div>
     </div>)
 };
-export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content.class||'bg-dark-blue'}`} id="community">
+export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:props.content.class,color:'#fff'}} id="community">
     <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
             <div className="container small-width">
@@ -183,7 +183,7 @@ export const Footer=(props)=>(<><div className={`py-6 text-white ${props.content
     </div>
 </div></>);
 export const NavBar = (props)=>(
-    <nav className={`navbar navbar-expand-xl navbar-dark ${props.class||'bg-dark-blue'} myNav navTextColor`}>
+    <nav className={`navbar navbar-expand-xl navbar-dark myNav `} style={{color:props.content.font,backgroundColor:props.content.backgroundType}}>
         <div className="container">
             <a className="navbar-brand">
                 <img onClick={()=>{window.location.href='/'}}  src={props.content.logo||logo} alt="" width="100" />
@@ -207,7 +207,7 @@ export const NavBar = (props)=>(
                                     }}>{route.name}</div>
                                     <div className="dropdown-content" style={{zIndex:999,position:'absolute'}}>
                                         {route.dropArray.map((dropdownContent)=>
-                                            <a className="whiteTextNav" onClick={()=>{
+                                            <a onClick={()=>{
                                                 firebase.analytics().logEvent(dropdownContent.routeTag);
                                                 window.location.href=dropdownContent.href
                                             }} style={{textAlign:'center'}}><img width={18}
@@ -218,16 +218,16 @@ export const NavBar = (props)=>(
                             </li>)
                         }
                         else {
-                            return (<li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
+                            return (<li className="nav-item" style={{cursor: 'pointer',color:props.content.font}} onClick={() => {
                                 firebase.analytics().logEvent(route.routeTag);
                                 window.location.href = route.href;
-                            }}><a className="nav-link whiteTextNav" aria-current="page">{route.name}</a>
+                            }}><a className="nav-link" aria-current="page">{route.name}</a>
                             </li>);
                         }
                     })}
-                    {props.content.linkArray&&<li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
+                    {props.content.linkArray&&<li className="nav-item" style={{cursor: 'pointer',color:props.content.font}} onClick={() => {
                         window.location.href = '/pages/links';
-                    }}><a className="nav-link whiteTextNav" aria-current="page">Links</a>
+                    }}><a className="nav-link" aria-current="page">Links</a>
                     </li>}
                 </ul>
             </div>
@@ -246,6 +246,7 @@ export class MarketingHeroPage extends React.Component {
             currentMainImage:0,
             mainArray:[image1,image2],
             content:{
+                font:font,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
                 supportingBlurb:supportingBlurb,

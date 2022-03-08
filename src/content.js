@@ -55,4 +55,5 @@ export const p3Content2=content.p3Content2;
 export const p3ContentPhoto=contentImageTwo;
 export const backgroundType=content.backgroundType;
 export const bgClass = content.class;
+export const font = content.font;
 
