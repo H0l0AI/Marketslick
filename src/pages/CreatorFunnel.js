@@ -236,7 +236,7 @@ export const NavBar = (props)=>(
                 const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live'));
                 if(dataToLoad&&dataToLoad.data()) {
                     console.log(dataToLoad.data(),'LOAD');
-                    this.setState({code:code,content: dataToLoad.data().content,mainArray:[dataToLoad.data().content.imageURLArray?dataToLoad.data().content.imageURLArray[0]:null]})
+                    this.setState({code:rootStore.pageStore.code||code,content: dataToLoad.data().content,mainArray:[dataToLoad.data().content.imageURLArray?dataToLoad.data().content.imageURLArray[0]:null]})
                     return console.log('images:',this.state.imageURLArray);
                 }
             })
@@ -244,7 +244,7 @@ export const NavBar = (props)=>(
         else{
             if(userSubmittedTemplated){
                 console.log('USER SUBMITTED:',userSubmittedTemplated);
-                this.setState({code:code,userContinued:true,editModal:'frontPage',colorSelectorModal:false,content: userSubmittedTemplated.content,mainArray:[userSubmittedTemplated.content.imageURLArray?userSubmittedTemplated.content.imageURLArray[0]:null]})
+                this.setState({code:rootStore.pageStore.code||code,userContinued:true,editModal:'frontPage',colorSelectorModal:false,content: userSubmittedTemplated.content,mainArray:[userSubmittedTemplated.content.imageURLArray?userSubmittedTemplated.content.imageURLArray[0]:null]})
 
             }
             code = Math.floor(Math.random()*10000);
@@ -543,7 +543,7 @@ export const NavBar = (props)=>(
          switch(modalType){
              case 'LinkPage':modalComponent=<div>
                  <h3 style={{textAlign:'center'}}>Create a page that serves as your social media entry point!</h3>
-                 <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/{this.state.code}</p>
+                 <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/{this.state.code||cookie.get('code')}</p>
                  <div style={{display:'flex',justifyContent:'center',margin:100,maxHeight:500,overflowY:'auto'}}>
                      <input type="text" className="templateInputP" style={{width:300,color:'#fff',border:'1px solid #fff'}} value={this.state.addLinkName} onChange={(e)=>{this.changeLinkName(e)}} placeholder={'Enter name for your link, ie. Facebook'} />
                      <input type="text" className="templateInputP" style={{width:300,color:'#fff',border:'1px solid #fff'}} value={this.state.addLinkHref} onChange={(e)=>{this.changeLinkHref(e)}} placeholder={'Enter URL for your link, ie. https://www.mywebsite.com'} />
@@ -867,7 +867,7 @@ export const NavBar = (props)=>(
 
                          </div>
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <input className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#fff'}}>.co.nz</span>
+                             <input className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#fff'}}>.co.nz</span>
                          </div></>}
                      {modalComponent}
                      </div>
@@ -884,7 +884,7 @@ export const NavBar = (props)=>(
                          case 'fourthPage': nextPage='fifthPage';break;
                      }
                      if(this.state.editModal==='fifthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
-                         let splitCode = this.state.code||this.state.plainCode.toString();
+                         let splitCode = this.state.code||cookie.get('code')||this.state.plainCode.toString();
                          splitCode= splitCode.replace(/\s+/g, '-').toLowerCase();
                          firebase.analytics().logEvent('template_init_mm',{code:splitCode});
                          rootStore.pageStore.setCode(splitCode||this.state.plainCode);
