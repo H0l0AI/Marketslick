@@ -289,6 +289,7 @@ export class HeroPage extends React.Component {
 
                         </div>
                         <div style={{display:'flex',justifyContent:'center'}}>
+
                             {this.state.content.igT&&<div style={{maxWidth:'100vw',overflowX:'auto'}}><InstagramFeed token={this.state.content.igT}  counter="6"/>
                             </div>}</div>
 
