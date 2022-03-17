@@ -719,21 +719,23 @@ export const NavBar = (props)=>(
 
                  <div className="container">
 
-                     <div style={{paddingTop:0,display:'flex',justifyContent:'center'}}>
 
-                                     <textarea style={{width:'60%',height:90}} type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
-                     </div>
                      <div style={{display:'flex',justifyContent:'center'}}>
                          <div style={{width:'20%'}}>
-                                 <FileImporter routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.imageURLArray[1]} index={1} display={true}
-                                               uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
+                             <FileImporter routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.imageURLArray[1]} index={1} display={true}
+                                           uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-<div>
+                         <div>
+                             <textarea style={{minWidth:400,height:90,marginTop:40}} type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
+
+                         </div></div>
+                     <div style={{display:'flex',justifyContent:'center'}}>
+                     <div style={{paddingTop:0,display:'block',justifyContent:'center',width:'80%'}}>
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
                          <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
-
-</div></div>
+                     </div>
+                     </div>
                  </div>
              </div>
                  <div>

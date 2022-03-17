@@ -47,6 +47,7 @@ export class LinkPageInside extends React.Component {
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
                 backgroundType:backgroundType,
+                font:'#fff',
                 linkArray:[],
 
             }
@@ -65,7 +66,7 @@ export class LinkPageInside extends React.Component {
     render(){
         return <div>
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
-            <div className={`${this.state.content.backgroundType}`} style={{color:'#fff',height:'100vh',width:'100vw',backgroundColor:'#ff2019',paddingTop:100}}>
+            <div style={{backgroundColor:this.state.content.backgroundType,color:this.state.content.font,height:'100vh',width:'100vw',paddingTop:100}}>
                 <h2 style={{textAlign:'center'}}>Our other pages</h2>
                 <div style={{display:'flex',justifyContent:'center',zIndex:99}}>
                     <ul>

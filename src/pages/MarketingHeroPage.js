@@ -3,6 +3,7 @@ import image1 from '../images/house2.jpg';
 import image2 from '../images/house3.jpg';
 import home_icon from '../images/realtor-icon-4-dark.png';
 import logo from '../images/sm3.png';
+import web from '../images/bg/11.png';
 import p2 from '../images/p2.png';
 import coffee from '../images/coffee.png';
 import firebase from "firebase/compat";
@@ -429,7 +430,7 @@ export class MarketingHeroPage extends React.Component {
                             <h1 style={{textAlign: 'center', paddingTop: 80}} className="magOrange">Take a picture,
                                 it'll last longer!</h1>
                             <h3 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>We are currently processing your order.</h3>
-                            <p className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Got questions? Hit up help@salesmagnet.co.nz reference: {cookie.get('code')} </p>
+                            <p className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Got questions? Hit up help@webgun.ai reference: {cookie.get('code')} </p>
                         </>
                         :<>
                             <h1 style={{textAlign:'center',paddingTop:80}} className="magOrange">Like the look? </h1>
@@ -453,26 +454,25 @@ export class MarketingHeroPage extends React.Component {
                                             <li>
                                                 <p style={{color:'#505050'}}>• Round the clock support.</p>
                                             </li>
-                                            <li>
-                                                <p style={{color:'#505050'}}>• 7 day no-payment trial. Cancel any time.*</p>
-                                            </li>
 
                                         </ul>
                                         <br />
                                         <div onClick={()=>{
-                                            firebase.analytics().logEvent('sales_init_mm')
+                                            firebase.analytics().logEvent('sales_init_wg')
                                             rootStore.pageStore.setIsPotentialCustomer(true);
-                                            window.location.href='https://buy.stripe.com/9AQ7ub8HR42v9YA003'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+                                            //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
+                                            //https://buy.stripe.com/00gcQb4evf5654Q001
+                                            window.location.href='https://buy.stripe.com/test_fZebLd7dC89o4WA6oq'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
                                     </div>
-                                    <div className="myDIV2 pricing29"><img  src={p2} className="rounded-4" width="350" height={280}/></div>
+                                    <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
                                 </div>
                             </div>
                         </>}
                 </div>
 
             </div>
-            <div style={{display:'flex',justifyContent:'flex-end'}}>
+       {/*     <div style={{display:'flex',justifyContent:'flex-end'}}>
                 <input className="templateInputP" style={{width:180,color:'#ff2019',border:'1px solid #ff2019'}} value={this.state.code||rootStore.pageStore.code} onChange={(e)=>{this.changeCode(e)}} placeholder={'Enter code'} />
                 <div style={{display:'flex',justifyContent:'space-around'}}><div onClick={()=>{
                     this.loadTemplateWithCode(`t-${this.state.code}`)
@@ -481,7 +481,7 @@ export class MarketingHeroPage extends React.Component {
                         Edit
                     </div>}
                 </div>
-            </div>
+            </div>*/}
         </div>
 
     }

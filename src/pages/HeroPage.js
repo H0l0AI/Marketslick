@@ -43,6 +43,7 @@ import {toJS} from "mobx";
 import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
+import web from "../images/bg/11.png";
 
 
 
@@ -374,7 +375,7 @@ export class HeroPage extends React.Component {
                             <h1 style={{textAlign: 'center', paddingTop: 80}} className="magOrange">Take a picture,
                                 it'll last longer!</h1>
                             <h2 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>We are currently processing your order.</h2>
-                            <p className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Got questions? Hit up help@salesmagnet.co.nz reference: {cookie.get('code')} </p>
+                            <p className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Got questions? Hit up help@webgun.ai reference: {cookie.get('code')} </p>
                             </>
                         :<>
                         <h1 style={{textAlign:'center',paddingTop:80}} className="magOrange">Like the look? </h1>
@@ -398,49 +399,22 @@ export class HeroPage extends React.Component {
                                         <li>
                                             <p style={{color:'#505050'}}>• Round the clock support.</p>
                                         </li>
-                                        <li>
-                                            <p style={{color:'#505050'}}>• 7 day no-payment trial. Cancel any time.s*</p>
-                                        </li>
+
 
                                     </ul>
                                     <br />
-                                    <form
-                                        style={{
-                                            width: '100%', fontSize: 10, display: 'inline-block', marginLeft: 5, marginTop: 5,marginBottom:5, border: this.state.redText ? '1px solid #EB5757' : '1px solid #e1e1e5', borderRadius: 4, padding: 8,
-                                        }}
-                                        onClick={(e) => { e.stopPropagation(); console.log('?', e); }}
-                                    >
-                                    <label
-                                        style={{
-                                            paddingTop: 10, whiteSpace: 'nowrap', fontSize: 16, color: '#505050', fontWeight: !this.state.redText ? 100 : 600, textAlign: 'initial', paddingLeft: 45,
-                                        }}
-                                        className="Ccontainer"
-                                    >Include META Magnet to get a <b>10% discounted</b> subscription.
-
-                                        <input type="checkbox" name="Check" checked={this.state.includeMeta} onClick={(e) => { this.setState({ includeMeta: !this.state.includeMeta, redText: false }); }} />
-                                        <span style={{ marginTop: 7, marginLeft: 7 }} className="checkmark" />
-                                    </label>
-                                    </form>
 
                                     <div onClick={()=>{
-                                        //https://buy.stripe.com/4gw7ub4rB9mPeeQeV0
-                                        firebase.analytics().logEvent('sales_init_mm')
+                                        firebase.analytics().logEvent('sales_init_wg')
                                         rootStore.pageStore.setIsPotentialCustomer(true);
-                                        if(this.state.includeMeta){
-                                            cookie.set('includesMeta','true');
-                                            return window.location.href='https://buy.stripe.com/aEU01Jf6feH9daMeV1'
-                                        }
-                                        else {
-                                            window.location.href = 'https://buy.stripe.com/9AQ7ub8HR42v9YA003'
-                                        }
+                                        //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
+                                        //https://buy.stripe.com/00gcQb4evf5654Q001
+                                            window.location.href = 'https://buy.stripe.com/test_fZebLd7dC89o4WA6oq'
                                     }} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
                                 </div>
-                                <div style={{border:this.state.includeMeta?'1px solid #ff2019':'',borderRadius:12}}>
-                                    {this.state.includeMeta&&<div className="pricing10off"  style={{height:60,backgroundColor:'#ff2019',borderRadius:12,paddingTop:15}}><h4 style={{color:'#fff',textAlign:'center'}}>$97 monthly</h4></div>}
-                                    <div style={{margin:40}} className={`myDIV2 ${this.state.includeMeta?'pricing53':'pricing59'}`}><img  src={p2} className="rounded-4" width="350" height={280}/></div>
-                                {this.state.includeMeta&&<div style={{margin:40}} className="fadedshort myDIV2 pricing44"><img  src={p1} className="rounded-4" width="350" height={280}/></div>}
-                                </div>
+                                <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
+
                             </div>
                         </div>
                         </>}
@@ -449,7 +423,7 @@ export class HeroPage extends React.Component {
                 </div>
 
             </div>
-            <div style={{display:'flex',justifyContent:'flex-end'}}>
+     {/*       <div style={{display:'flex',justifyContent:'flex-end'}}>
                 <input className="templateInputP" style={{width:180,color:'#ff2019',border:'1px solid #ff2019'}} value={this.state.code} onChange={(e)=>{this.changeCode(e)}} placeholder={'Enter code'} />
                 <div style={{display:'flex',justifyContent:'space-around'}}><div onClick={()=>{
                     this.loadTemplateWithCode(`t-${this.state.code}`)
@@ -458,7 +432,7 @@ export class HeroPage extends React.Component {
                         Edit
                     </div>}
                 </div>
-            </div>
+            </div>*/}
         </div>
 
     }

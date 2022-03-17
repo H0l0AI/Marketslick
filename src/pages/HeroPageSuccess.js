@@ -55,19 +55,10 @@ export const SuccessBanner = (props)=><div style={{display:'flex',justifyContent
                 <h2>
                     Congratulations! You will very soon be the proud owner of a premium website{cookie.get('includesMeta')&&' with branded social pages '}!
                 </h2>
-                <h4>It will take us a few days to get things up and running, but keep in touch! <br /> We will forward your details to you. <br />Order #{props.orderNumber} | Website Code ${cookie.get('pw')}</h4>
+                <h4>It will take us a few days to get things up and running, but keep in touch! <br /> We will forward your details to you. <br />Order #{props.orderNumber} | Website Code {cookie.get('pw')}</h4>
                 <img width={400} src={coffee} />
                 <br/>
-                {cookie.get('includesMeta')?<p>Need socials run for you? Get in touch to see how we can set you up with our social magnets, "Market it for me" service.</p>
-                    :<p>
-                        Have you thought about running social media marketing campaigns? <br/> Use code META9966 to get 10% off our META MAGNET package.
-                        <br />Need it run for you? Get in touch to see how we can set you up with our social magnets, "Market it for me" service.
-                    </p>}
             </div>
-        </div>
-        <div style={{display:'flex',justifyContent:'center'}}>
-            <div onClick={()=>{cookie.set('isCustomer','meta');return window.location.href='https://buy.stripe.com/6oE29R1fpaqT1s4bIK'}}
-                 className="altButton redButton magOrange">Get it now!</div>
         </div>
 
 

@@ -78,7 +78,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                     <Route path="/builder" exact component={CreatorFunnel}/>
                     <Route path="/" exact component={()=>{window.location.href='/builder'}}/>
                     <Route path="/pages" exact component={HeroPage}/>
-                    <Route path="/marketing-magnet-success" exact component={cookie.get('templateType')==='dm'?MarketingHeroPageSuccess:HeroPageSuccess}/>
+                    <Route path="/basic-success" exact component={cookie.get('templateType')==='dm'?MarketingHeroPageSuccess:HeroPageSuccess}/>
                     <Route path="/l/:hostLinkPage" component={LinkPage} />
                     <Route path="/r/:redirectTarget" component={(props)=>{let {redirectTarget} = useParams(); window.location.href=`https://${redirectTarget}.webgun.ai`}} />
                     <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>

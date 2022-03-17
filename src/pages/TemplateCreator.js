@@ -546,7 +546,7 @@ export const NavBar = (props)=>(
          switch(modalType){
              case 'LinkPage':modalComponent=<div>
                  <h3 style={{textAlign:'center'}}>Create a page that serves as your social media entry point!</h3>
-                 <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/{this.state.code}</p>
+                 <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/l/{this.state.code}</p>
                  <div style={{display:'flex',justifyContent:'center',margin:100,maxHeight:500,overflowY:'auto'}}>
                      <input type="text" className="templateInputP" style={{width:300,color:'#fff',border:'1px solid #fff'}} value={this.state.addLinkName} onChange={(e)=>{this.changeLinkName(e)}} placeholder={'Enter name for your link, ie. Facebook'} />
                      <input type="text" className="templateInputP" style={{width:300,color:'#fff',border:'1px solid #fff'}} value={this.state.addLinkHref} onChange={(e)=>{this.changeLinkHref(e)}} placeholder={'Enter URL for your link, ie. https://www.mywebsite.com'} />
@@ -718,14 +718,11 @@ export const NavBar = (props)=>(
                  </div>
 
              </div></div>; break;
-             case 'secondPage':modalComponent = <> <h3 style={{textAlign:'center',fontWeight:300}}>Front Page Content</h3> <div style={{ fontSize: 20,paddingBottom:0}}>
+             case 'secondPage':modalComponent = <> <h3 style={{textAlign:'center',fontWeight:300}}>Front Page Contents</h3> <div style={{ fontSize: 20,paddingBottom:0}}>
 
                  <div className="container">
 
-                     <div style={{paddingTop:0,display:'flex',justifyContent:'center'}}>
 
-                                     <textarea style={{width:'60%',height:90}} type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
-                     </div>
                      <div style={{display:'flex',justifyContent:'center'}}>
                          <div style={{width:'20%'}}>
                                  <FileImporter routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.imageURLArray[1]} index={1} display={true}
@@ -733,10 +730,13 @@ export const NavBar = (props)=>(
 
                          </div>
 <div>
-                         <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
-                         <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
+    <textarea style={{width:'60%',height:90}} type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
 
 </div></div>
+                     <div style={{paddingTop:0,display:'flex',justifyContent:'center'}}>
+                         <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
+                         <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
+                     </div>
                  </div>
              </div>
                  <div>
