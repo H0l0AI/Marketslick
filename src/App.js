@@ -19,6 +19,7 @@ import TemplateCreator from "./pages/TemplateCreator";
 import {MarketingHeroPageSuccess} from "./pages/MarketingHeroPageSuccess";
 import {HeroPageSuccess} from "./pages/HeroPageSuccess";
 import {LinkPageInside} from "./pages/LinkPageInside";
+import CreatorFunnel from "./pages/CreatorFunnel";
 
 
 const customHistory = createBrowserHistory();
@@ -74,7 +75,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
             <Router history={customHistory}>
                 <Switch>
                     <Route path="/marketingDemo" exact component={MarketingHeroPage}/>
-                    <Route path="/builder" exact component={TemplateCreator}/>
+                    <Route path="/builder" exact component={CreatorFunnel}/>
                     <Route path="/" exact component={()=>{window.location.href='/builder'}}/>
                     <Route path="/pages" exact component={HeroPage}/>
                     <Route path="/marketing-magnet-success" exact component={cookie.get('templateType')==='dm'?MarketingHeroPageSuccess:HeroPageSuccess}/>

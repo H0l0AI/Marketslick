@@ -110,7 +110,7 @@ export function createWebsite(code,content) {
     const body = btoa(unescape(encodeURIComponent(JSON.stringify(content))));
     const createBranchURL = 'https://api.github.com/repos/H0l0AI/Marketslick/git/refs';
     const headers = {
-        'Authorization': `token ${process.env.REACT_APP_GITHUB_API}`,
+        'Authorization': `token ${process.env.REACT_APP_STORMTROOPER}`,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/vnd.github.v3+json'
     };
