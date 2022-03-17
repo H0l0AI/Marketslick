@@ -163,7 +163,7 @@ export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:
                         <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
                     </div>
                     <div>
-                        <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
+                        <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0" style={{marginBottom:30}}>
                             <h4>{props.content.contactTitle}</h4>
                             <p>{props.content.contactBlurb}</p>
                             <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
@@ -325,7 +325,6 @@ export class MarketingHeroPage extends React.Component {
             })}
                 <AuxiliaryContent content={this.state.content} />
                 <Footer content={this.state.content}/>
-                <div style={{width:'100%',height:40,color:'#fff'}}><img onClick={()=>{window.location.href='https://webgun.ai'}} style={{float:'right',cursor:'pointer'}} src={logo} height={40} /></div>
         </div>
 
     }
