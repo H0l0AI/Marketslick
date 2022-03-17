@@ -9,6 +9,7 @@ configure({ enforceActions: 'never' });
 const hydrate = create({storage:localStorage,jsonify:true});
 
 export class RootStore {
+
     constructor() {
         this.pageStore = new PageStore(this);
 

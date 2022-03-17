@@ -7,3 +7,5 @@ build
 firebase.json
 .vscode/
 /node_modules
+.env
+/src/.env

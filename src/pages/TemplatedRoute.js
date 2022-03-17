@@ -26,13 +26,13 @@ import {
     secondaryContent2,
     secondaryContent1,
     businessBlurbShort,
-    routeItems,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType
 } from "../content";
-import {NavBar,scrollActivate} from "./HeroPage";
+import {NavBar} from "./HeroPage";
 import {rootStore} from "../stores/Store";
 import logo from "../images/sm3.png";
+import {loadingComponent2} from "./FileImporter";
 
 
 export class TemplatedRoute extends React.Component {
@@ -43,6 +43,7 @@ export class TemplatedRoute extends React.Component {
             routeIndex:props.index,
             currentMainImage:0,
             mainArray:[house1,house2],
+            loading:true,
             content:{
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
@@ -62,11 +63,8 @@ export class TemplatedRoute extends React.Component {
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
                 backgroundType:backgroundType,
-                routeItems:routeItems,
-                class:bgClass,
-                imageURLArray,
-                logo:tLogo,
-                hasScroll:hasScroll,
+                logo:logo,
+
 
             }
         }
@@ -82,27 +80,35 @@ export class TemplatedRoute extends React.Component {
         })
     }
     componentDidMount(){
+        console.log(rootStore.pageStore.code,'load code code load !!!');
+        firebase.firestore().collection("templates").get().then((data)=>{
+            const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
+            if(dataToLoad) {
+                console.log(dataToLoad,'LOAD');
+                this.setState({content: dataToLoad.content,loading:false})
+            }
+        })
 
     }
     render(){
         console.log(this.props.index,'...',this.state.content);
         console.log('firebase:',firebase.apps.length);
-        if(this.state.content.routeItems&&this.state.content.routeItems[this.props.index]) {
+        if(this.state.content.routeItems&&this.state.content.routeItems[this.props.index]&&!this.state.loading) {
             const route = this.state.content.routeItems[this.props.index];
 
             return <div>
-                <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
+                <NavBar content={this.state.content}  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
 
-                <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100vh',position:'relative'}}>
+                <div style={{height: '100vh',position:'relative',backgroundColor:this.state.content.backgroundType,color:this.state.content.font}}>
 
-                <div className={`mainColor secondaryBackgroundColor ${this.state.content.class} ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`}
-                     style={{fontSize: 20, paddingBottom: 50}}>
+                <div
+                     style={{fontSize: 20, paddingBottom: 50,backgroundColor:this.state.content.class}}>
                     <div className="container">
 
                         <div style={{paddingTop: 60}}>
-                            <h2>{route.secondaryHeader}</h2>
+                            <h3 style={{textAlign:'center',fontSize:56}}>{route.secondaryHeader}</h3>
                             <div>
-                                <div className={`supportingColor secondaryBackgroundColor ${this.state.content.class}`}
+                                <div
                                      style={{padding: 33, opacity: 1, width: '100%'}}>
                                     <div className="px-4">
                                         <p><h2 style={{
@@ -113,7 +119,7 @@ export class TemplatedRoute extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+                        <div>
                             <div style={{
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -141,18 +147,25 @@ export class TemplatedRoute extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        <div style={{backgroundColor:this.state.content.class}}>
+                            <h2 style={{textAlign:'center'}}>{route.contactBlurb}</h2>
+                            <p style={{textAlign:'center'}}>{route.businessBlurbShort}</p>
+                            <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                                Enquire now
+
+                            </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 </div>
             </div>
         }else{
-            return(<> <NavBar
-                    routeItems={this.state.content.routeItemsDefault ? this.state.content.routeItemsDefault.concat(this.state.content.routeItems) : RouteItems}
-                    backgroundType={this.state.content.backgroundType}/>
-                <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100%',position:'relative'}}>
+            return(<>
+                <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType}}>
 
                 <div className={`mainColor secondaryBackgroundColor ${this.state.content.class}`}
-                     style={{fontSize: 20, paddingBottom: 50,height:'100vh'}} ></div>
+                     style={{fontSize: 20, paddingBottom: 50,height:'100vh'}} >{loadingComponent2}</div>
                 </div>);
                 </>);
         }

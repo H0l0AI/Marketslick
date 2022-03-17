@@ -42,6 +42,7 @@ import {toJS} from "mobx";
 import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
+import {SuccessBanner} from "./HeroPageSuccess";
 
 export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div className="container">
@@ -52,7 +53,7 @@ export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.b
                     <p clas="mb-4">{props.content.titleBlurb}</p>
                     <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
                        className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}><i style={{position:'absolute',top:4,right:-30 }} className={'material-icons large'}>shopping_cart</i></div> {props.content.mainButtonTitle||"Your shop link here"}
-                        </a>
+                    </a>
                 </div>
             </div>
             <div className="col-12 col-md-5">
@@ -64,31 +65,31 @@ export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.b
 export const SecondaryContent =(props)=>(<div className={`py-5`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
-        <div className="row align-items-center noXGutter">
-            <div className="col-12 col-md-5 offset-md-1">
-                <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[1]:logo} className="img-fluid d-block mx-auto" width="350"/>
-            </div>
-            <div className="col-12 col-md-5">
-                <div className="px-4">
-                    <h3 style={{fontSize:28}} className="mb-4">{props.content.supportingHeading}</h3>
-                    <p>{props.content.supportingBlurb}</p>
+            <div className="row align-items-center noXGutter">
+                <div className="col-12 col-md-5 offset-md-1">
+                    <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[1]:logo} className="img-fluid d-block mx-auto" width="350"/>
+                </div>
+                <div className="col-12 col-md-5">
+                    <div className="px-4">
+                        <h3 style={{fontSize:28}} className="mb-4">{props.content.supportingHeading}</h3>
+                        <p>{props.content.supportingBlurb}</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </div>);
 export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
-        <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
-            className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.secondaryContentTitle}</span>
-        </h3>
+            <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
+                className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.secondaryContentTitle}</span>
+            </h3>
         </div>
 
         <div className=" text-white" style={{display:'flex',justifyContent:'space-around'}}>
             <div style={{display:'flex',justifyContent:'center'}}>
-                
+
             </div>
             <div className="col-12 col-md-5">
                 <div className={`scroll-element js-scroll slide-left starting`}>
@@ -120,16 +121,16 @@ export const AdditionalContent =(props)=> {
     const route = props.content.routeItems[props.index];
 
     return (<div key={props.index} className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
-            <h3 style={{fontSize:28}}  className="mb-5 text-center">
-                <div className={`scroll-element js-scroll fade-in-bottom `}>
+        <h3 style={{fontSize:28}}  className="mb-5 text-center">
+            <div className={`scroll-element js-scroll fade-in-bottom `}>
 
                 <span
-                className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{route.secondaryHeader}</span>
-                </div>
-            </h3>
-            <div className="row row-eq-height text-white">
-                <div className="col-12 col-md-5 offset-md-1">
-                    <div className={`scroll-element js-scroll ${props.index%2===0?'slide-left':'slide-right'} `}>
+                    className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{route.secondaryHeader}</span>
+            </div>
+        </h3>
+        <div className="row row-eq-height text-white">
+            <div className="col-12 col-md-5 offset-md-1">
+                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-left':'slide-right'} `}>
                     <div className="bg-dark p-4 rounded-4">
                         <p>{route.supportingHeading}</p>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -139,49 +140,49 @@ export const AdditionalContent =(props)=> {
                         </div>
 
                     </div>
-                    </div>
-                    <div></div>
                 </div>
-                <div className="col-12 col-md-5">
-                    <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} `}>
+                <div></div>
+            </div>
+            <div className="col-12 col-md-5">
+                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} `}>
                     <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
                         <h4>{route.secondaryHeading1}</h4>
                         <p>{route.secondaryContent1}</p>
                     </div>
-                    </div>
+                </div>
             </div>
         </div>
     </div>)
 };
-export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:props.content.class,color:'#fff'}}>
+export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:props.content.class,color:props.content.font}}>
     <div >
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
-    <div className="container small-width">
-        <div className="px-4">
-            <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
-                className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
-            </h3>
-            <p className="mb-4">{props.content.p3Content1}</p>
-            <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
-            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
-            </div>
-            <div>
-                <div style={{marginBottom:20}} className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
-                    <h4>{props.content.contactTitle}</h4>
-                    <p>{props.content.contactBlurb}</p>
-                    <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
-                        <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>{props.content.contactEmail}</div></div>
-                        <br />
-                        <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>{props.content.contactPhone}</div></div>
-                        <br />
+            <div className="container small-width">
+                <div className="px-4">
+                    <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
+                        className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
+                    </h3>
+                    <p className="mb-4">{props.content.p3Content1}</p>
+                    <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
+                        <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
+                    </div>
+                    <div>
+                        <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
+                            <h4>{props.content.contactTitle}</h4>
+                            <p>{props.content.contactBlurb}</p>
+                            <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
+                                <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>{props.content.contactEmail}</div></div>
+                                <br />
+                                <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>{props.content.contactPhone}</div></div>
+                                <br />
+
+                            </div>
+                        </div>
+                        <div style={{display:'flex',justifyContent:'center'}}>{props.content.mapsCenter&&<SimpleMap center={props.content.mapsCenter} name={props.content.businessName} />}</div>
 
                     </div>
                 </div>
-                <div style={{display:'flex',justifyContent:'center'}}>{props.content.mapsCenter&&<SimpleMap center={props.content.mapsCenter} name={props.content.businessName} />}</div>
-
             </div>
-        </div>
-    </div>
         </div>
     </div>
 </div></>);
@@ -223,7 +224,7 @@ export const NavBar = (props)=>(
                                                 firebase.analytics().logEvent(dropdownContent.routeTag);
                                                 window.location.href=dropdownContent.href
                                             }} style={{textAlign:'center',color:props.content.font}}><img width={18}
-                                                                                 src={home_icon}/> {dropdownContent.name} </a>
+                                                                                                          src={home_icon}/> {dropdownContent.name} </a>
                                         )}
                                     </div>
                                 </div>
@@ -246,7 +247,7 @@ export const NavBar = (props)=>(
         </div>
     </nav>);
 
-export class MarketingHeroPage extends React.Component {
+export class MarketingHeroPageSuccess extends React.Component {
     constructor(props) {
         super(props);
         this.contactRef = React.createRef()
@@ -355,18 +356,42 @@ export class MarketingHeroPage extends React.Component {
             }, 250);
         });
 
-
-
-        console.log('IPC:',cookie.get('isPotentialCustomer'));
-        console.log(rootStore.pageStore.code,'load code');
-        this.shiftCurrentImage();
         firebase.firestore().collection("templates").get().then((data)=>{
             const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
             if(dataToLoad) {
                 console.log(dataToLoad,'LOAD');
                 this.setState({content: dataToLoad.content,mainArray:[dataToLoad.content.imageURLArray?dataToLoad.content.imageURLArray[0]:null]})
             }
-        })
+        });
+        console.log('IPC:',cookie.get('isPotentialCustomer'));
+        if(cookie.get('isPotentialCustomer')==='true'){
+            let orderNumber = null;
+            let code = cookie.get('code');
+            console.log('set code:',code);
+            firebase.firestore().collection("orders").get().then((data)=>{
+                orderNumber = data.docs.length
+                console.log('set order:',orderNumber,'to',data);
+
+                firebase.firestore().collection("orders").doc(`${orderNumber}-MM-${code}`).set({code:code,pw:cookie.get('pw')||'admin'})
+                    .then(() => {
+                        console.log("Document successfully written!, ORDER:",orderNumber);
+                        this.setState({
+                            orderNumber:orderNumber,
+                        });
+                        rootStore.pageStore.createWebsite(code,this.state.content);
+                    })
+
+
+                    .catch((error) => {
+                        console.error("Error writing document with ORDER ",orderNumber, error);
+                    });
+            });
+
+            this.setState({
+                showSaleSuccess:true,
+            })
+        }
+        console.log(rootStore.pageStore.code,'load code');
 
     }
     loadTemplateWithCode(code){
@@ -400,6 +425,7 @@ export class MarketingHeroPage extends React.Component {
             })
         }
     }
+
     handleContentFormChange = (event) => {
         const { name, value } = event.target;
         this.setState((prevState) => {
@@ -412,9 +438,13 @@ export class MarketingHeroPage extends React.Component {
         let customerHasPaid = false;
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
+            {this.state.showSaleSuccess&&<div style={{overflow:'hidden',maxWidth:'99vw'}}><Confetti recycle={true} numberOfPieces={500} /></div>}
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
-                <HeroContent content={this.state.content} />
-                    <SecondaryContent content={this.state.content} />
+            {this.state.showSaleSuccess&&
+            <SuccessBanner showSaleSuccess={()=>{this.setState({showSaleSuccess:false})}} orderNumber={this.state.orderNumber} />
+            }
+            <HeroContent content={this.state.content} />
+            <SecondaryContent content={this.state.content} />
             <div >{this.state.content.routeItems&&this.state.content.routeItems.map((i,ix)=>{
                 return(<AdditionalContent content={this.state.content} index={ix}/>)
 
@@ -439,7 +469,7 @@ export class MarketingHeroPage extends React.Component {
                                 <div style={{display:'inline-flex',flexWrap:'wrap',paddingLeft:100,paddingRight:100,
                                     alignContent:'flex-start',alignItems:'space-around',justifyContent:'space-around',width:'100%'}}>
                                     <div>
-                                        <p style={{fontSize:22,color:'#505050'}}>Get online with the WebGun Basic package.</p>
+                                        <p style={{fontSize:22,color:'#505050'}}>Get online with the Marketing Magnet Pro package.</p>
                                         <ul>
                                             <li>
                                                 <p style={{color:'#505050'}}>• Additional content available*.</p>

@@ -23,7 +23,7 @@ import {NavBar} from "./MarketingHeroPage";
 // import {linkArray} from 'contents.json'
 
 
-export class LinkPage extends React.Component {
+export class LinkPageInside extends React.Component {
     constructor(props) {
         super(props);
         this.contactRef = React.createRef()

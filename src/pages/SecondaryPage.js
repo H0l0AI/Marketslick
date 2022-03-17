@@ -27,9 +27,9 @@ import {
     secondaryContent1,
     businessBlurbShort,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType
 } from "../content";
-import {NavBar,scrollActivate} from "./HeroPage";
+import {NavBar} from "./HeroPage";
 import {rootStore} from "../stores/Store";
 
 
@@ -59,10 +59,6 @@ export class SecondaryPage extends React.Component {
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
                 backgroundType:backgroundType,
-                class:bgClass,
-                imageURLArray,
-                logo:tLogo,
-                hasScroll:hasScroll,
 
             }
         }
@@ -78,21 +74,29 @@ export class SecondaryPage extends React.Component {
         })
     }
     componentDidMount(){
-        scrollActivate();
+        console.log(rootStore.pageStore.code,'load code');
+        firebase.firestore().collection("templates").get().then((data)=>{
+            const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
+            if(dataToLoad) {
+                console.log(dataToLoad,'LOAD');
+                this.setState({content: dataToLoad.content})
+            }
+        })
+
     }
     render(){
         console.log('firebase:',firebase.apps.length);
         return <div>
-            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
-            <div className={`${this.state.content.backgroundType} text-white`} style={{height: '100%',position:'relative'}}>
-                <div className={`${this.state.content.backgroundType} text-white`} style={{paddingBottom:100}}>
-                    <div className="mainFontColor fadedshort" style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}><h1 style={{borderBottom:'1px solid #fff',textAlign:'center',paddingTop:20,marginBottom:60}}>
+            <NavBar content={this.state.content}  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType,color:this.state.content.font}}>
+                <div style={{paddingBottom:100}}>
+                    <div style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}><h1 style={{borderBottom:'1px solid #fff',textAlign:'center',paddingTop:20,marginBottom:60}}>
                         {this.state.content.secondaryHeader}</h1></div></div>
-                    <div className={`secondaryBackgroundColor ${this.state.content.class} fadedshort`} style={{display:'flex',justifyContent:'center',flexWrap:'wrap',padding:20}}>
+                    <div style={{backgroundColor:this.state.content.class,display:'flex',justifyContent:'center',flexWrap:'wrap',padding:20}}>
                         <div style={{maxWidth:350}}>
                             <img src={this.state.content.imageURLArray&&this.state.content.imageURLArray[2]||secondaryPhoto1} style={{borderRadius:8}} className="img-fluid d-block mx-auto" width="350"/>
                         </div>
-                        <div style={{maxWidth:600,margin:20}}><p className="mainFontColor fadedshort" style={{padding:20, whiteSpace:'break-spaces'}}>
+                        <div style={{maxWidth:600,margin:20}}><p style={{padding:20, whiteSpace:'break-spaces'}}>
                             <h1>{this.state.content.secondaryHeading1}</h1>
                             {this.state.content.secondaryContent1}
                         </p>
@@ -108,10 +112,10 @@ export class SecondaryPage extends React.Component {
                             </div>
                         </div>*/}
                     </div>
-                    <div className={`mainFontColor ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{paddingTop:120}}>
-                        <h2 style={{textAlign:'center'}}>{this.state.content.contactTitle}</h2>
+                    <div style={{paddingTop:120}}>
+                        <h2 style={{textAlign:'center'}}>Ready to make the call?</h2>
                         <p style={{textAlign:'center'}}>{this.state.content.businessBlurbShort}</p>
-                        <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/pages/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                        <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
                             {contactCTA}
 
                         </div>

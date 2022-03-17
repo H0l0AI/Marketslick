@@ -36,9 +36,9 @@ import {
     secondaryContent1,
     secondaryHeader,
     secondaryHeading1,
-    backgroundType,bgClass,imageURLArray,tLogo,hasScroll
+    backgroundType
 } from "../content";
-import {NavBar,scrollActivate} from "./HeroPage";
+import {NavBar} from "./HeroPage";
 import {rootStore} from "../stores/Store";
 
 
@@ -68,10 +68,6 @@ export class ThirdPage extends React.Component {
                 titleBlurb:titleBlurb,
                 titleContent:titleContent,
                 backgroundType:backgroundType,
-                class:bgClass,
-                imageURLArray,
-                logo:tLogo,
-                hasScroll:hasScroll,
 
             }
         }
@@ -87,17 +83,23 @@ export class ThirdPage extends React.Component {
         })
     }
     componentDidMount(){
-        scrollActivate()
         console.log(rootStore.pageStore.code,'load code');
+        firebase.firestore().collection("templates").get().then((data)=>{
+            const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
+            if(dataToLoad) {
+                console.log(dataToLoad,'LOAD');
+                this.setState({content: dataToLoad.content})
+            }
+        })
 
     }
     render(){
         console.log('firebase:',firebase.apps.length);
         return <div>
-            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
-            <div className={`${this.state.content.backgroundType} text-white`} style={{position:'relative'}}>
-                <div className={`${this.state.content.backgroundType} text-white`} style={{paddingTop:50}}>
-                    <div className={`container secondaryBackgroundColor ${this.state.content.class}`}>
+            <NavBar content={this.state.content}  routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
+            <div style={{position:'relative',color:this.state.content.font,backgroundColor:this.state.content.backgroundType}}>
+                <div style={{paddingTop:50}}>
+                    <div className={`container`} style={{backgroundColor:this.state.content.class}}>
                         <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:30}}>
                             <div><img style={{paddingTop:0,paddingRight:20,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[3]||p3ContentPhoto} alt="" width="350"/></div>
                             <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
@@ -108,10 +110,10 @@ export class ThirdPage extends React.Component {
                     </div>
 
                 </div>
-                <div className={`mainFontColor ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{paddingTop:40,paddingBottom:100}}>
+                <div style={{paddingTop:40,paddingBottom:100}}>
                     <h2 style={{textAlign:'center'}}>{this.state.content.contactTitle}</h2>
                     <p style={{textAlign:'center'}}>{this.state.content.businessBlurbShort}</p>
-                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/pages/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                    <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
                         {contactCTA}
 
                     </div>
