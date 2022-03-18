@@ -27,7 +27,7 @@ import {
     secondaryContent1,
     businessBlurbShort,
     contactCTA,
-    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll,font
+    secondaryPhoto2, secondaryPhoto1, contactBlurb, p3Content1, p3Heading1, backgroundType,bgClass,imageURLArray,tLogo,hasScroll,font,linkArray
 } from "../content";
 import {scrollActivate} from "./HeroPage";
 import {rootStore} from "../stores/Store";
@@ -65,6 +65,7 @@ export class SecondaryPage extends React.Component {
                 imageURLArray,
                 logo:tLogo,
                 hasScroll:hasScroll,font:font,
+                linkArray:linkArray,
 
             }
         }

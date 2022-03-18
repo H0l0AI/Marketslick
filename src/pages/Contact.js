@@ -35,7 +35,7 @@ import {
     secondaryContent1,
     secondaryHeader,
     secondaryHeading1,
-    backgroundType,tLogo,hasScroll,font
+    backgroundType,tLogo,hasScroll,font,linkArray
 } from "../content";
 import {NavBar} from "./MarketingHeroPage";
 import {rootStore} from "../stores/Store";
@@ -68,6 +68,7 @@ export class Contact extends React.Component {
                 backgroundType:backgroundType,
                 logo:tLogo,
                 font:font,
+                linkArray:linkArray,
 
             }
         }

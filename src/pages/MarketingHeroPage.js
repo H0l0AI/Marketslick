@@ -73,6 +73,13 @@ export const SecondaryContent =(props)=>(<div className='py-5' style={{color:pro
                 </div>
             </div>
         </div>
+        <h3 style={{fontSize:28,marginTop:140}}  className="mb-5 text-center"><span
+            className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
+        </h3>
+        <p className="mb-4" style={{textAlign:'center'}}>{props.content.p3Content1}</p>
+        <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
+            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
+        </div>
     </div>
 </div>);
 export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}} id="ecosystem">
@@ -114,7 +121,8 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
     </div>
 </div>);
 export const AdditionalContent =(props)=> {
-    const route = props.content.routeItems[props.index];
+    const route = props.content.routeItemsAdditional[props.index];
+    console.log('ROUTE:',route);
 
     return (<div key={props.index} className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}} id="ecosystem">
         <h3 style={{fontSize:28}}  className="mb-5 text-center">
@@ -126,7 +134,7 @@ export const AdditionalContent =(props)=> {
         </h3>
         <div className="row row-eq-height text-white">
             <div className="col-12 col-md-5 offset-md-1">
-                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-left':'slide-right'} `}>
+                <div className={`scroll-element js-scroll slide-left`}>
                     <div className="bg-dark p-4 rounded-4">
                         <p>{route.supportingHeading}</p>
                         <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -140,7 +148,7 @@ export const AdditionalContent =(props)=> {
                 <div></div>
             </div>
             <div className="col-12 col-md-5">
-                <div className={`scroll-element js-scroll ${props.index%2===0?'slide-right':'slide-left'} `}>
+                <div className={`scroll-element js-scroll slide-right`}>
                     <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
                         <h4>{route.secondaryHeading1}</h4>
                         <p>{route.secondaryContent1}</p>
@@ -155,13 +163,7 @@ export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
             <div className="container small-width">
                 <div className="px-4">
-                    <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
-                        className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
-                    </h3>
-                    <p className="mb-4">{props.content.p3Content1}</p>
-                    <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
-                        <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
-                    </div>
+
                     <div>
                         <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0" style={{marginBottom:30}}>
                             <h4>{props.content.contactTitle}</h4>
@@ -276,6 +278,7 @@ export class MarketingHeroPage extends React.Component {
                 logo:tLogo,
                 class:bgClass,
                 routeItems:[],
+                routeItemsAdditional:routeItems,
                 routeItemsDefault:RouteItems,
                 imageURLArray,
                 linkArray:linkArray,
@@ -314,16 +317,16 @@ export class MarketingHeroPage extends React.Component {
     };
     render(){
         let customerHasPaid = false;
-        console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
+        console.log('route items:',this.state.content.routeItemsAdditional);
         return <div>
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
                 <SecondaryContent content={this.state.content} />
-            {this.state.content.routeItems&&this.state.content.routeItems.map((i,ix)=>{
+                <AuxiliaryContent content={this.state.content} />
+            {this.state.content.routeItemsAdditional&&this.state.content.routeItemsAdditional.map((i,ix)=>{
                 return(<AdditionalContent content={this.state.content} index={ix}/>)
 
             })}
-                <AuxiliaryContent content={this.state.content} />
                 <Footer content={this.state.content}/>
         </div>
 
