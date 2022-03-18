@@ -48,7 +48,7 @@ import SimpleMap from "./SimpleMap";
 
 export const SuccessBanner = (props)=><div style={{display:'flex',justifyContent:'center',padding:5}}>
     <div style={{width:'80%',top:150,zIndex:9998,backgroundColor:'#fff',position:'absolute',height:'auto',paddingBottom:50,borderRadius:8,color:'#505050'}}>
-        <div style={{width:'100%',height:60,position:'relative'}}> <div></div><i style={{cursor:'pointer',position:'absolute',right:10,top:10}} onClick={()=>{cookie.set('isPotentialCustomer',false); cookie.set('hasPaid',true);props.setShowSaleSuccess(false)}} className="material-icons">close</i> </div>
+        <div style={{width:'100%',height:60,position:'relative'}}> <div></div><i style={{cursor:'pointer',position:'absolute',right:10,top:10}} onClick={()=>{cookie.set('isPotentialCustomer',false); cookie.set('hasPaid',true);props.showSaleSuccess(false)}} className="material-icons">close</i> </div>
         <div style={{display:'flex',justifyContent:'center'}}>
 
             <div style={{padding:60,paddingTop:0,textAlign:'center '}}>

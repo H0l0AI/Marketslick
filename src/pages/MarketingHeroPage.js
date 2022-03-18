@@ -77,6 +77,13 @@ export const SecondaryContent =(props)=>(<div className={`py-5`} style={{backgro
             </div>
         </div>
     </div>
+        <h3 style={{fontSize:28,marginTop:140}}  className="mb-5 text-center"><span
+            className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
+        </h3>
+        <p className="mb-4" style={{textAlign:'center'}}>{props.content.p3Content1}</p>
+        <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
+            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
+        </div>
     </div>
 </div>);
 export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
@@ -159,13 +166,7 @@ export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:
         <div className={`scroll-element js-scroll fade-in-bottom starting`}>
     <div className="container small-width">
         <div className="px-4">
-            <h3 style={{fontSize:28}}  className="mb-5 text-center"><span
-                className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
-            </h3>
-            <p className="mb-4">{props.content.p3Content1}</p>
-            <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
-            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
-            </div>
+
             <div>
                 <div style={{marginBottom:20}} className="bg-dark p-4 rounded-4 mt-4 mt-md-0">
                     <h4>{props.content.contactTitle}</h4>
@@ -200,6 +201,7 @@ export const NavBar = (props)=>(
             <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5}} onClick={() => {
+                        cookie.set('templateType','pm');
                         window.location.href = props.isMarketing?'/pages':'/marketingDemo';
                     }}><a className="nav-link whiteTextNav my-3 btn btn-dark rounded-pill px-4 nomargins"  aria-current="page">Switch to Services Template</a>
                     </li>
@@ -416,13 +418,14 @@ export class MarketingHeroPage extends React.Component {
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
                     <SecondaryContent content={this.state.content} />
+            <AuxiliaryContent content={this.state.content} />
+
             <div >{this.state.content.routeItems&&this.state.content.routeItems.map((i,ix)=>{
                 return(<AdditionalContent content={this.state.content} index={ix}/>)
 
             })}
             </div>
 
-            <AuxiliaryContent content={this.state.content} />
             <Footer content={this.state.content}/>
             <div className={`mainImageBackground text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{zIndex:9999}}>
                 <div style={{backgroundColor:'#fff'}} >
@@ -462,7 +465,7 @@ export class MarketingHeroPage extends React.Component {
                                             rootStore.pageStore.setIsPotentialCustomer(true);
                                             //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
                                             //https://buy.stripe.com/00gcQb4evf5654Q001
-                                            window.location.href='https://buy.stripe.com/14k5nJ9yPaOQ8h2147'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+                                            window.location.href='https://buy.stripe.com/test_fZebLd7dC89o4WA6oq'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
                                     </div>
                                     <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>

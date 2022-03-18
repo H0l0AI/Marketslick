@@ -150,8 +150,8 @@ export class TemplatedRoute extends React.Component {
                         <div style={{backgroundColor:this.state.content.class}}>
                             <h2 style={{textAlign:'center'}}>{route.contactBlurb}</h2>
                             <p style={{textAlign:'center'}}>{route.businessBlurbShort}</p>
-                            <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
-                                Enquire now
+                            <div style={{display:'flex',justifyContent:'center'}}><div onClick={()=>{window.location.href='/pages/contact'}} className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
+                                Contact Us Now
 
                             </div>
                             </div>

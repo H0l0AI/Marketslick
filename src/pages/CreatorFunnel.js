@@ -591,11 +591,8 @@ export const NavBar = (props)=>(
                                      </div>
                                      <div className="mainFontColor" style={{paddingTop:0}}>
                                          <p style={{textAlign:'center'}}>
-                                             <input type="text" style={{width:'50%'}} className="templateInputP" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].businessBlurbShort} name={'businessBlurbShort'} placeholder={'Brief content relating to contacting your business'} />
+                                             <input type="text" style={{width:'50%'}} className="templateInputP" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].businessBlurbShort} name={'businessBlurbShort'} placeholder={'Supporting content'} />
                                          </p>
-                                         <div style={{display:'flex',justifyContent:'center'}}><div className="altButton" style={{width:300,marginTop:20,textAlign:'center'}}>
-                                         </div>
-                                         </div>
 
                                      </div>
                                  </div>
@@ -610,12 +607,12 @@ export const NavBar = (props)=>(
                                                            uploadStatus={'success'} onChange={this.uploadBrandImageAdditional.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                                          </div>
-                                         <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
+                                         <div style={{width: '55%',minWidth:350,paddingLeft:15,marginTop:80}}>
                                              <div style={{marginRight:'5%',marginBottom:0,whiteSpace:'break-spaces'}}>
-                                                 <input type="text" className="templateInputH1" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].p3Heading1} name={'p3Heading1'} />
+                                                 <input placeholder={'content heading'} type="text" className="templateInputH1" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].p3Heading1} name={'p3Heading1'} />
                                              </div>
                                              <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces'}}>
-                                                 <textarea style={{height:300}} className="templateInputP" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].p3Content1} name={'p3Content1'} />                                            </p>
+                                                 <textarea placeholder={'content body'} style={{height:300}} className="templateInputP" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].p3Content1} name={'p3Content1'} />                                            </p>
                                          </div>
                                      </div>
                                  </div>
@@ -736,6 +733,29 @@ export const NavBar = (props)=>(
                          <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
                      </div>
                      </div>
+                     <div style={{position:'relative',marginTop:0,marginBottom:0}}>
+                         <div  style={{paddingTop:10}}>
+                             <div >
+                                 <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
+                                     <div>
+
+                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[3]} index={3} display={true} routeItemsIndex={null}
+                                                       uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
+
+                                     </div>
+                                     <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
+                                         <h3 style={{marginRight:'5%',marginBottom:0,whiteSpace:'break-spaces'}}>
+                                             <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.p3Heading1} name={'p3Heading1'} />
+                                         </h3>
+                                         <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces',height:200}}>
+                                             <textarea style={{height:75}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.p3Content1} name={'p3Content1'} />
+                                         </p>
+                                     </div>
+                                 </div>
+                             </div>
+
+                         </div>
+                     </div>
                  </div>
              </div>
                  <div>
@@ -844,14 +864,8 @@ export const NavBar = (props)=>(
                                  this.setState({editModal:'secondPage'})
                              }} className={`${this.state.editModal==='secondPage'?'navEditActive':''} navEdit`}>Front Page</div>
                              <div onClick={()=>{
-                                 this.setState({editModal:'thirdPage'})
-                             }} className={`${this.state.editModal==='thirdPage'?'navEditActive':''} navEdit`}>About </div>
-                             <div onClick={()=>{
                                  this.setState({editModal:'fourthPage'})
                              }} className={`${this.state.editModal==='fourthPage'?'navEditActive':''} navEdit`}>Contact </div>
-                             <div onClick={()=>{
-                                 this.setState({editModal:'fifthPage'})
-                             }} className={`${this.state.editModal==='fifthPage'?'navEditActive':''} navEdit`}>Additional </div>
                              <div onClick={()=>{
                                  this.setState({editModal:'LinkPage'})
                              }} className={`${this.state.editModal==='LinkPage'?'navEditActive':''} navEdit`}>Links </div>
@@ -875,15 +889,15 @@ export const NavBar = (props)=>(
                      </div>
 
                  <div style={{display:'flex',justifyContent:'center'}}>
-                     {this.state.editModal==='fifthPage'&&<div style={{display:'flex',justifyContent:'center',marginRight:20}} onClick={()=>{this.setState({editModal:'Extra'})}} className="altButton whiteButton magOrange">Add another page</div>}
-                     {this.state.editModal==='fifthPage'&&<div style={{display:'flex',justifyContent:'center',marginRight:20}} onClick={()=>{this.setState({editModal:'LinkPage'})}} className="altButton whiteButton magOrange newFeature">Create Link Tree</div>}
+                     {this.state.editModal==='fourthPage'&&<div style={{display:'flex',justifyContent:'center',marginRight:20}} onClick={()=>{this.setState({editModal:'Extra'})}} className="altButton whiteButton magOrange">Add another page</div>}
+                     {this.state.editModal==='fourthPage'&&<div style={{display:'flex',justifyContent:'center',marginRight:20}} onClick={()=>{this.setState({editModal:'LinkPage'})}} className="altButton whiteButton magOrange newFeature">Create Link Tree</div>}
                      <div style={{display:'flex',justifyContent:'center',marginLeft:20}} onClick={()=>{
                      let nextPage = '';
                      switch(this.state.editModal){
                          case 'frontPage': nextPage = 'secondPage';break;
-                         case 'secondPage': nextPage = 'thirdPage';break;
+                         case 'secondPage': nextPage = 'fourthPage';break;
                          case 'thirdPage': nextPage='fourthPage';break;
-                         case 'fourthPage': nextPage='fifthPage';break;
+                         case 'fourthPage': nextPage='Extra';break;
                      }
                      if(this.state.editModal==='fifthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
                          let splitCode = this.state.code||cookie.get('code')||this.state.plainCode.toString();
@@ -910,7 +924,7 @@ export const NavBar = (props)=>(
                              firebase.firestore().collection("users").doc(`${rootStore.pageStore.userId}`).set({templateCode:`t-${splitCode||this.state.plainCode}`})
                                  .then(() => {
                                      console.log("Document successfully written for",rootStore.pageStore.userId,`t-${splitCode||this.state.plainCode}`);
-                                 })
+                                 }).catch((e)=>{console.log('doc failed on ',e)})
                          }
                          firebase.firestore().collection("templates").doc(`t-${splitCode||this.state.plainCode}`).set({content:content,author:rootStore.pageStore.userId||'Guest'})
                              .then(() => {

@@ -23,7 +23,7 @@ export default class PageStore {
     @observable autoCompletePlaces = [];
     @persist @observable user = {};
     @persist @observable activeTemplate = {};
-    @persist @observable userId = '';
+    @persist @observable userId = true;
     @persist @observable userEmail = '';
     @persist @observable code = cookie.get('code');
     @action.bound setCode(codeToSet){

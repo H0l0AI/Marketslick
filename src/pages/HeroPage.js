@@ -61,6 +61,7 @@ export const NavBar = (props)=>(
             <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5,color:props.content.font}} onClick={() => {
+                        cookie.set('templateType','dm');
                         window.location.href = props.isMarketing?'/pages':'/marketingDemo';
                     }}><a className="nav-link whiteTextNav my-3 btn btn-dark rounded-pill px-4 nomargins" aria-current="page">Switch to Marketing Template</a>
                     </li>
