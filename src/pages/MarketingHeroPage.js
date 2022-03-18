@@ -465,7 +465,7 @@ export class MarketingHeroPage extends React.Component {
                                             rootStore.pageStore.setIsPotentialCustomer(true);
                                             //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
                                             //https://buy.stripe.com/00gcQb4evf5654Q001
-                                            window.location.href='https://buy.stripe.com/test_fZebLd7dC89o4WA6oq'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+                                            window.location.href='https://buy.stripe.com/00gcQb4evf5654Q001'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
                                     </div>
                                     <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
