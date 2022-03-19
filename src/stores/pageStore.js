@@ -4,7 +4,7 @@ import {
 import {persist} from "mobx-persist";
 import cookie from 'js-cookie';
 import {createWebsite,signUpUsingSocial,signUpUsingEmail,signUpUsingFacebook,handleSignOut,initializeAuthentication,getTemplatesWithId,autoCompletePlacesAction,getRelevantBusinessInfo} from "./PageService";
-
+import {testRytrBlurb,testRytrMain} from './ContentService';
 export default class PageStore {
 
     constructor(rootStore) {
@@ -17,9 +17,13 @@ export default class PageStore {
         this.autoCompletePlacesAction=autoCompletePlacesAction;
         this.getRelevantBusinessInfo=getRelevantBusinessInfo;
         this.signUpUsingFacebook=signUpUsingFacebook;
+        this.testRytrBlurb=testRytrBlurb;
+        this.testRytrMain=testRytrMain;
     }
 
     @observable value = '';
+    @observable mainPageContent = '';
+    @observable secondaryContent = '';
     @observable autoCompletePlaces = [];
     @persist @observable user = {};
     @persist @observable activeTemplate = {};
@@ -46,6 +50,14 @@ export default class PageStore {
     }
     @action.bound setActiveTemplate(templateContent){
         this.activeTemplate = templateContent;
+    }
+
+    @action.bound setMainPageContent(templateContent){
+        console.log('.....',templateContent);
+        this.mainPageContent = templateContent&&templateContent.text;
+    }
+    @action.bound setSecondaryContent(templateContent){
+        this.secondaryContent = templateContent;
     }
     @action.bound setAutoCompletePlaces(data){
         console.log('PLACES:',data);

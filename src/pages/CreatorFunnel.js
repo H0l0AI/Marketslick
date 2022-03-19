@@ -123,6 +123,8 @@ export const NavBar = (props)=>(
         super(props);
         this.contactRef = React.createRef()
         this.state={
+            rContent:'<p></p>',
+            rText:'',
             linkArray:[],
             loadState:null,
             colorSelectorModal:true,
@@ -538,6 +540,57 @@ export const NavBar = (props)=>(
          return this.setState({linkArray:newArray});
 
     }
+
+    triggerAutoComplete(data){
+        const key = process.env.REACT_APP_MAPS_KEY;
+        rootStore.pageStore.autoCompletePlacesAction(data, key).then((res)=>{
+            console.log('...FACES',res,key);
+            this.setState({places:res&&res.predictions})
+
+        });
+
+    }
+
+    getRelevantBusinessInfo(placeInformation){
+    this.setState({loading:true});
+    const key = process.env.REACT_APP_MAPS_KEY;
+    rootStore.pageStore.getRelevantBusinessInfo(placeInformation,key).then((info)=>{
+        console.log('...INFO',info);
+        if(info) {
+            let content = this.state.content;
+            content.contactPhone = info.phoneNumber || '';
+            content.contactAddress = info.address || '';
+            content.contactTypes = info.types || [];
+            content.location = info.location || {};
+            content.businessName = info.name;
+            let mapsCenter = {
+                lat: 59.95,
+                lng: 30.33
+            };
+            if (info.location) {
+                mapsCenter = {lat: info.location.latitude, lng: info.location.longitude}
+                content.mapsCenter=mapsCenter;
+            }
+            rootStore.pageStore.testRytrBlurb(info.name,info.types.join(' ')).then((res)=>{
+                console.log('res,',res);
+                let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
+                let content=this.state.content;
+                content.titleBlurb=rytrBlurb;
+                this.setState({rContent:'',content:content,loading:false});
+            });
+            this.setState({
+                selectedBusinessInfo: info,
+                content: content,
+                mapsCenter,
+                businessName: info.name,
+            })
+        }
+        else{
+            this.setState({selectedBusinessInfo:null})
+        }
+
+    });
+    }
     renderEditModal(modalType){
          let modalComponent=null;
          switch(modalType){
@@ -714,19 +767,23 @@ export const NavBar = (props)=>(
              </div></div>; break;
              case 'secondPage':modalComponent = <> <h3 style={{textAlign:'center',fontWeight:300}}>Front Page Content</h3> <div style={{ fontSize: 20,paddingBottom:0}}>
 
-                 <div className="container">
+                 <div >
+                     <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
+                         <div>
 
-
-                     <div style={{display:'flex',justifyContent:'center'}}>
-                         <div style={{width:'20%'}}>
-                             <FileImporter routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.imageURLArray[1]} index={1} display={true}
+                             <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[1]} index={1} display={true} routeItemsIndex={null}
                                            uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-                         <div>
-                             <textarea style={{minWidth:400,height:90,marginTop:40}} type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
+                         <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
+                             <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces',height:200}}>
+                                 <textarea style={{height:155}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
+                             </p>
+                         </div>
+                     </div>
+                 </div>
 
-                         </div></div>
+                 <div className="container">
                      <div style={{display:'flex',justifyContent:'center'}}>
                      <div style={{paddingTop:0,display:'block',justifyContent:'center',width:'80%'}}>
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
@@ -766,49 +823,13 @@ export const NavBar = (props)=>(
                      </div>
                  </div>
              </>; break;
-             case 'frontPage':modalComponent = <div style={{minHeight:750,height:'auto',marginTop:20}}>
-                 <h4 style={{marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':'Find your Google business'}</h4>
-                <div style={{marginBottom:20}}><GoogleMyBusinessForm places={this.state.places} selectedBusinessInfo={this.state.selectedBusinessInfo} triggerAutoComplete={(data)=>{    // @ts-ignore
-                     const key = process.env.REACT_APP_MAPS_KEY;
-                     rootStore.pageStore.autoCompletePlacesAction(data, key).then((res)=>{
-                         console.log('...FACES',res,key);
-                         this.setState({places:res&&res.predictions})
+             case 'frontPage':modalComponent = <div style={{minHeight:710,height:'auto',marginTop:20}}>
 
-                     });
-
-                 }} getRelevantBusinessInfo={(placeInformation)=>{
-                     const key = process.env.REACT_APP_MAPS_KEY;
-                     rootStore.pageStore.getRelevantBusinessInfo(placeInformation,key).then((info)=>{
-                         console.log('...INFO',info);
-                         if(info) {
-                             let content = this.state.content;
-                             content.contactPhone = info.phoneNumber || '';
-                             content.contactAddress = info.address || '';
-                             content.contactTypes = info.types || [];
-                             content.location = info.location || {};
-                             content.businessName = info.name;
-                             let mapsCenter = {
-                                 lat: 59.95,
-                                 lng: 30.33
-                             };
-                             if (info.location) {
-                                 mapsCenter = {lat: info.location.latitude, lng: info.location.longitude}
-                                 content.mapsCenter=mapsCenter;
-                             }
-                             this.setState({
-                                 selectedBusinessInfo: info,
-                                 content: content,
-                                 mapsCenter,
-                                 businessName: info.name
-                             })
-                         }
-                         else{
-                             this.setState({selectedBusinessInfo:null})
-                         }
-
-                     });
-                 }} />
-                </div>
+                 <h4 style={{marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':'Find your Google business to start generating content'}</h4>
+                 <div style={{marginBottom:20}}><GoogleMyBusinessForm places={this.state.places} selectedBusinessInfo={this.state.selectedBusinessInfo}
+                                                                      triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
+                                                                      getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
+                 </div>
                  <div style={{position:'absolute',zIndex:8999,width:'90%'}}>
                      <div style={{position:'absolute',right:'28%'}}>
                          <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
@@ -839,6 +860,9 @@ export const NavBar = (props)=>(
 
                          </div>
                      </div>
+                     <div style={{maxHeight:400,width:'100%',overflowY:'auto'}}>
+                         <div dangerouslySetInnerHTML={{ __html: this.state.rContent }}></div>
+                     </div>
                  </div>
              </div>
          }
@@ -855,7 +879,7 @@ export const NavBar = (props)=>(
          return(<>
              <div style={{position:'relative',zIndex:999999,display:'flex',justifyContent:'center',padding:60}}>
                  <div className={`templateMaker`} style={{width:'100%',margin:0,minHeight:'90.5vh',paddingBottom:100,position:'absolute',top:0,padding:60,paddingLeft:20,backgroundColor:'#ff2019',color:'#fff'}}>
-                     <div style={{position:'relative',zIndex:9999}}>
+                    {/* <div style={{position:'relative',zIndex:9999}}>
                          <div style={{display:'flex',flexDirection:'column',position:'absolute',border:'1px solid #fff',padding:10,borderRadius:0,borderLeft:'none',left:-20}}>
                              <div onClick={()=>{
                                  this.setState({editModal:'frontPage'})
@@ -874,7 +898,7 @@ export const NavBar = (props)=>(
                              }} className={`${this.state.editModal==='Extra'?'navEditActive':''} navEdit`}>Routes </div>
                          </div>
 
-                     </div>
+                     </div>*/}
                      <div style={{paddingLeft:90}}>
                          {this.state.editModal==='frontPage'&&<>
 
@@ -898,6 +922,14 @@ export const NavBar = (props)=>(
                          case 'secondPage': nextPage = 'fourthPage';break;
                          case 'thirdPage': nextPage='fourthPage';break;
                          case 'fourthPage': nextPage='Extra';break;
+                     }
+                     if(this.state.editModal ==='frontPage'){
+                         rootStore.pageStore.testRytrMain(this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
+                             console.log('res,',res);
+                             let content=this.state.content;
+                             content.supportingHeading=res.replace(/<[^>]*>?/gm, '');
+                             this.setState({rContent:'',content:content,loading:false});
+                         });
                      }
                      if(this.state.editModal==='fifthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
                          let splitCode = this.state.code||cookie.get('code')||this.state.plainCode.toString();
@@ -942,7 +974,8 @@ export const NavBar = (props)=>(
                          console.log('something may have happened');
 
                      }
-                     this.setState({editModal:nextPage})}} className="altButton whiteButton magOrange">{buttonContent}</div>
+                         this.setState({editModal:nextPage})}
+                     } className="altButton whiteButton magOrange">{buttonContent}</div>
                      {cookie.get('wasPurchased')&&<div onClick={()=>{
                          if(this.state.loadState==='success'){
                              return window.location.href='/pages'
