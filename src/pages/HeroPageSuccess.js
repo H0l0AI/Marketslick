@@ -83,7 +83,7 @@ export const NavBar = (props)=>(
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5}} onClick={() => {
                         firebase.analytics().logEvent('view_nav_livetemplate');
-                        window.location.href = '/templateCreator';
+                        window.location.href = '/builder';
                     }}><a className="nav-link whiteTextNav my-3 btn btn-dark rounded-pill px-4 nomargins"  aria-current="page">Template Editor</a>
                     </li>
 

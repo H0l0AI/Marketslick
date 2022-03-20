@@ -112,7 +112,7 @@ export async function handleSignOut(noReload) {
 
 export function createWebsite(code,content) {
     let url = `https://api.github.com/repos/H0l0AI/Marketslick/contents/src/contents.json`;
-    console.log('gonna BTOA it',unescape(encodeURIComponent(JSON.stringify(content))));
+    console.log('BTOA',unescape(encodeURIComponent(JSON.stringify(content))));
     const body = btoa(unescape(encodeURIComponent(JSON.stringify(content))));
     const createBranchURL = 'https://api.github.com/repos/H0l0AI/Marketslick/git/refs';
     const headers = {
@@ -146,14 +146,14 @@ export function createWebsite(code,content) {
                         url: url,
                         headers: headers,
                     }).then((commitResponse) => {
-                        console.log('LETS FUCKING GO DELETED', commitResponse);
+                        console.log('DELETED', commitResponse);
                         return axios({
                             method: 'put', data: {
                                 message: "Automation sync", content: body, sha: sha, branch: `${code}`
                             },
                             url: url,
                             headers: headers,
-                        }).then((res)=>{console.log('ADDED THE NEW SHIT',res)}).catch((e)=>{console.log('put not work',e)})
+                        }).then((res)=>{console.log('ADDED',res)}).catch((e)=>{console.log('put not work',e)})
 
                     }).catch((e) => {
                         console.log('axios GET ERROR 4', e);
@@ -174,13 +174,13 @@ export function createWebsite(code,content) {
                 url: createBranchURL,
                 headers: headers,
             }).then((createBranchRes) => {
-                console.log('putRes DID HE FIRE IT OFF?', createBranchRes, 'DO I NEED CREATESHA EARLIER');
+                console.log('Request', createBranchRes);
 
                 return axios({
                     method: 'get', url: url,
                     headers: headers,
                 }).then((res) => {
-                    console.log('GITHUB RES GET:', res);
+                    console.log('GITHUB RESULT:', res);
                     const sha = res.data.sha;
                     return axios({
                         method: 'put', data: {
@@ -189,7 +189,7 @@ export function createWebsite(code,content) {
                         url: url,
                         headers: headers,
                     }).then((commitResponse) => {
-                        console.log('LETS FUCKING GO', commitResponse);
+                        console.log('GO', commitResponse);
 
                     }).catch((e) => {
                         console.log('axios GET ERROR 4', e);

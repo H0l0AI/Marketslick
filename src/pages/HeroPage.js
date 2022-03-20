@@ -67,7 +67,7 @@ export const NavBar = (props)=>(
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5,color:props.content.font}} onClick={() => {
                         firebase.analytics().logEvent('view_nav_livetemplate');
-                        window.location.href = '/templateCreator';
+                        window.location.href = '/builder';
                     }}><a className="nav-link whiteTextNav my-3 btn btn-dark rounded-pill px-4 nomargins"  aria-current="page">Template Editor</a>
                     </li>
                     {props.routeItems&&props.routeItems.map((route)=>{
@@ -392,6 +392,7 @@ console.log('is loaded template purchased?');
                                     firebase.analytics().logEvent('sales_init_mm')
                                     rootStore.pageStore.setIsPotentialCustomer('revision');
                                     //todo revision $5 link stripe.
+                                    //https://buy.stripe.com/test_7sIg1t55u3T8bkY28b
                                     window.location.href='https://buy.stripe.com/dR617taCTf567cYeUY'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
 
