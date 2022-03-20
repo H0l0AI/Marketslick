@@ -11,6 +11,7 @@ export default class PageStore {
         this.rootStore = rootStore;
         this.createWebsite = createWebsite;
         this.signUpUsingGoogle=signUpUsingSocial;
+        this.signUpUsingEmail=signUpUsingEmail;
         this.signOut=handleSignOut;
         this.initializeAuthentication=initializeAuthentication;
         this.getTemplatesWithId=getTemplatesWithId;

@@ -1613,3 +1613,35 @@ body.dark-discord .border-dark {
 .starting{
   opacity:0;
 }
+.signup-form-short {
+  margin:15px 0px 0px 15px !important;
+  min-width:200px;
+  max-width:200px !important;
+  border:1px solid #C3C4C9 !important;
+  border-radius: 4px !important;
+  padding-left: 10px !important;
+  box-shadow: 0 1px 0 0 #4264ea;
+  margin-top: 40px !important;
+}
+.signup-form {
+  margin:15px 0px 0px 15px !important;
+  min-width:200px;
+  max-width:200px !important;
+  border:1px solid #C3C4C9 !important;
+  border-radius: 4px !important;
+  padding-left: 10px !important;
+  box-shadow: 0 1px 0 0 #4264ea;
+  margin-top: 40px !important;
+}
+.separator {
+  height: 20px;
+  border-bottom: 1px solid #d1d8de;
+  margin: 20px 0 40px;
+  text-align: center;
+}
+
+.separator-text {
+  line-height: 40px;
+  background-color: #ffffff;
+  padding: 0 10px;
+}

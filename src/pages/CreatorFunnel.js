@@ -58,7 +58,7 @@ export const FacebookButton=(props)=>{
              onClick={handleClick}
         >
             <img className="social-sign-up-icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/facebook.svg" alt="Sign up with Facebook" />
-            <span className="social-sign-up-text">Continue With Facebook</span>
+            <span className="social-sign-up-text">Facebook (unavailable)</span>
         </div>
     );
 
@@ -77,7 +77,7 @@ export const GoogleButton = (props) => {
             onClick={handleClick}
         >
             <img className="social-sign-up-icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Sign up with Google" />
-            <span className="social-sign-up-text">Continue With Google</span>
+            <span className="social-sign-up-text">Google</span>
         </div>
     );
 };
@@ -123,6 +123,10 @@ export const NavBar = (props)=>(
         super(props);
         this.contactRef = React.createRef()
         this.state={
+            emailFormFields:{
+                email:'',
+                password:'',
+            },
             rContent:'<p></p>',
             rText:'',
             linkArray:[],
@@ -510,6 +514,16 @@ export const NavBar = (props)=>(
         this.setState({routeNameInput:e.target.value});
 
     }
+
+    handleEmailFormChange = (event) => {
+        const { name, value } = event.target;
+        this.setState((prevState) => {
+            const { emailFormFields } = prevState;
+            emailFormFields[name] = value;
+            return { emailFormFields };
+        });
+    };
+
     handleAddRoute(name){
         this.state.routeItems.push({
             name:name,
@@ -1001,7 +1015,7 @@ export const NavBar = (props)=>(
                                  console.error("Error writing document: ", error,content,this.state.content);
                              });
                          rootStore.pageStore.createWebsite(cookie.get('wasPurchased'),this.state.content);
-                     }} className={`altButton whiteButton magOrange ${this.state.loadState==='loading'&&'disabledButton'}`} style={{marginLeft:10}}>{this.state.loadState==='success'?'Preview now':'Update Live Site'}</div>}
+                     }} className={`altButton whiteButton magOrange ${this.state.loadState==='loading'&&'disabledButton'}`} style={{marginLeft:10}}>{this.state.loadState==='success'?'Preview now':'Preview now'}</div>}
                  </div>
                  </div>
              </div>
@@ -1046,11 +1060,62 @@ export const NavBar = (props)=>(
                 </p>
                 <div style={{textAlign:'center',marginTop:40,marginBottom:50,fontWeight:300}}>
                     {rootStore.pageStore.userEmail? <h3>Select a template to get started</h3>:
+                        <>
+                            <div style={{display:'flex',justifyContent:'center',height:120}}>
+                                <div>
+                            <div style={{position:'relative'}}>
+                                <div style={{position:'absolute',fontSize:12,fontWeight:700,paddingTop:15,width:80, marginLeft:18}}>Your email</div>
+                            </div>
+                            <input
+                                style={{ width: 250 ,border:'1px solid #C3C4C9',borderRadius:4}}
+                                type="text"
+                                name="email"
+                                id="email"
+                                value={this.state.emailFormFields.email}
+                                onChange={this.handleEmailFormChange}
+                                placeholder=""
+                                className="signup-form-short"
+                                onKeyPress={(event) => {
+                                    if (event.key === 'Enter') {
+                                        event.preventDefault();
+                                        event.stopPropagation();
+                                    }
+                                }}
+                            />
+                                </div>
+                                <div>
+
+                                <div style={{position:'relative'}}>
+                                    <div style={{position:'absolute',fontSize:12,fontWeight:700,paddingTop:15,marginLeft:18}}>Password</div>
+                                </div>
+                                <input
+                                    style={{ border:'1px solid #C3C4C9',borderRadius:4,width:425}}
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    value={this.state.emailFormFields.password}
+                                    onChange={this.handleEmailFormChange}
+                                    placeholder=""
+                                    className="signup-form"
+                                    onKeyPress={(event) => {
+                                        if (event.key === 'Enter') {
+                                            event.preventDefault();
+                                            event.stopPropagation();
+                                            rootStore.pageStore.signUpUsingEmail(this.state.emailFormFields);
+
+                                        }
+                                    }}
+                                />
+                                </div>
+                        </div>
+                            <div className="separator" style={{marginLeft:100,marginRight:100}}>
+                                <span className="separator-text" style={{backgroundColor:'#9293a0'}}>Or sign up with</span>
+                            </div>
                         <div style={{display:'flex',justifyContent:'space-evenly'}}>
                             <GoogleButton signUpHandler={signUpUsingSocial.bind(this)} />
                             <FacebookButton signUpHandler={()=>{}} />
 
-                        </div>}
+                        </div></>}
                 </div>
                     {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40}}>
                         <div style={{position:'relative',cursor:'pointer'}} onClick={()=>{this.setState({templateSelected:'dm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>

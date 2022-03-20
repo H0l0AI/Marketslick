@@ -77,7 +77,8 @@ export const NavBar = (props)=>(
             <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5}} onClick={() => {
-                        window.location.href = props.isMarketing?'/pages':'/marketingDemo';
+                        cookie.set('templateType','dm');
+                        window.location.href ='/pages';
                     }}><a className="nav-link whiteTextNav my-3 btn btn-dark rounded-pill px-4 nomargins"  aria-current="page">Switch to Marketing Template</a>
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5}} onClick={() => {
@@ -183,6 +184,10 @@ export class HeroPageSuccess extends React.Component {
             }
         });
         console.log('IPC:',cookie.get('isPotentialCustomer'));
+        if(cookie.get('isPotentialCustomer')==='revision'){
+            let code = cookie.get('code');
+            return rootStore.pageStore.createWebsite(code,this.state.content);
+        }
         if(cookie.get('isPotentialCustomer')==='true'){
             let orderNumber = null;
             let code = cookie.get('code');
@@ -347,15 +352,19 @@ export class HeroPageSuccess extends React.Component {
                 </div>
 
 
-                <div className={`mainImageBackground text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{zIndex:999,paddingTop:80}}>
+                <div className={`mainImageBackground text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{zIndex:999,paddingTop:0}}>
                     <div style={{backgroundColor:'#fff'}} >
                         {customerHasPaid ?<>
-                                <h1 style={{textAlign: 'center', paddingTop: 80}} className="magOrange">Take a picture,
-                                    it'll last longer!</h1>
-                                <h2 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>We are currently processing your order.</h2>
-                                <p className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Got questions? Hit up help@salesmagnet.co.nz reference: {cookie.get('code')} </p>
-                            </>
-                            :<>
+                            <h2 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Made some changes and need to order a revision?</h2>
+                            <div style={{display:'flex',justifyContent:'center'}}>
+                                <div onClick={()=>{
+                                    firebase.analytics().logEvent('sales_init_mm')
+                                    rootStore.pageStore.setIsPotentialCustomer('revision');
+                                    //todo revision $5 link stripe.
+                                    window.location.href='https://buy.stripe.com/dR617taCTf567cYeUY'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+
+
+                            </div> </>:<>
                                 <h1 style={{textAlign:'center',paddingTop:80}} className="magOrange">Like the look? </h1>
                                 <h2 className="magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Get it online within the week!</h2>
 
@@ -397,12 +406,6 @@ export class HeroPageSuccess extends React.Component {
 
                 </div>
 
-            </div>
-            <div style={{display:'flex',justifyContent:'flex-end'}}>
-                <input className="templateInputP" style={{width:180,color:'#ff2019',border:'1px solid #ff2019'}} value={this.state.code} onChange={(e)=>{this.changeCode(e)}} placeholder={'Enter code'} />
-                <div onClick={()=>{
-                    this.loadTemplateWithCode(`t-${this.state.code}`)
-                }} style={{marginBottom:10}} className="altButton whiteButton magOrange">Load template</div>
             </div>
         </div>
 

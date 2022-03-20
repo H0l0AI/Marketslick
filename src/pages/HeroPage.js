@@ -62,7 +62,7 @@ export const NavBar = (props)=>(
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5,color:props.content.font}} onClick={() => {
                         cookie.set('templateType','dm');
-                        window.location.href = props.isMarketing?'/pages':'/marketingDemo';
+                        window.location.href ='/pages';
                     }}><a className="nav-link whiteTextNav my-3 btn btn-dark rounded-pill px-4 nomargins" aria-current="page">Switch to Marketing Template</a>
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer',marginLeft:5,marginRight:5,color:props.content.font}} onClick={() => {
@@ -172,6 +172,19 @@ export class HeroPage extends React.Component {
                 console.log('images:',this.state.imageURLArray);
             }
         })
+console.log('is loaded template purchased?');
+        //is loaded template already purchased?
+        firebase.firestore().collection("orders").get().then((data)=> {
+            console.log('existing orders:',rootStore.pageStore.code, toJS(data.docs));
+            data.docs.forEach((order)=>{
+                console.log('orders...',order.id);
+                if(order.id.split('-').includes(rootStore.pageStore.code)){
+                    console.log('INCLUDES',rootStore.pageStore.code);
+                    cookie.set('hasPaid',true);
+                }
+
+            })
+        });
 
     }
     loadTemplateWithCode(code){
@@ -214,7 +227,7 @@ export class HeroPage extends React.Component {
         });
     };
     render(){
-        let customerHasPaid = false;
+        let customerHasPaid = cookie.get('hasPaid')==='true';
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
         return <div>
             {this.state.showSaleSuccess&&<div style={{overflow:'hidden',maxWidth:'99vw'}}><Confetti recycle={true} numberOfPieces={500}
@@ -373,12 +386,16 @@ export class HeroPage extends React.Component {
                 <div className={`mainImageBackground text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{zIndex:999,paddingTop:0}}>
                     <div style={{backgroundColor:'#fff'}} >
                         {customerHasPaid ?<>
-                            <h1 style={{textAlign: 'center', paddingTop: 80}} className="magOrange">Take a picture,
-                                it'll last longer!</h1>
-                            <h2 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>We are currently processing your order.</h2>
-                            <p className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Got questions? Hit up help@webgun.ai reference: {cookie.get('code')} </p>
-                            </>
-                        :<>
+                            <h2 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Made some changes and need to order a revision?</h2>
+                            <div style={{display:'flex',justifyContent:'center'}}>
+                                <div onClick={()=>{
+                                    firebase.analytics().logEvent('sales_init_mm')
+                                    rootStore.pageStore.setIsPotentialCustomer('revision');
+                                    //todo revision $5 link stripe.
+                                    window.location.href='https://buy.stripe.com/dR617taCTf567cYeUY'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+
+
+                            </div> </>:<>
                         <h1 style={{textAlign:'center',paddingTop:80}} className="magOrange">Like the look? </h1>
                         <h2 className="magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Get it online TODAY!</h2>
 

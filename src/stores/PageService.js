@@ -32,11 +32,23 @@ export function initializeAuthentication(){
                     return firebase.firestore().collection("users").doc(`${userAuth.uid}`).set({email: userAuth.email})
                         .then((r) => {
                             cookie.remove('signInType');
-                            console.log("Google Document successfully written!", r);
+                            console.log("Google Document successfully written for user!", r);
                         }).catch((e) => {
                             cookie.remove('userHasLoggedIn');
                         });
 
+                }
+                if(cookie.get('isEmailLogin')){
+                    return firebase.firestore().collection("users").doc(`${userAuth.uid}`).set({email: userAuth.email})
+                        .then((r) => {
+                            cookie.remove('isEmailLogin');
+                            console.log("Google Document successfully written for user!", r);
+                            window.location.reload();
+                        }).catch((e) => {
+                            cookie.remove('isEmailLogin');
+                            cookie.remove('userHasLoggedIn');
+
+                        });
                 }
             }
         });
@@ -64,18 +76,12 @@ export function initializeFirebase(){
 
 
 export async function signUpUsingEmail(fields) {
+    cookie.set('isEmailLogin',true);
     return firebase.auth().createUserWithEmailAndPassword(fields.email, fields.password).catch((error) => {
        console.log('...',error);
-    })
-        .then((authResult) => {
-            // @ts-ignore
-            firebase.firestore().collection("users").doc(`${uuidv4()}`).set({email:fields.email})
-                .then((r) => {
-                    console.log("Document successfully written!",r);
-                }).catch((e) => {
-                cookie.remove('userHasLoggedIn');
-            });
-        });
+        cookie.set('isEmailLogin',false);
+
+    });
 }
 
 export async function signUpUsingSocial(type) {
