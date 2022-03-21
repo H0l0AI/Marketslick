@@ -23,9 +23,9 @@ const useCaseTagline="605838118c0a4a000c69c968";
 
 const useCaseLandingPageId = "605835258c0a4a000c69c962";
 const useCaseProfileId = "60633095de064b000c8f5cc8";
+const useCaseBioId = "60633095de064b000c8f5cc8";
+const useCaseBlogId = "60584cf2c2cdaa000c2a7954";
 const PROXY_URL = process.env.REACT_APP_PROXY_URL;
-
-const useCaseBlogId="60584cf2c2cdaa000c2a7954";
 //topic
 //keywords
 
@@ -110,19 +110,23 @@ async function ryte({ useCaseId, inputContexts }) {
 */
 export async function testRytrBlurb(businessName,businessTags){
     const usecaseList = await caseById();
-    const useCaseProduct = await caseDetailById(
-        useCaseProductId
+    //useCaseTagline
+    //"605838118c0a4a000c69c968"
+    //TAGLINE
+    //"DESCRIPTION_LABEL"
+    let btags = `${businessName} is a `+businessTags;
+    const useCaseTag = await caseDetailById(
+        useCaseTagline
     );
-    console.log('desc',useCaseProduct);
+    console.log('blurb',useCaseTag);
 
     let inputContexts = {
-        [useCaseProduct.data.data.contextInputs[0].keyLabel]: businessName,
-        [useCaseProduct.data.data.contextInputs[1].keyLabel]: businessTags,
+        [useCaseTag.data.data.contextInputs[0].keyLabel]: btags,
     };
     console.log('inut',inputContexts);
 
     let output = await ryte({
-        useCaseId: useCaseProduct.data.data._id,
+        useCaseId: useCaseTag.data.data._id,
         inputContexts,
     });
 
@@ -144,6 +148,34 @@ export async function testRytrMain(businessName,businessBlurb,businessFeatures){
 
     let output = await ryte({
         useCaseId: useCaseProduct.data.data._id,
+        inputContexts,
+    });
+
+    console.log("Output PAGE CONTENT:",output);
+    return output;
+};
+export async function testRytrAbout(businessName,businessFeatures,businessBlurb){
+    //topic
+    //keywords
+    const usecaseList = await caseById();
+    //useCaseProfile
+    //   //"ABOUT_YOU_LABEL"
+    //     //"60633095de064b000c8f5cc9"
+    let sectionTopic = `We are ${businessName}. ${businessFeatures}`
+    let sectionKeywords = `About us, Passionate about, Experienced, Community, We are`
+    const useCaseBio = await caseDetailById(
+        useCaseBlogId
+    );
+    console.log('landing',useCaseBio);
+
+    let inputContexts = {
+        [useCaseBio.data.data.contextInputs[0].keyLabel]: sectionTopic,
+        [useCaseBio.data.data.contextInputs[1].keyLabel]: sectionKeywords,
+    };
+    console.log('inut',inputContexts);
+
+    let output = await ryte({
+        useCaseId: useCaseBio.data.data._id,
         inputContexts,
     });
 

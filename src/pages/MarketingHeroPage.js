@@ -101,8 +101,6 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
             <div className="col-12 col-md-5">
                 <div className={`scroll-element js-scroll slide-left starting`}>
                     <div className="bg-dark p-4 rounded-4">
-                        <h1>{props.content.secondaryHeading1}</h1>
-                        {props.content.secondaryContent1}
                         <div style={{display:'flex',justifyContent:'center'}}>
                             <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[2]:logo} width={300} />
                         </div>

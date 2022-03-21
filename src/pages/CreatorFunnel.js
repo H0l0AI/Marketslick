@@ -89,7 +89,7 @@ function signUpUsingFacebook(){
 
 }
 export const NavBar = (props)=>(
-    <nav className={`navbar navbar-expand-xl bg-dark-blue navbar-dark myNav navTextColor`} style={{height:60}}>
+    <nav className={`navbar navbar-expand-xl navbar-dark myNav navTextColor gunNav`} style={{height:60}}>
         <div className="container">
 
 
@@ -102,16 +102,16 @@ export const NavBar = (props)=>(
                 {props.userEmail?
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a style={{cursor:'pointer'}} onClick={()=>{if(props.userEmail){return props.resetFrontPage()}{return null}}} className="nav-link whiteTextNav" aria-current="page">Reset</a>
+                    <a style={{cursor:'pointer'}} onClick={()=>{if(props.userEmail){return props.resetFrontPage()}{return null}}} className="nav-link" aria-current="page">Reset</a>
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
                         window.location.href = '/';
-                    }}><a className="nav-link whiteTextNav" aria-current="page">Home</a>
+                    }}><a className="nav-link" aria-current="page">Home</a>
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
                         rootStore.pageStore.signOut();
                     }}>
-                        <a className="nav-link whiteTextNav" aria-current="page"> {props.userEmail? <>Sign Out</>:      <GoogleButton signUpHandler={signUpUsingSocial.bind(this)} />}</a>
+                        <a className="nav-link" aria-current="page"> {props.userEmail? <>Sign Out</>:      <GoogleButton signUpHandler={signUpUsingSocial.bind(this)} />}</a>
                     </li>
                 </ul>:null}
             </div>
@@ -577,6 +577,7 @@ export const NavBar = (props)=>(
             content.contactTypes = info.types || [];
             content.location = info.location || {};
             content.businessName = info.name;
+            content.titleBlurb = 'Hang on, we are coming up with a smooth tagline...'
             let mapsCenter = {
                 lat: 59.95,
                 lng: 30.33
@@ -612,8 +613,8 @@ export const NavBar = (props)=>(
                  <h3 style={{textAlign:'center'}}>Create a page that serves as your social media entry point!</h3>
                  <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/{this.state.code||cookie.get('code')}</p>
                  <div style={{display:'flex',justifyContent:'center',margin:100,maxHeight:500,overflowY:'auto'}}>
-                     <input type="text" className="templateInputP" style={{width:300,color:'#fff',border:'1px solid #fff'}} value={this.state.addLinkName} onChange={(e)=>{this.changeLinkName(e)}} placeholder={'Enter name for your link, ie. Facebook'} />
-                     <input type="text" className="templateInputP" style={{width:300,color:'#fff',border:'1px solid #fff'}} value={this.state.addLinkHref} onChange={(e)=>{this.changeLinkHref(e)}} placeholder={'Enter URL for your link, ie. https://www.mywebsite.com'} />
+                     <input type="text" className="templateInputP" style={{width:300,color:'#0e1e46',border:'1px solid #0e1e46'}} value={this.state.addLinkName} onChange={(e)=>{this.changeLinkName(e)}} placeholder={'Enter name for your link, ie. Facebook'} />
+                     <input type="text" className="templateInputP" style={{width:300,color:'#0e1e46',border:'1px solid #0e1e46'}} value={this.state.addLinkHref} onChange={(e)=>{this.changeLinkHref(e)}} placeholder={'Enter URL for your link, ie. https://www.mywebsite.com'} />
                      <div style={{display:'flex',justifyContent:'space-around'}}><div onClick={()=>{
                          this.addLink(this.state.addLinkName,this.state.addLinkHref)
                      }} style={{marginBottom:10,marginLeft:10,width:200}} className="altButton whiteButton magOrange">Add link</div>
@@ -739,10 +740,10 @@ export const NavBar = (props)=>(
 
                                  </p>
                                  <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
-                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:0,color:'#fff'}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactEmail} name={'contactEmail'} />
+                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:0,color:'#0e1e46'}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactEmail} name={'contactEmail'} />
                                      </div></div>
                                      <br />
-                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:10,color:'#fff'}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactPhone} name={'contactPhone'} />
+                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:10,color:'#0e1e46'}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactPhone} name={'contactPhone'} />
                                      </div></div>
                                      <br />
 
@@ -839,7 +840,7 @@ export const NavBar = (props)=>(
              </>; break;
              case 'frontPage':modalComponent = <div style={{minHeight:710,height:'auto',marginTop:20}}>
 
-                 <h4 style={{marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':'Find your Google business to start generating content'}</h4>
+                 <p style={{fontSize:26,marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':'Find your Google business to start generating content'}</p>
                  <div style={{marginBottom:20}}><GoogleMyBusinessForm places={this.state.places} selectedBusinessInfo={this.state.selectedBusinessInfo}
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
@@ -851,7 +852,7 @@ export const NavBar = (props)=>(
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-                         <p style={{color:'#fff',textAlign:'left',paddingLeft:100}}>Add a branding logo</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a branding logo</p>
                      </div>
 
                      <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'center',width:'70%'}}>
@@ -859,7 +860,7 @@ export const NavBar = (props)=>(
                                        uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                      </div>
-                     <p style={{color:'#fff',textAlign:'center',width:'70%'}}>Add a banner image</p>
+                     <p style={{color:'#0e1e46',textAlign:'center',width:'70%'}}>Add a banner image</p>
                      <div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
                          <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
                              <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.titleContent} name={'titleContent'} />
@@ -892,7 +893,7 @@ export const NavBar = (props)=>(
         }
          return(<>
              <div style={{position:'relative',zIndex:999999,display:'flex',justifyContent:'center',padding:60}}>
-                 <div className={`templateMaker`} style={{width:'100%',margin:0,minHeight:'90.5vh',paddingBottom:100,position:'absolute',top:0,padding:60,paddingLeft:20,backgroundColor:'#ff2019',color:'#fff'}}>
+                 <div className={`templateMaker`} style={{width:'100%',margin:0,minHeight:'90.5vh',paddingBottom:100,position:'absolute',top:0,padding:60,paddingLeft:20,backgroundColor:'#ff2019',color:'#0e1e46'}}>
                     {/* <div style={{position:'relative',zIndex:9999}}>
                          <div style={{display:'flex',flexDirection:'column',position:'absolute',border:'1px solid #fff',padding:10,borderRadius:0,borderLeft:'none',left:-20}}>
                              <div onClick={()=>{
@@ -917,11 +918,11 @@ export const NavBar = (props)=>(
                          {this.state.editModal==='frontPage'&&<>
 
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <h4 style={{fontWeight:300,textAlign:'center'}}>Choose a domain name</h4>
+                             <p style={{fontSize:26,fontWeight:100,textAlign:'center'}}>Choose a domain name</p>
 
                          </div>
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <input className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#fff'}}>.co.nz</span>
+                             <input className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
                          </div></>}
                      {modalComponent}
                      </div>
@@ -938,11 +939,24 @@ export const NavBar = (props)=>(
                          case 'fourthPage': nextPage='Extra';break;
                      }
                      if(this.state.editModal ==='frontPage'){
+                         let content = this.state.content;
+                         content.supportingHeading="Hold on tight, we are writing your supporting heading..."
+                         content.secondaryContent="Just a moment, we are writing about you..."
+                         this.setState({content:content})
+                         //about us = secondaryContent;
                          rootStore.pageStore.testRytrMain(this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
                              console.log('res,',res);
                              let content=this.state.content;
                              content.supportingHeading=res.replace(/<[^>]*>?/gm, '');
-                             this.setState({rContent:'',content:content,loading:false});
+                             this.setState({rContent:'',content:content,loading:false},()=>{
+                                 rootStore.pageStore.testRytrAbout(this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
+                                     console.log('res2,',res2);
+                                     let rytrBlurb = res2.replace(/<[^>]*>?/gm, '');
+                                     let content=this.state.content;
+                                     content.secondaryContent=rytrBlurb;
+                                     this.setState({rContent:'',content:content,loading:false});
+                                 });
+                             });
                          });
                      }
                      if(this.state.editModal==='fifthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
@@ -1032,7 +1046,7 @@ export const NavBar = (props)=>(
                 {this.state.classSelectorActive&&this.ClassSelector()}
                 {this.state.fontSelectorActive&&this.FontSelector()}
             </div>
-            {this.state.colorSelectorModal&&<div style={{position:'relative',zIndex:9998,display:'flex',justifyContent:'center'}}><div className={'templateMaker'} style={{width:'100%',margin:0,height:1200,position:'absolute',top:0,padding:60,backgroundColor:'#ff2019',color:'#fff'}}>
+            {this.state.colorSelectorModal&&<div style={{position:'relative',zIndex:9998,display:'flex',justifyContent:'center'}}><div className={'templateMaker'} style={{width:'100%',margin:0,height:1200,position:'absolute',top:0,padding:60,backgroundColor:'#ff2019',color:'#0e1e46'}}>
                 {this.state.continueModal?<div className="fadedshort">
                     <h4 style={{textAlign:'center',fontWeight:300}}>Select your background and primary color theme by clicking on the element you want to change.</h4>
                     <div style={{display:'flex',justifyContent:'center'}}>
@@ -1054,8 +1068,8 @@ export const NavBar = (props)=>(
                         </div>
                     </div>
 
-                </div>:<><h3 style={{textAlign:'center',fontSize:42}}>Create a website and have it delivered in minutes!</h3>
-                <p style={{textAlign:'center'}}>Draft up a website here and preview before launch. No hidden fees, no fine print. Get your marketable business idea on the web, FAST.<br/>
+                </div>:<><p style={{textAlign:'center',fontSize:36}}>Become more established with a website, build one with us in minutes.</p>
+                <p style={{fontSize:22,textAlign:'center'}}>Let our intelligent website builder design and create a valuable customer/client touch point, bespoke to your needs.<br/>
 
                 </p>
                 <div style={{textAlign:'center',marginTop:40,marginBottom:50,fontWeight:300}}>
@@ -1109,7 +1123,7 @@ export const NavBar = (props)=>(
                                 </div>
                         </div>
                             <div className="separator" style={{marginLeft:100,marginRight:100}}>
-                                <span className="separator-text" style={{backgroundColor:'#9293a0'}}>Or sign up with</span>
+                                <span className="separator-text" style={{backgroundColor:'#f5f4fa'}}>Or sign up with</span>
                             </div>
                         <div style={{display:'flex',justifyContent:'space-evenly'}}>
                             <GoogleButton signUpHandler={signUpUsingSocial.bind(this)} />

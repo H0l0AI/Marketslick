@@ -221,7 +221,8 @@ body.dark-discord .border-dark {
   height: 5px !important;
 }
 .templateMaker{
-  background-color: #9293a0 !important;
+  background-color: #f5f4fa !important;
+  color:#0e1e46 !important;
 }
 *::-webkit-scrollbar-track {
   width: 9px;
@@ -1608,9 +1609,9 @@ visibility: visible;
 .templateInputP{
   margin:10px;
   border: 1px solid transparent;
-  border-bottom:1px solid #fff !important;
+  border-bottom:1px solid #455570 !important;
   font-size: 14px;
-  color: #fff !important;
+  color: #0e1e46 !important;
   background-color: transparent;
   border-radius: 0px;
   width: 100%;
@@ -1619,23 +1620,23 @@ visibility: visible;
 .templateInputPTextArea{
   margin:10px;
   border: 1px solid transparent;
-  border:1px solid #fff !important;
+  border:1px solid #455570 !important;
   font-size: 14px;
-  color: #fff !important;
+  color: #172853 !important;
   background-color: transparent;
   border-radius: 0px;
   width: 100%;
   padding: 10px;
 }
 ::placeholder {
-  color: #e3e3e3 !important;
+  color: #1f2029 !important;
 }
 .templateInputH1{
   margin:10px;
   border: 0px solid transparent;
-  border-bottom:1px solid #fff !important;
+  border-bottom:1px solid #455570 !important;
   font-size: 14px;
-  color: #fff !important;
+  color: #0e1e46 !important;
   background-color: transparent;
   border-radius: 0px;
   width: 100%;
@@ -1649,16 +1650,16 @@ visibility: visible;
   border: none !important;
 }
 .uploadedImageContainer{
-  color: #fff;
+  color: #455570;
   border-radius: 10%;
-  border:2px dashed #fff;
+  border:2px dashed #455570;
   cursor:pointer !important;
   background-color: transparent;
 }
 .uploadedImageContainerBanner{
-  color: #fff;
+  color: #455570;
   border-radius: 10%;
-  border:2px dashed #fff;
+  border:2px dashed #455570;
   cursor:pointer !important;
   background-color: transparent;
 }

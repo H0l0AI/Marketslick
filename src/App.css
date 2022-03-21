@@ -249,7 +249,7 @@ html {
   color: #505050 !important;
 }
 .whiteTextNav{
-  color:#fff !important;
+  color:#fff;
 }
 body{
   font-family: 'Montserrat', sans-serif;
@@ -274,6 +274,7 @@ h1,h2,h3,h4,h5,h6,.navbar-brand,
 .h1,.h2,.h3,.h4,.h5,.h6,.navbar-brand{
   font-family: 'Montserrat', sans-serif;  font-weight:900 !important;
 }
+.nav-link{color: #505050 !important;font-weight: 300 !important;}
 .navbar-brand{
   cursor: pointer;
 }
@@ -1392,9 +1393,9 @@ body.dark-discord .border-dark {
   border: none !important;
 }
 .uploadedImageContainer{
-  color: #fff;
+  color: #455570;
   border-radius: 10%;
-  border:2px dashed #fff;
+  border:2px dashed #455570;
   cursor:pointer !important;
   background-color: transparent;
 }
@@ -1614,9 +1615,10 @@ body.dark-discord .border-dark {
   opacity:0;
 }
 .signup-form-short {
+  height: 50px !important;
   margin:15px 0px 0px 15px !important;
   min-width:200px;
-  max-width:200px !important;
+  max-width:300px !important;
   border:1px solid #C3C4C9 !important;
   border-radius: 4px !important;
   padding-left: 10px !important;
@@ -1624,9 +1626,10 @@ body.dark-discord .border-dark {
   margin-top: 40px !important;
 }
 .signup-form {
+  height: 50px !important;
   margin:15px 0px 0px 15px !important;
   min-width:200px;
-  max-width:200px !important;
+  max-width:300px !important;
   border:1px solid #C3C4C9 !important;
   border-radius: 4px !important;
   padding-left: 10px !important;
@@ -1644,4 +1647,8 @@ body.dark-discord .border-dark {
   line-height: 40px;
   background-color: #ffffff;
   padding: 0 10px;
+}
+.gunNav{
+  background-color: #f5f4fa !important;
+  color: #0e1632 !important;
 }
