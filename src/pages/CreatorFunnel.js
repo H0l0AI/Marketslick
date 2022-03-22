@@ -559,7 +559,7 @@ export const NavBar = (props)=>(
         const key = process.env.REACT_APP_MAPS_KEY;
         rootStore.pageStore.autoCompletePlacesAction(data, key).then((res)=>{
             console.log('...FACES',res,key);
-            this.setState({places:res&&res.predictions})
+            this.setState({places:res&&res.predictions,businessName:data})
 
         });
 
@@ -840,7 +840,7 @@ export const NavBar = (props)=>(
              </>; break;
              case 'frontPage':modalComponent = <div style={{minHeight:710,height:'auto',marginTop:20}}>
 
-                 <p style={{fontSize:26,marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':'Find your Google business to start generating content'}</p>
+                 <p style={{fontSize:26,marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':''}</p>
                  <div style={{marginBottom:20}}><GoogleMyBusinessForm places={this.state.places} selectedBusinessInfo={this.state.selectedBusinessInfo}
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
@@ -918,11 +918,11 @@ export const NavBar = (props)=>(
                          {this.state.editModal==='frontPage'&&<>
 
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <p style={{fontSize:26,fontWeight:100,textAlign:'center'}}>Choose a domain name</p>
+                             <p style={{fontSize:26,fontWeight:100,textAlign:'center'}}>{cookie.get('code')?'Your':'Choose a'} domain name</p>
 
                          </div>
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <input className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
+                             <input disabled={cookie.get('code')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
                          </div></>}
                      {modalComponent}
                      </div>

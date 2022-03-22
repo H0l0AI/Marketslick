@@ -99,6 +99,7 @@ async function ryte({ useCaseId, inputContexts }) {
             return res.data.data[0].text;
         }).catch((e)=>{
             console.log('final error',e);
+            return 'Sorry we werent able to come up with anything';
         });
     } catch (error) {
         console.log(error);
