@@ -95,8 +95,14 @@ async function ryte({ useCaseId, inputContexts }) {
                 format: "html",
             },
         }).then((res)=>{console.log('final res',res);
+        if(res.data){
             rootStore.pageStore.setMainPageContent(res.data.data[0]);
             return res.data.data[0].text;
+        }
+        else{
+            return 'Sorry we arent able to come up with anything right now';
+        }
+
         }).catch((e)=>{
             console.log('final error',e);
             return 'Sorry we werent able to come up with anything';

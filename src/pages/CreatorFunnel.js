@@ -102,7 +102,7 @@ export const NavBar = (props)=>(
                 {props.userEmail?
                 <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
                     <li className="nav-item">
-                    <a style={{cursor:'pointer'}} onClick={()=>{if(props.userEmail){return props.resetFrontPage()}{return null}}} className="nav-link" aria-current="page">Reset</a>
+                    <a style={{cursor:'pointer'}} onClick={()=>{if(props.userEmail){return props.resetFrontPage()}{return null}}} className="nav-link" aria-current="page">Color Scheme</a>
                     </li>
                     <li className="nav-item" style={{cursor: 'pointer'}} onClick={() => {
                         window.location.href = '/';
@@ -538,7 +538,7 @@ export const NavBar = (props)=>(
 
     }
     resetFrontPage(){
-         return this.setState({editModal:'frontPage'});
+         return this.setState({editModal:null,colorSelectorModal:true});
     }
     changeLinkName(e){
          return this.setState({addLinkName:e.target.value})
@@ -1041,7 +1041,7 @@ export const NavBar = (props)=>(
         return <div>
             <NavBar userEmail={rootStore.pageStore.userEmail} resetFrontPage={()=>{this.resetFrontPage()}} classSelectorActive={this.state.classSelectorActive} bgSelectorActive={this.state.bgSelectorActive} renderClassSelector={()=>{this.renderClassSelector()}} renderBGSelector={()=>{this.renderBGSelector()}} switchBackgroundType={()=>{this.switchBackgroundType()}} backgroundType={'bg20'}/>
 
-            <div style={{position:'absolute',zIndex:9999,right:0}}>
+            <div style={{position:'absolute',zIndex:9999,right:40,top:120}}>
                 {this.state.bgSelectorActive&&this.BGSelector()}
                 {this.state.classSelectorActive&&this.ClassSelector()}
                 {this.state.fontSelectorActive&&this.FontSelector()}
