@@ -44,6 +44,7 @@ import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
 import web from "../images/bg/11.png";
+import {renderPackageName, renderPackagePhoto, renderStripeLink} from "./MarketingHeroPage";
 
 
 
@@ -397,45 +398,41 @@ console.log('is loaded template purchased?');
 
 
                             </div> </>:<>
-                        <h1 style={{textAlign:'center',paddingTop:80}} className="magOrange">Like the look? </h1>
-                        <h2 className="magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Get it online TODAY!</h2>
+                            <h1 style={{textAlign:'center',paddingTop:80}} className="magOrange">Like the look? </h1>
+                            <h2 className="magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Get it online TODAY!</h2>
 
-                        <div style={{paddingBottom:80,overflowY:'auto',display:'flex',justifyContent:'center',paddingTop:40}}>
-                            <div style={{display:'inline-flex',flexWrap:'wrap',paddingLeft:100,paddingRight:100,
-                                alignContent:'flex-start',alignItems:'space-around',justifyContent:'space-around',width:'100%'}}>
-                                <div>
-                                    <p style={{fontSize:22,color:'#505050'}}>Get online with the WebGun Basic package.</p>
-                                    <ul>
-                                        <li>
-                                            <p style={{color:'#505050'}}>• Additional content available*.</p>
-                                        </li>
-                                        <li>
-                                            <p style={{color:'#505050'}}>• Mobile optimized.</p>
-                                        </li>
-                                        <li>
-                                            <p style={{color:'#505050'}}>• Choose your own domain.</p>
-                                        </li>
-                                        <li>
-                                            <p style={{color:'#505050'}}>• Round the clock support.</p>
-                                        </li>
+                            <div style={{paddingBottom:80,overflowY:'auto',display:'flex',justifyContent:'center',paddingTop:40}}>
+                                <div style={{display:'inline-flex',flexWrap:'wrap',paddingLeft:100,paddingRight:100,
+                                    alignContent:'flex-start',alignItems:'space-around',justifyContent:'space-around',width:'100%'}}>
+                                    <div>
+                                        <p style={{fontSize:22,color:'#505050'}}>Get online with the {renderPackageName(cookie.get('referrer'))} package.</p>
+                                        <ul>
+                                            <li>
+                                                <p style={{color:'#505050'}}>• Additional content available*.</p>
+                                            </li>
+                                            <li>
+                                                <p style={{color:'#505050'}}>• Mobile optimized.</p>
+                                            </li>
+                                            <li>
+                                                <p style={{color:'#505050'}}>• Choose your own domain.</p>
+                                            </li>
+                                            <li>
+                                                <p style={{color:'#505050'}}>• Round the clock support.</p>
+                                            </li>
 
+                                        </ul>
+                                        <br />
+                                        <div onClick={()=>{
+                                            firebase.analytics().logEvent('sales_init_wg')
+                                            rootStore.pageStore.setIsPotentialCustomer(true);
+                                            //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
+                                            //https://buy.stripe.com/00gcQb4evf5654Q001
+                                            window.location.href=renderStripeLink(cookie.get('referrer'))}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
-                                    </ul>
-                                    <br />
-
-                                    <div onClick={()=>{
-                                        firebase.analytics().logEvent('sales_init_wg')
-                                        rootStore.pageStore.setIsPotentialCustomer(true);
-                                        //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
-                                        //https://buy.stripe.com/00gcQb4evf5654Q001
-                                            window.location.href = 'https://buy.stripe.com/00gcQb4evf5654Q001'
-                                    }} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
-
+                                    </div>
+                                    {renderPackagePhoto(cookie.get('referrer'))}
                                 </div>
-                                <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
-
                             </div>
-                        </div>
                         </>}
                     </div>
 

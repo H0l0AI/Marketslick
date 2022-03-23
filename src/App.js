@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import './SM.css';
+import qs from 'qs';
 import React from 'react';
 import { inject, observer } from 'mobx-react';
 import { Router, Route, Switch,useParams } from 'react-router-dom';
@@ -56,6 +57,12 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
     }
 
     componentDidMount(){
+        const query = qs.parse((window.location.search).replace('?', ''));
+        console.log(cookie.get('referrer'),'REF:')
+        if(query.referral!==undefined) {
+            console.log('QUERY:', query.referral,query.referral.length,typeof query.referral);
+            cookie.set('referrer', query.referral);
+        }
         console.log(rootStore.pageStore.code,'load code MAIN');
 
   /*      firebase.firestore().collection("templates").get().then((data)=>{

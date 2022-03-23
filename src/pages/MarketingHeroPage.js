@@ -44,6 +44,48 @@ import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
 
+export const renderPackageName = (ref)=>{
+    if(!ref){
+        return 'WebGun Basic'
+    }
+    else if(ref==='SM'){
+        return 'Marketing Magnet'
+    }
+    else{
+        return 'WebGun Basic'
+
+    }
+}
+export const renderStripeLink = (ref)=>{
+    if(!ref){
+        return 'https://buy.stripe.com/00gcQb4evf5654Q001'
+    }
+    else if(ref==='SM'){
+        return 'https://buy.stripe.com/9AQ7ub8HR42v9YA003'
+    }
+    else{
+        return 'https://buy.stripe.com/00gcQb4evf5654Q001'
+
+    }
+}
+export const renderPackagePhoto = (ref)=>{
+    if(!ref){
+        return     <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
+
+    }
+    else if(ref==='SM'){
+        return     <div className={`myDIV2 pricing59`}><img  src={p2} className="rounded-4" width="350" height={280}/></div>
+
+    }
+    else{
+        return     <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
+
+
+    }
+
+}
+
+
 export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div className="container">
         <div className="row align-items-center noXGutter">
@@ -460,7 +502,7 @@ export class MarketingHeroPage extends React.Component {
                                 <div style={{display:'inline-flex',flexWrap:'wrap',paddingLeft:100,paddingRight:100,
                                     alignContent:'flex-start',alignItems:'space-around',justifyContent:'space-around',width:'100%'}}>
                                     <div>
-                                        <p style={{fontSize:22,color:'#505050'}}>Get online with the WebGun Basic package.</p>
+                                        <p style={{fontSize:22,color:'#505050'}}>Get online with the {renderPackageName(cookie.get('referrer'))} package.</p>
                                         <ul>
                                             <li>
                                                 <p style={{color:'#505050'}}>• Additional content available*.</p>
@@ -482,10 +524,10 @@ export class MarketingHeroPage extends React.Component {
                                             rootStore.pageStore.setIsPotentialCustomer(true);
                                             //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
                                             //https://buy.stripe.com/00gcQb4evf5654Q001
-                                            window.location.href='https://buy.stripe.com/00gcQb4evf5654Q001'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+                                            window.location.href=renderStripeLink(cookie.get('referrer'))}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
                                     </div>
-                                    <div className="myDIV2 pricing29"><img  src={web} className="rounded-4" width="350" height={280}/></div>
+                                    {renderPackagePhoto(cookie.get('referrer'))}
                                 </div>
                             </div>
                         </>}
