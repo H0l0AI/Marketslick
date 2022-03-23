@@ -56,7 +56,7 @@ export const FileImporter =(props)=>{
 
     >
         <div className="upload-card" style={{color:'white'}}>
-            <input style={{visibility:'hidden'}} id={props.isSmall?'file-upload-logo':`file-upload-${props.index}${props.routeItemsIndex}`} type="file" onChange={(e)=>{
+            <input style={{visibility:'hidden'}} id={props.isSmall?'file-upload-logo':`file-upload-${props.index}${props.routeItemsIndex?props.routeItemsIndex:''}`} type="file" onChange={(e)=>{
                 console.log('TEST:',props.routeItemsIndex);
                 props.onChange(e,null,props.index,props.routeItemsIndex)}} />
             <div style={{width:'100%'}}>
@@ -68,10 +68,10 @@ export const FileImporter =(props)=>{
 
                 <div style={{height:props.isSmall?100:100,width:props.isSmall?100:100,marginTop:25,display:'flex',justifyContent:'center'}}>
                     {(props.uploadStatus==='loading')?loadingComponentUpload:(props.imageURL)?<div>
-                        <label id='drop-area-dos' htmlFor={props.isSmall?'file-upload-logo':`file-upload-${props.index}${props.routeItemsIndex}`} className="uploadedImageContainer done fadedshort" style={{height:props.isSmall?103:103,width:props.isSmall?103:103}}>
+                        <label id='drop-area-dos' htmlFor={props.isSmall?'file-upload-logo':`file-upload-${props.index}${props.routeItemsIndex?props.routeItemsIndex:''}`} className="uploadedImageContainer done fadedshort" style={{height:props.isSmall?103:103,width:props.isSmall?103:103}}>
                             <img className="uploadedImageContainer empty" height={props.isSmall?100:100} width={props.isSmall?100:100} src={props.imageURL}/>
                         </label>
-                    </div>:<label id="drop-area" htmlFor={props.isSmall?'file-upload-logo':`file-upload-${props.index}${props.routeItemsIndex}`} className="uploadedImageContainer fadedshort" style={{height:props.isSmall?100:100,width:props.isSmall?100:100,position:'relative',}}><span style={{fontSize:props.isSmall?20:20,top:props.isSmall?30:30,left:props.isSmall?23:23,position:'absolute'}}>Add +</span></label>}
+                    </div>:<label id="drop-area" htmlFor={props.isSmall?'file-upload-logo':`file-upload-${props.index}${props.routeItemsIndex?props.routeItemsIndex:''}`} className="uploadedImageContainer fadedshort" style={{height:props.isSmall?100:100,width:props.isSmall?100:100,position:'relative',}}><span style={{fontSize:props.isSmall?20:20,top:props.isSmall?30:30,left:props.isSmall?23:23,position:'absolute'}}>Add +</span></label>}
                 </div>
 
 

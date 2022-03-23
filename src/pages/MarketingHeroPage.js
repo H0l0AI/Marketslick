@@ -94,11 +94,11 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
         </h3>
         </div>
 
-        <div className=" text-white" style={{display:'flex',justifyContent:'space-around'}}>
+        <div className=" text-white" style={{display:'flex',justifyContent:'space-around',flexWrap:'wrap'}}>
             <div style={{display:'flex',justifyContent:'center'}}>
                 
             </div>
-            <div className="col-12 col-md-5">
+            <div className="col-12 col-md-5" style={{marginLeft:20}}>
                 <div className={`scroll-element js-scroll slide-left starting`}>
                     <div className="bg-dark p-4 rounded-4">
                         <div style={{display:'flex',justifyContent:'center'}}>

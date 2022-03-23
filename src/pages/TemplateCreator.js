@@ -998,7 +998,7 @@ export const NavBar = (props)=>(
                 <p style={{textAlign:'center'}}>Draft up a website here and preview it immediately! If you like what you see, you can checkout immediately after previewing. <br/>
                 Every marketing magnet subscription includes scope for additional development and polishing, so you don't sweat the small stuff! </p>
                 <div style={{textAlign:'center',marginTop:40,marginBottom:50,fontWeight:300}}>
-                    {rootStore.pageStore.userEmail? <h3>Select a template to get started</h3>:
+                    {rootStore.pageStore.userEmail? <p>Select a template to get started</p>:
                         <div style={{display:'flex',justifyContent:'space-evenly'}}>
                             <GoogleButton signUpHandler={signUpUsingSocial.bind(this)} />
                             <FacebookButton signUpHandler={()=>{}} />

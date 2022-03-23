@@ -630,7 +630,7 @@ export const NavBar = (props)=>(
                  </li>)}</ul>
                  </div>
              </div>; break;
-             case 'Extra':modalComponent=<><h3 style={{textAlign:'center',fontWeight:300}}>Need another page? You can have up to 4 on this plan.</h3>
+             case 'Extra':modalComponent=<><h3 style={{textAlign:'center',fontWeight:300}}>Create up to 4 extra pages.</h3>
                  <div style={{maxHeight:550,overflowY:'auto'}}>
                      {this.state.routeItems.map((route,ix)=>{
                          return(<>
@@ -729,7 +729,7 @@ export const NavBar = (props)=>(
 
              </>;break;
              case 'fourthPage': modalComponent = <>
-                 <h3 style={{textAlign:'center',fontWeight:300}}>Contact Page</h3>
+                 <h3 style={{textAlign:'center',fontWeight:300,padding:40}}>Contact Page</h3>
                  <div style={{marginTop:0}}>
                      <div style={{marginTop:20,padding:20,margin:0}}>
                          <div style={{display:'flex',justifyContent:'center'}}>
@@ -798,7 +798,7 @@ export const NavBar = (props)=>(
                      </div>
                  </div>
 
-                 <div className="container">
+                 <div className="container" style={{minWidth:350}}>
                      <div style={{display:'flex',justifyContent:'center'}}>
                      <div style={{paddingTop:0,display:'block',justifyContent:'center',width:'80%'}}>
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
@@ -845,8 +845,9 @@ export const NavBar = (props)=>(
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
                  </div>
-                 <div style={{position:'absolute',zIndex:8999,width:'90%'}}>
-                     <div style={{position:'absolute',right:'28%'}}>
+                 <div style={{zIndex:8999,width:'100%'}}>
+                     <div style={{height:'auto',display:'flex',justifyContent:'center',flexWrap:'wrap',minHeight:180}}>
+                     <div>
                          <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
                              <FileImporter isSmall={true} routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.logo} index={0} display={true}
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
@@ -855,12 +856,16 @@ export const NavBar = (props)=>(
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a branding logo</p>
                      </div>
 
-                     <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'center',width:'70%'}}>
-                         <FileImporter routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.imageURLArray[0]} index={0} display={true}
+                     <div>
+
+                        <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
+                            <FileImporter routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.imageURLArray[0]} index={0} display={true}
                                        uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                      </div>
-                     <p style={{color:'#0e1e46',textAlign:'center',width:'70%'}}>Add a banner image</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
+                     </div>
+                     </div>
                      <div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
                          <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
                              <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.titleContent} name={'titleContent'} />
@@ -892,8 +897,8 @@ export const NavBar = (props)=>(
             case 'LinkPage':buttonContent='Save and Show me'; break;
         }
          return(<>
-             <div style={{position:'relative',zIndex:999999,display:'flex',justifyContent:'center',padding:60}}>
-                 <div className={`templateMaker`} style={{width:'100%',margin:0,minHeight:'90.5vh',paddingBottom:100,position:'absolute',top:0,padding:60,paddingLeft:20,backgroundColor:'#ff2019',color:'#0e1e46'}}>
+             <div style={{position:'relative',zIndex:999999,display:'flex',justifyContent:'center',padding:'7%'}}>
+                 <div className={`templateMaker`} style={{width:'100%',margin:0,minHeight:'90.5vh',paddingBottom:100,position:'absolute',top:0,padding:'7%',backgroundColor:'#ff2019',color:'#0e1e46'}}>
                     {/* <div style={{position:'relative',zIndex:9999}}>
                          <div style={{display:'flex',flexDirection:'column',position:'absolute',border:'1px solid #fff',padding:10,borderRadius:0,borderLeft:'none',left:-20}}>
                              <div onClick={()=>{
@@ -914,22 +919,20 @@ export const NavBar = (props)=>(
                          </div>
 
                      </div>*/}
-                     <div style={{paddingLeft:90}}>
+                     <div>
                          {this.state.editModal==='frontPage'&&<>
 
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <p style={{fontSize:26,fontWeight:100,textAlign:'center'}}>{cookie.get('code')?'Your':'Choose a'} domain name</p>
+                             <p style={{fontSize:26,fontWeight:100,textAlign:'center'}}>{cookie.get('code')?'Your':'First, choose a'} domain name</p>
 
                          </div>
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <input disabled={cookie.get('code')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain name'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
+                             <input disabled={cookie.get('code')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
                          </div></>}
                      {modalComponent}
                      </div>
 
                  <div style={{display:'flex',justifyContent:'center'}}>
-                     {this.state.editModal==='fourthPage'&&<div style={{display:'flex',justifyContent:'center',marginRight:20}} onClick={()=>{this.setState({editModal:'Extra'})}} className="altButton whiteButton magOrange">Add another page</div>}
-                     {this.state.editModal==='fourthPage'&&<div style={{display:'flex',justifyContent:'center',marginRight:20}} onClick={()=>{this.setState({editModal:'LinkPage'})}} className="altButton whiteButton magOrange newFeature">Create Link Tree</div>}
                      <div style={{display:'flex',justifyContent:'center',marginLeft:20}} onClick={()=>{
                      let nextPage = '';
                      switch(this.state.editModal){
@@ -1046,9 +1049,9 @@ export const NavBar = (props)=>(
                 {this.state.classSelectorActive&&this.ClassSelector()}
                 {this.state.fontSelectorActive&&this.FontSelector()}
             </div>
-            {this.state.colorSelectorModal&&<div style={{position:'relative',zIndex:9998,display:'flex',justifyContent:'center'}}><div className={'templateMaker'} style={{width:'100%',margin:0,height:1200,position:'absolute',top:0,padding:60,backgroundColor:'#ff2019',color:'#0e1e46'}}>
+            {this.state.colorSelectorModal&&<div style={{position:'relative',zIndex:9998,display:'flex',justifyContent:'center'}}><div className={'templateMaker'} style={{width:'100%',margin:0,height:1200,position:'absolute',top:0,padding:'7%',backgroundColor:'#ff2019',color:'#0e1e46'}}>
                 {this.state.continueModal?<div className="fadedshort">
-                    <h4 style={{textAlign:'center',fontWeight:300}}>Select your background and primary color theme by clicking on the element you want to change.</h4>
+                    <p style={{textAlign:'center',fontWeight:300,fontSize:24}}>Select your background and primary color theme by clicking on the element you want to change.</p>
                     <div style={{display:'flex',justifyContent:'center'}}>
                         <div>
                             <div onClick={()=>{this.renderBGSelector(true)}} style={{cursor:'pointer',margin:30,padding:20,backgroundColor:this.state.backgroundType.hex}}>
@@ -1070,12 +1073,13 @@ export const NavBar = (props)=>(
 
                 </div>:<><p style={{textAlign:'center',fontSize:36}}>Become more established with a website, build one with us in minutes.</p>
                 <p style={{fontSize:22,textAlign:'center'}}>Let our intelligent website builder design and create a valuable customer/client touch point, bespoke to your needs.<br/>
+                    Just select a template to get started.
 
                 </p>
                 <div style={{textAlign:'center',marginTop:40,marginBottom:50,fontWeight:300}}>
-                    {rootStore.pageStore.userEmail? <h3>Select a template to get started</h3>:
+                    {rootStore.pageStore.userEmail? <p></p>:
                         <>
-                            <div style={{display:'flex',justifyContent:'center',height:120}}>
+                            <div style={{display:'flex',justifyContent:'center',minHeight:120,flexWrap:'wrap'}}>
                                 <div>
                             <div style={{position:'relative'}}>
                                 <div style={{position:'absolute',fontSize:12,fontWeight:700,paddingTop:15,width:80, marginLeft:18}}>Your email</div>
@@ -1103,7 +1107,7 @@ export const NavBar = (props)=>(
                                     <div style={{position:'absolute',fontSize:12,fontWeight:700,paddingTop:15,marginLeft:18}}>Password</div>
                                 </div>
                                 <input
-                                    style={{ border:'1px solid #C3C4C9',borderRadius:4,width:425}}
+                                    style={{ border:'1px solid #C3C4C9',borderRadius:4,width:250}}
                                     type="password"
                                     name="password"
                                     id="password"
@@ -1122,22 +1126,34 @@ export const NavBar = (props)=>(
                                 />
                                 </div>
                         </div>
+                            <br />
+                            <div style={{display:'flex',justifyContent:'center'}}>
+                            <div style={{width:250,height:50,lineHeight:'44px',cursor:'pointer'}} className="sign-up-button google-sign-up" onClick={()=>{
+                                rootStore.pageStore.signUpUsingEmail(this.state.emailFormFields);
+                            }}>
+                                Continue
+                            </div>
+                            </div>
                             <div className="separator" style={{marginLeft:100,marginRight:100}}>
                                 <span className="separator-text" style={{backgroundColor:'#f5f4fa'}}>Or sign up with</span>
                             </div>
-                        <div style={{display:'flex',justifyContent:'space-evenly'}}>
+                        <div style={{display:'flex',justifyContent:'space-evenly',flexWrap:'wrap'}}>
+                            <div style={{margin:10}}>
                             <GoogleButton signUpHandler={signUpUsingSocial.bind(this)} />
+                            </div>
+                            <div style={{margin:10}}>
                             <FacebookButton signUpHandler={()=>{}} />
+                            </div>
 
                         </div></>}
                 </div>
-                    {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40}}>
-                        <div style={{position:'relative',cursor:'pointer'}} onClick={()=>{this.setState({templateSelected:'dm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24}}>Digital Marketing</p>
-                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7}} width={400} src={mm1} /></div>
-                        <div style={{position:'relative',cursor:'pointer'}}  onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24}}>E-commerce and Services</p>
-                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7}} height={700} src={property} /></div>
+                    {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40,flexWrap:'wrap'}}>
+                        <div style={{position:'relative',cursor:'pointer',marginTop:40}} onClick={()=>{this.setState({templateSelected:'dm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
+                            <p style={{fontSize:24,marginBottom:10}}>Digital Marketing</p>
+                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} /></div>
+                        <div style={{position:'relative',cursor:'pointer',marginTop:40}}  onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
+                            <p style={{fontSize:24,marginBottom:10}}>Trades and Services</p>
+                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={property} /></div>
 
                     </div>:null}
                <div style={{display:'flex',justifyContent:'center',marginTop:30}}></div></>}
