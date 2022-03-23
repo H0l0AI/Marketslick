@@ -465,6 +465,29 @@ export class MarketingHeroPage extends React.Component {
             return { content };
         });
     };
+    async createWebsiteNow(){
+        let orderNumber = null;
+        let code = cookie.get('code');
+        console.log('set code:',code);
+        firebase.firestore().collection("orders").get().then((data)=>{
+            orderNumber = data.docs.length
+            console.log('set order:',orderNumber,'to',data);
+
+            firebase.firestore().collection("orders").doc(`${orderNumber}-MM-${code}`).set({code:code,pw:cookie.get('pw')||'admin'})
+                .then(() => {
+                    console.log("Document successfully written!, ORDER:",orderNumber);
+                    this.setState({
+                        orderNumber:orderNumber,
+                    });
+                    return rootStore.pageStore.createWebsite(code,this.state.content);
+                })
+
+
+                .catch((error) => {
+                    console.error("Error writing document with ORDER ",orderNumber, error);
+                });
+        });
+    }
     render(){
         let customerHasPaid = cookie.get('hasPaid')==='true';
         console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
@@ -522,9 +545,18 @@ export class MarketingHeroPage extends React.Component {
                                         <div onClick={()=>{
                                             firebase.analytics().logEvent('sales_init_wg')
                                             rootStore.pageStore.setIsPotentialCustomer(true);
+                                            if(cookie.get('referrer')==='SM') {
+                                                return this.createWebsiteNow().then(()=>{
+                                                    window.location.href=renderStripeLink(cookie.get('referrer'))
+                                                })
+                                            }
+                                            else{
+                                                window.location.href=renderStripeLink(cookie.get('referrer'))
+                                            }
+
                                             //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
                                             //https://buy.stripe.com/00gcQb4evf5654Q001
-                                            window.location.href=renderStripeLink(cookie.get('referrer'))}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+                                      }} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
                                     </div>
                                     {renderPackagePhoto(cookie.get('referrer'))}
