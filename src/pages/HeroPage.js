@@ -313,30 +313,35 @@ console.log('is loaded template purchased?');
                     </div>
 
                 </div>
-                <div className={`mainColor secondaryBackgroundColor`} style={{backgroundColor:this.state.content.class, fontSize: 20,paddingBottom:50}}>
-                    <div className="container">
-
-                        <div style={{paddingTop:60}}>
-                            <div>
-                                <div style={{padding:33,opacity:1,width:'100%',color:this.state.content.font}}>
-                                    <div className="px-4">
-                                        <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
                 <div className="py-6 bg-mainColor">
                     <div style={{backgroundColor:this.state.content.backgroundType}}>
                         <div className={`container secondaryBackgroundColor`} style={{backgroundColor:this.state.content.class}}>
                             <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:70}}>
-                                <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[1]||logo} alt="" width="50%"/></div>
+                                <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[2]||logo} alt="" width="50%"/></div>
                                 <div style={{width: '55%',minWidth:300}}>
 
                                     <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContentTitle}</h3>
                                     <p style={{fontSize:18,paddingLeft:15,paddingTop:10,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContent}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
+                            <div className="container">
+
+                                <div style={{paddingTop:60}}>
+                                    <div className={`scrollContainer`} style={{borderRadius:12,backgroundColor:this.state.content.backgroundType}}>
+                                        <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
+                                            <div className="px-4">
+                                                <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces',textAlign:'center'}}>{this.state.content.supportingHeading}</h2></p>
+                                            </div>
+                                            <br/>
+                                            <div>
+                                            </div>
+                                            <div className="px-4">
+                                                <p style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading2}</p>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

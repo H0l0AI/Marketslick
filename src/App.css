@@ -1652,3 +1652,8 @@ body.dark-discord .border-dark {
   background-color: #f5f4fa !important;
   color: #0e1632 !important;
 }
+.photoCoverBG{
+  background-position: center center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: fixed; /* Resize the background image to cover the entire container */
+}
