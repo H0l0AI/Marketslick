@@ -811,7 +811,7 @@ export const NavBar = (props)=>(
                                  <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
                                      <div>
 
-                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[3]} index={3} display={true} routeItemsIndex={null}
+                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[2]} index={2} display={true} routeItemsIndex={null}
                                                        uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                                      </div>

@@ -307,9 +307,6 @@ console.log('is loaded template purchased?');
                                 </div>
                             </div>
                         </div>
-                        <div className={`blurTest secondaryBackgroundColor ${this.state.content.class}`} style={{height:790,minWidth:375,width:'100%',zIndex:900,position:'absolute'}}>
-
-                        </div>
                         <div className="myDIV" style={{minHeight:900}}>
                             <img onClick={()=>{this.nextImage()}}  key={this.state.currentMainImage}  src={this.state.content.imageURLArray&&this.state.content.imageURLArray[0]} className="fadedshort" style={{width:'100%',height:790,objectFit:'cover'}}/></div>
 
@@ -321,7 +318,7 @@ console.log('is loaded template purchased?');
 
                         <div style={{paddingTop:60}}>
                             <div>
-                                <div className={`supportingColor`} style={{padding:33,opacity:1,width:'100%'}}>
+                                <div style={{padding:33,opacity:1,width:'100%',color:this.state.content.font}}>
                                     <div className="px-4">
                                         <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
                                     </div>
@@ -338,8 +335,8 @@ console.log('is loaded template purchased?');
                                 <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[1]||logo} alt="" width="50%"/></div>
                                 <div style={{width: '55%',minWidth:300}}>
 
-                                    <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
-                                    <p style={{fontSize:18,paddingLeft:15,paddingTop:10,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContent}</p>
+                                    <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContentTitle}</h3>
+                                    <p style={{fontSize:18,paddingLeft:15,paddingTop:10,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContent}</p>
                                 </div>
                             </div>
                         </div>
@@ -347,8 +344,8 @@ console.log('is loaded template purchased?');
                             <div className={`supportingColor secondaryBackgroundColor`} style={{marginTop:40,padding:40,margin:0,backgroundColor:this.state.content.class}}>
                                 <div style={{display:'flex',justifyContent:'center'}}>
                                     <div>
-                                        <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
-                                        <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
+                                        <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:`1px solid ${this.state.content.font}`,marginBottom:0,color:this.state.content.font}}>{this.state.content.contactTitle}<br /></h2>
+                                        <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces',color:this.state.content.font}}>
                                             {this.state.content.contactBlurb}
                                             <br />
                                             <br />
@@ -407,7 +404,7 @@ console.log('is loaded template purchased?');
                 })}*/}
 
 
-                <div className={`mainImageBackground text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{zIndex:999,paddingTop:0}}>
+                <div className={`mainImageBackground`} style={{zIndex:999,paddingTop:0}}>
                     <div style={{backgroundColor:'#fff'}} >
                         {customerHasPaid ?<>
                             <h2 className = "magOrange" style={{color:'#d9d9d9',textAlign:'center',marginTop:10,marginBottom:20}}>Made some changes and need to order a revision?</h2>
