@@ -1644,7 +1644,7 @@ body.dark-discord .border-dark {
 .photoCoverBG{
   background-position: center center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: fixed; /* Resize the background image to cover the entire container */
+  background-size: cover !important; /* Resize the background image to cover the entire container */
 }
 
 *::-webkit-scrollbar {

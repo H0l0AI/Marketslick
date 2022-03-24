@@ -188,33 +188,32 @@ export class HeroPage extends React.Component {
                     <div>
                         <div style={{position:'absolute',zIndex:8999,width:'100%'}}>
                             <div style={{paddingTop:80,marginBottom:0,display:'flex',justifyContent:'center',width:'100%'}}>
+                                <img style={{maxWidth:350}} src={this.state.content.logo||logo} />
                             </div>
-                            <div style={{display:'flex',justifyContent:'center',paddingTop:20}}>
-                                <div style={{padding:60,backgroundColor:this.state.content.backgroundType}}>
-                                <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
-                                    <h1 style={{fontSize:60}}>{this.state.content.titleContent}</h1>                               <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces'}} className="mb-4">
-    {this.state.content.titleBlurb}
-</p>
+                            <div style={{display:'flex',justifyContent:'center'}}>
+                                <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
+                                    <h1>{this.state.content.titleContent}</h1>                               <p style={{fontSize:20,marginLeft:0}} className="mb-4">
+                                    {this.state.content.titleBlurb}
+                                </p>
                                     <div style={{display: 'flex', justifyContent: 'center'}}>
                                         <div className="altButtonOuter" onClick={()=>{
                                             firebase.analytics().logEvent('view_contact_btn');
                                             this.contactRef.current.scrollIntoView();
                                         }}>
-                                            <div className="altButton" style={{backgroundColor:this.state.content.class}}>
+                                            <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
                                                 Contact Us
                                             </div>
                                         </div>
-                                        {this.state.content.mainButtonLink&&<div className="templateCTA" onClick={()=>{
+                                        <div className="templateCTA" onClick={()=>{
                                             firebase.analytics().logEvent('view_range_btn');
                                             window.location.href=this.state.content.mainButtonLink
                                         }} >
-                                            <div className="altButton" style={{backgroundColor:this.state.content.class}}>
+                                            <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
                                                 {this.state.content.mainButtonTitle||'Apply Now'}
                                             </div>
-                                        </div>}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                         <div className="myDIV photoCoverBG" style={{minHeight:788,backgroundImage: "url(" + this.state.content.imageURLArray[0] + ")"}}>
