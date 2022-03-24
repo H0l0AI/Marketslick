@@ -124,7 +124,7 @@ export const SecondaryContent =(props)=>(<div className={`py-5`} style={{backgro
         </h3>
         <p className="mb-4" style={{textAlign:'center'}}>{props.content.p3Content1}</p>
         <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
-            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
+            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[2]||props.content.p3ContentPhoto} />
         </div>
     </div>
 </div>);
