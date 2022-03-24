@@ -325,7 +325,7 @@ console.log('is loaded template purchased?');
                                 </div>
                             </div>
                         </div>
-                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
+                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray?this.state.content.imageURLArray[1]:logo + ")"}}>
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>
