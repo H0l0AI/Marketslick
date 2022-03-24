@@ -78,7 +78,7 @@ export const SecondaryContent =(props)=>(<div className='py-5' style={{color:pro
         </h3>
         <p className="mb-4" style={{textAlign:'center'}}>{props.content.p3Content1}</p>
         <div style={{display:'flex',justifyContent:'center',marginBottom:40}}>
-            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[3]||props.content.p3ContentPhoto} />
+            <img style={{borderRadius:8}} src={props.content.imageURLArray&&props.content.imageURLArray[2]||props.content.p3ContentPhoto} />
         </div>
     </div>
 </div>);
@@ -100,7 +100,7 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
                         <h1>{props.content.secondaryHeading1}</h1>
                         {props.content.secondaryContent1}
                         <div style={{display:'flex',justifyContent:'center'}}>
-                            <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[2]:logo} width={300} />
+                            <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[3]:logo} width={300} />
                         </div>
 
                     </div>
