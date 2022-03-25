@@ -78,6 +78,11 @@ export function initializeFirebase(){
 export async function signUpUsingEmail(fields) {
     cookie.set('isEmailLogin',true);
     return firebase.auth().createUserWithEmailAndPassword(fields.email, fields.password).catch((error) => {
+        firebase.auth().signInWithEmailAndPassword(fields.email,fields.password).catch((e)=>{
+            console.log(e)
+            cookie.set('isEmailLogin',false);
+
+        })
        console.log('...',error);
         cookie.set('isEmailLogin',false);
 

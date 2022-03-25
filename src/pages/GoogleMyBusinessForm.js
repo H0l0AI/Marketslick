@@ -67,7 +67,7 @@ import _ from 'lodash';
     render(){
         return(<div style={{display:'flex',justifyContent:'center'}}>
                 <div style={{zIndex:999,width:'40%',minWidth:370,maxHeight:230,backgroundColor:'transparent',borderRadius:12,overflowY:'auto',overflowX:'hidden'}}>
-                    {(!this.state.userHasClickedOption) ?<div>
+                    {(!this.state.userHasClickedOption&&!this.props.selectedBusinessInfo) ?<div>
                         <input
                             style={{ width: '100%' }}
                             type="text"

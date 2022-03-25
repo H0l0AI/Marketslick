@@ -123,6 +123,7 @@ export const NavBar = (props)=>(
         super(props);
         this.contactRef = React.createRef()
         this.state={
+            code:cookie.get('code'),
             emailFormFields:{
                 email:'',
                 password:'',
@@ -242,7 +243,7 @@ export const NavBar = (props)=>(
                 const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live'));
                 if(dataToLoad&&dataToLoad.data()) {
                     console.log(dataToLoad.data(),'LOAD');
-                    this.setState({code:rootStore.pageStore.code||code,content: dataToLoad.data().content,mainArray:[dataToLoad.data().content.imageURLArray?dataToLoad.data().content.imageURLArray[0]:null]})
+                    this.setState({selectedBusinessInfo:dataToLoad.data().content.businessInfo,logo:dataToLoad.data().content.logo,imageURLArray:dataToLoad.data().content.imageURLArray,code:rootStore.pageStore.code||code,content: dataToLoad.data().content,mainArray:[dataToLoad.data().content.imageURLArray?dataToLoad.data().content.imageURLArray[0]:null]})
                     return console.log('images:',this.state.imageURLArray);
                 }
             })
@@ -250,7 +251,7 @@ export const NavBar = (props)=>(
         else{
             if(userSubmittedTemplated){
                 console.log('USER SUBMITTED:',userSubmittedTemplated);
-                this.setState({code:rootStore.pageStore.code||code,userContinued:true,editModal:'frontPage',colorSelectorModal:false,content: userSubmittedTemplated.content,mainArray:[userSubmittedTemplated.content.imageURLArray?userSubmittedTemplated.content.imageURLArray[0]:null]})
+                this.setState({selectedBusinessInfo:userSubmittedTemplated.content.businessInfo,imageURLArray:userSubmittedTemplated.content.imageURLArray,logo:userSubmittedTemplated.content.logo,code:rootStore.pageStore.code||code,userContinued:true,editModal:'frontPage',colorSelectorModal:false,content: userSubmittedTemplated.content,mainArray:[userSubmittedTemplated.content.imageURLArray?userSubmittedTemplated.content.imageURLArray[0]:null]})
 
             }
             code = Math.floor(Math.random()*10000);
@@ -927,7 +928,7 @@ export const NavBar = (props)=>(
 
                          </div>
                          <div style={{display:'flex',justifyContent:'center'}}>
-                             <input disabled={cookie.get('code')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code||cookie.get('code')} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
+                             <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
                          </div></>}
                      {modalComponent}
                      </div>
