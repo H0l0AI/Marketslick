@@ -433,29 +433,30 @@ a,h1,h2,h3,h4,h5,h6,.navbar-brand,
   background: url("images/bg/6.png") no-repeat center center fixed;
 }
 .BGX{
-  background: -webkit-linear-gradient(#141464, hsl(244, 33%, 25%));
-  background: -moz-linear-gradient(#141464,hsl(244, 33%, 25%));
-  background: -o-linear-gradient(#141464,hsl(244, 33%, 25%));
-  background: linear-gradient(#141464,hsl(244, 33%, 25%));
+  background: -webkit-linear-gradient(#000000, hsl(245, 8%, 30%));
+  background: -moz-linear-gradient(#000000, hsl(245, 8%, 30%));
+  background: -o-linear-gradient(#000000, hsl(245, 8%, 30%));
+  background: linear-gradient(#000000, hsl(245, 8%, 30%));
 }
 .BG2x{
-  background: -webkit-linear-gradient(#0e1e46, #14146450);
-  background: -moz-linear-gradient(#0e1e46, #14146450);
-  background: -o-linear-gradient(#0e1e46, #14146450);
-  background: linear-gradient(#0e1e46, #14146450);
+  background: -webkit-linear-gradient(hsl(245, 8%, 30%), #000000);
+  background: -moz-linear-gradient(hsl(245, 8%, 30%), #000000);
+  background: -o-linear-gradient(hsl(245, 8%, 30%), #000000);
+  background: linear-gradient(hsl(245, 8%, 30%), #000000);
 }
 .photoCoverBG{
   background: url("images/bg22.png") no-repeat center center fixed ;
 }
 .coolPhotoBG{
-  background:url('images/coolPhoto.png') no-repeat center center;
+  background:url('images/36.png');
+  background-origin: center;
+  background-repeat: repeat;
+  background-size: cover;
 }
 .styledBGCover{
   border-radius: 12px;
-  background: -webkit-linear-gradient(#0e1e46, #14146450);
-  background: -moz-linear-gradient(#0e1e46, #14146450);
-  background: -o-linear-gradient(#0e1e46, #14146450);
-  background: linear-gradient(#0e1e46, #14146450);
+  background-color: #000000;
+  opacity: 0.8;
 }
 
 .BG3x{
@@ -465,10 +466,10 @@ a,h1,h2,h3,h4,h5,h6,.navbar-brand,
   background: linear-gradient(#14146450,#0e1e46);
 }
 .BG3xText{
-  background: -webkit-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
-  background: -moz-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
-  background: -o-linear-gradient(rgba(20, 20, 100, 0.9),#0e1e46);
-  background: linear-gradient(rgba(20, 20, 100, 0.8),#0e1e46);
+  background: -webkit-linear-gradient(#1d1f24, hsl(245, 8%, 30%));
+  background: -moz-linear-gradient(#000000, hsl(245, 8%, 30%));
+  background: -o-linear-gradient(#000000, hsl(245, 8%, 30%));
+  background: linear-gradient(#000000, hsl(245, 8%, 30%));
 }
 .bg13{
   background: url("images/bg/7.png") no-repeat center center fixed;
@@ -1355,7 +1356,7 @@ body.dark-discord .border-dark {
   background-color: #4f4f4f !important;
 }
 .two{
-  background-color: #0e1e46 !important;
+  background-color: #1D1F24 !important;
 }
 .three{
   background-color: #3f4a44 !important;

@@ -9,8 +9,8 @@ import cookie from 'js-cookie';
 import logo from '../images/esss22.png'
 import i13 from '../images/274522159_483748549942738_1765706477025994385_n.jpg'
 import aboutMePhoto from '../images/aboutMe.jpg'
-import logo1 from '../images/logo1.png'
-import logowords from '../images/logowords.png'
+import logo1 from '../images/ti1.png'
+import logowords from '../images/logo_1.jpg'
 import coolPhoto from '../images/coolPhoto.png'
 
 
