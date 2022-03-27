@@ -241,7 +241,7 @@ export class HeroPage extends React.Component {
                                 <div className="styledBGCover" style={{padding:0}}>
                                 <div style={{padding:30,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:0,paddingRight:0,textAlign:'center'}}>
                                     <img src={logowords} width={'100%'} />
-                                    <p style={{fontSize:20,marginLeft:0,fontWeight:700,whiteSpace:'break-spaces',paddingTop:30}} className="mb-4">
+                                    <p style={{fontSize:'1.5rem',marginLeft:0,fontWeight:700,whiteSpace:'break-spaces',paddingTop:30}} className="mb-4">
     {this.state.content.titleBlurb}
 </p>
                                     <div style={{display: 'flex', justifyContent: 'center'}}>
@@ -295,8 +295,8 @@ export class HeroPage extends React.Component {
                                 <div style={{maxWidth:'52vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{paddingLeft:0,margin:30,width:'44vw',minWidth:350,borderRadius:4}} src={aboutMePhoto} alt="" width="50%"/></div></div>
                                 <div style={{maxWidth:'49vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,padding:20}}>
 
-                                    <h3 style={{fontSize:40,paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
-                                    <p style={{minWidth:300,paddingLeft:0,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent1}</p>
+                                    <h3 style={{fontSize:'2.5rem',paddingLeft:0,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
+                                    <p style={{minWidth:300,paddingLeft:0,paddingTop:10,fontSize:'1rem',whiteSpace:'break-spaces',paddingBottom:10,borderBottom:'1px solid #fff'}}>{this.state.content.secondaryContent1}</p>
                                 </div></div>
                             </div>
                         </div>
@@ -308,13 +308,13 @@ export class HeroPage extends React.Component {
                                     <div className="scrollContainer BG3xText">
                                         <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
                                             <div className="px-4">
-                                                <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
+                                                <p><h2 style={{fontSize:'2.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading}</h2></p>
                                             </div>
                                             <br/>
                                             <div>
                                             </div>
                                             <div className="px-4">
-                                                <p style={{fontSize:'1.5rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading2}</p>
+                                                <p style={{fontSize:'1rem',whiteSpace:'break-spaces'}}>{this.state.content.supportingHeading2}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -325,8 +325,8 @@ export class HeroPage extends React.Component {
                             <div className={`supportingColor secondaryBackgroundColor BG2x`} style={{marginTop:40,padding:40,margin:0,paddingBottom:200}}>
                                 <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
-                                        <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
-                                        <p style={{fontSize:20,marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
+                                        <h2 style={{fontSize:'2.5rem',fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
+                                        <p style={{fontSize:'1rem',marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
                                             {this.state.content.contactBlurb}
                                             <br />
                                             <br />

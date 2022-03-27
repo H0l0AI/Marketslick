@@ -155,10 +155,10 @@ export class Portfolio extends React.Component {
                 <div style={{width:'100%',height:30}}>
                     <div onClick={()=>{this.setState({imgSelected:null})}} style={{float:'right',cursor:'pointer',paddingRight:5,paddingTop:5,color:'#fff',fontSize:20,fontWeight:900}}><i className="material-icons">close</i></div>
                 </div>
-                <div style={{padding:30,paddingTop:0, display:'flex',justifyContent:'center',width:'98vw',height:'82vh'}}>
+                <div style={{padding:30,paddingTop:0, display:'flex',justifyContent:'center',width:'98vw',height:'74vh'}}>
                     <img style={{objectFit:'scale-down',width:'100%'}}  src={images[this.state.imgSelected]}/></div>
             </div>}</div>
-            <div className={`${this.state.content.backgroundType} text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{height:'82vh'}}>
+            <div className={`${this.state.content.backgroundType} text-white ${this.state.imgSelected&&'selectedPopupOpaque'}`} style={{height:'74vh'}}>
                 <div>
                     <div style={{height:'80vh',overflowY:'auto',display:'flex',justifyContent:'center'}}>
                         <div style={{display:'inline-flex',flexWrap:'wrap',placeContent:'space-around',alignContent:'space-between'}}>

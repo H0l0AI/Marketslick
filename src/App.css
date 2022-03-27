@@ -91,10 +91,10 @@ body.dark-discord{
 }
 h1,h2,h3,h4,h5,h6,.navbar-brand,
 .h1,.h2,.h3,.h4,.h5,.h6,.navbar-brand{
-  font-family: 'Contrail One', cursive; font-weight: 900 !important;
+  font-family: 'Teko', sans-serif; font-weight: 900 !important;
 }
 p{
-  font-family: 'Montserrat', sans-serif;  font-weight:300 !important;
+  font-family: 'Be Vietnam Pro', sans-serif;  font-weight:300 !important;
 
 }
 .nav-item{
@@ -269,7 +269,7 @@ html {
   color:#fff !important;
 }
 body{
-  font-family: 'Montserrat', sans-serif;
+  font-family: 'Be Vietnam Pro', sans-serif;
   font-weight: 400;
 }
 body.dark{
@@ -289,7 +289,7 @@ body.dark-discord{
 }
 a,h1,h2,h3,h4,h5,h6,.navbar-brand,
 .h1,.h2,.h3,.h4,.h5,.h6,.navbar-brand,.altButton{
-  font-family: 'Contrail One', serif;  font-weight:900 !important;
+  font-family: 'Teko', sans-serif;  font-weight:500 !important;
 }
 .navbar-brand{
   cursor: pointer;
