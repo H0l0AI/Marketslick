@@ -59,7 +59,14 @@ async function caseDetailById(useCaseId) {
                 Authentication: `Bearer ${API_KEY}`,
                 "Content-Type": "application/json",
             },
-        }).then((res)=>{console.log('CURRENT USAGE',res); return res});
+        }).then((res)=>{console.log('CURRENT USAGE',res);
+        let unitTotal=0;
+        res.data.data.map((instance)=>{
+            unitTotal+=instance.units;
+
+        })
+            console.log(unitTotal,(unitTotal/10000)*0.75,'Total....');
+        return res});
         return axios({
             method: "get",
             url: PROXY_URL+`https://api.rytr.me/v1/use-cases/${useCaseId}`,

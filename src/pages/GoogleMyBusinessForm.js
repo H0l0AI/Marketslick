@@ -67,7 +67,7 @@ import _ from 'lodash';
     render(){
         return(<div style={{display:'flex',justifyContent:'center'}}>
                 <div style={{zIndex:999,width:'40%',minWidth:370,maxHeight:230,backgroundColor:'transparent',borderRadius:12,overflowY:'auto',overflowX:'hidden'}}>
-                    {(!this.state.userHasClickedOption&&!this.props.selectedBusinessInfo) ?<div>
+                    {(!this.state.userHasClickedOption&&!this.props.selectedBusinessInfo.types) ?<div>
                         <input
                             style={{ width: '100%' }}
                             type="text"
@@ -88,7 +88,7 @@ import _ from 'lodash';
 
 
                         <h3 style={{padding:10}}>{this.props.selectedBusinessInfo.name}</h3><br />
-                            <div style={{maxWidth:'100%',overflowX:'auto'}}>{this.renderTypes(this.props.selectedBusinessInfo.types)}</div>
+                            <div style={{maxWidth:'100%',overflowX:'auto'}}>{this.props.selectedBusinessInfo.types&&this.renderTypes(this.props.selectedBusinessInfo.types)}</div>
                             <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>{this.props.selectedBusinessInfo.phoneNumber}</div></div>
                             <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:0,left:0}} className="material-icons">map</i> </div><div style={{marginLeft:40}}><b></b>{this.props.selectedBusinessInfo.address}</div></div>
                         </div>:null}
