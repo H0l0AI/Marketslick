@@ -48,7 +48,7 @@ export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.b
                     <h3 style={{fontSize:36}} className="mb-4">{props.content.titleContent}</h3>
                     <p clas="mb-4">{props.content.titleBlurb}</p>
                     <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
-                       className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}><i style={{position:'absolute',top:4,right:-30 }} className={'material-icons large'}>shopping_cart</i></div> {props.content.mainButtonTitle||"Your shop link here"}
+                       className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}></div> {props.content.mainButtonTitle||"Your shop link here"}
                     </a>
                 </div>
             </div>
@@ -76,7 +76,7 @@ export const SecondaryContent =(props)=>(<div className='py-5' style={{color:pro
         <h3 style={{fontSize:28,marginTop:140}}  className="mb-5 text-center"><span
             className="mx-auto d-inline-block rounded-pill bg-white border p-4 mb-0 shadow text-dark">{props.content.p3Heading1}</span>
         </h3>
-        <p className="mb-4" style={{textAlign:'center'}}>{props.content.p3Content1}</p>
+        <p className="mb-4" style={{textAlign:'center',paddingLeft:20,paddingRight:20}}>{props.content.p3Content1}</p>
     </div>
 </div>);
 export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgroundColor:props.content.backgroundType,color:props.content.font}} id="ecosystem">
@@ -93,7 +93,7 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
             </div>
             <div className="col-12 col-md-5">
                 <div className={`scroll-element js-scroll slide-left starting`}>
-                    <div className="bg-dark p-4 rounded-4">
+                    <div className="p-4 rounded-4" style={{backgroundColor:props.content.class}}>
                         <h1>{props.content.secondaryHeading1}</h1>
                         {props.content.secondaryContent1}
                         <div style={{display:'flex',justifyContent:'center'}}>
@@ -106,7 +106,7 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
             </div>
             <div className="col-12 col-md-5">
                 <div className={`scroll-element js-scroll slide-right starting`}>
-                    <div className="bg-dark p-4 rounded-4">
+                    <div className="p-4 rounded-4" style={{backgroundColor:props.content.class}}>
                         <p>{props.content.secondaryContent}</p>
 
                     </div>
@@ -162,7 +162,7 @@ export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:
                 <div className="px-4">
 
                     <div>
-                        <div className="bg-dark p-4 rounded-4 mt-4 mt-md-0" style={{marginBottom:30}}>
+                        <div className="p-4 rounded-4 mt-4 mt-md-0" style={{marginBottom:30,backgroundColor:props.content.backgroundType}}>
                             <h4>{props.content.contactTitle}</h4>
                             <p>{props.content.contactBlurb}</p>
                             <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>

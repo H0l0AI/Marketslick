@@ -127,9 +127,7 @@ h1,h2,h3,h4,h5,h6,.navbar-brand,
 .rounded-4 {
   border-radius: 1rem!important;
 }
-.bg-dark{
-  background: #211a2a !important;
-}
+
 
 .py-6{
   padding-top:5rem;
@@ -193,16 +191,7 @@ py-6{
 body.dark-blue .border-dark{
   border-color:#0e1e46 !important;
 }
-.bg-dark{
-  background: #000 !important;
-}
-body.dark-blue .bg-dark{
-  background: #050f29 !important;
-}
 
-body.dark-discord .bg-dark {
-  background:rgba(31,34,37,1) !important;
-}
 body.dark-discord .border-dark {
   background:rgba( 255, 255, 255, 0.05 )rgba(255,255,255,0.05) !important;
 }
@@ -338,9 +327,6 @@ h1,h2,h3,h4,h5,h6,.navbar-brand,
 }
 .rounded-4 {
   border-radius: 1rem!important;
-}
-.bg-dark{
-  background: #211a2a !important;
 }
 .grey{
   color:#818287!important;
@@ -691,16 +677,8 @@ py-6{
 body.dark-blue .border-dark{
   border-color:rgb(22 51 129) !important;
 }
-.bg-dark{
-  background: #000 !important;
-}
-body.dark-blue .bg-dark{
-  background: #050f29 !important;
-}
 
-body.dark-discord .bg-dark {
-  background:rgba(31,34,37,1) !important;
-}
+
 body.dark-discord .border-dark {
   background:rgba( 255, 255, 255, 0.05 )rgba(255,255,255,0.05) !important;
 }
