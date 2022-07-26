@@ -39,7 +39,6 @@ import {
 import {rootStore} from '../stores/Store';
 import {toJS} from "mobx";
 import builder from "../images/builder.png";
-import InstagramFeed from "react-ig-feed";
 import SimpleMap from "./SimpleMap";
 import {NavBar} from "./MarketingHeroPage";
 
@@ -285,8 +284,7 @@ export class HeroPage extends React.Component {
 
                         </div>
                         <div style={{display:'flex',justifyContent:'center'}}>
-                            {this.state.content.igT&&<div style={{maxWidth:'100vw',overflowX:'auto'}}><InstagramFeed token={this.state.content.igT}  counter="6"/>
-                            </div>}</div>
+                         </div>
 
                     </div>
 
