@@ -45,9 +45,9 @@ export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.b
         <div className="row align-items-center noXGutter">
             <div className="col-12 col-md-5 offset-md-1">
                 <div className="px-4 px-md-0" style={{paddingTop:50,paddingBottom:50}}>
-                    <h3 style={{fontSize:36}} className="mb-4">{props.content.titleContent}</h3>
+                    <h3 style={{fontSize:36}} className="mb-4">Fuck it, ill put whatever i want here. now.</h3>
                     <p clas="mb-4">{props.content.titleBlurb}</p>
-                    <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
+                    <a onClick={()=>{window.location.href='https://facebook.com'}}
                        className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}></div> {props.content.mainButtonTitle||"Your shop link here"}
                     </a>
                 </div>
