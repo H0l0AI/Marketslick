@@ -91,13 +91,11 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
             <div style={{display:'flex',justifyContent:'center'}}>
 
             </div>
-            <div className="col-12 col-md-5">
+            <div className="col-12 col-md-5" style={{marginLeft:20}}>
                 <div className={`scroll-element js-scroll slide-left starting`}>
-                    <div className="p-4 rounded-4" style={{backgroundColor:props.content.class}}>
-                        <h1>{props.content.secondaryHeading1}</h1>
-                        {props.content.secondaryContent1}
+                    <div className="bg-dark p-4 rounded-4">
                         <div style={{display:'flex',justifyContent:'center'}}>
-                            <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[3]:logo} width={300} />
+                            <img style={{borderRadius:8}} src={props.content.imageURLArray?props.content.imageURLArray[2]:logo} width={300} />
                         </div>
 
                     </div>
@@ -106,9 +104,8 @@ export const AuxiliaryContent =(props)=>(<div className={`py-6`} style={{backgro
             </div>
             <div className="col-12 col-md-5">
                 <div className={`scroll-element js-scroll slide-right starting`}>
-                    <div className="p-4 rounded-4" style={{backgroundColor:props.content.class}}>
+                    <div className="bg-dark p-4 rounded-4">
                         <p>{props.content.secondaryContent}</p>
-
                     </div>
                 </div>
 
