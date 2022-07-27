@@ -39,21 +39,20 @@ import builder from "../images/builder.png";
 import content from "../contents";
 import {scrollActivate} from "./HeroPage";
 import SimpleMap from "./SimpleMap";
+import axios from "axios";
 
 export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div className="container">
         <div className="row align-items-center noXGutter">
             <div className="col-12 col-md-5 offset-md-1">
                 <div className="px-4 px-md-0" style={{paddingTop:50,paddingBottom:50}}>
-                    <h3 style={{fontSize:36}} className="mb-4">{props.content.titleContent}</h3>
-                    <p clas="mb-4">{props.content.titleBlurb}</p>
+                    <h3 style={{fontSize:36,width:'60vw'}} className="mb-4">{props.content.titleContent}</h3>
                     <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
                        className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}></div> {props.content.mainButtonTitle||"Your shop link here"}
                     </a>
                 </div>
             </div>
             <div className="col-12 col-md-5">
-                <img style={{borderRadius:8,height:'100%',width:'100%'}} src={props.content.imageURLArray?props.content.imageURLArray[0]:logo} className="img-fluid d-block mx-auto"/>
             </div>
         </div>
     </div>
@@ -182,7 +181,6 @@ export const NavBar = (props)=>(
     <nav className={`navbar navbar-expand-xl navbar-dark myNav `} style={{color:props.content.font,backgroundColor:props.content.backgroundType}}>
         <div className="container">
             <a className="navbar-brand">
-                <img onClick={()=>{window.location.href='/'}}  src={props.content.logo||logo} alt="" width="100" />
             </a>
             <button className="navbar-toggler rounded-4 shadow-sm" type="button"
                     data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -242,6 +240,7 @@ export class MarketingHeroPage extends React.Component {
         super(props);
         this.contactRef = React.createRef()
         this.state={
+            loading:false,
             code:'',
             showSaleSuccess:false,
             currentMainImage:0,
@@ -292,6 +291,11 @@ export class MarketingHeroPage extends React.Component {
     }
     componentDidMount(){
         scrollActivate();
+        this.setState({loading:true})
+        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+'https://www.seek.co.nz/api/chalice-search/search?siteKey=NZ-Main&sourcesystem=houston&userqueryid=90334d9a00ffe6cd4b044687e041f02c-4129245&userid=d4301dc845e51199700548cf8b63b9fa&usersessionid=d4301dc845e51199700548cf8b63b9fa&eventCaptureSessionId=d4301dc845e51199700548cf8b63b9fa&where=All+New+Zealand&page=1&seekSelectAllPages=true&keywords=%22google+analytics%22&sortmode=ListedDate&salarytype=annual&salaryrange=100000-999999&include=seodata&solId=18da2481-912b-4bdb-b9d3-60d254242f45').then((res)=>{
+            console.log('Res',res);
+            this.setState({dataToMap:res.data.data,loading:false})
+        })
     }
     loadTemplateWithCode(code){
         firebase.firestore().collection("templates").get().then((data)=>{
@@ -309,14 +313,63 @@ export class MarketingHeroPage extends React.Component {
             return { content };
         });
     };
+
+    renderJob(dataToMap) {
+        if (this.state.loading||!dataToMap) {
+            return 'Loading Job data...'
+        } else {
+            return dataToMap.map((job) =>
+                <tr>
+                    <td>
+                        {job.roleId}
+                    </td>
+                    <td>
+                        {job.salary}
+                    </td>
+                    <td>
+                        {job.location}
+                    </td>
+                    <td>
+                        {job.teaser}
+                    </td>
+                    <td>
+                        {job.workType}
+                    </td>
+                </tr>
+            )
+        }
+    }
     render(){
         let customerHasPaid = false;
         console.log('route items:',this.state.content.routeItemsAdditional);
         return <div>
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
-                <SecondaryContent content={this.state.content} />
-                <AuxiliaryContent content={this.state.content} />
+            <div style={{margin:60}}><table style={{marginLeft:20}}>
+                <thead>
+                <th>
+                    Role
+                </th>
+                <th>
+                    Salary
+                </th>
+                <th>
+                    Location
+                </th>
+                <th>
+                    Description
+                </th>
+                <th>
+                    Type
+                </th>
+                </thead>
+                <tbody>
+                {this.renderJob(this.state.dataToMap)}
+                </tbody>
+            </table>
+            </div>
+
+
             {this.state.content.routeItemsAdditional&&this.state.content.routeItemsAdditional.map((i,ix)=>{
                 return(<AdditionalContent content={this.state.content} index={ix}/>)
 
