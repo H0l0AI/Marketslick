@@ -386,9 +386,9 @@ export class MarketingHeroPage extends React.Component {
                 const passesPriceFilterMax = this.priceFilterMax(job, this.state.priceMax)
                 if (passesPriceFilterMin && passesPriceFilterMax) {
                     return (
-                        <tr>
+                        <tr style={{cursor:'pointer'}} onClick={()=>{window.location.href=`https://www.seek.co.nz/job/${job.id}`}}>
                             <td>
-                                {job.roleId}
+                                {job.title}
                             </td>
                             <td>
                                 {job.salary}
