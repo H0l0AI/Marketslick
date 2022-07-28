@@ -45,12 +45,11 @@ import {Dropdown} from "./dropdown";
 export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:'#fff'}}>
     <div className="container">
         <div className="align-items-center noXGutter">
-            <div className="col-12 col-md-5">
+            <div>
                 <div className="px-4 px-md-0" style={{paddingTop:50,paddingBottom:50}}>
-                    <h3 style={{fontSize:36,width:'60vw'}} className="mb-4">{props.content.titleContent}</h3>
-                    <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
-                       className="btn btn-light btn-lg rounded-pill blue" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}></div> {props.content.mainButtonTitle||"Your shop link here"}
-                    </a>
+                    <h3 style={{fontSize:36}} className="mb-4">What is the REAL salary of that Seek Job listing?</h3>
+                    <h5 style={{fontSize:24}} className="mb-4">Did you know most the time the listed salary for a job is up to 25% lower than the employee is willing to pay for the right applicant? </h5>
+                    <h5 style={{fontSize:24}} className="mb-4">Search for a job using the salary ranges and keywords, then click on a listing below to find the Seek page where you can apply.</h5>
                 </div>
             </div>
         </div>
@@ -176,61 +175,7 @@ export const Footer=(props)=>(<><div className={`py-6`} style={{backgroundColor:
         </div>
     </div>
 </div></>);
-export const NavBar = (props)=>(
-    <nav className={`navbar navbar-expand-xl navbar-dark myNav `} style={{color:props.content.font,backgroundColor:props.content.backgroundType}}>
-        <div className="container">
-            <a className="navbar-brand">
-            </a>
-            <button className="navbar-toggler rounded-4 shadow-sm" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse px-3" id="navbarSupportedContent">
-                <ul className="navbar-nav ms-auto me-0 mb-2 mb-lg-0">
-                    {props.routeItems.map((route,ix)=>{
-                        if(route.dropArray){
-                            return(<li className="nav-item" style={{cursor:'pointer'}}>
-
-                                <div className="dropdown nav-link" style={{position:'relative'}}>
-                                    <div className="dropbtn" onClick={()=>{
-                                        firebase.analytics().logEvent(route.routeTag);
-
-                                        window.location.href=route.href
-                                    }}>{route.name}</div>
-                                    <div className="dropdown-content" style={{zIndex:999,position:'absolute'}}>
-                                        {route.dropArray.map((dropdownContent)=>
-                                            <a onClick={()=>{
-                                                firebase.analytics().logEvent(dropdownContent.routeTag);
-                                                window.location.href=dropdownContent.href
-                                            }} style={{textAlign:'center'}}><img width={18}
-                                                                                 src={home_icon}/> {dropdownContent.name} </a>
-                                        )}
-                                    </div>
-                                </div>
-                            </li>)
-                        }
-                        else {
-                            return (<li className="nav-item" style={{cursor: 'pointer',color:props.content.font}} onClick={() => {
-                                firebase.analytics().logEvent(route.routeTag);
-                                if(ix===0){
-                                    return window.location.href = '/';
-
-                                }else {
-                                    window.location.href = route.href;
-                                }
-                            }}><a className="nav-link" aria-current="page">{route.name}</a>
-                            </li>);
-                        }
-                    })}
-                    {props.content.linkArray&&<li className="nav-item" style={{cursor: 'pointer',color:props.content.font}} onClick={() => {
-                        window.location.href = '/pages/links';
-                    }}><a className="nav-link" aria-current="page">Links</a>
-                    </li>}
-                </ul>
-            </div>
-        </div>
-    </nav>);
+export const NavBar = (props)=>(null);
 
 
 
@@ -405,10 +350,11 @@ export class MarketingHeroPage extends React.Component {
                 }
             })}
                 <tr>
-                    <div style={{cursor:'pointer',height: 60, backgroundColor: '#f5f4fa', fontSize: 24}} onClick={() => {
-                        this.getData(this.state.page + 1)
-                        this.setState({page:this.state.page+=1})
-                    }}>Next page
+                    <div style={{padding:20}}>
+                        <div  style={{cursor:'pointer'}} onClick={() => {
+                            this.getData(this.state.page + 1)
+                            this.setState({page:this.state.page+=1})
+                        }} className="btn blue">Next Page</div>
                     </div>
                 </tr>
             </>
