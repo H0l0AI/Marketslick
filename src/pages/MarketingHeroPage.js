@@ -241,6 +241,7 @@ export class MarketingHeroPage extends React.Component {
         super(props);
         this.contactRef = React.createRef()
         this.state={
+            keywords:'analyst',
             priceRangeArray:[],
             priceMin:30000,
             priceMax:300000,
@@ -295,7 +296,7 @@ export class MarketingHeroPage extends React.Component {
         })
     }
     getData(page){
-        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+`https://www.seek.co.nz/api/chalice-search/search?siteKey=NZ-Main&sourcesystem=houston&userqueryid=90334d9a00ffe6cd4b044687e041f02c-4129245&userid=d4301dc845e51199700548cf8b63b9fa&usersessionid=d4301dc845e51199700548cf8b63b9fa&eventCaptureSessionId=d4301dc845e51199700548cf8b63b9fa&where=All+New+Zealand&page=${page}&seekSelectAllPages=true&keywords=%22google+analytics%22&sortmode=ListedDate&salarytype=annual&salaryrange=${this.state.priceMin}-${this.state.priceMax}&include=seodata&solId=18da2481-912b-4bdb-b9d3-60d254242f45`).then((res)=>{
+        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+`https://jobsearch-api.cloud.seek.com.au/search?&keywords=${this.state.keywords}&salaryRange=${this.state.priceMin}-${this.state.priceMax}&sourcesystem=houston&seekSelectAllPages=true`).then((res)=>{
             console.log('Res',res);
             this.setState({dataToMap:res.data.data,loading:false})
         })
@@ -421,8 +422,18 @@ export class MarketingHeroPage extends React.Component {
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
             <div style={{display:'flex',justifyContent:'center'}}>
-                <Dropdown setValue={(value)=>{this.setState({priceMin:value})}} optionsList={this.state.priceRangeArray} placeholder={'Select minimum salary'} />
-                <Dropdown setValue={(value)=>{this.setState({priceMax:value})}} optionsList={this.state.priceRangeArray} placeholder={'Select maxmimum salary'} />
+                <div>
+                <input placeholder={'Search...'} value={this.state.keywords} onChange={(e)=>{this.setState({keywords:e.target.value})}} onKeyPress={(event) => {
+                    if (event.key === 'Enter') {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        this.getData(1);
+
+                    }
+                }} />
+                </div>
+                <Dropdown setValue={(value)=>{this.setState({priceMin:value}); this.getData(1)}} optionsList={this.state.priceRangeArray} placeholder={'Select minimum salary'} />
+                <Dropdown setValue={(value)=>{this.setState({priceMax:value}); this.getData(1)}} optionsList={this.state.priceRangeArray} placeholder={'Select maxmimum salary'} />
             </div>
             <div style={{margin:60}}><table style={{marginLeft:20}}>
                 <thead>
