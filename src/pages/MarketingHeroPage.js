@@ -42,18 +42,16 @@ import SimpleMap from "./SimpleMap";
 import axios from "axios";
 import {Dropdown} from "./dropdown";
 
-export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
+export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:'#fff'}}>
     <div className="container">
-        <div className="row align-items-center noXGutter">
-            <div className="col-12 col-md-5 offset-md-1">
+        <div className="align-items-center noXGutter">
+            <div className="col-12 col-md-5">
                 <div className="px-4 px-md-0" style={{paddingTop:50,paddingBottom:50}}>
                     <h3 style={{fontSize:36,width:'60vw'}} className="mb-4">{props.content.titleContent}</h3>
                     <a onClick={()=>{window.location.href=props.content.mainButtonLink}}
-                       className="btn btn-light btn-lg rounded-pill" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}></div> {props.content.mainButtonTitle||"Your shop link here"}
+                       className="btn btn-light btn-lg rounded-pill blue" style={{paddingRight:40,paddingLeft:20}}><div style={{position:'relative'}}></div> {props.content.mainButtonTitle||"Your shop link here"}
                     </a>
                 </div>
-            </div>
-            <div className="col-12 col-md-5">
             </div>
         </div>
     </div>
@@ -296,7 +294,7 @@ export class MarketingHeroPage extends React.Component {
         })
     }
     getData(page){
-        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+`https://jobsearch-api.cloud.seek.com.au/search?&keywords=${this.state.keywords}&salaryRange=${this.state.priceMin}-${this.state.priceMax}&sourcesystem=houston&seekSelectAllPages=true`).then((res)=>{
+        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+`https://jobsearch-api.cloud.seek.com.au/search?&keywords=${this.state.keywords}&salaryRange=${this.state.priceMin}-${this.state.priceMax}&sourcesystem=houston&seekSelectAllPages=true&page=${page}`).then((res)=>{
             console.log('Res',res);
             this.setState({dataToMap:res.data.data,loading:false})
         })
@@ -422,7 +420,7 @@ export class MarketingHeroPage extends React.Component {
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
             <div style={{display:'flex',justifyContent:'center'}}>
-                <div>
+                <div style={{marginTop:15}}>
                 <input placeholder={'Search...'} value={this.state.keywords} onChange={(e)=>{this.setState({keywords:e.target.value})}} onKeyPress={(event) => {
                     if (event.key === 'Enter') {
                         event.preventDefault();
@@ -441,7 +439,7 @@ export class MarketingHeroPage extends React.Component {
                     Role
                 </th>
                 <th>
-                    Salary
+                    ""Salary""
                 </th>
                 <th>
                     Location
@@ -458,13 +456,6 @@ export class MarketingHeroPage extends React.Component {
                 </tbody>
             </table>
             </div>
-
-
-            {this.state.content.routeItemsAdditional&&this.state.content.routeItemsAdditional.map((i,ix)=>{
-                return(<AdditionalContent content={this.state.content} index={ix}/>)
-
-            })}
-                <Footer content={this.state.content}/>
         </div>
 
     }
