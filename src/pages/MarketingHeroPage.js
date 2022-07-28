@@ -40,6 +40,7 @@ import content from "../contents";
 import {scrollActivate} from "./HeroPage";
 import SimpleMap from "./SimpleMap";
 import axios from "axios";
+import {Dropdown} from "./dropdown";
 
 export const HeroContent =(props)=>(<div style={{backgroundColor:props.content.backgroundType,color:props.content.font}}>
     <div className="container">
@@ -240,6 +241,10 @@ export class MarketingHeroPage extends React.Component {
         super(props);
         this.contactRef = React.createRef()
         this.state={
+            priceRangeArray:[],
+            priceMin:30000,
+            priceMax:300000,
+            page:1,
             loading:false,
             code:'',
             showSaleSuccess:false,
@@ -289,13 +294,34 @@ export class MarketingHeroPage extends React.Component {
             currentMainImage:this.state.currentMainImage+1
         })
     }
-    componentDidMount(){
-        scrollActivate();
-        this.setState({loading:true})
-        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+'https://www.seek.co.nz/api/chalice-search/search?siteKey=NZ-Main&sourcesystem=houston&userqueryid=90334d9a00ffe6cd4b044687e041f02c-4129245&userid=d4301dc845e51199700548cf8b63b9fa&usersessionid=d4301dc845e51199700548cf8b63b9fa&eventCaptureSessionId=d4301dc845e51199700548cf8b63b9fa&where=All+New+Zealand&page=1&seekSelectAllPages=true&keywords=%22google+analytics%22&sortmode=ListedDate&salarytype=annual&salaryrange=100000-999999&include=seodata&solId=18da2481-912b-4bdb-b9d3-60d254242f45').then((res)=>{
+    getData(page){
+        axios.get('https://cryptic-badlands-53121.herokuapp.com/'+`https://www.seek.co.nz/api/chalice-search/search?siteKey=NZ-Main&sourcesystem=houston&userqueryid=90334d9a00ffe6cd4b044687e041f02c-4129245&userid=d4301dc845e51199700548cf8b63b9fa&usersessionid=d4301dc845e51199700548cf8b63b9fa&eventCaptureSessionId=d4301dc845e51199700548cf8b63b9fa&where=All+New+Zealand&page=${page}&seekSelectAllPages=true&keywords=%22google+analytics%22&sortmode=ListedDate&salarytype=annual&salaryrange=${this.state.priceMin}-${this.state.priceMax}&include=seodata&solId=18da2481-912b-4bdb-b9d3-60d254242f45`).then((res)=>{
             console.log('Res',res);
             this.setState({dataToMap:res.data.data,loading:false})
         })
+    }
+    initializePriceRange(){
+        const PRICE_RANGE_INTERVAL = 5000;
+        const minPrice = 35000
+        const maxPrice = 250000;
+        const priceRangeIntervals = (maxPrice - minPrice) / PRICE_RANGE_INTERVAL;
+        let priceRangeArr = [{value:'',name:'No selection'}];
+        console.log('min max',minPrice,maxPrice,priceRangeIntervals);
+
+        this.setState({priceRangeArray:priceRangeArr})
+        for (let i = 0; i < priceRangeIntervals; i++) {
+            priceRangeArr.push({
+                value: minPrice + (i * PRICE_RANGE_INTERVAL),
+                name: minPrice + (i * PRICE_RANGE_INTERVAL)
+            })
+        }
+    }
+    componentDidMount(){
+        scrollActivate();
+        this.setState({loading:true})
+        this.getData(this.state.page)
+        this.initializePriceRange();
+
     }
     loadTemplateWithCode(code){
         firebase.firestore().collection("templates").get().then((data)=>{
@@ -313,38 +339,91 @@ export class MarketingHeroPage extends React.Component {
             return { content };
         });
     };
+    priceFilterMin=(job,priceMin)=>{
+        //todo logic for 'k', salary ranges etc
+        return true
+        let salary = job.salary.replace(/[^0-9]/g, '');
+        let salaryParse= parseInt(salary,10);
+        if(priceMin===null||priceMin=='') {
+            return true;
+        }
+        else{
+            if(salaryParse>priceMin){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+    }
+    priceFilterMax=(job,priceMax)=>{
+        return true
+        let salary = job.salary.replace(/[^0-9]/g, '');
+        let salaryParse= parseInt(salary,10);
+        if(priceMax===null||priceMax=='') {
+            return true;
+        }
+        else{
+            if(salaryParse<priceMax){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+
+    }
 
     renderJob(dataToMap) {
+
         if (this.state.loading||!dataToMap) {
             return 'Loading Job data...'
         } else {
-            return dataToMap.map((job) =>
+            return <>{dataToMap.map((job) => {
+                const passesPriceFilterMin = this.priceFilterMin(job, this.state.priceMin)
+                const passesPriceFilterMax = this.priceFilterMax(job, this.state.priceMax)
+                if (passesPriceFilterMin && passesPriceFilterMax) {
+                    return (
+                        <tr>
+                            <td>
+                                {job.roleId}
+                            </td>
+                            <td>
+                                {job.salary}
+                            </td>
+                            <td>
+                                {job.location}
+                            </td>
+                            <td>
+                                {job.teaser}
+                            </td>
+                            <td>
+                                {job.workType}
+                            </td>
+                        </tr>
+                    )
+                }
+            })}
                 <tr>
-                    <td>
-                        {job.roleId}
-                    </td>
-                    <td>
-                        {job.salary}
-                    </td>
-                    <td>
-                        {job.location}
-                    </td>
-                    <td>
-                        {job.teaser}
-                    </td>
-                    <td>
-                        {job.workType}
-                    </td>
+                    <div style={{cursor:'pointer',height: 60, backgroundColor: '#f5f4fa', fontSize: 24}} onClick={() => {
+                        this.getData(this.state.page + 1)
+                        this.setState({page:this.state.page+=1})
+                    }}>Next page
+                    </div>
                 </tr>
-            )
+            </>
         }
     }
     render(){
         let customerHasPaid = false;
-        console.log('route items:',this.state.content.routeItemsAdditional);
         return <div>
             <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
                 <HeroContent content={this.state.content} />
+            <div style={{display:'flex',justifyContent:'center'}}>
+                <Dropdown setValue={(value)=>{this.setState({priceMin:value})}} optionsList={this.state.priceRangeArray} placeholder={'Select minimum salary'} />
+                <Dropdown setValue={(value)=>{this.setState({priceMax:value})}} optionsList={this.state.priceRangeArray} placeholder={'Select maxmimum salary'} />
+            </div>
             <div style={{margin:60}}><table style={{marginLeft:20}}>
                 <thead>
                 <th>
