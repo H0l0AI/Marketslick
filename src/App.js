@@ -50,7 +50,7 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
     }
 
     componentDidMount(){
-        console.log(rootStore.pageStore.code,'load code MAIN');
+        console.log(rootStore.pageStore.code,'load code MAIN ');
     }
     render() {
 
