@@ -203,14 +203,7 @@ export class HeroPage extends React.Component {
                                                 Contact Us
                                             </div>
                                         </div>
-                                        <div className="templateCTA" onClick={()=>{
-                                            firebase.analytics().logEvent('view_range_btn');
-                                            window.location.href=this.state.content.mainButtonLink
-                                        }} >
-                                            <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
-                                                {this.state.content.mainButtonTitle||'Apply Now'}
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -225,8 +218,8 @@ export class HeroPage extends React.Component {
                     <div>
                         <div style={{paddingTop:100,paddingBottom:100,backgroundColor:this.state.content.class,color:this.state.content.font}}>
                             <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40}}>
-                                <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{paddingLeft:0,margin:30,width:'44vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray[2]} alt="" width="50%"/></div></div>
-                                <div style={{maxWidth:'48vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,paddingLeft:0,paddingRight:100}}>
+                                <div style={{maxWidth:'98vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} ><img style={{height:300,paddingLeft:0,margin:0,width:'44vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray[2]} alt="" width="50%"/></div></div>
+                                <div style={{maxWidth:'98vw'}}><div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`}  style={{minWidth:300,padding:30}}>
 
                                     <h3 style={{fontSize:40,paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContentTitle}</h3>
                                     <p style={{minWidth:300,paddingLeft:0,paddingTop:10,fontSize:23,whiteSpace:'break-spaces',paddingBottom:10,borderBottom:`1px solid ${this.state.content.font}`,color:this.state.content.font}}>{this.state.content.secondaryContent1}</p>
@@ -234,7 +227,7 @@ export class HeroPage extends React.Component {
                             </div>
                         </div>
 
-                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
+                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:5,backgroundImage: "url(" + this.state.content.imageURLArray[1] + ")"}}>
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>
@@ -258,7 +251,16 @@ export class HeroPage extends React.Component {
                             <div style={{marginTop:40,padding:40,margin:0,paddingBottom:200,backgroundColor:this.state.content.backgroundType,color:this.state.content.font}}>
                                 <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-right starting'}`} style={{display:'flex',justifyContent:'center'}}>
                                     <div>
-                                        <h2 style={{color:this.state.content.font,fontSize:56,fontWeight:400,textAlign:'center',borderBottom:`1px solid ${this.state.content.font}`,marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
+                                        <h2 style={{color:this.state.content.font,fontSize:56,fontWeight:400,textAlign:'center',borderBottom:`1px solid ${this.state.content.font}`,marginBottom:0}}>
+                                            <div className="templateCTA" onClick={()=>{
+                                                firebase.analytics().logEvent('view_range_btn');
+                                                window.location.href=this.state.content.mainButtonLink
+                                            }} >
+                                                <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
+                                                    {this.state.content.mainButtonTitle||'Apply Now'}
+                                                </div>
+                                            </div>
+                                            <br /></h2>
                                         <p style={{color:this.state.content.font,fontSize:20,marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
                                             {this.state.content.contactBlurb}
                                             <br />
