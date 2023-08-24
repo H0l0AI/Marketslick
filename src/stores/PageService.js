@@ -283,7 +283,7 @@ export async function getRelevantBusinessInfo(placeInformation, key) {
 }
 
 export async function autoCompletePlacesAction(data,key){
-    const PROXY_URL = 'https://cryptic-badlands-53121.herokuapp.com/';
+    const PROXY_URL = 'https://cors-anywhere-ac13-cb57dba8a340.herokuapp.com/';
     //TODO set this CORS up again...
     console.log('?', PROXY_URL);
     const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${encodeURIComponent(data)}&key=${encodeURIComponent(key)}`;
