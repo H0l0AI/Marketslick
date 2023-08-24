@@ -22,6 +22,7 @@ import {
     contactTitle,
     mailChimpSource,
     secondary,
+    hasScroll,
     secondaryContent,
     secondaryContentTitle,
     supportingBlurb,
@@ -116,6 +117,7 @@ export class HeroPage extends React.Component {
         this.contactRef = React.createRef()
         console.log(businessBlurbShort,contactTitle,contactPhone,'????');
         this.state={
+            isFunnel:true,
             wasPurchased:false,
             code:'',
             showSaleSuccess:false,
@@ -123,6 +125,7 @@ export class HeroPage extends React.Component {
             mainArray:[image1,image2],
             includeMeta:false,
             content:{
+                hasScroll:hasScroll,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
                 supportingBlurb:supportingBlurb,
@@ -257,7 +260,7 @@ console.log('is loaded template purchased?');
             {this.state.showSaleSuccess&&<div style={{overflow:'hidden',maxWidth:'99vw'}}><Confetti recycle={true} numberOfPieces={500}
             />
             </div>}
-            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
+            {this.state.isFunnel?null:<NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>}
             <div className={`text-white`} style={{backgroundColor:this.state.content.backgroundType,height: '100%',position:'relative'}}>
                 {this.state.showSaleSuccess&&<div style={{display:'flex',justifyContent:'center',padding:5}}>
                     <div style={{width:'80%',top:20,zIndex:9998,backgroundColor:'#fff',position:'absolute',height:700,borderRadius:8,color:'#505050'}}>
@@ -295,14 +298,7 @@ console.log('is loaded template purchased?');
                                                 Contact Us
                                             </div>
                                         </div>
-                                        <div className="templateCTA" onClick={()=>{
-                                            firebase.analytics().logEvent('view_range_btn');
-                                            window.location.href=this.state.content.mainButtonLink
-                                            }} >
-                                            <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
-                                                {this.state.content.mainButtonTitle||'Apply Now'}
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -317,20 +313,20 @@ console.log('is loaded template purchased?');
                     <div style={{backgroundColor:this.state.content.backgroundType}}>
                         <div className={`container secondaryBackgroundColor`} style={{backgroundColor:this.state.content.class}}>
                             <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:70}}>
-                                <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[2]||logo} alt="" width="50%"/></div>
-                                <div style={{width: '55%',minWidth:300}}>
+                                <div><img style={{margin:30,width:'99vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[2]||logo} alt="" width="50%"/></div>
+                                <div style={{minWith: '99vw',minWidth:300}}>
 
                                     <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContentTitle}</h3>
                                     <p style={{fontSize:18,paddingLeft:15,paddingTop:10,whiteSpace:'break-spaces',color:this.state.content.font}}>{this.state.content.secondaryContent}</p>
                                 </div>
                             </div>
                         </div>
-                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:50,backgroundImage: "url(" + this.state.content.imageURLArray?this.state.content.imageURLArray[1]:logo + ")"}}>
+                        <div className={`photoCoverBG`} style={{color:this.state.content.font,fontSize:20,paddingBottom:5,backgroundImage: "url(" + this.state.content.imageURLArray?this.state.content.imageURLArray[1]:logo + ")"}}>
                             <div className="container">
 
                                 <div style={{paddingTop:60}}>
                                     <div className={`scrollContainer`} style={{borderRadius:12,backgroundColor:this.state.content.backgroundType}}>
-                                        <div className={` ${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
+                                        <div className={`${this.state.content.hasScroll&&'scroll-element js-scroll slide-left starting'}`} style={{padding:33,width:'100%'}}>
                                             <div className="px-4">
                                                 <p><h2 style={{fontSize:'1.5rem',whiteSpace:'break-spaces',textAlign:'center'}}>{this.state.content.supportingHeading}</h2></p>
                                             </div>
@@ -349,7 +345,14 @@ console.log('is loaded template purchased?');
                             <div className={`supportingColor secondaryBackgroundColor`} style={{marginTop:40,padding:40,margin:0,backgroundColor:this.state.content.class}}>
                                 <div style={{display:'flex',justifyContent:'center'}}>
                                     <div>
-                                        <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:`1px solid ${this.state.content.font}`,marginBottom:0,color:this.state.content.font}}>{this.state.content.contactTitle}<br /></h2>
+                                        <div className="templateCTA" onClick={()=>{
+                                            firebase.analytics().logEvent('view_range_btn');
+                                            window.location.href=this.state.content.mainButtonLink
+                                        }} >
+                                            <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
+                                                {this.state.content.mainButtonTitle||'Apply Now'}
+                                            </div>
+                                        </div>
                                         <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces',color:this.state.content.font}}>
                                             {this.state.content.contactBlurb}
                                             <br />

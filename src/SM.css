@@ -1146,6 +1146,7 @@ body.dark-discord .border-dark {
   background-color: transparent;
 }
 .templateCTA{
+  text-align:center;
   cursor: pointer;
   padding:10px;
   background-color: transparent;

@@ -963,7 +963,7 @@ export const NavBar = (props)=>(
                              });
                          });
                      }
-                     if(this.state.editModal==='fifthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
+                     if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
                          let splitCode = this.state.code||cookie.get('code')||this.state.plainCode.toString();
                          splitCode= splitCode.replace(/\s+/g, '-').toLowerCase();
                          firebase.analytics().logEvent('template_init_mm',{code:splitCode});
@@ -1149,11 +1149,11 @@ export const NavBar = (props)=>(
                         </div></>}
                 </div>
                     {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40,flexWrap:'wrap'}}>
-                        <div style={{position:'relative',cursor:'pointer',marginTop:40}} onClick={()=>{this.setState({templateSelected:'dm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
+                       {/* <div style={{position:'relative',cursor:'pointer',marginTop:40}} onClick={()=>{this.setState({templateSelected:'dm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
                             <p style={{fontSize:24,marginBottom:10}}>Digital Marketing</p>
-                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} /></div>
+                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} /></div>*/}
                         <div style={{position:'relative',cursor:'pointer',marginTop:40}}  onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24,marginBottom:10}}>Trades and Services</p>
+                            <p style={{fontSize:24,marginBottom:10}}>Personal Training</p>
                         </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={property} /></div>
 
                     </div>:null}

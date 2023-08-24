@@ -1,4 +1,4 @@
-{
+{ "isFunnel": "true",
     "hasScroll":"true",
     "Section": "Replace With",
     "button_link_1": "https://apply.tpsportal.co.nz/tps1966?",
@@ -11,7 +11,7 @@
     "aux_content": "Provide a personal background that your demographic is able to relate to, they should shop local right? Tell them why trust in startups like yours is well placed and just who they are investing in.",
     "contact_header": "Get In Touch",
     "contact_subcontent": "Snappy tag line followed by, Contact Us Today!",
-    "email": "email@your_new_domain.co.nz",
+    "email": "enter your email address",
     "phone": "021 000 0000",
     "header_nav_home": "Home",
     "contact_route": "/pages/contact",

@@ -12,7 +12,7 @@ export const RouteItems = [
         href:content.contact_route,
         routeTag:'view_contact_nav'},
 ];
-
+export const hasScroll = content.hasScroll
 export const mainButtonTitle=content.button_title_1;
 export const mainButtonLink =content.button_link_1;
 export const contactButtonTitle='Contact Us';

@@ -9,7 +9,6 @@ import firebase from "firebase/compat";
 import cookie from 'js-cookie';
 import Confetti from 'react-confetti'
 import useWindowSize from 'react-use/lib/useWindowSize'
-import axios from 'axios';
 
 
 
@@ -132,6 +131,7 @@ export class HeroPageSuccess extends React.Component {
         this.contactRef = React.createRef()
         console.log(businessBlurbShort,contactTitle,contactPhone,'????');
         this.state={
+            isFunnel:true,
             code:'',
             showSaleSuccess:false,
             currentMainImage:0,
@@ -242,7 +242,7 @@ export class HeroPageSuccess extends React.Component {
             {this.state.showSaleSuccess&&<div style={{overflow:'hidden',maxWidth:'99vw'}}><Confetti recycle={true} numberOfPieces={500}
             />
             </div>}
-            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
+            {this.state.isFunnel?null:<NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>}
             <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType,color:this.state.content.font}}>
                 {this.state.showSaleSuccess&&
                 <SuccessBanner showSaleSuccess={()=>{this.setState({showSaleSuccess:false})}} orderNumber={this.state.orderNumber} />
