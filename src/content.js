@@ -1,6 +1,7 @@
 import contentImageTwo from "./images/p1.png";
 import contentImageOne from "./images/p1.png";
 import content from './contents.json';
+export const scrollCTA = content.scrollCTA
 export const igT=content.igT||null;
 export const mapsCenter=content.mapsCenter||null;
 export const businessName=content.businessName||null;
@@ -11,7 +12,7 @@ export const hasScroll=content.hasScroll||true
 export const RouteItems = content.routeItemsDefault.concat(content.routeItems);
 export const routeItems=content.routeItems;
 export const imageURLArray = content.imageURLArray;
-
+export const isFunnel = content.isFunnel;
 export const mainButtonTitle=content.mainButtonTitle||'Apply Now';
 export const mainButtonLink =content.mainButtonLink;
 export const contactButtonTitle='Contact Us';

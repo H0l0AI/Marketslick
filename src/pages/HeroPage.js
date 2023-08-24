@@ -10,6 +10,8 @@ import logo from '../images/sm3.png';
 
 
 import {
+    scrollCTA,
+    isFunnel,
     mainButtonLink,
     mainButtonTitle,
     contactButtonTitle,
@@ -114,6 +116,8 @@ export class HeroPage extends React.Component {
             currentMainImage:0,
             mainArray:[image1,image2],
             content:{
+                scrollCTA:scrollCTA||false,
+                isFunnel:isFunnel||false,
                 mapsCenter:mapsCenter,
                 businessName:businessName,
                 businessBlurb: businessBlurb,
@@ -179,9 +183,9 @@ export class HeroPage extends React.Component {
 
     render(){
         let customerHasPaid = false;
-        console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code));
+        console.log('test:',firebase.apps.length,toJS(rootStore.pageStore.code),isFunnel,!this.state.isFunnel);
         return <div>
-            <NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>
+            {!this.state.isFunnel?null:<NavBar content={this.state.content} isMarketing={false} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType||'bg-dark-blue'}/>}
             <div style={{height: '100%',position:'relative',backgroundColor:this.state.content.backgroundType,color:this.state.content.font}}>
                 <div>
                     <div>
@@ -200,7 +204,7 @@ export class HeroPage extends React.Component {
                                             this.contactRef.current.scrollIntoView();
                                         }}>
                                             <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
-                                                Contact Us
+                                                {this.state.content.scrollCTA||'Get in touch!'}
                                             </div>
                                         </div>
 
