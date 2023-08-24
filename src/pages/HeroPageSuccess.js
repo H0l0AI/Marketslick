@@ -268,14 +268,7 @@ export class HeroPageSuccess extends React.Component {
                                                     Contact Us
                                                 </div>
                                             </div>
-                                            <div className="templateCTA" onClick={()=>{
-                                                firebase.analytics().logEvent('view_range_btn');
-                                                window.location.href=this.state.content.mainButtonLink
-                                            }} >
-                                                <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
-                                                    {this.state.content.mainButtonTitle||'Apply Now'}
-                                                </div>
-                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -307,9 +300,9 @@ export class HeroPageSuccess extends React.Component {
                     <div className="py-6 bg-mainColor">
                         <div style={{backgroundColor:this.state.content.backgroundType}}>
                             <div className={`container secondaryBackgroundColor`} style={{backgroundColor:this.state.content.class}}>
-                                <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:70}}>
-                                    <div><img style={{margin:30,width:'30vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[1]||logo} alt="" width="50%"/></div>
-                                    <div style={{width: '55%',minWidth:300}}>
+                                <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:5,marginBottom:70}}>
+                                    <div><img style={{margin:30,width:'99vw',minWidth:350,borderRadius:4}} src={this.state.content.imageURLArray&&this.state.content.imageURLArray[1]||logo} alt=""/></div>
+                                    <div style={{width: '99vw',minWidth:300}}>
 
                                         <h3 style={{paddingLeft:15,marginBottom:0,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContentTitle}</h3>
                                         <p style={{fontSize:18,paddingLeft:15,paddingTop:10,whiteSpace:'break-spaces'}}>{this.state.content.secondaryContent}</p>
@@ -320,7 +313,14 @@ export class HeroPageSuccess extends React.Component {
                                 <div className={`supportingColor secondaryBackgroundColor`} style={{marginTop:40,padding:40,margin:0,backgroundColor:this.state.content.class}}>
                                     <div style={{display:'flex',justifyContent:'center'}}>
                                         <div>
-                                            <h2 style={{fontSize:56,fontWeight:400,textAlign:'center',borderBottom:'1px solid #fff',marginBottom:0}}>{this.state.content.contactTitle}<br /></h2>
+                                            <div className="templateCTA" onClick={()=>{
+                                                firebase.analytics().logEvent('view_range_btn');
+                                                window.location.href=this.state.content.mainButtonLink
+                                            }} >
+                                                <div className="altButton" style={{backgroundColor:this.state.content.class,color:this.state.content.font}}>
+                                                    {this.state.content.mainButtonTitle||'Apply Now'}
+                                                </div>
+                                            </div>
                                             <p style={{marginBottom:30,paddingLeft:15,paddingTop:10,width:'60vw',minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
                                                 {this.state.content.contactBlurb}
                                                 <br />
