@@ -104,7 +104,9 @@ async function ryte({ useCaseId, inputContexts }) {
         }).then((res)=>{console.log('final res',res);
         if(res.data){
             rootStore.pageStore.setMainPageContent(res.data.data[0]);
-            return res.data.data[0].text;
+            const text = res.data.data[0].replace(/<\/?[^>]+(>|$)/g, "");
+
+            return text;
         }
         else{
             return 'Sorry we arent able to come up with anything right now';
@@ -122,13 +124,15 @@ async function ryte({ useCaseId, inputContexts }) {
 1: {label: 'About website', placeholder: 'AI writer that generates content instantly', keyLabel: 'ABOUT_WEBSITE_LABEL', inputType: 'text', inputMaximumCharacters: 75, …}
 2: {label: 'Features', placeholder: '- Uses language AI and copywriting formulas to gen…ast, affordable, and works well on mobile devices', keyLabel: 'FEATURES_LABEL', inputType: 'textarea', inputMaximumCharacters: 300, …}
 */
-export async function testRytrBlurb(businessName,businessTags){
+export async function testRytrBlurb(userName,businessName,businessTags){
     const usecaseList = await caseById();
     //useCaseTagline
     //"605838118c0a4a000c69c968"
     //TAGLINE
     //"DESCRIPTION_LABEL"
-    let btags = `${businessName} is a `+businessTags;
+    //let btags = `${businessName} is a `+businessTags;
+    let btags = `${userName} is a personal trainer`;
+
     const useCaseTag = await caseDetailById(
         useCaseTagline
     );
@@ -147,7 +151,7 @@ export async function testRytrBlurb(businessName,businessTags){
     console.log("Output blurb CONTENT:",output);
     return output;
 };
-export async function testRytrMain(businessName,businessBlurb,businessFeatures){
+export async function testRytrMain(firstName,businessName,businessBlurb,businessFeatures){
     const usecaseList = await caseById();
     const useCaseProduct = await caseDetailById(
         useCaseProductId
@@ -155,8 +159,8 @@ export async function testRytrMain(businessName,businessBlurb,businessFeatures){
     console.log('desc',useCaseProduct);
 
     let inputContexts = {
-        [useCaseProduct.data.data.contextInputs[0].keyLabel]: businessName,
-        [useCaseProduct.data.data.contextInputs[1].keyLabel]: businessFeatures,
+        [useCaseProduct.data.data.contextInputs[0].keyLabel]: firstName,
+        [useCaseProduct.data.data.contextInputs[1].keyLabel]: 'personal trainer',
     };
     console.log('inut',inputContexts);
 
@@ -168,15 +172,15 @@ export async function testRytrMain(businessName,businessBlurb,businessFeatures){
     console.log("Output PAGE CONTENT:",output);
     return output;
 };
-export async function testRytrAbout(businessName,businessFeatures,businessBlurb){
+export async function testRytrAbout(firstName,businessName,businessFeatures,businessBlurb){
     //topic
     //keywords
     const usecaseList = await caseById();
     //useCaseProfile
     //   //"ABOUT_YOU_LABEL"
     //     //"60633095de064b000c8f5cc9"
-    let sectionTopic = `We are ${businessName}. ${businessFeatures}`
-    let sectionKeywords = `About us, Passionate about, Experienced, Community, We are`
+    let sectionTopic = `Hi, my name is ${firstName}. I'm a personal trainer at ${businessName} featuring ${businessFeatures}`
+    let sectionKeywords = `About me, Passionate about, Experienced, Community, I am, Help you`
     const useCaseBio = await caseDetailById(
         useCaseBlogId
     );

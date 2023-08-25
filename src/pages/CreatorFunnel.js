@@ -587,7 +587,7 @@ export const NavBar = (props)=>(
                 mapsCenter = {lat: info.location.latitude, lng: info.location.longitude}
                 content.mapsCenter=mapsCenter;
             }
-            rootStore.pageStore.testRytrBlurb(info.name,info.types.join(' ')).then((res)=>{
+            rootStore.pageStore.testRytrBlurb(this.state.firstName,info.name,info.types.join(' ')).then((res)=>{
                 console.log('res,',res);
                 let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
                 let content=this.state.content;
@@ -631,77 +631,7 @@ export const NavBar = (props)=>(
                  </li>)}</ul>
                  </div>
              </div>; break;
-             case 'Extra':modalComponent=<><h3 style={{textAlign:'center',fontWeight:300}}>Create up to 4 extra pages.</h3>
-                 <div style={{maxHeight:550,overflowY:'auto'}}>
-                     {this.state.routeItems.map((route,ix)=>{
-                         return(<>
-                             <div style={{height: '100%',position:'relative',margin:20}}>
-                                 <div style={{paddingBottom:0}}>
-                                     <div className="mainFontColor" style={{display:'flex',justifyContent:'center'}}><div style={{width:'40%'}}>
-                                         <div style={{textAlign:'center',paddingTop:10,marginBottom:0}}>
-                                             <input type="text" className="templateInputH1" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].secondaryHeader} name={'secondaryHeader'} placeholder={'New Page Title'} />
-                                         </div>
-                                     </div></div>
-                                     <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap',padding:20}}>
-                                         <div style={{maxWidth:350,paddingTop:0}}>
-                                             {console.log(this.state.routeItems[ix])}
-                                             <FileImporter practiceLogoURL={logo} imageURL={this.state.routeItems[ix].imageURLArray[0]} index={0} routeItemsIndex={ix} display={true}
-                                                           uploadStatus={'success'} onChange={this.uploadBrandImageAdditional.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
-
-                                         </div>
-                                         <div style={{maxWidth:600,margin:20}}><p className="mainFontColor" style={{padding:0, whiteSpace:'break-spaces'}}>
-                                             <div>                                        <input type="text" className="templateInputH1" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].secondaryHeading1} name={'secondaryHeading1'} placeholder={'New page heading'} />
-                                             </div>
-                                             <textarea style={{height:120}} className="templateInputPTextArea" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].secondaryContent1} name={'secondaryContent1'} placeholder={'New page content'}  />
-
-                                         </p>
-                                         </div>
-
-                                     </div>
-                                     <div className="mainFontColor" style={{paddingTop:0}}>
-                                         <p style={{textAlign:'center'}}>
-                                             <input type="text" style={{width:'50%'}} className="templateInputP" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].businessBlurbShort} name={'businessBlurbShort'} placeholder={'Supporting content'} />
-                                         </p>
-
-                                     </div>
-                                 </div>
-
-                             </div>
-                             <div style={{paddingTop:50}}>
-                                 <div>
-                                     <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:40,marginBottom:30}}>
-                                         <div>
-
-                                             <FileImporter practiceLogoURL={logo} imageURL={this.state.routeItems[ix].imageURLArray[1]} index={1} routeItemsIndex={ix} display={true}
-                                                           uploadStatus={'success'} onChange={this.uploadBrandImageAdditional.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
-
-                                         </div>
-                                         <div style={{width: '55%',minWidth:350,paddingLeft:15,marginTop:80}}>
-                                             <div style={{marginRight:'5%',marginBottom:0,whiteSpace:'break-spaces'}}>
-                                                 <input placeholder={'content heading'} type="text" className="templateInputH1" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].p3Heading1} name={'p3Heading1'} />
-                                             </div>
-                                             <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces'}}>
-                                                 <textarea placeholder={'content body'} style={{height:300}} className="templateInputP" onChange={(e)=>{this.handleAdditionalFormChange(e,ix)}} value={this.state.routeItems[ix].p3Content1} name={'p3Content1'} />                                            </p>
-                                         </div>
-                                     </div>
-                                 </div>
-
-                             </div>
-
-                         </>)
-
-                     })}
-                 </div>
-                 <div style={{paddingTop:30,display:'inline-flex',flexWrap:'wrap',paddingLeft:100,paddingRight:100,
-                     alignContent:'flex-start',alignItems:'space-around',justifyContent:'center',width:'100%'}}>
-                         <input type="text" className="templateInputP" style={{width:300,marginBottom:30}} value={this.state.routeNameInput} onChange={(e)=>{this.changeRouteNameInput(e)}} placeholder={'Enter a name for the new page'} />
-                         <div style={{marginTop:0,marginBottom:20,width:180}} onClick={()=>{
-                             if(this.state.routeItems.length<3&&this.state.routeNameInput) {
-                                 this.handleAddRoute(this.state.routeNameInput)
-                             }
-                         }}  className={`altButton whiteButton magOrange ${this.state.routeItems.length<3?'':'NABUTTON'}`}>Add Route</div>
-                 </div>
-             </>;break;
+             case 'Extra':modalComponent=null; break;
              case 'fifthPage' : modalComponent = <>
                  <h3 style={{textAlign:'center',fontWeight:300}}>Additional Page</h3>
                  <div style={{position:'relative',marginTop:0,marginBottom:0}}>
@@ -922,14 +852,25 @@ export const NavBar = (props)=>(
                      </div>*/}
                      <div>
                          {this.state.editModal==='frontPage'&&<>
+                             <div style={{display:'flex',justifyContent:'center'}}>
+                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Hi, What shall we call you? (Your first name)'} value={this.state.firstName} onChange={(e)=>this.setState({firstName:e.target.value})} />
+                             </div>
 
-                         <div style={{display:'flex',justifyContent:'center'}}>
-                             <p style={{fontSize:26,fontWeight:100,textAlign:'center'}}>{cookie.get('code')?'Your':'First, choose a'} domain name</p>
+                             {this.state.firstName && <><div style={{display: 'flex', justifyContent: 'center'}}>
+                                 <p style={{
+                                     fontSize: 26,
+                                     fontWeight: 100,
+                                     textAlign: 'center'
+                                 }}>Welcome, {this.state.firstName}. <br />{cookie.get('code') ? 'Your' : 'Please choose a'} domain
+                                     name</p>
 
-                         </div>
-                         <div style={{display:'flex',justifyContent:'center'}}>
-                             <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
-                         </div></>}
+                             </div>
+                                 <div style={{display:'flex',justifyContent:'center'}}>
+                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
+                                 </div>
+                             </>}
+
+                         </>}
                      {modalComponent}
                      </div>
 
@@ -948,12 +889,12 @@ export const NavBar = (props)=>(
                          content.secondaryContent="Just a moment, we are writing about you..."
                          this.setState({content:content})
                          //about us = secondaryContent;
-                         rootStore.pageStore.testRytrMain(this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
+                         rootStore.pageStore.testRytrMain(this.state.firstName,this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
                              console.log('res,',res);
                              let content=this.state.content;
                              content.supportingHeading=res.replace(/<[^>]*>?/gm, '');
                              this.setState({rContent:'',content:content,loading:false},()=>{
-                                 rootStore.pageStore.testRytrAbout(this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
+                                 rootStore.pageStore.testRytrAbout(this.state.firstName,this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
                                      console.log('res2,',res2);
                                      let rytrBlurb = res2.replace(/<[^>]*>?/gm, '');
                                      let content=this.state.content;
