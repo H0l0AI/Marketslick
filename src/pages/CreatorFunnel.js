@@ -671,7 +671,7 @@ export const NavBar = (props)=>(
 
                                  </p>
                                  <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
-                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:0,color:'#0e1e46'}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactEmail} name={'contactEmail'} />
+                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:0,color:'#0e1e46'}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={rootStore.pageStore.user.email||this.state.content.contactEmail} name={'contactEmail'} />
                                      </div></div>
                                      <br />
                                      <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:10,color:'#0e1e46'}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactPhone} name={'contactPhone'} />

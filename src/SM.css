@@ -1618,6 +1618,9 @@ visibility: visible;
   width: 100%;
   padding: 10px;
 }
+.templateInputP::placeholder { /* Most modern browsers support this now. */
+  color: #adadad !important;
+}
 .templateInputPTextArea{
   margin:10px;
   border: 1px solid transparent;
