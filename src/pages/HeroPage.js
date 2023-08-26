@@ -465,7 +465,9 @@ console.log('is loaded template purchased?');
                                             //https://buy.stripe.com/test_fZebLd7dC89o4WA6oq
                                             //https://buy.stripe.com/00gcQb4evf5654Q001
                                         }} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
-
+                                        <div onClick={()=>{
+                                            window.location.href= '/builder'
+                                        }} style={{margin:10}} className="altButton greyButton">I want to start over.</div>
                                     </div>
                                     {renderPackagePhoto(cookie.get('referrer'))}
                                 </div>

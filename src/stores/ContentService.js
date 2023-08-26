@@ -161,7 +161,7 @@ export async function testRytrMain(firstName,businessName,businessBlurb,business
     let inputContexts = {
         [useCaseProduct.data.data.contextInputs[0].keyLabel]: firstName,
         [useCaseProduct.data.data.contextInputs[1].keyLabel]: 'personal trainer',
-        [useCaseProduct.data.data.contextInputs[0].inputMaximumCharacters]: 160
+        [useCaseProduct.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);
 
@@ -181,7 +181,7 @@ export async function testRytrAbout(firstName,businessName,businessFeatures,busi
     //   //"ABOUT_YOU_LABEL"
     //     //"60633095de064b000c8f5cc9"
     let sectionTopic = `My name is ${firstName}. I'm a personal trainer at ${businessName} featuring ${businessFeatures}, let me help you get fit`
-    let sectionKeywords = `About me, Passionate about, Experienced, Community, Help you`
+    let sectionKeywords = `About me, Experience`
     const useCaseBio = await caseDetailById(
         useCaseBlogId
     );
@@ -190,7 +190,7 @@ export async function testRytrAbout(firstName,businessName,businessFeatures,busi
     let inputContexts = {
         [useCaseBio.data.data.contextInputs[0].keyLabel]: sectionTopic,
         [useCaseBio.data.data.contextInputs[1].keyLabel]: sectionKeywords,
-        [useCaseBio.data.data.contextInputs[0].inputMaximumCharacters]: 160
+        [useCaseBio.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);
 
