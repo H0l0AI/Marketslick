@@ -750,7 +750,7 @@ export const NavBar = (props)=>(
              case 'frontPage':modalComponent = <div style={{minHeight:750,height:'auto',marginTop:20}}>
                  <h4 style={{marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':'Find your Google business'}</h4>
                 <div style={{marginBottom:20}}><GoogleMyBusinessForm places={this.state.places} selectedBusinessInfo={this.state.selectedBusinessInfo} triggerAutoComplete={(data)=>{    // @ts-ignore
-                     const key = process.env.REACT_APP_MAPS_KEY;
+                     const key = process&&process.env.REACT_APP_MAPS_KEY;
                      rootStore.pageStore.autoCompletePlacesAction(data, key).then((res)=>{
                          console.log('...FACES',res,key);
                          this.setState({places:res&&res.predictions})
@@ -758,7 +758,7 @@ export const NavBar = (props)=>(
                      });
 
                  }} getRelevantBusinessInfo={(placeInformation)=>{
-                     const key = process.env.REACT_APP_MAPS_KEY;
+                     const key = process&&process.env.REACT_APP_MAPS_KEY;
                      rootStore.pageStore.getRelevantBusinessInfo(placeInformation,key).then((info)=>{
                          console.log('...INFO',info);
                          if(info) {
@@ -791,7 +791,21 @@ export const NavBar = (props)=>(
                  }} />
                 </div>
                  <div style={{position:'absolute',zIndex:8999,width:'90%'}}>
-                     <div style={{position:'absolute',right:'28%'}}>
+                     {this.state.brandingUploadReady&&<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
+                         <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
+                             <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.titleContent} name={'titleContent'} />
+                             <p style={{fontSize:20,marginLeft:0}} className="mb-4">
+                                 <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.titleBlurb} name={'titleBlurb'} />
+                             </p>
+                             <br />
+                             <div style={{display:'flex',justifyContent:'center'}}>
+                                 <input type="text" style={{width:'20%'}} className="templateInputP" onChange={this.handleContentFormChange} placeholder={"Call to Action 1"} value={this.state.content.mainButtonTitle} name={'mainButtonTitle'} />
+                                 <input type="text" style={{width:'60%'}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.mainButtonLink} name={'mainButtonLink'} />
+                             </div>
+
+                         </div>
+                     </div>}
+                     {this.state.brandingUploadReady&&<><div style={{position:'absolute',right:'28%'}}>
                          <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
                              <FileImporter isSmall={true} routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.logo} index={0} display={true}
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
@@ -806,20 +820,7 @@ export const NavBar = (props)=>(
 
                      </div>
                      <p style={{color:'#fff',textAlign:'center',width:'70%'}}>Add a banner image</p>
-                     <div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
-                         <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
-                             <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.titleContent} name={'titleContent'} />
-                             <p style={{fontSize:20,marginLeft:0}} className="mb-4">
-                                 <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.titleBlurb} name={'titleBlurb'} />
-                             </p>
-                             <br />
-                             <div style={{display:'flex',justifyContent:'center'}}>
-                             <input type="text" style={{width:'20%'}} className="templateInputP" onChange={this.handleContentFormChange} placeholder={"Call to Action 1"} value={this.state.content.mainButtonTitle} name={'mainButtonTitle'} />
-                             <input type="text" style={{width:'60%'}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.mainButtonLink} name={'mainButtonLink'} />
-                             </div>
-
-                         </div>
-                     </div>
+                     </>}
                  </div>
              </div>
          }

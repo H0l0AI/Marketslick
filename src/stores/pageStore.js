@@ -4,7 +4,7 @@ import {
 import {persist} from "mobx-persist";
 import cookie from 'js-cookie';
 import {createWebsite,signUpUsingSocial,signUpUsingEmail,signUpUsingFacebook,handleSignOut,initializeAuthentication,getTemplatesWithId,autoCompletePlacesAction,getRelevantBusinessInfo} from "./PageService";
-import {testRytrBlurb,testRytrMain,testRytrAbout} from './ContentService';
+import {testRytrBlurb, testRytrMain, testRytrAbout, testRytrLanding} from './ContentService';
 export default class PageStore {
 
     constructor(rootStore) {
@@ -19,6 +19,7 @@ export default class PageStore {
         this.getRelevantBusinessInfo=getRelevantBusinessInfo;
         this.signUpUsingFacebook=signUpUsingFacebook;
         this.testRytrBlurb=testRytrBlurb;
+        this.testRytrLanding=testRytrLanding;
         this.testRytrMain=testRytrMain;
         this.testRytrAbout=testRytrAbout;
     }
