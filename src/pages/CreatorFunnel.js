@@ -22,6 +22,7 @@ import {
     secondaryContent,
     secondaryContentTitle,
     supportingBlurb,
+    supportingHeadingTitle,
     supportingHeading,
     titleBlurb,
     titleContent,autoCompletePlaces,
@@ -200,6 +201,7 @@ export const NavBar = (props)=>(
                 titleContent:titleContent,
                 titleBlurb:titleBlurb,
                 supportingHeading:supportingHeading,
+                supportingHeadingTitle:supportingHeadingTitle||'',
                 secondaryContentTitle:secondaryContentTitle,
                 secondaryContent:secondaryContent,
                 contactTitle:contactTitle,
@@ -561,7 +563,7 @@ export const NavBar = (props)=>(
         const key = process&&process.env.REACT_APP_MAPS_KEY;
         rootStore.pageStore.autoCompletePlacesAction(data, key).then((res)=>{
             console.log('...FACES',res,key);
-            this.setState({places:res&&res.predictions,businessName:data,brandingUploadReady:true})
+            this.setState({places:res&&res.predictions,businessName:data})
 
         });
 
@@ -592,7 +594,7 @@ export const NavBar = (props)=>(
                 console.log('res,',res);
                 let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
                 let content=this.state.content;
-               await rootStore.pageStore.testRytrLanding(this.state.firstName,`${this.state.serviceType} at ${info.name}`,rytrBlurb).then((res)=>{
+               await rootStore.pageStore.testRytrBlurb(this.state.firstName,`${this.state.serviceType} at ${info.name}`,rytrBlurb).then((res)=>{
                     console.log('res,',res);
                     let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
                     let content=this.state.content;
@@ -733,6 +735,7 @@ export const NavBar = (props)=>(
                          </div>
                          <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
                              <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces',height:200}}>
+                                 <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeadingTitle} name={'supportingHeadingTitle'} />
                                  <textarea style={{height:155}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
                              </p>
                          </div>
@@ -745,6 +748,14 @@ export const NavBar = (props)=>(
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
                          <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
                      </div>
+                         <div>
+                             <div>
+
+                                 <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[2]} index={2} display={true} routeItemsIndex={null}
+                                               uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
+
+                             </div>
+                         </div>
                      </div>
                      <div style={{position:'relative',marginTop:0,marginBottom:0}}>
                          <div  style={{paddingTop:10}}>
@@ -752,7 +763,7 @@ export const NavBar = (props)=>(
                                  <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
                                      <div>
 
-                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[2]} index={2} display={true} routeItemsIndex={null}
+                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[3]} index={3} display={true} routeItemsIndex={null}
                                                        uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                                      </div>
@@ -789,7 +800,7 @@ export const NavBar = (props)=>(
                  </div>
                  <div style={{zIndex:8999,width:'100%'}}>
 
-                     {this.state.brandingUploadReady&&<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
+                     {this.state.selectedBusinessInfo?<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
                          <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
                              <p style={{fontSize:20,marginLeft:0}} className="mb-4">
                                  <input type="text" className="templateInputP" onChange={this.handleContentFormChange} placeholder={'A summarized version of what you offer'} value={this.state.content.titleBlurb} name={'titleBlurb'} />
@@ -803,8 +814,8 @@ export const NavBar = (props)=>(
                              </div>
 
                          </div>
-                     </div>}
-                     {this.state.brandingUploadReady&& <div className="fadedshort" style={{height:'auto',display:'flex',justifyContent:'center',flexWrap:'wrap',minHeight:180}}>
+                     </div>:''}
+                     {this.state.selectedBusinessInfo?<div className="fadedshort" style={{height:'auto',display:'flex',justifyContent:'center',flexWrap:'wrap',minHeight:180}}>
                      <div>
                          <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
                              <FileImporter isSmall={true} routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.logo} index={0} display={true}
@@ -823,7 +834,7 @@ export const NavBar = (props)=>(
                      </div>
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
-                     </div>}
+                     </div>:''}
 
                      <div style={{maxHeight:400,width:'100%',overflowY:'auto'}}>
                          <div dangerouslySetInnerHTML={{ __html: this.state.rContent }}></div>
@@ -907,10 +918,28 @@ export const NavBar = (props)=>(
                          this.setState({content:content})
                          //about us = secondaryContent;
                          rootStore.pageStore.testRytrMain(this.state.firstName,this.state.serviceType,this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
+                                // res split by ('-')
+                                // res s = s.replace(/([A-Z])/g, ' $1').trim()
+                             //supportingHeading
+                             //secondary content title
+                             //secondary content
+                             //p3heading1
+                             //p3content1
+
                              console.log('res,',res);
+
                              let content=this.state.content;
-                             content.supportingHeading=res.replace(/<[^>]*>?/gm, '');
-                             this.setState({rContent:'',content:content,loading:false},()=>{
+                             let contentFormattedString=res.replace(/<[^>]*>?/gm, '');
+                             let contentFormatted = contentFormattedString.replace(/([A-Z])/g, ' $1').split('-')
+                             content.supportingHeading = contentFormatted[2]
+                             content.supportingHeadingTitle = contentFormatted[1]
+                             content.secondaryContent=contentFormatted[3];
+                             content.secondaryContentTitle = contentFormatted[4]
+                             content.p3Heading1 = contentFormatted[5]
+                             content.p3Content1 = contentFormatted[6]
+                             this.setState({rContent:'',content:content,loading:false});
+
+                           /*  this.setState({rContent:'',content:content,loading:false},()=>{
                                  rootStore.pageStore.testRytrAbout(this.state.firstName,this.state.serviceType,this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
                                      console.log('res2,',res2);
                                      let rytrBlurb = res2.replace(/<[^>]*>?/gm, '');
@@ -918,7 +947,7 @@ export const NavBar = (props)=>(
                                      content.secondaryContent=rytrBlurb;
                                      this.setState({rContent:'',content:content,loading:false});
                                  });
-                             });
+                             })*/;
                          });
                      }
                      if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){

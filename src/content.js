@@ -20,6 +20,7 @@ export const contactButtonTitle='Contact Us';
 export const titleContent=content.busines_Tag_Line;
 export const titleBlurb=content.business_blurb;
 export const supportingHeading =content.business_header_1;
+export const supportingHeadingTitle = content.supportingHeadingTitle;
 export const supportingBlurb =content.business_subheader;
 export const secondaryContentTitle=content.aux_header;
 export const secondaryContent =content.aux_content

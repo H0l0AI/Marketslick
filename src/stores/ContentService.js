@@ -131,7 +131,7 @@ export async function testRytrLanding(userName,serviceType,businessTags){
     //TAGLINE
     //"DESCRIPTION_LABEL"
     //let btags = `${businessName} is a `+businessTags;
-    let btags = `${userName} is a ${serviceType}, ${businessTags}`;
+    let btags = `Write a short intro about ${userName} who is a ${serviceType}`;
 
     const useCaseTag = await caseDetailById(
         useCaseMagicCommandId
@@ -188,7 +188,7 @@ export async function testRytrMain(firstName,serviceType,businessName,businessBl
 
     let inputContexts = {
         [useCaseProduct.data.data.contextInputs[0].keyLabel]: firstName,
-        [useCaseProduct.data.data.contextInputs[1].keyLabel]: serviceType,
+        [useCaseProduct.data.data.contextInputs[0].keyLabel]: serviceType,
         [useCaseProduct.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);
@@ -217,7 +217,7 @@ export async function testRytrAbout(firstName,serviceType,businessName,businessF
 
     let inputContexts = {
         [useCaseBio.data.data.contextInputs[0].keyLabel]: sectionTopic,
-        [useCaseBio.data.data.contextInputs[1].keyLabel]: sectionKeywords,
+        [useCaseBio.data.data.contextInputs[0].keyLabel]: sectionKeywords,
         [useCaseBio.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);
