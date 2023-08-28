@@ -1,71 +1,75 @@
-import logo from './logo.svg';
-import './App.css';
-import './SM.css';
-import qs from 'qs';
-import React from 'react';
-import { inject, observer } from 'mobx-react';
-import { Router, Route, Switch,useParams } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import logo from "./logo.svg";
+import "./App.css";
+import "./SM.css";
+import qs from "qs";
+import React from "react";
+import { inject, observer } from "mobx-react";
+import { Router, Route, Switch, useParams } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import firebase from "firebase/compat";
-import {HeroPage} from "./pages/HeroPage";
-import {SecondaryPage} from "./pages/SecondaryPage";
-import {ThirdPage} from "./pages/ThirdPage";
-import {Contact} from "./pages/Contact";
+import { HeroPage } from "./pages/HeroPage";
+import { SecondaryPage } from "./pages/SecondaryPage";
+import { ThirdPage } from "./pages/ThirdPage";
+import { Contact } from "./pages/Contact";
 import cookie from "js-cookie";
-import {rootStore} from "./stores/Store";
-import {TemplatedRoute} from "./pages/TemplatedRoute";
-import {MarketingHeroPage} from "./pages/MarketingHeroPage";
-import {LinkPage} from "./pages/LinkPage";
+import { rootStore } from "./stores/Store";
+import { TemplatedRoute } from "./pages/TemplatedRoute";
+import { MarketingHeroPage } from "./pages/MarketingHeroPage";
+import { LinkPage } from "./pages/LinkPage";
 import TemplateCreator from "./pages/TemplateCreator";
-import {MarketingHeroPageSuccess} from "./pages/MarketingHeroPageSuccess";
-import {HeroPageSuccess} from "./pages/HeroPageSuccess";
-import {LinkPageInside} from "./pages/LinkPageInside";
+import { MarketingHeroPageSuccess } from "./pages/MarketingHeroPageSuccess";
+import { HeroPageSuccess } from "./pages/HeroPageSuccess";
+import { LinkPageInside } from "./pages/LinkPageInside";
 import CreatorFunnel from "./pages/CreatorFunnel";
 
-
 const customHistory = createBrowserHistory();
-const TemplatedRouteComponent=<TemplatedRoute index={0} />
+const TemplatedRouteComponent = <TemplatedRoute index={0} />;
 
-@inject('rootStore') @observer class App extends React.Component{
-    constructor(props) {
-        super(props);
-        // Import the functions you need from the SDKs you need
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+@inject("rootStore")
+@observer
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    // Import the functions you need from the SDKs you need
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyD7nd9OVHIgNPJsXzdTik4xGmMshRrzwCA",
-            authDomain: "salesmagnet-927f3.firebaseapp.com",
-            projectId: "salesmagnet-927f3",
-            storageBucket: "salesmagnet-927f3.appspot.com",
-            messagingSenderId: "1097891059053",
-            appId: "1:1097891059053:web:3673712cf36c09aac3b664",
-            measurementId: "G-8PXLDDQZGL"
-        };
+    // Your web app's Firebase configuration
+    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+    const firebaseConfig = {
+      apiKey: "AIzaSyD7nd9OVHIgNPJsXzdTik4xGmMshRrzwCA",
+      authDomain: "salesmagnet-927f3.firebaseapp.com",
+      projectId: "salesmagnet-927f3",
+      storageBucket: "salesmagnet-927f3.appspot.com",
+      messagingSenderId: "1097891059053",
+      appId: "1:1097891059053:web:3673712cf36c09aac3b664",
+      measurementId: "G-8PXLDDQZGL",
+    };
 
-// Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
 
-        this.state={
-            routeItems:[],
-        }
-        this.props.rootStore.pageStore.initializeAuthentication();
+    this.state = {
+      routeItems: [],
+    };
+    this.props.rootStore.pageStore.initializeAuthentication();
+  }
 
-
+  componentDidMount() {
+    const query = qs.parse(window.location.search.replace("?", ""));
+    console.log(cookie.get("referrer"), "REF:");
+    if (query.referral !== undefined) {
+      console.log(
+        "QUERY:",
+        query.referral,
+        query.referral.length,
+        typeof query.referral
+      );
+      cookie.set("referrer", query.referral);
     }
+    console.log(rootStore.pageStore.code, "load code MAIN");
 
-    componentDidMount(){
-        const query = qs.parse((window.location.search).replace('?', ''));
-        console.log(cookie.get('referrer'),'REF:')
-        if(query.referral!==undefined) {
-            console.log('QUERY:', query.referral,query.referral.length,typeof query.referral);
-            cookie.set('referrer', query.referral);
-        }
-        console.log(rootStore.pageStore.code,'load code MAIN');
-
-  /*      firebase.firestore().collection("templates").get().then((data)=>{
+    /*      firebase.firestore().collection("templates").get().then((data)=>{
             const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
             if(dataToLoad) {
                 const routeItems = dataToLoad.content.routeItemsDefault.concat(dataToLoad.content.routeItems);
@@ -74,34 +78,89 @@ const TemplatedRouteComponent=<TemplatedRoute index={0} />
                 this.setState({routeItems:routeItems})
             }
         })*/
-    }
-    render() {
-
-
-        return (
-            <Router history={customHistory}>
-                <Switch>
-                    <Route path="/marketingDemo" exact component={MarketingHeroPage}/>
-                    <Route path="/builder" exact component={CreatorFunnel}/>
-                    <Route path="/" exact component={()=>{window.location.href='/builder'}}/>
-                    <Route path="/pages" exact component={cookie.get('templateType')==='dm'?MarketingHeroPage:HeroPage}/>
-                    <Route path="/basic-success" exact component={cookie.get('templateType')==='dm'?MarketingHeroPageSuccess:HeroPageSuccess}/>
-                    <Route path="/l/:hostLinkPage" component={LinkPage} />
-                    <Route path="/r/:redirectTarget" component={(props)=>{let {redirectTarget} = useParams(); window.location.href=`https://${redirectTarget}.webgun.ai`}} />
-                    <Route path="/MarketingMagnet" exact component={MarketingHeroPage}/>
-                    <Route path="/pages/our-staff" exact component={SecondaryPage}/>
-                    <Route path="/pages/project-management" exact component={ThirdPage}/>
-                    <Route path="/pages/contact" exact component={Contact}/>
-                    <Route path="/pages/links" exact component={LinkPageInside}/>
-                    <Route path='/pages/additional0' exact component={()=><div><TemplatedRoute index={0} /></div>}/>
-                    <Route path='/pages/additional1' exact component={()=><div><TemplatedRoute index={1} /></div>}/>
-                    <Route path='/pages/additional2' exact component={()=><div><TemplatedRoute index={2} /></div>}/>
-                    <Route path='/pages/additional3' exact component={()=><div><TemplatedRoute index={3} /></div>}/>
-                </Switch>
-            </Router>
-
-        );
-    }
+  }
+  render() {
+    return (
+      <Router history={customHistory}>
+        <Switch>
+          <Route path="/marketingDemo" exact component={MarketingHeroPage} />
+          <Route path="/builder" exact component={CreatorFunnel} />
+          <Route
+            path="/"
+            exact
+            component={() => {
+              window.location.href = "/builder";
+            }}
+          />
+          <Route
+            path="/pages"
+            exact
+            component={
+              cookie.get("templateType") === "dm" ? MarketingHeroPage : HeroPage
+            }
+          />
+          <Route
+            path="/basic-success"
+            exact
+            component={
+              cookie.get("templateType") === "dm"
+                ? MarketingHeroPageSuccess
+                : HeroPageSuccess
+            }
+          />
+          <Route path="/l/:hostLinkPage" component={LinkPage} />
+          <Route
+            path="/r/:redirectTarget"
+            component={(props) => {
+              let { redirectTarget } = useParams();
+              window.location.href = `https://${redirectTarget}.webgun.ai`;
+            }}
+          />
+          <Route path="/MarketingMagnet" exact component={MarketingHeroPage} />
+          <Route path="/pages/our-staff" exact component={SecondaryPage} />
+          <Route path="/pages/project-management" exact component={ThirdPage} />
+          <Route path="/pages/contact" exact component={Contact} />
+          <Route path="/pages/links" exact component={LinkPageInside} />
+          <Route
+            path="/pages/additional0"
+            exact
+            component={() => (
+              <div>
+                <TemplatedRoute index={0} />
+              </div>
+            )}
+          />
+          <Route
+            path="/pages/additional1"
+            exact
+            component={() => (
+              <div>
+                <TemplatedRoute index={1} />
+              </div>
+            )}
+          />
+          <Route
+            path="/pages/additional2"
+            exact
+            component={() => (
+              <div>
+                <TemplatedRoute index={2} />
+              </div>
+            )}
+          />
+          <Route
+            path="/pages/additional3"
+            exact
+            component={() => (
+              <div>
+                <TemplatedRoute index={3} />
+              </div>
+            )}
+          />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;
