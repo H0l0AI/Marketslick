@@ -598,6 +598,53 @@ export const NavBar = (props)=>(
 
     }
 
+    getGeneratedPhoto = async (types,business)=>{
+        const modelId = '26a1a203-3a46-42cb-8cfa-f4de075907d8'
+        const url = process.env.REACT_APP_PROXY_URL+`https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
+        const options = {
+            method: 'POST',
+            headers: {
+                accept: 'application/json',
+                'content-type': 'application/json',
+                authorization: 'Bearer efe89a97-e1ec-4182-be11-910c339e9594'
+            },
+            body: JSON.stringify({
+                prompt: `A clean and elegant ${types[0]}, ${business} slightly out of focus`,
+                negativePrompt: 'watermarks',
+                steps: 10,
+                width: 1024,
+                height: 600,
+                numberOfImages: 1,
+                promptStrength: 7,
+                seed: 4523184
+            })
+        };
+
+       const res = await fetch(url, options)
+        const r = await res.json()
+        console.log('response??',r)
+        const id = r.id
+        setTimeout(async ()=>{
+            const urlSingle = process.env.REACT_APP_PROXY_URL+`https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
+            const optionsSingle = {
+                method: 'GET',
+                headers: {
+                    accept: 'application/json',
+                    authorization: 'Bearer efe89a97-e1ec-4182-be11-910c339e9594'
+                }
+            };
+
+            const imageJson = await fetch(urlSingle, optionsSingle).then(res => res.json())
+            console.log('FINAL IMAGE',imageJson)
+            if(imageJson.state!=='processing'||imageJson.state!=='failed') {
+                this.setState({generatedImageURI: imageJson.images[0].uri})
+            }
+            },35000)
+
+
+
+    }
+
     getRelevantBusinessInfo(placeInformation){
     this.setState({loading:true});
     const key = process&&process.env.REACT_APP_MAPS_KEY;
@@ -623,17 +670,20 @@ export const NavBar = (props)=>(
                 console.log('res,',res);
                 let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
                 let content=this.state.content;
-               await rootStore.pageStore.testRytrBlurb(this.state.firstName,`${this.state.serviceType} at ${info.name}`,rytrBlurb).then((res)=>{
+               await rootStore.pageStore.testRytrBlurb(this.state.firstName,`${this.state.serviceType} at ${info.name}`,rytrBlurb).then(async (res)=>{
                     console.log('res,',res);
                     let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
                     let content=this.state.content;
                     content.titleBlurb=rytrBlurb;
-                    this.setState({rContent:'',content:content,loading:false});
+                  await this.getGeneratedPhoto(info.types,info.name)
+
+                   this.setState({rContent:'',content:content,loading:false});
                 })
                 content.titleContent=rytrBlurb;
                 this.setState({rContent:'',content:content,loading:false});
                 return rytrBlurb
             });
+
 
             this.setState({
                 selectedBusinessInfo: info,
@@ -827,6 +877,7 @@ export const NavBar = (props)=>(
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
                  </div>
+
                  <div style={{zIndex:8999,width:'100%'}}>
 
                      {this.state.selectedBusinessInfo?<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
@@ -851,7 +902,8 @@ export const NavBar = (props)=>(
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot (we'll make it transparent)</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot <br />
+                             (we'll make it transparent)</p>
                      </div>
 
                      <div>
@@ -863,11 +915,30 @@ export const NavBar = (props)=>(
                      </div>
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
-                     </div>:''}
+                         {this.state.generatedImageURI&&<div>
+                             <p>Don't have a banner image? We've AI generated this background image for you to use</p>
+                             <p>(click to download and then upload it as banner image)</p>
+                             <div>
+                                 <div style={{position:'relative', width:640, height:380}}>
+                                     <div  style={{position:'absolute',
+                                         textAlign: 'center',
+                                         width: '100%',
+                                         marginTop:65,
+                                         fontWeight: 900,
+                                         color:'#fff',
+                                         fontSize: 18,
+                                     }}>
+                                         {this.state.content.titleContent}</div>
+                                     <img style={{position:'absolute',right:0,bottom:0}} src={this.state.logo} width={300} height={300} />
+                                 <img width={640} height={380} src={this.state.generatedImageURI} />
+                             </div>
+                         </div>}
+                     </div>}
 
                      <div style={{maxHeight:400,width:'100%',overflowY:'auto'}}>
                          <div dangerouslySetInnerHTML={{ __html: this.state.rContent }}></div>
                      </div>
+                     </div>:''}
                  </div>
              </div>
          }
@@ -960,12 +1031,12 @@ export const NavBar = (props)=>(
                              let content=this.state.content;
                              let contentFormattedString=res.replace(/<[^>]*>?/gm, '');
                              let contentFormatted = contentFormattedString.replace(/([A-Z])/g, ' $1').split('-')
-                             content.supportingHeading = contentFormatted[2]
-                             content.supportingHeadingTitle = contentFormatted[1]
-                             content.secondaryContent=contentFormatted[3];
-                             content.secondaryContentTitle = contentFormatted[4]
-                             content.p3Heading1 = contentFormatted[5]
-                             content.p3Content1 = contentFormatted[6]
+                             content.supportingHeadingTitle = contentFormatted[0]
+                             content.supportingHeading = 'Content...'
+                             content.secondaryContent='Content...'
+                             content.secondaryContentTitle = contentFormatted[1]
+                             content.p3Heading1 = contentFormatted[2]
+                             content.p3Content1 = contentFormatted.toString()
                              this.setState({rContent:'',content:content,loading:false});
 
                            /*  this.setState({rContent:'',content:content,loading:false},()=>{
