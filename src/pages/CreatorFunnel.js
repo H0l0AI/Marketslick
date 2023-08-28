@@ -851,7 +851,7 @@ export const NavBar = (props)=>(
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a branding logo</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot (we'll make it transparent)</p>
                      </div>
 
                      <div>
