@@ -121,7 +121,7 @@ export function createWebsite(code,content) {
     const body = btoa(unescape(encodeURIComponent(JSON.stringify(content))));
     const createBranchURL = 'https://api.github.com/repos/H0l0AI/Marketslick/git/refs';
     const headers = {
-        'Authorization': `token ${process.env.REACT_APP_DEATHSTAR}${process.env.REACT_APP_JEDI}${process.env.REACT_APP_STORMTROOPER}`,
+        'Authorization': `token ${process&&process.env.REACT_APP_DEATHSTAR}${process&&process.env.REACT_APP_JEDI}${process&&process.env.REACT_APP_STORMTROOPER}`,
         'Content-Type': 'application/x-www-form-urlencoded',
         'Accept': 'application/vnd.github.v3+json'
     };
@@ -218,7 +218,7 @@ export function createWebsite(code,content) {
     });
 };
 export async function getRelevantBusinessInfo(placeInformation, key) {
-    const PROXY_URL = process.env.REACT_APP_PROXY_URL;
+    const PROXY_URL = process&&process.env.REACT_APP_PROXY_URL;
     try {
         const locationData = {
             location: {latitude: '', longitude: ''},
@@ -257,20 +257,21 @@ export async function getRelevantBusinessInfo(placeInformation, key) {
                 area = res.data.result.address_components.find((component) => component.types.includes('administrative_area_level_1'))
             }
         }
-        locationData.name = res.data.result.name;
-        locationData.location.latitude = res.data.result.geometry.location.lat;
-        locationData.location.longitude = res.data.result.geometry.location.lng;
-        locationData.address = res.data.result.formatted_address;
-        locationData.phoneNumber = res.data.result.formatted_phone_number;
-        locationData.types = res.data.result.types;
-        locationData.utcOffset = res.data.result.utc_offset;
-        locationData.website = res.data.result.website;
+        locationData.name = res.data.result.name||'';
+        locationData.location.latitude = res.data.result.geometry.location.lat||0;
+        locationData.location.longitude = res.data.result.geometry.location.lng||0;
+        locationData.address = res.data.result.formatted_address||'';
+        locationData.phoneNumber = res.data.result.formatted_phone_number||'';
+        locationData.types = res.data.result.types||[];
+        locationData.utcOffset = res.data.result.utc_offset||'';
+        locationData.website = res.data.result.website||'';
         if (countryCode.short_name && area && area.short_name) {
             locationData.countryCode = countryCode.short_name;
             locationData.area = area.long_name;
         } else {
             return;
         }
+        console.log(locationData,'location data')
         firebase.firestore().collection("users").doc(`${rootStore.pageStore.userId}`).set({businessInfo: locationData})
             .then((r) => {
 
@@ -278,7 +279,7 @@ export async function getRelevantBusinessInfo(placeInformation, key) {
         return locationData;
         //create business in firebase here
     }catch(e){
-        console.log('GMB error');
+        console.log('GMB error',e);
     }
 }
 

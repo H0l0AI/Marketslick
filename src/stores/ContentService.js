@@ -5,7 +5,7 @@ const axios = require("axios");
 
 
 // API key
-const API_KEY = process.env.REACT_APP_RYTR_KEY;
+const API_KEY = process&&process.env.REACT_APP_RYTR_KEY;
 
 // Step 1 - Identify language ID (use language list API endpoint)
 const languageIdEnglish = "607adac76f8fe5000c1e636d";
@@ -25,7 +25,7 @@ const useCaseLandingPageId = "605835258c0a4a000c69c962";
 const useCaseProfileId = "60633095de064b000c8f5cc8";
 const useCaseBioId = "60633095de064b000c8f5cc8";
 const useCaseBlogId = "60584cf2c2cdaa000c2a7954";
-const PROXY_URL = process.env.REACT_APP_PROXY_URL;
+const PROXY_URL = process&&process.env.REACT_APP_PROXY_URL;
 //topic
 //keywords
 
@@ -124,14 +124,42 @@ async function ryte({ useCaseId, inputContexts }) {
 1: {label: 'About website', placeholder: 'AI writer that generates content instantly', keyLabel: 'ABOUT_WEBSITE_LABEL', inputType: 'text', inputMaximumCharacters: 75, …}
 2: {label: 'Features', placeholder: '- Uses language AI and copywriting formulas to gen…ast, affordable, and works well on mobile devices', keyLabel: 'FEATURES_LABEL', inputType: 'textarea', inputMaximumCharacters: 300, …}
 */
-export async function testRytrBlurb(userName,businessName,businessTags){
+export async function testRytrLanding(userName,serviceType,businessTags){
+    const usecaseList = await caseById();
+    //useCaseLandingPageId
+    //"605835258c0a4a000c69c962"
+    //TAGLINE
+    //"DESCRIPTION_LABEL"
+    //let btags = `${businessName} is a `+businessTags;
+    let btags = `Write a short intro about ${userName} who is a ${serviceType}`;
+
+    const useCaseTag = await caseDetailById(
+        useCaseMagicCommandId
+    );
+    console.log('blurb',useCaseTag);
+
+    let inputContexts = {
+        [useCaseTag.data.data.contextInputs[0].keyLabel]: btags,
+    };
+    console.log('inut',inputContexts);
+
+    let output = await ryte({
+        useCaseId: useCaseTag.data.data._id,
+        inputContexts,
+    });
+
+    console.log("Output blurb CONTENT:",output);
+    return output;
+};
+
+export async function testRytrBlurb(userName,serviceType,businessTags){
     const usecaseList = await caseById();
     //useCaseTagline
     //"605838118c0a4a000c69c968"
     //TAGLINE
     //"DESCRIPTION_LABEL"
     //let btags = `${businessName} is a `+businessTags;
-    let btags = `${userName} is a personal trainer`;
+    let btags = `${userName} is a ${serviceType}`;
 
     const useCaseTag = await caseDetailById(
         useCaseTagline
@@ -151,16 +179,16 @@ export async function testRytrBlurb(userName,businessName,businessTags){
     console.log("Output blurb CONTENT:",output);
     return output;
 };
-export async function testRytrMain(firstName,businessName,businessBlurb,businessFeatures){
+export async function testRytrMain(firstName,serviceType,businessName,businessBlurb,businessFeatures){
     const usecaseList = await caseById();
     const useCaseProduct = await caseDetailById(
-        useCaseProductId
+        useCaseLandingPageId
     );
     console.log('desc',useCaseProduct);
 
     let inputContexts = {
         [useCaseProduct.data.data.contextInputs[0].keyLabel]: firstName,
-        [useCaseProduct.data.data.contextInputs[1].keyLabel]: 'personal trainer',
+        [useCaseProduct.data.data.contextInputs[0].keyLabel]: serviceType,
         [useCaseProduct.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);
@@ -173,23 +201,23 @@ export async function testRytrMain(firstName,businessName,businessBlurb,business
     console.log("Output PAGE CONTENT:",output);
     return output;
 };
-export async function testRytrAbout(firstName,businessName,businessFeatures,businessBlurb){
+export async function testRytrAbout(firstName,serviceType,businessName,businessFeatures,businessBlurb){
     //topic
     //keywords
     const usecaseList = await caseById();
     //useCaseProfile
     //   //"ABOUT_YOU_LABEL"
     //     //"60633095de064b000c8f5cc9"
-    let sectionTopic = `My name is ${firstName}. I'm a personal trainer at ${businessName} featuring ${businessFeatures}, let me help you get fit`
+    let sectionTopic = `My name is ${firstName}. I'm a ${serviceType} at ${businessName} featuring ${businessFeatures}, let me help you`
     let sectionKeywords = `About me, Experience`
     const useCaseBio = await caseDetailById(
-        useCaseBlogId
+        useCaseBioId
     );
     console.log('landing',useCaseBio);
 
     let inputContexts = {
         [useCaseBio.data.data.contextInputs[0].keyLabel]: sectionTopic,
-        [useCaseBio.data.data.contextInputs[1].keyLabel]: sectionKeywords,
+        [useCaseBio.data.data.contextInputs[0].keyLabel]: sectionKeywords,
         [useCaseBio.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);

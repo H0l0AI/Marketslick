@@ -22,6 +22,7 @@ import {
     secondaryContent,
     secondaryContentTitle,
     supportingBlurb,
+    supportingHeadingTitle,
     supportingHeading,
     titleBlurb,
     titleContent,autoCompletePlaces,
@@ -44,6 +45,7 @@ import {inject, observer} from "mobx-react";
 import {toJS} from "mobx";
 import SimpleMap from "./SimpleMap";
 import {Swatches} from "react-color/lib/components/swatches/Swatches";
+import {testRytrLanding} from "../stores/ContentService";
 export const FacebookButton=(props)=>{
     const history = useHistory();
 
@@ -199,6 +201,7 @@ export const NavBar = (props)=>(
                 titleContent:titleContent,
                 titleBlurb:titleBlurb,
                 supportingHeading:supportingHeading,
+                supportingHeadingTitle:supportingHeadingTitle||'',
                 secondaryContentTitle:secondaryContentTitle,
                 secondaryContent:secondaryContent,
                 contactTitle:contactTitle,
@@ -360,11 +363,40 @@ export const NavBar = (props)=>(
                 file = fileInput
             }
             const formData = new FormData();
+
+            formData.append("image_file", file);
+            formData.append('return_type','2')
+/*
+            formData: {
+                sync: "1",
+                    image_file: file,
+            }*/
+
+            const response = await fetch(process.env.REACT_APP_PROXY_URL+"https://techhk.aoscdn.com/api/tasks/visual/segmentation",
+                {
+                    method: "POST",
+                    headers: {"X-API-KEY": "wxndl7a6i4toqrbmb"},
+                    body: formData
+                }
+            );
+            const r = await response.json()
+            console.log('res',r.data.task_id)
+            const responseImage = await fetch(
+                `${process.env.REACT_APP_PROXY_URL}https://techhk.aoscdn.com/api/tasks/visual/segmentation/${r.data.task_id}`,
+                {
+                method: "GET",
+                headers: {"X-API-KEY": "wxndl7a6i4toqrbmb"},
+            })
+            const image = await responseImage.json()
+            const base64image = "data:image/png;base64,"+image.data.image
+
+            console.log('res',image,base64image)
+
             let storageRef = firebase.storage().ref();
             // @ts-ignore
             let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
             // @ts-ignore
-            let uploadTask = practiceImageRef.put(file);
+            let uploadTask = practiceImageRef.putString(base64image.split(',')[1], "base64", {contentType: 'image/png'});
             // @ts-ignore
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
@@ -557,7 +589,7 @@ export const NavBar = (props)=>(
     }
 
     triggerAutoComplete(data){
-        const key = process.env.REACT_APP_MAPS_KEY;
+        const key = process&&process.env.REACT_APP_MAPS_KEY;
         rootStore.pageStore.autoCompletePlacesAction(data, key).then((res)=>{
             console.log('...FACES',res,key);
             this.setState({places:res&&res.predictions,businessName:data})
@@ -568,7 +600,7 @@ export const NavBar = (props)=>(
 
     getRelevantBusinessInfo(placeInformation){
     this.setState({loading:true});
-    const key = process.env.REACT_APP_MAPS_KEY;
+    const key = process&&process.env.REACT_APP_MAPS_KEY;
     rootStore.pageStore.getRelevantBusinessInfo(placeInformation,key).then((info)=>{
         console.log('...INFO',info);
         if(info) {
@@ -587,13 +619,22 @@ export const NavBar = (props)=>(
                 mapsCenter = {lat: info.location.latitude, lng: info.location.longitude}
                 content.mapsCenter=mapsCenter;
             }
-            rootStore.pageStore.testRytrBlurb(this.state.firstName,info.name,info.types.join(' ')).then((res)=>{
+            rootStore.pageStore.testRytrBlurb(this.state.firstName,this.state.serviceType,info.types.join(' ')).then(async (res)=>{
                 console.log('res,',res);
                 let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
                 let content=this.state.content;
-                content.titleBlurb=rytrBlurb;
+               await rootStore.pageStore.testRytrBlurb(this.state.firstName,`${this.state.serviceType} at ${info.name}`,rytrBlurb).then((res)=>{
+                    console.log('res,',res);
+                    let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
+                    let content=this.state.content;
+                    content.titleBlurb=rytrBlurb;
+                    this.setState({rContent:'',content:content,loading:false});
+                })
+                content.titleContent=rytrBlurb;
                 this.setState({rContent:'',content:content,loading:false});
+                return rytrBlurb
             });
+
             this.setState({
                 selectedBusinessInfo: info,
                 content: content,
@@ -723,6 +764,7 @@ export const NavBar = (props)=>(
                          </div>
                          <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
                              <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces',height:200}}>
+                                 <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeadingTitle} name={'supportingHeadingTitle'} />
                                  <textarea style={{height:155}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.supportingHeading} name={'supportingHeading'} />
                              </p>
                          </div>
@@ -735,6 +777,14 @@ export const NavBar = (props)=>(
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
                          <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
                      </div>
+                         <div>
+                             <div>
+
+                                 <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[2]} index={2} display={true} routeItemsIndex={null}
+                                               uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
+
+                             </div>
+                         </div>
                      </div>
                      <div style={{position:'relative',marginTop:0,marginBottom:0}}>
                          <div  style={{paddingTop:10}}>
@@ -742,7 +792,7 @@ export const NavBar = (props)=>(
                                  <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
                                      <div>
 
-                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[2]} index={2} display={true} routeItemsIndex={null}
+                                         <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[3]} index={3} display={true} routeItemsIndex={null}
                                                        uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                                      </div>
@@ -769,22 +819,39 @@ export const NavBar = (props)=>(
                      </div>
                  </div>
              </>; break;
-             case 'frontPage':modalComponent = <div style={{minHeight:710,height:'auto',marginTop:20}}>
+             case 'frontPage':modalComponent =
+                 this.state.restOfFormReady&&<div className="fadedshort" style={{minHeight:710,height:'auto',marginTop:20}}>
 
-                 <p style={{fontSize:26,marginTop:40,fontWeight:300,textAlign:'center'}}>{this.state.selectedBusinessInfo?'':''}</p>
+
                  <div style={{marginBottom:20}}><GoogleMyBusinessForm places={this.state.places} selectedBusinessInfo={this.state.selectedBusinessInfo}
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
                  </div>
                  <div style={{zIndex:8999,width:'100%'}}>
-                     <div style={{height:'auto',display:'flex',justifyContent:'center',flexWrap:'wrap',minHeight:180}}>
+
+                     {this.state.selectedBusinessInfo?<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
+                         <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
+                             <p style={{fontSize:20,marginLeft:0}} className="mb-4">
+                                 <input type="text" className="templateInputP" onChange={this.handleContentFormChange} placeholder={'A summarized version of what you offer'} value={this.state.content.titleBlurb} name={'titleBlurb'} />
+                             </p>
+                             <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} placeholder={'The main landing page content...'} value={this.state.content.titleContent} name={'titleContent'} />
+
+                             <br />
+                             <div style={{display:'flex',justifyContent:'center'}}>
+                                 <input type="text" style={{width:'20%'}} className="templateInputP" onChange={this.handleContentFormChange} placeholder={"Call to Action 1"} value={this.state.content.mainButtonTitle} name={'mainButtonTitle'} />
+                                 <input type="text" style={{width:'60%'}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.mainButtonLink} name={'mainButtonLink'} />
+                             </div>
+
+                         </div>
+                     </div>:''}
+                     {this.state.selectedBusinessInfo?<div className="fadedshort" style={{height:'auto',display:'flex',justifyContent:'center',flexWrap:'wrap',minHeight:180}}>
                      <div>
                          <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
                              <FileImporter isSmall={true} routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.logo} index={0} display={true}
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a branding logo</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot (we'll make it transparent)</p>
                      </div>
 
                      <div>
@@ -796,21 +863,8 @@ export const NavBar = (props)=>(
                      </div>
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
-                     </div>
-                     <div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
-                         <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
-                             <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.titleContent} name={'titleContent'} />
-                             <p style={{fontSize:20,marginLeft:0}} className="mb-4">
-                                 <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.titleBlurb} name={'titleBlurb'} />
-                             </p>
-                             <br />
-                             <div style={{display:'flex',justifyContent:'center'}}>
-                             <input type="text" style={{width:'20%'}} className="templateInputP" onChange={this.handleContentFormChange} placeholder={"Call to Action 1"} value={this.state.content.mainButtonTitle} name={'mainButtonTitle'} />
-                             <input type="text" style={{width:'60%'}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.mainButtonLink} name={'mainButtonLink'} />
-                             </div>
+                     </div>:''}
 
-                         </div>
-                     </div>
                      <div style={{maxHeight:400,width:'100%',overflowY:'auto'}}>
                          <div dangerouslySetInnerHTML={{ __html: this.state.rContent }}></div>
                      </div>
@@ -853,11 +907,14 @@ export const NavBar = (props)=>(
                      <div>
                          {this.state.editModal==='frontPage'&&<>
                              <div style={{display:'flex',justifyContent:'center'}}>
-                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Hi, What shall we call you? (Your first name)'} value={this.state.firstName} onChange={(e)=>this.setState({firstName:e.target.value})} />
+                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Hi, What shall we call you? (Your first name)'} value={this.state.firstName} onBlur={()=>{this.setState({serviceTypeReady:true})}} onChange={(e)=>this.setState({firstName:e.target.value})} />
                              </div>
+                             {this.state.serviceTypeReady&&<div className="fadedshort" style={{display:'flex',justifyContent:'center'}}>
+                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'What role do you have? (eg. Personal Trainer)'} value={this.state.serviceType} onBlur={()=>{this.setState({domainNameReady:true})}} onChange={(e)=>this.setState({serviceType:e.target.value})} />
+                             </div>}
 
-                             {this.state.firstName && <><div style={{display: 'flex', justifyContent: 'center'}}>
-                                 <p style={{
+                             {this.state.firstName&&this.state.serviceType&&this.state.domainNameReady && <><div style={{display: 'flex', justifyContent: 'center'}}>
+                                 <p className="fadedshort" style={{
                                      fontSize: 26,
                                      fontWeight: 100,
                                      textAlign: 'center'
@@ -866,7 +923,7 @@ export const NavBar = (props)=>(
 
                              </div>
                                  <div style={{display:'flex',justifyContent:'center'}}>
-                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
+                                 <input onBlur={()=>{this.setState({restOfFormReady:true})}} disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
                                  </div>
                              </>}
 
@@ -875,7 +932,7 @@ export const NavBar = (props)=>(
                      </div>
 
                  <div style={{display:'flex',justifyContent:'center'}}>
-                     <div style={{display:'flex',justifyContent:'center',marginLeft:20}} onClick={()=>{
+                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20}} onClick={()=>{
                      let nextPage = '';
                      switch(this.state.editModal){
                          case 'frontPage': nextPage = 'secondPage';break;
@@ -889,19 +946,37 @@ export const NavBar = (props)=>(
                          content.secondaryContent="Just a moment, we are writing about you..."
                          this.setState({content:content})
                          //about us = secondaryContent;
-                         rootStore.pageStore.testRytrMain(this.state.firstName,this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
+                         rootStore.pageStore.testRytrMain(this.state.firstName,this.state.serviceType,this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
+                                // res split by ('-')
+                                // res s = s.replace(/([A-Z])/g, ' $1').trim()
+                             //supportingHeading
+                             //secondary content title
+                             //secondary content
+                             //p3heading1
+                             //p3content1
+
                              console.log('res,',res);
+
                              let content=this.state.content;
-                             content.supportingHeading=res.replace(/<[^>]*>?/gm, '');
-                             this.setState({rContent:'',content:content,loading:false},()=>{
-                                 rootStore.pageStore.testRytrAbout(this.state.firstName,this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
+                             let contentFormattedString=res.replace(/<[^>]*>?/gm, '');
+                             let contentFormatted = contentFormattedString.replace(/([A-Z])/g, ' $1').split('-')
+                             content.supportingHeading = contentFormatted[2]
+                             content.supportingHeadingTitle = contentFormatted[1]
+                             content.secondaryContent=contentFormatted[3];
+                             content.secondaryContentTitle = contentFormatted[4]
+                             content.p3Heading1 = contentFormatted[5]
+                             content.p3Content1 = contentFormatted[6]
+                             this.setState({rContent:'',content:content,loading:false});
+
+                           /*  this.setState({rContent:'',content:content,loading:false},()=>{
+                                 rootStore.pageStore.testRytrAbout(this.state.firstName,this.state.serviceType,this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
                                      console.log('res2,',res2);
                                      let rytrBlurb = res2.replace(/<[^>]*>?/gm, '');
                                      let content=this.state.content;
                                      content.secondaryContent=rytrBlurb;
                                      this.setState({rContent:'',content:content,loading:false});
                                  });
-                             });
+                             })*/;
                          });
                      }
                      if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
@@ -948,7 +1023,7 @@ export const NavBar = (props)=>(
 
                      }
                          this.setState({editModal:nextPage})}
-                     } className="altButton whiteButton magOrange">{buttonContent}</div>
+                     } className="altButton whiteButton magOrange">{buttonContent}</div>}
                      {cookie.get('wasPurchased')&&<div onClick={()=>{
                          if(this.state.loadState==='success'){
                              return window.location.href='/pages'
@@ -1090,11 +1165,11 @@ export const NavBar = (props)=>(
                         </div></>}
                 </div>
                     {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40,flexWrap:'wrap'}}>
-                       {/* <div style={{position:'relative',cursor:'pointer',marginTop:40}} onClick={()=>{this.setState({templateSelected:'dm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24,marginBottom:10}}>Digital Marketing</p>
-                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} /></div>*/}
+                        <div style={{position:'relative',cursor:'pointer',marginTop:40}} onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
+                            <p style={{fontSize:24,marginBottom:10}}>I am marketing a product</p>
+                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} /></div>
                         <div style={{position:'relative',cursor:'pointer',marginTop:40}}  onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24,marginBottom:10}}>Personal Training</p>
+                            <p style={{fontSize:24,marginBottom:10}}>I am advertising a service</p>
                         </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={property} /></div>
 
                     </div>:null}

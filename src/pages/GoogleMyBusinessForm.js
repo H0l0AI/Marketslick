@@ -73,7 +73,7 @@ import _ from 'lodash';
                             type="text"
                             name="address"
                             value={this.state.userInfoFormFields.address}
-                            placeholder="Enter the name of your gym, so we can find you."
+                            placeholder="Enter the name of your business, so we can find you."
                             className="templateInputH1"
                             onChange={this.handleUserInfoFormChange}
                         />
