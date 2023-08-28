@@ -363,11 +363,40 @@ export const NavBar = (props)=>(
                 file = fileInput
             }
             const formData = new FormData();
+
+            formData.append("image_file", file);
+            formData.append('return_type','2')
+/*
+            formData: {
+                sync: "1",
+                    image_file: file,
+            }*/
+
+            const response = await fetch(process.env.REACT_APP_PROXY_URL+"https://techhk.aoscdn.com/api/tasks/visual/segmentation",
+                {
+                    method: "POST",
+                    headers: {"X-API-KEY": "wxndl7a6i4toqrbmb"},
+                    body: formData
+                }
+            );
+            const r = await response.json()
+            console.log('res',r.data.task_id)
+            const responseImage = await fetch(
+                `${process.env.REACT_APP_PROXY_URL}https://techhk.aoscdn.com/api/tasks/visual/segmentation/${r.data.task_id}`,
+                {
+                method: "GET",
+                headers: {"X-API-KEY": "wxndl7a6i4toqrbmb"},
+            })
+            const image = await responseImage.json()
+            const base64image = "data:image/png;base64,"+image.data.image
+
+            console.log('res',image,base64image)
+
             let storageRef = firebase.storage().ref();
             // @ts-ignore
             let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
             // @ts-ignore
-            let uploadTask = practiceImageRef.put(file);
+            let uploadTask = practiceImageRef.putString(base64image.split(',')[1], "base64", {contentType: 'image/png'});
             // @ts-ignore
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
