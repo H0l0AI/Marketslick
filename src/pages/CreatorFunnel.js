@@ -902,7 +902,8 @@ export const NavBar = (props)=>(
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                          </div>
-                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot (we'll make it transparent)</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot <br />
+                             (we'll make it transparent)</p>
                      </div>
 
                      <div>
@@ -915,16 +916,29 @@ export const NavBar = (props)=>(
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
                          {this.state.generatedImageURI&&<div>
-                             <p>We've AI generated this background image for you to use (click to download and then upload it as banner image)</p>
+                             <p>Don't have a banner image? We've AI generated this background image for you to use</p>
+                             <p>(click to download and then upload it as banner image)</p>
                              <div>
+                                 <div style={{position:'relative', width:640, height:380}}>
+                                     <div  style={{position:'absolute',
+                                         textAlign: 'center',
+                                         width: '100%',
+                                         marginTop:65,
+                                         fontWeight: 900,
+                                         color:'#fff',
+                                         fontSize: 18,
+                                     }}>
+                                         {this.state.content.titleContent}</div>
+                                     <img style={{position:'absolute',right:0,bottom:0}} src={this.state.logo} width={300} height={300} />
                                  <img width={640} height={380} src={this.state.generatedImageURI} />
                              </div>
                          </div>}
-                     </div>:''}
+                     </div>}
 
                      <div style={{maxHeight:400,width:'100%',overflowY:'auto'}}>
                          <div dangerouslySetInnerHTML={{ __html: this.state.rContent }}></div>
                      </div>
+                     </div>:''}
                  </div>
              </div>
          }
