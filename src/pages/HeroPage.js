@@ -41,6 +41,7 @@ import {
   contactCTA,
   p3ContentPhoto,
   backgroundType,
+    generatedImageURI,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -551,8 +552,7 @@ export class HeroPage extends React.Component {
                   }}
                   key={this.state.currentMainImage}
                   src={
-                    this.state.content.imageURLArray &&
-                    this.state.content.imageURLArray[0]
+                    this.state.content.imageURLArray[0]||this.state.content.generatedImageURI
                   }
                   className="fadedshort"
                   style={{
@@ -613,7 +613,6 @@ export class HeroPage extends React.Component {
                         margin: 30,
                         width: "50vw",
                         minWidth: 350,
-                        borderRadius: 4,
                         position: "relative",
                         zIndex: 9999,
                         borderRadius: 20,
@@ -772,7 +771,6 @@ export class HeroPage extends React.Component {
                           margin: 30,
                           width: "50vw",
                           minWidth: 350,
-                          borderRadius: 4,
                           position: "relative",
                           zIndex: 9999,
                           borderRadius: 20,

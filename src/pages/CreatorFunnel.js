@@ -1080,6 +1080,7 @@ export const NavBar = (props)=>(
                          content.backgroundType=this.state.backgroundType.hex;
                          content.class=this.state.class.hex;
                          content.font=this.state.font.hex;
+                         content.generatedImageURI = this.state.generatedImageURI||''
                          cookie.set('templateType',this.state.templateSelected)
                          console.log('SET:',splitCode,this.state.plainCode,':',content);
                          if(rootStore.pageStore.userId){

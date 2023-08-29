@@ -36,6 +36,7 @@ import {
     p3Heading1,
     secondaryHeader,
     secondaryHeading1,
+    generatedImageURI,
     secondaryPhoto1, contactCTA, p3ContentPhoto,backgroundType
 } from "../content";
 import {rootStore} from '../stores/Store';
@@ -137,6 +138,7 @@ export class HeroPageSuccess extends React.Component {
             currentMainImage:0,
             mainArray:[image1,image2],
             content:{
+                generatedImageURI:generatedImageURI,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
                 supportingBlurb:supportingBlurb,
@@ -277,7 +279,7 @@ export class HeroPageSuccess extends React.Component {
 
                             </div>
                             <div className="myDIV" style={{minHeight:900}}>
-                                <img onClick={()=>{this.nextImage()}}  key={this.state.currentMainImage}  src={this.state.content.imageURLArray&&this.state.content.imageURLArray[0]} className="fadedshort" style={{width:'100%',height:790,objectFit:'cover'}}/></div>
+                                <img onClick={()=>{this.nextImage()}}  key={this.state.currentMainImage}  src={this.state.content.imageURLArray[0]||this.state.content.generatedImageURI} className="fadedshort" style={{width:'100%',height:790,objectFit:'cover'}}/></div>
 
                         </div>
 
