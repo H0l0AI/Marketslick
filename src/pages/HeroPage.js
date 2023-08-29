@@ -240,7 +240,7 @@ export class HeroPage extends React.Component {
         secondaryHeader: secondaryHeader,
         secondaryHeading1: secondaryHeading1,
         supportingHeading: supportingHeading,
-        supportingHeadingTitle,
+        supportingHeadingTitle: supportingHeadingTitle,
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
@@ -492,7 +492,7 @@ export class HeroPage extends React.Component {
                   marginTop: "100px",
                 }}
               >
-                <div
+                {/* <div
                   style={{
                     paddingTop: 80,
                     marginBottom: 0,
@@ -505,8 +505,15 @@ export class HeroPage extends React.Component {
                     style={{ maxWidth: 350 }}
                     src={this.state.content.logo || logo}
                   />
-                </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                </div> */}
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
                   <div
                     style={{
                       padding: 30,
@@ -523,7 +530,13 @@ export class HeroPage extends React.Component {
                     <p style={{ fontSize: 20, marginLeft: 0 }} className="mb-4">
                       {this.state.content.titleBlurb}
                     </p>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        width: "100%",
+                      }}
+                    >
                       <div
                         className="altButtonOuter"
                         onClick={() => {
@@ -538,10 +551,29 @@ export class HeroPage extends React.Component {
                             color: this.state.content.font,
                           }}
                         >
-                          Contact Us
+                          Apply Now
                         </div>
                       </div>
                     </div>
+                  </div>
+                  <div
+                    style={{
+                      paddingTop: 40,
+                      marginBottom: 0,
+                      display: "flex",
+                      justifyContent: isMobile ? "center" : "flex-end",
+                      width: "100%",
+                      overflow: "hidden",
+                    }}
+                  >
+                    <img
+                      style={{
+                        maxWidth: isMobile ? 515 : 710,
+                        marginTop: isMobile ? "-70px" : "-180px",
+                        position: isMobile ? "relative" : "absolute",
+                      }}
+                      src={this.state.content.logo || logo}
+                    />
                   </div>
                 </div>
               </div>
@@ -565,10 +597,14 @@ export class HeroPage extends React.Component {
               </div>
             </div>
           </div>
-          <div className="py-6 bg-mainColor">
+          <div
+            className="py-6 bg-mainColor"
+            style={{ padding: 0, overflow: "hidden" }}
+          >
             <div
               style={{
                 backgroundColor: this.state.content.backgroundType,
+                // backgroundImage: `linear-gradient(to bottom, ${this.state.content.backgroundType}, ${this.state.content.class})`,
               }}
             >
               <div
@@ -578,10 +614,10 @@ export class HeroPage extends React.Component {
                   position: "relative",
                   overflow: "hidden",
                   marginRight: 0,
-                  borderBottomLeftRadius: isMobile ? 0 : 30,
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
+                  overflow: "hidden",
                 }}
               >
                 <div
@@ -591,7 +627,11 @@ export class HeroPage extends React.Component {
                     left: 0,
                     width: "100%",
                     height: "100%",
-                    backgroundImage: `linear-gradient(to bottom, ${this.state.content.backgroundType}, ${this.state.content.class})`,
+                    // backgroundImage: `linear-gradient(to bottom, ${this.state.content.backgroundType}, ${this.state.content.class})`,
+                    background: ` ${this.state.content.class}`,
+                    border: `1px solid ${this.state.content.class}`,
+                    borderBottomLeftRadius: isMobile ? 0 : 30,
+                    borderTopLeftRadius: isMobile ? 0 : 30,
                   }}
                 ></div>
 
@@ -626,7 +666,16 @@ export class HeroPage extends React.Component {
                       width="50%"
                     />
                   </div>
-                  <div style={{ minWith: "99vw", minWidth: 300 }}>
+                  <div
+                    style={{
+                      minWith: "99vw",
+                      minWidth: 300,
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      textAlign: "center",
+                    }}
+                  >
                     <h3
                       style={{
                         paddingLeft: 15,
@@ -656,209 +705,229 @@ export class HeroPage extends React.Component {
                 </div>
               </div>
               <div
-                className={`photoCoverBG`}
+                className="container"
                 style={{
+                  marginTop: "50px ",
+                  marginBottom: "100px ",
                   color: this.state.content.font,
-                  fontSize: 20,
-                  paddingBottom: 5,
-                  borderRadius: 20,
-                  backgroundImage:
-                    "url(" + this.state.content.imageURLArray
-                      ? this.state.content.imageURLArray[1]
-                      : logo + ")",
+                  width: "100%",
                 }}
               >
-                <div
-                  className="container"
-                  style={{ marginTop: "50px ", marginBottom: "50px " }}
-                >
-                  <div style={{ paddingTop: 60 }}>
+                <div style={{ paddingTop: 60 }}>
+                  <div
+                    className={`scrollContainer`}
+                    style={{
+                      borderRadius: 12,
+                      backgroundImage: isMobile
+                        ? ` ${this.state.content.class}`
+                        : `linear-gradient(
+                        to top,
+                        ${this.state.content.class} 75%,
+                        transparent 75%)`,
+                      width: "100%",
+                    }}
+                  >
                     <div
-                      className={`scrollContainer`}
-                      style={{
-                        borderRadius: 12,
-                        backgroundColor: this.state.content.backgroundType,
-                      }}
+                      className={`${
+                        this.state.content.hasScroll &&
+                        "scroll-element js-scroll slide-left starting"
+                      }`}
+                      style={{ padding: 33, width: "100%" }}
                     >
+                      {/*  */}
                       <div
-                        className={`${
-                          this.state.content.hasScroll &&
-                          "scroll-element js-scroll slide-left starting"
-                        }`}
-                        style={{ padding: 33, width: "100%" }}
+                        style={{ display: "flex", justifyContent: "center" }}
                       >
-                        <div className="px-4">
-                          <p>
-                            <h1
-                              style={{
-                                fontSize: "1.5rem",
-                                whiteSpace: "break-spaces",
-                                textAlign: "center",
-                              }}
-                            >
-                              {this.state.content.supportingHeadingTitle}
-                            </h1>
-                            <h3
-                              style={{
-                                fontSize: "1.5rem",
-                                whiteSpace: "break-spaces",
-                                textAlign: "center",
-                              }}
-                            >
-                              {this.state.content.supportingHeading}
-                            </h3>
-                          </p>
-                        </div>
-                        <br />
-                        <div></div>
-                        {/* secondary section new addition.  */}
-                        {/* <div
+                        <img
                           style={{
-                            position: "absolute",
-                            bottom: 0,
-                            left: 0,
-                            width: "100%",
-                            height: "100%",
-                            backgroundImage: `linear-gradient(to bottom, ${this.state.content.backgroundType}, ${this.state.content.class})`,
+                            margin: 30,
+                            width: "30vw",
+                            minWidth: 350,
+                            borderRadius: 4,
+                            position: "relative",
+                            zIndex: 9999,
+                            borderRadius: 20,
                           }}
-                        ></div> */}
-
-                        {/* <div className="px-4">
-                          <p
+                          src={
+                            (this.state.content.imageURLArray &&
+                              this.state.content.imageURLArray[2]) ||
+                            logo
+                          }
+                          alt=""
+                          width="50%"
+                        />
+                      </div>
+                      <div className="px-4">
+                        <p>
+                          <h1
                             style={{
                               fontSize: "1.5rem",
                               whiteSpace: "break-spaces",
+                              textAlign: "center",
                             }}
                           >
-                            {this.state.content.supportingHeading2}
-                          </p>
-                        </div> */}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  className="new-container"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    position: "relative",
-                    justifyContent: "center",
-                    width: isMobile ? "100%" : "75%",
-                    backgroundImage: `linear-gradient(to top, ${this.state.content.backgroundType}, ${this.state.content.class})`,
-                    marginTop: 50,
-                    marginLeft: 0,
-                    borderBottomRightRadius: isMobile ? 0 : 30,
-                    borderTopRightRadius: isMobile ? 0 : 30,
-                    marginBottom: 50,
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      paddingTop: 40,
-                      flexWrap: "wrap",
-                      paddingBottom: 40,
-                      marginBottom: 70,
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <div>
-                      <img
-                        style={{
-                          margin: 30,
-                          width: "50vw",
-                          minWidth: 350,
-                          position: "relative",
-                          zIndex: 9999,
-                          borderRadius: 20,
-                        }}
-                        src={
-                          (this.state.content.imageURLArray &&
-                            this.state.content.imageURLArray[3]) ||
-                          logo
-                        }
-                        alt=""
-                        width="50%"
-                      />
-                    </div>
-                    <div style={{ minWith: "99vw", minWidth: 300 }}>
-                      <h3
-                        style={{
-                          paddingLeft: 15,
-                          marginBottom: 0,
-                          whiteSpace: "break-spaces",
-                          color: this.state.content.font,
-                          position: "relative",
-                          zIndex: 9999,
-                          textAlign: "center",
-                        }}
-                      >
-                        {this.state.content.p3Heading1}
-                      </h3>
-                      <p
-                        style={{
-                          fontSize: 18,
-                          paddingLeft: 15,
-                          paddingTop: 10,
-                          whiteSpace: "break-spaces",
-                          color: this.state.content.font,
-                          position: "relative",
-                          zIndex: 9999,
-                          textAlign: "center",
-                        }}
-                      >
-                        {this.state.content.p3Content1}
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                            {this.state.content.supportingHeadingTitle}
+                          </h1>
+                          <p
+                            style={{
+                              fontSize: 18,
 
-                {/* template example of where the review section may go. to be replaced */}
-                <div
-                  className="review-section"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: this.state.content.class,
-                    display: "flex",
-                    justifyContent: "space-evenly",
-                    alignItems: "center",
-                    flexDirection: "row",
-                    padding: 50,
-                  }}
-                >
-                  <div
-                    className="review"
-                    style={{
-                      height: "200px",
-                      width: "250px",
-                      backgroundColor: "#fff",
-                      borderRadius: 20,
-                    }}
-                  ></div>
-                  <div
-                    className="review"
-                    style={{
-                      height: "200px",
-                      width: "250px",
-                      backgroundColor: "#fff",
-                      borderRadius: 20,
-                    }}
-                  ></div>
-                  <div
-                    className="review"
-                    style={{
-                      height: "200px",
-                      width: "250px",
-                      backgroundColor: "#fff",
-                      borderRadius: 20,
-                    }}
-                  ></div>
+                              whiteSpace: "break-spaces",
+                              textAlign: "center",
+                            }}
+                          >
+                            {this.state.content.supportingHeading}
+                          </p>
+                        </p>
+                      </div>
+                      <br />
+                      <div></div>
+                    </div>
+                  </div>
                 </div>
               </div>
+              {/* new section  */}
+              <div
+                className="new-container"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: 20,
+                  position: "relative",
+                  justifyContent: "center",
+                  width: isMobile ? "100%" : "75%",
+                  // backgroundImage: `linear-gradient(to top, ${this.state.content.backgroundType}, ${this.state.content.class})`,
+                  background: `${this.state.content.class}`,
+                  marginTop: 50,
+                  marginLeft: 0,
+                  borderBottomRightRadius: isMobile ? 0 : 30,
+                  borderTopRightRadius: isMobile ? 0 : 30,
+                  marginBottom: 100,
+                  border: `1px solid ${this.state.content.class}`,
+                }}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    paddingTop: 40,
+                    flexWrap: "wrap",
+                    paddingBottom: 40,
+                    marginBottom: 70,
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <div>
+                    <img
+                      style={{
+                        margin: 30,
+                        width: "50vw",
+                        minWidth: 350,
+                        borderRadius: 4,
+                        position: "relative",
+                        zIndex: 9999,
+                        borderRadius: 20,
+                      }}
+                      src={
+                        (this.state.content.imageURLArray &&
+                          this.state.content.imageURLArray[2]) ||
+                        logo
+                      }
+                      alt=""
+                      width="50%"
+                    />
+                  </div>
+                  <div style={{ minWith: "99vw", minWidth: 300 }}>
+                    <h3
+                      style={{
+                        paddingLeft: 15,
+                        marginBottom: 0,
+                        whiteSpace: "break-spaces",
+                        color: this.state.content.font,
+                        position: "relative",
+                        zIndex: 9999,
+                        textAlign: "center",
+                      }}
+                    >
+                      {this.state.content.p3Heading1}
+                    </h3>
+                    <p
+                      style={{
+                        fontSize: 18,
+                        paddingLeft: 15,
+                        paddingTop: 10,
+                        whiteSpace: "break-spaces",
+                        color: this.state.content.font,
+                        position: "relative",
+                        zIndex: 9999,
+                        textAlign: "center",
+                      }}
+                    >
+                      {this.state.content.p3Content1}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* template example of where the review section may go. to be replaced */}
+              <div
+                className="reveiew-header"
+                style={{
+                  height: "100%",
+                  width: "100%",
+                  color: this.state.content.font,
+                  textAlign: "center",
+                }}
+              >
+                <h3>
+                  Dont just take our word for it. See what our clients have to
+                  say.
+                </h3>
+              </div>
+              <div
+                className="review-section"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  backgroundColor: this.state.content.class,
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  alignItems: "center",
+                  flexDirection: "row",
+                  padding: 50,
+                  overflow: "scroll",
+                }}
+              >
+                <div
+                  className="review"
+                  style={{
+                    height: "200px",
+                    width: "250px",
+                    backgroundColor: "#fff",
+                    borderRadius: 20,
+                  }}
+                ></div>
+                <div
+                  className="review"
+                  style={{
+                    height: "200px",
+                    width: "250px",
+                    backgroundColor: "#fff",
+                    borderRadius: 20,
+                  }}
+                ></div>
+                <div
+                  className="review"
+                  style={{
+                    height: "200px",
+                    width: "250px",
+                    backgroundColor: "#fff",
+                    borderRadius: 20,
+                  }}
+                ></div>
+              </div>
+              {/* </div> */}
               <div ref={this.contactRef} style={{ marginTop: 40 }}>
                 <div
                   className={`supportingColor secondaryBackgroundColor`}
