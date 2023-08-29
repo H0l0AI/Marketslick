@@ -612,7 +612,6 @@ export class HeroPage extends React.Component {
                 style={{
                   width: isMobile ? "100%" : "75%",
                   position: "relative",
-                  overflow: "hidden",
                   marginRight: 0,
                   display: "flex",
                   justifyContent: "center",
@@ -743,7 +742,6 @@ export class HeroPage extends React.Component {
                             margin: 30,
                             width: "30vw",
                             minWidth: 350,
-                            borderRadius: 4,
                             position: "relative",
                             zIndex: 9999,
                             borderRadius: 20,
@@ -824,7 +822,6 @@ export class HeroPage extends React.Component {
                         margin: 30,
                         width: "50vw",
                         minWidth: 350,
-                        borderRadius: 4,
                         position: "relative",
                         zIndex: 9999,
                         borderRadius: 20,

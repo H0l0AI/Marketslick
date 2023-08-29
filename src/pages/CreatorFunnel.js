@@ -719,7 +719,6 @@ export const NavBar = (props)=>(
                      <div style={{display:'flex',justifyContent:'space-around'}}><div onClick={()=>{
                          this.addLink(this.state.addLinkName,this.state.addLinkHref)
                      }} style={{marginBottom:10,marginLeft:10,width:200}} className="altButton whiteButton magOrange">Add link</div>
-
                          <br />
 
                  </div>
