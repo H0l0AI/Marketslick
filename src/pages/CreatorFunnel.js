@@ -712,6 +712,7 @@ export const NavBar = (props)=>(
              case 'LinkPage':modalComponent=<div>
                  <h3 style={{textAlign:'center'}}>Create a page that serves as your social media entry point!</h3>
                  <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/{this.state.code||cookie.get('code')}</p>
+                 <input placeholder={'The title to your link page'} type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.linkTitle} name={'linkTitle'} />
                  <div style={{display:'flex',justifyContent:'center',margin:100,maxHeight:500,overflowY:'auto'}}>
                      <input type="text" className="templateInputP" style={{width:300,color:'#0e1e46',border:'1px solid #0e1e46'}} value={this.state.addLinkName} onChange={(e)=>{this.changeLinkName(e)}} placeholder={'Enter name for your link, ie. Facebook'} />
                      <input type="text" className="templateInputP" style={{width:300,color:'#0e1e46',border:'1px solid #0e1e46'}} value={this.state.addLinkHref} onChange={(e)=>{this.changeLinkHref(e)}} placeholder={'Enter URL for your link, ie. https://www.mywebsite.com'} />

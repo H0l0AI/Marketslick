@@ -16,7 +16,7 @@ import {
     secondaryContentTitle,
     secondaryHeader,
     secondaryHeading1,
-    supportingBlurb, supportingHeading, titleBlurb, titleContent
+    supportingBlurb, supportingHeading, titleBlurb, titleContent,linkTitle
 } from "../content";
 import {rootStore} from "../stores/Store";
 import {NavBar} from "./MarketingHeroPage";
@@ -29,6 +29,7 @@ export class LinkPageInside extends React.Component {
         this.contactRef = React.createRef()
         this.state={
             content:{
+                linkTitle:linkTitle,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
                 supportingBlurb:supportingBlurb,
@@ -58,16 +59,15 @@ export class LinkPageInside extends React.Component {
         firebase.firestore().collection("templates").get().then((data)=>{
             const dataToLoad=data.docs.find((doc)=>doc.id===(rootStore.pageStore.code?`t-${rootStore.pageStore.code}`:'live')).data();
             if(dataToLoad) {
-                console.log(dataToLoad,'LOAD');
+                console.log(dataToLoad,'LOADS');
                 this.setState({content: dataToLoad.content})
             }
         })
     }
     render(){
         return <div>
-            <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
-            <div style={{backgroundColor:this.state.content.backgroundType,color:this.state.content.font,height:'100vh',width:'100vw',paddingTop:100}}>
-                <h2 style={{textAlign:'center'}}>Our other pages</h2>
+            <div className="bg-cover" style={{backgroundSize:'cover',background:this.state.content.imageURLArray?`url(${this.state.content.imageURLArray[0]})`:'',color:this.state.content.font,height:'100vh',width:'100vw',paddingTop:100}}>
+                <h2 style={{textAlign:'center'}}>{this.state.content.linkTitle}</h2>
                 <div style={{display:'flex',justifyContent:'center',zIndex:99}}>
                     <ul>
                         {this.state.content.linkArray&&this.state.content.linkArray.length>0&&this.state.content.linkArray.map((link)=>{

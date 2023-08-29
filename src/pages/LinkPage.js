@@ -16,7 +16,8 @@ import {
     secondaryContentTitle,
     secondaryHeader,
     secondaryHeading1,
-    supportingBlurb, supportingHeading, titleBlurb, titleContent
+    supportingBlurb, supportingHeading, titleBlurb, titleContent,
+    linkTitle,
 } from "../content";
 import {rootStore} from "../stores/Store";
 import {NavBar} from "./MarketingHeroPage";
@@ -29,6 +30,7 @@ export class LinkPage extends React.Component {
         this.contactRef = React.createRef()
         this.state={
             content:{
+                linkTitle:linkTitle,
                 businessBlurb: businessBlurb,
                 businessBlurbShort: businessBlurbShort,
                 supportingBlurb:supportingBlurb,
@@ -64,9 +66,8 @@ export class LinkPage extends React.Component {
     }
     render(){
         return <div>
-            <NavBar content={this.state.content} isMarketing={true} class={this.state.content.class} routeItems={this.state.content.routeItemsDefault?this.state.content.routeItemsDefault.concat(this.state.content.routeItems):RouteItems} backgroundType={this.state.content.backgroundType}/>
-            <div className={`${this.state.content.backgroundType}`} style={{color:'#fff',height:'100vh',width:'100vw',backgroundColor:'#ff2019',paddingTop:100}}>
-                <h2 style={{textAlign:'center'}}>Our other pages</h2>
+            <div className="bg-cover" style={{ background:this.state.content.imageURLArray?`url(${this.state.content.imageURLArray[0]})`:'',backgroundSize:'cover',color:'#fff',height:'100vh',width:'100vw',paddingTop:100}}>
+                <h2 style={{textAlign:'center'}}>{this.state.content.linkTitle}</h2>
                 <div style={{display:'flex',justifyContent:'center',zIndex:99}}>
                     <ul>
                         {this.state.content.linkArray&&this.state.content.linkArray.length>0&&this.state.content.linkArray.map((link)=>{

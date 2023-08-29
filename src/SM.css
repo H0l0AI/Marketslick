@@ -1625,6 +1625,12 @@ body.dark-discord .border-dark {
   font-weight: 900 !important;
   border-radius: 8px !important;
 }
+.bg-cover{
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  -o-background-size: cover !important;
+  background-size: cover !important;
+}
 .redButton {
   border: 1px solid #d9d9d9;
   background-color: #ff2019 !important;
