@@ -923,11 +923,11 @@ export const NavBar = (props)=>(
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
                          {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div style={{width:'100vw'}}>
-                             <p style={{
+                             {this.state.imageURLArray[0]?null:<p style={{
                                  whiteSpace: 'pre-wrap',
                                  wordWrap: 'unset',
                                  width: '99vw',
-                                 margin: 15}}>Don't have a banner image? We've AI generated this background image for you to use</p>
+                                 margin: 15}}>Don't have a banner image? We've AI generated this background image for you to use</p>}
                              <div>
                                  <div style={{position:'relative', width:640, height:380}}>
                                      <div  style={{position:'absolute',
@@ -940,7 +940,7 @@ export const NavBar = (props)=>(
                                      }}>
                                          {this.state.content.titleContent}</div>
                                      <img style={{position:'absolute',right:0,bottom:0}} src={this.state.logo} width={300} height={300} />
-                                 <img width={640} height={380} src={this.state.generatedImageURI} />
+                                 <img width={640} height={380} src={this.state.imageURLArray[0]||this.state.generatedImageURI} />
                              </div>
                          </div>
                      </div>}
