@@ -1066,7 +1066,7 @@ export const NavBar = (props)=>(
                      if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
                          let splitCode = this.state.code||cookie.get('code')||this.state.plainCode.toString();
                          splitCode= splitCode.replace(/\s+/g, '-').toLowerCase();
-                         firebase.analytics().logEvent('template_init_mm',{code:splitCode});
+                         firebase.analytics().logEvent('template_init_wg',{code:splitCode});
                          rootStore.pageStore.setCode(splitCode||this.state.plainCode);
                          firebase.firestore().collection("templates").get().then((data)=>{
                              console.log('data:',data.docs[0].data());
