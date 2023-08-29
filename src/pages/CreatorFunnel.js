@@ -36,7 +36,7 @@ import {
     contactCTA,
     p3ContentPhoto, p3Heading1, p3Content1
 } from "../content";
-import {FileImporter} from "./FileImporter";
+import {FileImporter, loadingComponent2} from "./FileImporter";
 import GoogleMyBusinessForm from "./GoogleMyBusinessForm";
 import cookie from "js-cookie";
 import p2 from "../images/p2.png";
@@ -351,6 +351,7 @@ export const NavBar = (props)=>(
         }
     };
     uploadLogoImage = async (e,fileInput,index)=>{
+        this.setState({loadingLogo:true})
         let file;
         try {
             if(!fileInput) {
@@ -397,6 +398,9 @@ export const NavBar = (props)=>(
             let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
             // @ts-ignore
             let uploadTask = practiceImageRef.putString(base64image.split(',')[1], "base64", {contentType: 'image/png'});
+            if(!image.data||!r.data){
+                uploadTask = practiceImageRef.put(file);
+            }
             // @ts-ignore
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
@@ -407,7 +411,7 @@ export const NavBar = (props)=>(
                     console.log('ERROR writefile',error);
                     let logo=this.state.logo;
                     logo= null;
-                    this.setState({logo:logo,filename:null,uploading:false})
+                    this.setState({logo:logo,filename:null,uploading:false,loadingLogo:false})
 
                 },
                 () => {
@@ -599,6 +603,7 @@ export const NavBar = (props)=>(
     }
 
     getGeneratedPhoto = async (types,business)=>{
+        this.setState({generatedImageLoading:true})
         const modelId = '26a1a203-3a46-42cb-8cfa-f4de075907d8'
         const url = process.env.REACT_APP_PROXY_URL+`https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
         const options = {
@@ -637,7 +642,10 @@ export const NavBar = (props)=>(
             const imageJson = await fetch(urlSingle, optionsSingle).then(res => res.json())
             console.log('FINAL IMAGE',imageJson)
             if(imageJson.state!=='processing'||imageJson.state!=='failed') {
-                this.setState({generatedImageURI: imageJson.images[0].uri})
+                this.setState({generatedImageURI: imageJson.images[0].uri,generatedImageLoading:false})
+            }
+            else{
+                this.setState({ generatedImageLoading:false})
             }
             },35000)
 
@@ -896,10 +904,10 @@ export const NavBar = (props)=>(
                          </div>
                      </div>:''}
                      {this.state.selectedBusinessInfo?<div className="fadedshort" style={{height:'auto',display:'flex',justifyContent:'center',flexWrap:'wrap',minHeight:180}}>
-                     <div>
+                     <div style={{cursor:this.state.generatedImageLoading||this.state.loadingLogo?'wait':'pointer'}}>
                          <div style={{paddingTop:0,marginBottom:0,display:'flex',justifyContent:'flex-start'}}>
                              <FileImporter isSmall={true} routeItemsIndex={null} practiceLogoURL={logo} imageURL={this.state.logo} index={0} display={true}
-                                           uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
+                                           uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading||this.state.loadingLogo} />
 
                          </div>
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot <br />
@@ -915,7 +923,7 @@ export const NavBar = (props)=>(
                      </div>
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
-                         {this.state.generatedImageURI&&<div>
+                         {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div>
                              <p>Don't have a banner image? We've AI generated this background image for you to use</p>
                              <p>(click to download and then upload it as banner image)</p>
                              <div>
@@ -1003,7 +1011,10 @@ export const NavBar = (props)=>(
                      </div>
 
                  <div style={{display:'flex',justifyContent:'center'}}>
-                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20}} onClick={()=>{
+                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20,cursor:this.state.generatedImageLoading||this.state.loadingLogo?'wait':'pointer'}} onClick={()=>{
+                     if(this.state.generatedImageLoading||this.state.loadingLogo){
+                         return false
+                     }
                      let nextPage = '';
                      switch(this.state.editModal){
                          case 'frontPage': nextPage = 'secondPage';break;
@@ -1094,7 +1105,7 @@ export const NavBar = (props)=>(
 
                      }
                          this.setState({editModal:nextPage})}
-                     } className="altButton whiteButton magOrange">{buttonContent}</div>}
+                     } className="altButton whiteButton magOrange" >{buttonContent}</div>}
                      {cookie.get('wasPurchased')&&<div onClick={()=>{
                          if(this.state.loadState==='success'){
                              return window.location.href='/pages'
