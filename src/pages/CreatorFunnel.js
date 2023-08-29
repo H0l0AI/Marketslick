@@ -925,7 +925,6 @@ export const NavBar = (props)=>(
                      </div>
                          {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div>
                              <p>Don't have a banner image? We've AI generated this background image for you to use</p>
-                             <p>(click to download and then upload it as banner image)</p>
                              <div>
                                  <div style={{position:'relative', width:640, height:380}}>
                                      <div  style={{position:'absolute',
@@ -940,7 +939,7 @@ export const NavBar = (props)=>(
                                      <img style={{position:'absolute',right:0,bottom:0}} src={this.state.logo} width={300} height={300} />
                                  <img width={640} height={380} src={this.state.generatedImageURI} />
                              </div>
-                         </div>}
+                         </div>
                      </div>}
 
                      <div style={{maxHeight:400,width:'100%',overflowY:'auto'}}>
@@ -1011,8 +1010,8 @@ export const NavBar = (props)=>(
                      </div>
 
                  <div style={{display:'flex',justifyContent:'center'}}>
-                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20,cursor:this.state.generatedImageLoading||this.state.loadingLogo?'wait':'pointer'}} onClick={()=>{
-                     if(this.state.generatedImageLoading||this.state.loadingLogo){
+                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20,cursor:!this.state.generatedImageURI?'wait':'pointer'}} onClick={()=>{
+                     if(!this.state.generatedImageURI){
                          return false
                      }
                      let nextPage = '';
