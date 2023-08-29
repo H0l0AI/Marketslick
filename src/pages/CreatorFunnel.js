@@ -731,85 +731,7 @@ export const NavBar = (props)=>(
                  </div>
              </div>; break;
              case 'Extra':modalComponent=null; break;
-             case 'fifthPage' : modalComponent = <>
-                 <h3 style={{textAlign:'center',fontWeight:300}}>Additional Page</h3>
-                 <div style={{position:'relative',marginTop:0,marginBottom:0}}>
-                     <div  style={{paddingTop:10}}>
-                         <div >
-                             <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
-                                 <div>
 
-                                     <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[3]} index={3} display={true} routeItemsIndex={null}
-                                                   uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
-
-                                 </div>
-                                 <div style={{width: '55%',minWidth:350,paddingLeft:15}}>
-                                     <h3 style={{marginRight:'5%',marginBottom:0,whiteSpace:'break-spaces'}}>
-                                         <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.p3Heading1} name={'p3Heading1'} />
-                                     </h3>
-                                     <p style={{fontSize:18,paddingLeft:0,paddingTop:10,whiteSpace:'break-spaces',height:200}}>
-                                         <textarea style={{height:75}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.p3Content1} name={'p3Content1'} />
-                                     </p>
-                                 </div>
-                             </div>
-                         </div>
-
-                     </div>
-                 </div>
-
-             </>;break;
-             case 'fourthPage': modalComponent = <>
-                 <h3 style={{textAlign:'center',fontWeight:300,padding:40}}>Contact Page</h3>
-                 <div style={{marginTop:0}}>
-                     <div style={{marginTop:20,padding:20,margin:0}}>
-                         <div style={{display:'flex',justifyContent:'center'}}>
-                             <div style={{width:500}}>
-                                 <input style={{height:40}} type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactTitle} name={'contactTitle'} />
-                                 <p style={{marginBottom:10,paddingLeft:15,paddingTop:10,height:120,minWidth:300,textAlign:'center',whiteSpace:'break-spaces'}}>
-                                     <textarea style={{height:85}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactBlurb} name={'contactBlurb'} />
-
-                                 </p>
-                                 <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
-                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:0,color:'#0e1e46'}} className="material-icons">mail</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={rootStore.pageStore.user.email||this.state.content.contactEmail} name={'contactEmail'} />
-                                     </div></div>
-                                     <br />
-                                     <div style={{padding:10}}><div style={{position:'relative'}}><i style={{position:'absolute',top:20,left:10,color:'#0e1e46'}} className="material-icons">local_phone</i> </div><div style={{marginLeft:40}}><b></b>                                    <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.contactPhone} name={'contactPhone'} />
-                                     </div></div>
-                                     <br />
-
-                                 </div>
-                                 {this.state.mapsCenter&&<SimpleMap center={this.state.mapsCenter} name={this.state.businessName} />}
-                                 <div >
-                                 </div>
-                             </div>
-
-                         </div>
-
-                     </div>
-
-                 </div>
-             </>;break;
-             case 'thirdPage': modalComponent = <div style={{height:600}}><h3 style={{textAlign:'center',fontWeight:300}}>About Page</h3>
-
-
-                         <FileImporter routeItemsIndex={null}practiceLogoURL={logo} imageURL={this.state.imageURLArray[2]} index={2} display={true}
-                                       uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
-
-                     <div className="mainFontColor" style={{display:'flex',justifyContent:'center',height:100}}><div style={{width:'40%'}}>
-                             <input type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.secondaryHeader} name={'secondaryHeader'} />
-                     <div style={{flexWrap:'wrap'}}>
-                         <div style={{maxWidth:600,margin:20}}><p className="mainFontColor" style={{padding:20, whiteSpace:'break-spaces'}}>
-                             <div>                                        <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryHeading1} name={'secondaryHeading1'} />
-                             </div>
-                             <textarea type="text" style={{height:120}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent1} name={'secondaryContent1'} />
-
-                         </p>
-                         </div>
-
-                     </div>
-                 </div>
-
-             </div></div>; break;
              case 'secondPage':modalComponent = <> <h3 style={{textAlign:'center',fontWeight:300}}>Front Page Content</h3> <div style={{ fontSize: 20,paddingBottom:0}}>
 
                  <div >
@@ -1013,14 +935,14 @@ export const NavBar = (props)=>(
                      </div>
 
                  <div style={{display:'flex',justifyContent:'center'}}>
-                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20,cursor:!this.state.generatedImageURI?'wait':'pointer'}} onClick={()=>{
-                     if(!this.state.generatedImageURI){
+                     {!this.state.selectedBusinessInfo&&this.state.editModal==='frontPage'?null:<div style={{display:'flex',justifyContent:'center',marginLeft:20,cursor:!this.state.imageURLArray[0]&&(this.state.generatedImageLoading)?'wait':'pointer'}} onClick={()=>{
+                     if(!this.state.imageURLArray[0]&&!this.state.generatedImageURI){
                          return false
                      }
                      let nextPage = '';
                      switch(this.state.editModal){
                          case 'frontPage': nextPage = 'secondPage';break;
-                         case 'secondPage': nextPage = 'fourthPage';break;
+                         case 'secondPage': nextPage = 'LinkPage';break;
                          case 'thirdPage': nextPage='fourthPage';break;
                          case 'fourthPage': nextPage='Extra';break;
                      }
@@ -1044,12 +966,12 @@ export const NavBar = (props)=>(
                              let content=this.state.content;
                              let contentFormattedString=res.replace(/<[^>]*>?/gm, '');
                              let contentFormatted = contentFormattedString.replace(/([A-Z])/g, ' $1').split('-')
-                             content.supportingHeadingTitle = contentFormatted[0]
+                             content.supportingHeadingTitle = contentFormatted[0]||'...'
                              content.supportingHeading = 'Content...'
                              content.secondaryContent='Content...'
-                             content.secondaryContentTitle = contentFormatted[1]
-                             content.p3Heading1 = contentFormatted[2]
-                             content.p3Content1 = contentFormatted.toString()
+                             content.secondaryContentTitle = contentFormatted[1]||'...'
+                             content.p3Heading1 = contentFormatted[2]||'...'
+                             content.p3Content1 = contentFormatted.toString()||'...'
                              this.setState({rContent:'',content:content,loading:false});
 
                            /*  this.setState({rContent:'',content:content,loading:false},()=>{
