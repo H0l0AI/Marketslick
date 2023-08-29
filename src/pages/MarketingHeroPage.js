@@ -55,15 +55,18 @@ export const renderPackageName = (ref) => {
     return "WebGun Basic";
   }
 };
-export const renderStripeLink = (ref) => {
-  if (!ref) {
-    return "https://buy.stripe.com/test_fZebLd7dC89o4WA6oq";
-  } else if (ref === "SM") {
-    return "https://buy.stripe.com/test_fZebLd7dC89o4WA6oq";
-  } else {
-    return "https://buy.stripe.com/test_fZebLd7dC89o4WA6oq";
-  }
-};
+export const renderStripeLink = (ref)=>{
+    if(!ref){
+        return 'https://buy.stripe.com/00gcQb4evf5654Q001'
+    }
+    else if(ref==='SM'){
+        return 'https://buy.stripe.com/9AQ7ub8HR42v9YA003'
+    }
+    else{
+        return 'https://buy.stripe.com/00gcQb4evf5654Q001'
+
+    }
+}
 export const renderPackagePhoto = (ref) => {
   if (!ref) {
     return (
