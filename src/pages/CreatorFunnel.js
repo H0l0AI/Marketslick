@@ -910,8 +910,7 @@ export const NavBar = (props)=>(
                                            uploadStatus={'success'} onChange={this.uploadLogoImage.bind(this)} filename={this.state.filename} loading={this.state.uploading||this.state.loadingLogo} />
 
                          </div>
-                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot <br />
-                             (we'll make it transparent)</p>
+                         <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add your headshot</p>
                      </div>
 
                      <div>
@@ -923,8 +922,12 @@ export const NavBar = (props)=>(
                      </div>
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
-                         {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div>
-                             <p>Don't have a banner image? We've AI generated this background image for you to use</p>
+                         {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div style={{width:'100vw'}}>
+                             <p style={{
+                                 whiteSpace: 'pre-wrap',
+                                 wordWrap: 'unset',
+                                 width: '99vw',
+                                 margin: 15}}>Don't have a banner image? We've AI generated this background image for you to use</p>
                              <div>
                                  <div style={{position:'relative', width:640, height:380}}>
                                      <div  style={{position:'absolute',
