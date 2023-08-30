@@ -962,38 +962,17 @@ export const NavBar = (props)=>(
                          content.supportingHeading="Hold on tight, we are writing your supporting heading..."
                          content.secondaryContent="Just a moment, we are writing about you..."
                          this.setState({content:content})
-                         //about us = secondaryContent;
                          rootStore.pageStore.testRytrMain(this.state.firstName,this.state.serviceType,this.state.businessName,this.state.content.titleContent,this.state.content.titleBlurb).then((res)=>{
-                                // res split by ('-')
-                                // res s = s.replace(/([A-Z])/g, ' $1').trim()
-                             //supportingHeading
-                             //secondary content title
-                             //secondary content
-                             //p3heading1
-                             //p3content1
-
-                             console.log('res,',res);
-
                              let content=this.state.content;
                              let contentFormattedString=res.replace(/<[^>]*>?/gm, '');
                              let contentFormatted = contentFormattedString.replace(/([A-Z])/g, ' $1').split('-')
-                             content.supportingHeadingTitle = contentFormatted[0]||'...'
-                             content.supportingHeading = 'Content...'
-                             content.secondaryContent='Content...'
-                             content.secondaryContentTitle = contentFormatted[1]||'...'
-                             content.p3Heading1 = contentFormatted[2]||'...'
-                             content.p3Content1 = contentFormatted.toString()||'...'
+                             content.supportingHeadingTitle = 'Heading One'
+                             content.supportingHeading = contentFormatted.toString()||''
+                             content.secondaryContent=contentFormatted[1] || ''
+                             content.secondaryContentTitle = 'Heading two'
+                             content.p3Heading1 = 'Heading Three'
+                             content.p3Content1 =contentFormatted[2]|| '...'
                              this.setState({rContent:'',content:content,loading:false});
-
-                           /*  this.setState({rContent:'',content:content,loading:false},()=>{
-                                 rootStore.pageStore.testRytrAbout(this.state.firstName,this.state.serviceType,this.state.businessName,content.supportingHeading,this.state.content.titleBlurb).then((res2)=>{
-                                     console.log('res2,',res2);
-                                     let rytrBlurb = res2.replace(/<[^>]*>?/gm, '');
-                                     let content=this.state.content;
-                                     content.secondaryContent=rytrBlurb;
-                                     this.setState({rContent:'',content:content,loading:false});
-                                 });
-                             })*/;
                          });
                      }
                      if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
@@ -1005,16 +984,16 @@ export const NavBar = (props)=>(
                              console.log('data:',data.docs[0].data());
                          });
                          let content=this.state.content;
-                         content.imageURLArray=this.state.imageURLArray;
-                         content.routeItems=this.state.routeItems;
-                         content.routeItemsDefault=this.state.routeItemsDefault;
-                         content.logo=this.state.logo;
+                         content.imageURLArray=this.state.imageURLArray||[];
+                         content.routeItems=this.state.routeItems||[];
+                         content.routeItemsDefault=this.state.routeItemsDefault||[];
+                         content.logo=this.state.logo||'';
                          content.templateType=this.state.templateSelected||'dm';
-                         content.linkArray=this.state.linkArray;
+                         content.linkArray=this.state.linkArray||[];
                          content.businessInfo=this.state.selectedBusinessInfo||{name:''};
-                         content.backgroundType=this.state.backgroundType.hex;
-                         content.class=this.state.class.hex;
-                         content.font=this.state.font.hex;
+                         content.backgroundType=this.state.backgroundType.hex||'#656565';
+                         content.class=this.state.class.hex||'#4264ea';
+                         content.font=this.state.font.hex||'#a2a2a2';
                          content.generatedImageURI = this.state.generatedImageURI||''
                          cookie.set('templateType',this.state.templateSelected)
                          console.log('SET:',splitCode,this.state.plainCode,':',content);
