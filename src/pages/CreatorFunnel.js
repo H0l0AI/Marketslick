@@ -1,13 +1,12 @@
 import React from 'react';
 import image1 from '../images/realtor-010.jpeg';
 import image2 from '../images/realtor-010.png';
-import home_icon from '../images/realtor-icon-4-dark.png';
 import logo from '../images/sm3.png';
 import firebase from "firebase/compat";
 import {rootStore} from '../stores/Store';
-import builder from '../images/builder.png'
-import mm1 from '../images/mm1.png'
-import property from '../images/property.png'
+
+import product from '../images/product2.png'
+import service from '../images/service2.png'
 import {SwatchesPicker} from "react-color";
 import {
     mainButtonLink,
@@ -39,13 +38,9 @@ import {
 import {FileImporter, loadingComponent2} from "./FileImporter";
 import GoogleMyBusinessForm from "./GoogleMyBusinessForm";
 import cookie from "js-cookie";
-import p2 from "../images/p2.png";
 import {useHistory} from "react-router";
 import {inject, observer} from "mobx-react";
 import {toJS} from "mobx";
-import SimpleMap from "./SimpleMap";
-import {Swatches} from "react-color/lib/components/swatches/Swatches";
-import {testRytrLanding} from "../stores/ContentService";
 export const FacebookButton=(props)=>{
     const history = useHistory();
 
@@ -1174,14 +1169,14 @@ export const NavBar = (props)=>(
                     {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40,flexWrap:'wrap'}}>
 
                         <div style={{position:'relative',cursor:'pointer',marginTop:40}}  onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24,marginBottom:10}}>I am advertising a service</p>
-                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={property} /></div>
+                            <p style={{fontSize:18,marginBottom:10}}>Advertising a service?</p>
+                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:370,maxHeight:370}} width={'100%'} src={service} /></div>
                         <div style={{position:'relative',cursor:'not-allowed',marginTop:40}} onClick={()=>{return false; this.setState({templateSelected:'pm',continueModal:true})}}>
                             <div style={{top:-36,position:'absolute'}}>
-                                <p style={{fontSize:24,marginBottom:10}}>I am marketing a product (coming soon)</p>
+                                <p style={{fontSize:18,marginBottom:10}}>Selling a product? (coming soon)</p>
                             </div>
 
-                            <img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} />
+                            <img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:370,maxHeight:370}} width={'100%'} src={product} />
                         </div>
 
                     </div>:null}
