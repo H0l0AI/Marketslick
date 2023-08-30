@@ -629,7 +629,7 @@ export class HeroPageSuccess extends React.Component {
                         }}
                         src={
                           (this.state.content.imageURLArray &&
-                            this.state.content.imageURLArray[2]) ||
+                            this.state.content.imageURLArray[1]) ||
                           logo
                         }
                         alt=""
@@ -799,7 +799,7 @@ export class HeroPageSuccess extends React.Component {
                         }}
                         src={
                           (this.state.content.imageURLArray &&
-                            this.state.content.imageURLArray[2]) ||
+                            this.state.content.imageURLArray[3]) ||
                           logo
                         }
                         alt=""
@@ -919,6 +919,7 @@ export class HeroPageSuccess extends React.Component {
                             style={{
                               backgroundColor: this.state.content.class,
                               color: this.state.content.font,
+                                textAlign:'center'
                             }}
                           >
                             {this.state.content.mainButtonTitle || "Apply Now"}

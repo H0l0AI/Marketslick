@@ -241,6 +241,7 @@ export class HeroPage extends React.Component {
         secondaryHeading1: secondaryHeading1,
         supportingHeading: supportingHeading,
         supportingHeadingTitle: supportingHeadingTitle,
+          generatedImageURI:generatedImageURI,
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
@@ -551,7 +552,7 @@ export class HeroPage extends React.Component {
                             color: this.state.content.font,
                           }}
                         >
-                          Apply Now
+                            {this.state.content.mainButtonTitle}
                         </div>
                       </div>
                     </div>
@@ -658,7 +659,7 @@ export class HeroPage extends React.Component {
                       }}
                       src={
                         (this.state.content.imageURLArray &&
-                          this.state.content.imageURLArray[2]) ||
+                          this.state.content.imageURLArray[1]) ||
                         logo
                       }
                       alt=""
@@ -828,7 +829,7 @@ export class HeroPage extends React.Component {
                       }}
                       src={
                         (this.state.content.imageURLArray &&
-                          this.state.content.imageURLArray[2]) ||
+                          this.state.content.imageURLArray[3]) ||
                         logo
                       }
                       alt=""
@@ -950,6 +951,7 @@ export class HeroPage extends React.Component {
                           style={{
                             backgroundColor: this.state.content.class,
                             color: this.state.content.font,
+                              textAlign:'center'
                           }}
                         >
                           {this.state.content.mainButtonTitle || "Apply Now"}
