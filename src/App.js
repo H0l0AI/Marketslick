@@ -59,7 +59,7 @@ class App extends React.Component {
           <Route
             path="/"
             exact
-            component={templateType === "pm" ? HeroPage : MarketingHeroPage}
+            component={HeroPage}
           />
           {/* <Route path="/" exact component={HeroPage} /> */}
           <Route path="/MarketingMagnet" exact component={MarketingHeroPage} />

@@ -16,6 +16,7 @@ export const isFunnel = content.isFunnel;
 export const mainButtonTitle = content.mainButtonTitle || "Apply Now";
 export const mainButtonLink = content.mainButtonLink;
 export const contactButtonTitle = "Contact Us";
+export const generatedImageURI = content.generatedImageURI
 
 export const titleContent = content.titleContent;
 export const titleBlurb = content.titleBlurb;
