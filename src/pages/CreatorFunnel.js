@@ -1172,12 +1172,17 @@ export const NavBar = (props)=>(
                         </div></>}
                 </div>
                     {rootStore.pageStore.userEmail?<div className="fadedshort" style={{display:'flex',justifyContent:'space-evenly',marginTop:40,flexWrap:'wrap'}}>
-                        <div style={{position:'relative',cursor:'pointer',marginTop:40}} onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
-                            <p style={{fontSize:24,marginBottom:10}}>I am marketing a product</p>
-                        </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} /></div>
+
                         <div style={{position:'relative',cursor:'pointer',marginTop:40}}  onClick={()=>{this.setState({templateSelected:'pm',continueModal:true})}}><div style={{top:-36,position:'absolute'}}>
                             <p style={{fontSize:24,marginBottom:10}}>I am advertising a service</p>
                         </div><img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={property} /></div>
+                        <div style={{position:'relative',cursor:'not-allowed',marginTop:40}} onClick={()=>{return false; this.setState({templateSelected:'pm',continueModal:true})}}>
+                            <div style={{top:-36,position:'absolute'}}>
+                                <p style={{fontSize:24,marginBottom:10}}>I am marketing a product (coming soon)</p>
+                            </div>
+
+                            <img className="templateClass" style={{borderRadius:4,opacity:0.7,marginTop:15,maxWidth:400}} width={'100%'} src={mm1} />
+                        </div>
 
                     </div>:null}
                <div style={{display:'flex',justifyContent:'center',marginTop:30}}></div></>}
