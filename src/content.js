@@ -17,6 +17,7 @@ export const mainButtonTitle = content.mainButtonTitle || "Apply Now";
 export const mainButtonLink = content.mainButtonLink;
 export const contactButtonTitle = "Contact Us";
 export const generatedImageURI = content.generatedImageURI
+export const pageTitle = content.pageTitle
 
 export const titleContent = content.titleContent;
 export const titleBlurb = content.titleBlurb;

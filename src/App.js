@@ -14,7 +14,7 @@ import { rootStore } from "./stores/Store";
 import { TemplatedRoute } from "./pages/TemplatedRoute";
 import { MarketingHeroPage } from "./pages/MarketingHeroPage";
 import { LinkPage } from "./pages/LinkPage";
-import { templateType } from "./content";
+import { pageTitle } from "./content";
 
 const customHistory = createBrowserHistory();
 const TemplatedRouteComponent = <TemplatedRoute index={0} />;
@@ -51,6 +51,8 @@ class App extends React.Component {
 
   componentDidMount() {
     console.log(rootStore.pageStore.code, "load code MAIN");
+          document.title = pageTitle||rootStore.pageStore.code||'My Website'
+
   }
   render() {
     return (
@@ -61,85 +63,7 @@ class App extends React.Component {
             exact
             component={HeroPage}
           />
-          {/* <Route path="/" exact component={HeroPage} /> */}
-          <Route path="/MarketingMagnet" exact component={MarketingHeroPage} />
-          <Route path="/ServicesTemplate" exact component={HeroPage} />
-          <Route path="/pages/our-staff" exact component={SecondaryPage} />
-          <Route path="/pages/project-management" exact component={ThirdPage} />
-          <Route path="/pages/contact" exact component={Contact} />
-          <Route path="/pages/links" exact component={LinkPage} />
-          <Route
-            path="/pages/additional0"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={0} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional1"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={1} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional2"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={2} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional3"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={3} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional4"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={4} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional5"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={5} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional6"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={6} />
-              </div>
-            )}
-          />
-          <Route
-            path="/pages/additional7"
-            exact
-            component={() => (
-              <div>
-                <TemplatedRoute index={7} />
-              </div>
-            )}
-          />
+        <Route path="/pages/links" exact component={LinkPage} />
         </Switch>
       </Router>
     );
