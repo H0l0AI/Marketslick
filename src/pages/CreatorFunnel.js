@@ -116,10 +116,15 @@ export const NavBar = (props)=>(
     </nav>);
 
 @inject('rootStore') @observer  class CreatorFunnel extends React.Component {
+
     constructor(props) {
         super(props);
+
+        this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
         this.contactRef = React.createRef()
         this.state={
+            accessibleWidth:390,
+            accessibleHeight:390,
             code:cookie.get('code'),
             emailFormFields:{
                 email:'',
@@ -229,7 +234,17 @@ export const NavBar = (props)=>(
             currentMainImage:this.state.currentMainImage+1
         })
     }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateWindowDimensions);
+    }
+
+    updateWindowDimensions() {
+        this.setState({ accessibleWidth: window.innerWidth, accessibleHeight: window.innerHeight });
+    }
     async componentDidMount(){
+        this.updateWindowDimensions();
+        window.addEventListener('resize', this.updateWindowDimensions);
         const userSubmittedTemplated = await rootStore.pageStore.getTemplatesWithId(rootStore.pageStore.userId);
         console.log('from user',toJS(rootStore.pageStore.activeTemplate));
         console.log('EXISTING',cookie.get('code'),cookie.get('wasPurchased'));
@@ -748,7 +763,7 @@ export const NavBar = (props)=>(
 
                  <div className="container" style={{minWidth:350}}>
                      <div style={{display:'flex',justifyContent:'center'}}>
-                     <div style={{paddingTop:0,display:'block',justifyContent:'center',width:'80%'}}>
+                     <div style={{paddingTop:0,display:'block',justifyContent:'center',flexWrap:'wrap'}}>
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
                          <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
                      </div>
@@ -841,12 +856,13 @@ export const NavBar = (props)=>(
                      </div>
                          {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div style={{width:'100vw'}}>
                              {this.state.imageURLArray[0]?null:<p style={{
+                                 textAlign:'center',
                                  whiteSpace: 'pre-wrap',
                                  wordWrap: 'unset',
                                  width: '99vw',
                                  margin: 15}}>Don't have a banner image? We've AI generated this background image for you to use</p>}
-                             <div>
-                                 <div style={{position:'relative', width:640, height:380}}>
+                             <div style={{display:'flex',justifyContent:'center'}}>
+                                 <div style={{position:'relative', width:640, maxWidth:this.state.accessibleWidth,marginBottom:20}}>
                                      <div  style={{position:'absolute',
                                          textAlign: 'center',
                                          width: '100%',
