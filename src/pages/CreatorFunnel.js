@@ -1065,7 +1065,7 @@ export const NavBar = (props)=>(
         return <div>
             <NavBar userEmail={rootStore.pageStore.userEmail} resetFrontPage={()=>{this.resetFrontPage()}} classSelectorActive={this.state.classSelectorActive} bgSelectorActive={this.state.bgSelectorActive} renderClassSelector={()=>{this.renderClassSelector()}} renderBGSelector={()=>{this.renderBGSelector()}} switchBackgroundType={()=>{this.switchBackgroundType()}} backgroundType={'bg20'}/>
 
-            <div style={{position:'absolute',zIndex:9999,right:40,top:120}}>
+            <div style={{position:'absolute',zIndex:9999,right:-45,top:20}}>
                 {this.state.bgSelectorActive&&this.BGSelector()}
                 {this.state.classSelectorActive&&this.ClassSelector()}
                 {this.state.fontSelectorActive&&this.FontSelector()}
@@ -1078,7 +1078,7 @@ export const NavBar = (props)=>(
                             <div onClick={()=>{this.renderBGSelector(true)}} style={{cursor:'pointer',margin:30,padding:20,backgroundColor:this.state.backgroundType.hex}}>
                                 <div style={{width:250,height:200,display:'flex',justifyContent:'center',borderRadius:4}}>
                                     <div onClick={(e)=>{e.stopPropagation();this.renderClassSelector(true)}} style={{cursor:'pointer',width:200,height:100,padding:25,marginTop:40,borderRadius:4,backgroundColor:this.state.class.hex}}>
-                                        <p onClick={(e)=>{e.stopPropagation();this.renderFontSelector(true)}} style={{fontSize:22,color:this.state.font.hex,fontWeight:700,cursor:'pointer'}}>Example text</p>
+                                        <p onClick={(e)=>{e.stopPropagation();this.renderFontSelector(true)}} style={{fontSize:12,width:'50%',color:this.state.font.hex,fontWeight:700,cursor:'pointer'}}>Example text</p>
 
                                     </div>
 
