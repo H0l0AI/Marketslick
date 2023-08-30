@@ -18,6 +18,7 @@ import {
     contactTitle,
     mailChimpSource,
     secondary,
+    pageTitle,
     secondaryContent,
     secondaryContentTitle,
     supportingBlurb,
@@ -130,6 +131,7 @@ export const NavBar = (props)=>(
                 email:'',
                 password:'',
             },
+            pageTitle:pageTitle||'',
             rContent:'<p></p>',
             rText:'',
             linkArray:[],
@@ -198,6 +200,7 @@ export const NavBar = (props)=>(
             font: {hex:'#fff'},
         backgroundIndex:0,
             content:{
+                pageTitle:'',
                 titleContent:titleContent,
                 titleBlurb:titleBlurb,
                 supportingHeading:supportingHeading,
@@ -924,7 +927,10 @@ export const NavBar = (props)=>(
                                  <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Hi, What shall we call you? (Your first name)'} value={this.state.firstName} onBlur={()=>{this.setState({serviceTypeReady:true})}} onChange={(e)=>this.setState({firstName:e.target.value})} />
                              </div>
                              {this.state.serviceTypeReady&&<div className="fadedshort" style={{display:'flex',justifyContent:'center'}}>
-                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'What role do you have? (eg. Personal Trainer)'} value={this.state.serviceType} onBlur={()=>{this.setState({domainNameReady:true})}} onChange={(e)=>this.setState({serviceType:e.target.value})} />
+                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'What role do you have? (eg. Personal Trainer)'} value={this.state.serviceType} onBlur={()=>{this.setState({businessNameReady:true})}} onChange={(e)=>this.setState({serviceType:e.target.value})} />
+                             </div>}
+                             {this.state.businessNameReady&&<div className="fadedshort" style={{display:'flex',justifyContent:'center'}}>
+                                 <input disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Give your new website a heading.'} value={this.state.pageTitle} onBlur={()=>{this.setState({domainNameReady:true})}} onChange={(e)=>this.setState({pageTitle:e.target.value})} />
                              </div>}
 
                              {this.state.firstName&&this.state.serviceType&&this.state.domainNameReady && <><div style={{display: 'flex', justifyContent: 'center'}}>
@@ -937,7 +943,7 @@ export const NavBar = (props)=>(
 
                              </div>
                                  <div style={{display:'flex',justifyContent:'center'}}>
-                                 <input onBlur={()=>{this.setState({restOfFormReady:true})}} disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={'Your chosen domain'} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
+                                 <input onBlur={()=>{this.setState({restOfFormReady:true})}} disabled={cookie.get('wasPurchased')} className="templateInputP" style={{width:430}} type="text" placeholder={`Your chosen domain ie. ${this.state.pageTitle&&this.state.pageTitle.replace(/\s/g, '')}`} value={this.state.code} onChange={(e)=>this.setState({code:e.target.value})} /><span style={{paddingTop:15,fontSize:22,fontWeight:600,color:'#0e1e46'}}>.co.nz</span>
                                  </div>
                              </>}
 
@@ -984,6 +990,7 @@ export const NavBar = (props)=>(
                              console.log('data:',data.docs[0].data());
                          });
                          let content=this.state.content;
+                         content.pageTitle=this.state.pageTitle;
                          content.imageURLArray=this.state.imageURLArray||[];
                          content.routeItems=this.state.routeItems||[];
                          content.routeItemsDefault=this.state.routeItemsDefault||[];

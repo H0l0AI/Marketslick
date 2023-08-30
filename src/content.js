@@ -26,6 +26,7 @@ export const supportingBlurb =content.business_subheader;
 export const secondaryContentTitle=content.aux_header;
 export const secondaryContent =content.aux_content
 export const linkTitle = content.linkTitle
+export const pageTitle = content.pageTitle
 
 //other
 
