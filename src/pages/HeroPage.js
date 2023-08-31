@@ -10,6 +10,7 @@ import firebase from "firebase/compat";
 import cookie from "js-cookie";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use/lib/useWindowSize";
+import avatarIcon from "../images/avatarIcon.png";
 
 import {
   mainButtonLink,
@@ -41,7 +42,7 @@ import {
   contactCTA,
   p3ContentPhoto,
   backgroundType,
-    generatedImageURI,
+  generatedImageURI,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -241,7 +242,7 @@ export class HeroPage extends React.Component {
         secondaryHeading1: secondaryHeading1,
         supportingHeading: supportingHeading,
         supportingHeadingTitle: supportingHeadingTitle,
-          generatedImageURI:generatedImageURI,
+        generatedImageURI: generatedImageURI,
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
@@ -491,6 +492,8 @@ export class HeroPage extends React.Component {
                   zIndex: 8999,
                   width: "100%",
                   marginTop: "100px",
+                  height: isMobile ? "11%" : "12.7%",
+                  overflow: "hidden",
                 }}
               >
                 {/* <div
@@ -552,26 +555,24 @@ export class HeroPage extends React.Component {
                             color: this.state.content.font,
                           }}
                         >
-                            {this.state.content.mainButtonTitle}
+                          {this.state.content.mainButtonTitle}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
                     style={{
-                      paddingTop: 40,
                       marginBottom: 0,
                       display: "flex",
                       justifyContent: isMobile ? "center" : "flex-end",
                       width: "100%",
-                      overflow: "hidden",
                     }}
                   >
                     <img
                       style={{
-                        maxWidth: isMobile ? 515 : 710,
-                        marginTop: isMobile ? "-70px" : "-180px",
-                        position: isMobile ? "relative" : "absolute",
+                        maxWidth: isMobile ? 600 : 710,
+                        // marginTop: isMobile ? "-70px" : "-180px",
+                        position: "absolute",
                       }}
                       src={this.state.content.logo || logo}
                     />
@@ -585,7 +586,8 @@ export class HeroPage extends React.Component {
                   }}
                   key={this.state.currentMainImage}
                   src={
-                    this.state.content.imageURLArray[0]||this.state.content.generatedImageURI
+                    this.state.content.imageURLArray[0] ||
+                    this.state.content.generatedImageURI
                   }
                   className="fadedshort"
                   style={{
@@ -605,7 +607,6 @@ export class HeroPage extends React.Component {
             <div
               style={{
                 backgroundColor: this.state.content.backgroundType,
-                // backgroundImage: `linear-gradient(to bottom, ${this.state.content.backgroundType}, ${this.state.content.class})`,
               }}
             >
               <div
@@ -892,39 +893,200 @@ export class HeroPage extends React.Component {
                   display: "flex",
                   justifyContent: "space-evenly",
                   alignItems: "center",
-                  flexDirection: "row",
+                  flexDirection: isMobile ? "column" : "row",
                   padding: 50,
-                  overflow: "scroll",
+                  gap: 20,
+                  // overflow: "scroll",
                 }}
               >
                 <div
                   className="review"
                   style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
+                    height: "250px",
+                    width: "300px",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
                     borderRadius: 20,
+                    padding: 20,
+                    color: "#000",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
                   }}
-                ></div>
+                >
+                  <div
+                    className="review-header"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={avatarIcon}
+                      alt=""
+                      style={{
+                        borderRadius: "50%",
+                        width: 50,
+                        height: 50,
+                        marginRight: 10,
+                      }}
+                    />
+                    <div
+                      className="review-header-title"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <p style={{ fontWeight: 600, margin: 0 }}>John Doe</p>
+
+                      <p style={{ fontWeight: 600, margin: 0 }}>
+                        Title of Review
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    className="review-body"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <p>
+                      "I had the greatest experience with this contractor, they
+                      listened to all ym needs and took the time to understand
+                      what I needed done."
+                    </p>
+                  </div>
+                </div>
                 <div
                   className="review"
                   style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
+                    height: "250px",
+                    width: "300px",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
                     borderRadius: 20,
+                    padding: 20,
+                    color: "#000",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
                   }}
-                ></div>
+                >
+                  <div
+                    className="review-header"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={avatarIcon}
+                      alt=""
+                      style={{
+                        borderRadius: "50%",
+                        width: 50,
+                        height: 50,
+                        marginRight: 10,
+                      }}
+                    />
+                    <div
+                      className="review-header-title"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <p style={{ fontWeight: 600, margin: 0 }}>John Doe</p>
+
+                      <p style={{ fontWeight: 600, margin: 0 }}>
+                        Title of Review
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    className="review-body"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <p>
+                      "I had the greatest experience with this contractor, they
+                      listened to all ym needs and took the time to understand
+                      what I needed done."
+                    </p>
+                  </div>
+                </div>
                 <div
                   className="review"
                   style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
+                    height: "250px",
+                    width: "300px",
+                    backgroundColor: "rgba(255, 255, 255, 0.8)",
                     borderRadius: 20,
+                    padding: 20,
+                    color: "#000",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
                   }}
-                ></div>
+                >
+                  <div
+                    className="review-header"
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <img
+                      src={avatarIcon}
+                      alt=""
+                      style={{
+                        borderRadius: "50%",
+                        width: 50,
+                        height: 50,
+                        marginRight: 10,
+                      }}
+                    />
+                    <div
+                      className="review-header-title"
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <p style={{ fontWeight: 600, margin: 0 }}>John Doe</p>
+
+                      <p style={{ fontWeight: 600, margin: 0 }}>
+                        Title of Review
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    className="review-body"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <p>
+                      "I had the greatest experience with this contractor, they
+                      listened to all ym needs and took the time to understand
+                      what I needed done."
+                    </p>
+                  </div>
+                </div>
               </div>
+
               {/* </div> */}
               <div ref={this.contactRef} style={{ marginTop: 40 }}>
                 <div
@@ -951,7 +1113,7 @@ export class HeroPage extends React.Component {
                           style={{
                             backgroundColor: this.state.content.class,
                             color: this.state.content.font,
-                              textAlign:'center'
+                            textAlign: "center",
                           }}
                         >
                           {this.state.content.mainButtonTitle || "Apply Now"}
