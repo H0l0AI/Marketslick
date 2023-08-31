@@ -68,6 +68,32 @@ class App extends React.Component {
       );
       cookie.set("referrer", query.referral);
     }
+      firebase.auth()
+          .getRedirectResult()
+          .then((result) => {
+              if (result.credential) {
+                  let credential = result.credential;
+
+                  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+                  let token = credential.accessToken;
+                  // ...
+              }
+              // The signed-in user info.
+              let user = result.user;
+              // IdP data available in result.additionalUserInfo.profile.
+              // ...
+              console.log('cred',user)
+          }).catch((error) => {
+              console.log('fb err',error)
+          // Handle Errors here.
+          let errorCode = error.code;
+          let errorMessage = error.message;
+          // The email of the user's account used.
+          let email = error.email;
+          // The firebase.auth.AuthCredential type that was used.
+          let credential = error.credential;
+          // ...
+      });
     console.log(rootStore.pageStore.code, "load code MAIN");
 
     /*      firebase.firestore().collection("templates").get().then((data)=>{

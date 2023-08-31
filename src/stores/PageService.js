@@ -98,8 +98,33 @@ export async function signUpUsingSocial(type) {
 
 export async function signUpUsingFacebook(type) {
         const provider = new firebase.auth.FacebookAuthProvider();
-        provider.setCustomParameters({ auth_type: 'https' });
-        return firebase.auth().signInWithRedirect(provider);
+        provider.setCustomParameters({ auth_type: 'https',  display: 'popup' });
+        return firebase.auth().signInWithRedirect(provider)
+        // return firebase.auth().signInWithPopup(provider).then((result) => {
+        //     // The signed-in user info.
+        //     const user = result.user;
+        //
+        //     // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+        //     const credential = FacebookAuthProvider.credentialFromResult(result);
+        //     const accessToken = credential.accessToken;
+        //     console.log('success',user,accessToken,email,credential)
+        //
+        //
+        //     // IdP data available using getAdditionalUserInfo(result)
+        //     // ...
+        // })
+        // .catch((error) => {
+        //     // Handle Errors here.
+        //     const errorCode = error.code;
+        //     const errorMessage = error.message;
+        //     // The email of the user's account used.
+        //     const email = error.customData.email;
+        //     // The AuthCredential type that was used.
+        //     const credential = FacebookAuthProvider.credentialFromError(error);
+        //     console.log('error',errorCode,errorMessage,email,credential)
+        //
+        //     // ...
+        // })
     }
 
 export async function handleSignOut(noReload) {
