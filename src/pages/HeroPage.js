@@ -590,7 +590,7 @@ export class HeroPage extends React.Component {
                   }}
                   key={this.state.currentMainImage}
                   src={
-                    this.state.content.imageURLArray[0] ||
+                      (this.state.content.imageURLArray&&this.state.content.imageURLArray[0]) ||
                     this.state.content.generatedImageURI
                   }
                   className="fadedshort"
