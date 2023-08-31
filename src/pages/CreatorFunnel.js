@@ -389,7 +389,7 @@ export const NavBar = (props)=>(
             const response = await fetch(process.env.REACT_APP_PROXY_URL+"https://techhk.aoscdn.com/api/tasks/visual/segmentation",
                 {
                     method: "POST",
-                    headers: {"X-API-KEY": "wxndl7a6i4toqrbmb"},
+                    headers: {"X-API-KEY": process.env.REACT_APP_SEGMENTATION_K},
                     body: formData
                 }
             );
@@ -399,7 +399,7 @@ export const NavBar = (props)=>(
                 `${process.env.REACT_APP_PROXY_URL}https://techhk.aoscdn.com/api/tasks/visual/segmentation/${r.data.task_id}`,
                 {
                 method: "GET",
-                headers: {"X-API-KEY": "wxndl7a6i4toqrbmb"},
+                headers: {"X-API-KEY": process.env.REACT_APP_SEGMENTATION_K},
             })
             const image = await responseImage.json()
             const base64image = "data:image/png;base64,"+image.data.image
@@ -424,7 +424,7 @@ export const NavBar = (props)=>(
                     console.log('ERROR writefile',error);
                     let logo=this.state.logo;
                     logo= null;
-                    this.setState({logo:logo,filename:null,uploading:false,loadingLogo:false})
+                    this.setState({logo:logo,filename:null,uploading:false,loadingLogo:false,imageError:e.message})
 
                 },
                 () => {
@@ -443,7 +443,49 @@ export const NavBar = (props)=>(
             console.log('ERROR catchblock',e);
             let logo=this.state.logo;
             logo = null;
-            this.setState({logo:logo,filename:null,uploading:false})
+            this.setState({logo:logo,filename:null,uploading:false,imageError:e.message})
+        }
+        finally{
+            if(!fileInput) {
+                this.setState({filename: e.target.files[0].name, uploading: true});
+                const files = Array.from(e.target.files)
+                file = files[0];
+            }
+            else{
+                this.setState({filename: fileInput.name, uploading: true});
+                file = fileInput
+            }
+            let storageRef = firebase.storage().ref();
+            // @ts-ignore
+            let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
+            // @ts-ignore
+                let uploadTask = practiceImageRef.put(file);
+            // @ts-ignore
+            uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+                (snapshot) => {
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                },
+                (error) => {
+                    console.log('ERROR writefile',error);
+                    let logo=this.state.logo;
+                    logo= null;
+                    this.setState({logo:logo,filename:null,uploading:false,loadingLogo:false,imageError:e.message})
+
+                },
+                () => {
+                    // Upload completed successfully, now we can get the download URL
+                    // @ts-ignore
+                    uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                        let logo=this.state.logo;
+                        logo = downloadURL;
+                        this.setState({uploading: false, logo: logo});
+                        // @ts-ignore
+
+                    });
+                }
+            );
+
         }
     };
 
@@ -616,53 +658,55 @@ export const NavBar = (props)=>(
     }
 
     getGeneratedPhoto = async (types,business)=>{
-        this.setState({generatedImageLoading:true})
-        const modelId = '26a1a203-3a46-42cb-8cfa-f4de075907d8'
-        const url = process.env.REACT_APP_PROXY_URL+`https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
-        const options = {
-            method: 'POST',
-            headers: {
-                accept: 'application/json',
-                'content-type': 'application/json',
-                authorization: 'Bearer efe89a97-e1ec-4182-be11-910c339e9594'
-            },
-            body: JSON.stringify({
-                prompt: `A clean and elegant ${types[0]}, ${business} slightly out of focus`,
-                negativePrompt: 'watermarks',
-                steps: 10,
-                width: 1024,
-                height: 600,
-                numberOfImages: 1,
-                promptStrength: 7,
-                seed: 4523184
-            })
-        };
-
-       const res = await fetch(url, options)
-        const r = await res.json()
-        console.log('response??',r)
-        const id = r.id
-        setTimeout(async ()=>{
-            const urlSingle = process.env.REACT_APP_PROXY_URL+`https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
-            const optionsSingle = {
-                method: 'GET',
+        try {
+            this.setState({generatedImageLoading: true})
+            const modelId = '26a1a203-3a46-42cb-8cfa-f4de075907d8'
+            const url = process.env.REACT_APP_PROXY_URL + `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
+            const options = {
+                method: 'POST',
                 headers: {
                     accept: 'application/json',
-                    authorization: 'Bearer efe89a97-e1ec-4182-be11-910c339e9594'
-                }
+                    'content-type': 'application/json',
+                    authorization: 'Bearer e745915f-b295-4b2c-b08a-10e466921520'
+                },
+                body: JSON.stringify({
+                    prompt: `A clean and elegant ${types[0]}, ${business} slightly out of focus`,
+                    negativePrompt: 'watermarks',
+                    steps: 10,
+                    width: 1024,
+                    height: 600,
+                    numberOfImages: 1,
+                    promptStrength: 7,
+                    seed: 4523184
+                })
             };
 
-            const imageJson = await fetch(urlSingle, optionsSingle).then(res => res.json())
-            console.log('FINAL IMAGE',imageJson)
-            if(imageJson.state!=='processing'||imageJson.state!=='failed') {
-                this.setState({generatedImageURI: imageJson.images[0].uri,generatedImageLoading:false})
-            }
-            else{
-                this.setState({ generatedImageLoading:false})
-            }
-            },35000)
+            const res = await fetch(url, options)
+            const r = await res.json()
+            console.log('response??', r)
+            const id = r.id
+            setTimeout(async () => {
+                const urlSingle = process.env.REACT_APP_PROXY_URL + `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
+                const optionsSingle = {
+                    method: 'GET',
+                    headers: {
+                        accept: 'application/json',
+                        authorization: 'Bearer e745915f-b295-4b2c-b08a-10e466921520'
+                    }
+                };
 
+                const imageJson = await fetch(urlSingle, optionsSingle).then(res => res.json())
+                console.log('FINAL IMAGE', imageJson)
+                if (imageJson.state !== 'processing' || imageJson.state !== 'failed') {
+                    this.setState({generatedImageURI: imageJson.images[0].uri, generatedImageLoading: false})
+                } else {
+                    this.setState({generatedImageLoading: false})
+                }
+            }, 35000)
 
+        }catch(e){
+            this.setState({imageError:e.message})
+        }
 
     }
 
@@ -855,6 +899,7 @@ export const NavBar = (props)=>(
                                        uploadStatus={'success'} onChange={this.uploadBrandImage.bind(this)} filename={this.state.filename} loading={this.state.uploading} />
 
                      </div>
+                         {this.state.imageError&&<p style={{textAlign:'center',fontSize:11,color:'red'}}>{this.state.imageError}</p>}
                          <p style={{color:'#0e1e46',textAlign:'left',paddingLeft:100}}>Add a banner image</p>
                      </div>
                          {!this.state.generatedImageLoading&&this.state.generatedImageURI&&<div style={{width:'100vw'}}>
