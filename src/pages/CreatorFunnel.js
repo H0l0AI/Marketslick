@@ -221,7 +221,7 @@ export const NavBar = (props)=>(
                 backgroundType:'mockImageBackground',
                 class:'one',
                 routeItems:[],
-                mainButtonLink:'http://REDIRECT_LINK',
+                mainButtonLink:'',
                 preferredDomain:'http://example-business.co.nz'
 
             }
@@ -443,9 +443,6 @@ export const NavBar = (props)=>(
             console.log('ERROR catchblock',e);
             let logo=this.state.logo;
             logo = null;
-            this.setState({logo:logo,filename:null,uploading:false,imageError:e.message})
-        }
-        finally{
             if(!fileInput) {
                 this.setState({filename: e.target.files[0].name, uploading: true});
                 const files = Array.from(e.target.files)
@@ -459,7 +456,7 @@ export const NavBar = (props)=>(
             // @ts-ignore
             let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
             // @ts-ignore
-                let uploadTask = practiceImageRef.put(file);
+            let uploadTask = practiceImageRef.put(file);
             // @ts-ignore
             uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
                 (snapshot) => {
@@ -486,6 +483,9 @@ export const NavBar = (props)=>(
                 }
             );
 
+        }
+        finally{
+   this.setState({imageError:null})
         }
     };
 
@@ -848,8 +848,8 @@ export const NavBar = (props)=>(
                  </div>
 
                  <div className="container" style={{minWidth:350}}>
-                     <div style={{display:'flex',justifyContent:'center'}}>
-                     <div style={{paddingTop:0,display:'block',justifyContent:'center',flexWrap:'wrap'}}>
+                     <div style={{display:'flex',justifyContent:'center',flexWrap:'wrap'}}>
+                     <div style={{paddingTop:0,display:'block',justifyContent:'center',flexWrap:'wrap',marginTop:40}}>
                          <input type="text" className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContentTitle} name={'secondaryContentTitle'} />
                          <textarea style={{height:110}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.secondaryContent} name={'secondaryContent'} />
                      </div>
@@ -865,7 +865,7 @@ export const NavBar = (props)=>(
                      <div style={{position:'relative',marginTop:0,marginBottom:0}}>
                          <div  style={{paddingTop:10}}>
                              <div >
-                                 <div style={{display: 'flex', justifyContent: 'center',paddingTop:40,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
+                                 <div style={{display: 'flex', justifyContent: 'center',paddingTop:0,flexWrap:'wrap',paddingBottom:10,marginBottom:0}}>
                                      <div>
 
                                          <FileImporter practiceLogoURL={logo} imageURL={this.state.imageURLArray[3]} index={3} display={true} routeItemsIndex={null}
@@ -904,10 +904,10 @@ export const NavBar = (props)=>(
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
                  </div>
-                     <div className='altButton whiteButton magOrange' onClick={()=>{
+                     {this.state.selectedBusinessInfo?null:<div className='altButton whiteButton magOrange' onClick={()=>{
                          //TODO fill out selectedBusinessInfo with stub that works
                          this.generateContentFromPrefilledData()
-                         this.setState({noBusiness:true,businessName:pageTitle,selectedBusinessInfo:{}})}}>I don't have one</div>
+                         this.setState({noBusiness:true,businessName:pageTitle,selectedBusinessInfo:{}})}}>I don't have one</div>}
 
                  <div style={{zIndex:8999,width:'100%'}}>
 
@@ -921,7 +921,7 @@ export const NavBar = (props)=>(
                              <br />
                              <div style={{display:'flex',justifyContent:'center'}}>
                                  <input type="text" style={{width:'20%'}} className="templateInputP" onChange={this.handleContentFormChange} placeholder={"Call to Action 1"} value={this.state.content.mainButtonTitle} name={'mainButtonTitle'} />
-                                 <input type="text" style={{width:'60%'}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.mainButtonLink} name={'mainButtonLink'} />
+                                 <input type="text" style={{width:'60%'}} className="templateInputP" onChange={this.handleContentFormChange} value={this.state.content.mainButtonLink} placeholder={'URL to link to'} name={'mainButtonLink'} />
                              </div>
 
                          </div>
@@ -1072,10 +1072,25 @@ export const NavBar = (props)=>(
                              content.backgroundType = this.state.backgroundType.hex || '#656565';
                              content.class = this.state.class.hex || '#4264ea';
                              content.font = this.state.font.hex || '#a2a2a2';
+                             content.firstName = this.state.firstName||''
                              content.generatedImageURI = this.state.generatedImageURI || ''
                              cookie.set('templateType', this.state.templateSelected)
                              console.log('SET:', splitCode, this.state.plainCode, ':', content);
+                             const websiteHasEmptyRequiredFields =
+                                     Object.entries(content).some(([key, value]) => {
+                                         console.log('value',key,value)
+                                         if(value===null||value===''||typeof value===undefined){
+                                             console.log('ERRROR',key,'in:',value)
+                                         }
+                                         return ((value === null || value === '')
+                                         )
+                                     })
+                             if(websiteHasEmptyRequiredFields){
+                                 console.log(websiteHasEmptyRequiredFields)
+                                 this.setState({builderError:'Non empty fields detected'})
+                             }
                              if (rootStore.pageStore.userId) {
+                                 //TODO fix editing
                                  firebase.firestore().collection("users").doc(`${rootStore.pageStore.userId}`).set({templateCode: `t-${splitCode || this.state.plainCode}`})
                                      .then(() => {
                                          console.log("Document successfully written for", rootStore.pageStore.userId, `t-${splitCode || this.state.plainCode}`);

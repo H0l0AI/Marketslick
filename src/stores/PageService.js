@@ -22,7 +22,6 @@ export async function getTemplatesWithId(id){
 }
 export function initializeAuthentication(){
     initializeFirebase().then((res)=>{
-        console.log('FB, initialized.')
         return firebase.auth().onAuthStateChanged(async (userAuth) => {
             if(userAuth) {
                 console.log('on auth state:', userAuth,'...UID',userAuth.uid);

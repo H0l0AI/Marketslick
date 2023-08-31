@@ -48,6 +48,7 @@ class App extends React.Component {
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    firebase.firestore().settings({ ignoreUndefinedProperties: true });
 
     this.state = {
       routeItems: [],
