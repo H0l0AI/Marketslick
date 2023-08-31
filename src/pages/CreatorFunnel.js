@@ -51,12 +51,12 @@ export const FacebookButton=(props)=>{
     }
 
     return (
-        <div style={{width:320,padding:12,cursor:'not-allowed'}}
+        <div style={{width:320,padding:12,backgroundColor:'#1877F2'}}
              className="sign-up-button google-sign-up"
              onClick={handleClick}
         >
             <img className="social-sign-up-icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/facebook.svg" alt="Sign up with Facebook" />
-            <span className="social-sign-up-text">Facebook (unavailable)</span>
+            <span className="social-sign-up-text">Facebook</span>
         </div>
     );
 
