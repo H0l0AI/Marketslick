@@ -1079,8 +1079,7 @@ export class HeroPage extends React.Component {
                     }}
                   >
                     <p>
-                        Oh my goodness, I can't believe how lucky I am to have found such an incredible ${this.state.serviceType||'personal trainer'}! With three little ones running around, finding time for myself seemed impossible, but this {this.state.content.serviceType} has been an absolute game-changer. They not only understand the chaos of motherhood but also tailor my workouts to fit my crazy schedule. Their enthusiasm is infectious, and they make each session so much fun that I actually look forward to working out (can you believe it?). Not only have I seen amazing progress in my fitness levels, but I also feel more energized to keep up with my kids. If you're a fellow mom trying to juggle it all, trust me, this personal trainer is the support you've been looking for!
-                    </p>
+                        Oh my goodness, I can't believe how lucky I am to have found such an incredible ${this.state.serviceType||'personal trainer'}! With three little ones running around, finding time for myself seemed impossible, but this {this.state.content.serviceType} has been an absolute game-changer in my life. Thank you very much.</p>
                   </div>
                 </div>
               </div>
