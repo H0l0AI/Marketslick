@@ -82,7 +82,7 @@ class App extends React.Component {
               let user = result.user;
               // IdP data available in result.additionalUserInfo.profile.
               // ...
-              console.log('cred',user)
+              console.log('cred',result)
           }).catch((error) => {
               console.log('fb err',error)
           // Handle Errors here.
