@@ -2,6 +2,7 @@ import React from "react";
 import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
+import fiveStars from '../images/fiveStar.png'
 import logo from "../images/sm3.png";
 import p2 from "../images/p2.png";
 import p1 from "../images/p1.png";
@@ -948,18 +949,22 @@ export class HeroPage extends React.Component {
                       <p style={{ fontWeight: 600, margin: 0 }}>
                         Happy with my choice
                       </p>
+                        <div>
+                            <img width={100} src={fiveStars} />
+                        </div>
                     </div>
                   </div>
                   <div
                     className="review-body"
-                    style={{
+                    style={{ overflow:'auto',
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <p>
-                        {this.state.content.firstName||'This contractor'} provided me with an unparallaled experience; they carefully paid heed to each of my needs and dedicated time to grasp the nature of the work I wanted to have completed.
+
+                      <p style={{    marginBottom:0}}>
+                        {this.state.content.firstName||'This contractor'} provided me with an unparalleled experience; they carefully paid heed to each of my needs and dedicated time to grasp the nature of the work I wanted to have completed.
                     </p>
                   </div>
                 </div>
@@ -1008,17 +1013,21 @@ export class HeroPage extends React.Component {
                       <p style={{ fontWeight: 600, margin: 0 }}>
                        Outstanding {this.state.content.serviceType}
                       </p>
+                        <div>
+                            <img width={100} src={fiveStars} />
+                        </div>
                     </div>
                   </div>
                   <div
                     className="review-body"
-                    style={{
+                    style={{ overflow:'auto',
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <p>
+
+                      <p style={{    marginBottom:0}}>
                     The experience I had with {this.state.content.firstName||'this contractor'} was outstanding; they actively listened to all my needs and invested considerable time in comprehending the exact scope of the work I required.
                     </p>
                   </div>
@@ -1066,21 +1075,25 @@ export class HeroPage extends React.Component {
                       <p style={{ fontWeight: 600, margin: 0 }}>Sarah May-Killip</p>
 
                       <p style={{ fontWeight: 600, margin: 0 }}>
-                        Zero regrets with {this.state.content.firstName}
+                        Zero regrets with {this.state.content.firstName||'this contractor'}
                       </p>
+                        <div>
+                            <img width={100} src={fiveStars} />
+                        </div>
                     </div>
                   </div>
                   <div
                     className="review-body"
-                    style={{
+                    style={{ overflow:'auto',
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <p>
-                        Oh my goodness, I can't believe how lucky I am to have found such an incredible ${this.state.serviceType||'personal trainer'}! With three little ones running around, finding time for myself seemed impossible, but this {this.state.content.serviceType} has been an absolute game-changer in my life. Thank you very much.</p>
+                    <p style={{    marginBottom:0}}>
+                        Oh my goodness, I can't believe how lucky I am to have found such an incredible {this.state.serviceType||'personal trainer'}! With three little ones running around, finding time for myself seemed impossible, but this {this.state.content.serviceType} has been an absolute game-changer in my life. Thank you very much.</p>
                   </div>
+
                 </div>
               </div>
 
