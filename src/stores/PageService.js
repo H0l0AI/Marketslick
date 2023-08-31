@@ -23,6 +23,7 @@ export async function getTemplatesWithId(id){
 export function initializeAuthentication(){
     initializeFirebase().then((res)=>{
         return firebase.auth().onAuthStateChanged(async (userAuth) => {
+            console.log('auth state changed',userAuth)
             if(userAuth) {
                 console.log('on auth state:', userAuth,'...UID',userAuth.uid);
                 // todo abstract loading screen from auth initialization
