@@ -27,6 +27,8 @@ export const secondaryContentTitle=content.aux_header;
 export const secondaryContent =content.aux_content
 export const linkTitle = content.linkTitle
 export const pageTitle = content.pageTitle
+export const firstName = content.firstName
+export const serviceType = content.serviceType
 
 //other
 

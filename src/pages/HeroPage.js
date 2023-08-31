@@ -13,6 +13,7 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import avatarIcon from "../images/avatarIcon.png";
 
 import {
+    serviceType,
   mainButtonLink,
   mainButtonTitle,
   contactButtonTitle,
@@ -43,6 +44,7 @@ import {
   p3ContentPhoto,
   backgroundType,
   generatedImageURI,
+    firstName
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -225,6 +227,7 @@ export class HeroPage extends React.Component {
       mainArray: [image1, image2],
       includeMeta: false,
       content: {
+          serviceType:serviceType,
         hasScroll: hasScroll,
         businessBlurb: businessBlurb,
         businessBlurbShort: businessBlurbShort,
@@ -243,6 +246,7 @@ export class HeroPage extends React.Component {
         supportingHeading: supportingHeading,
         supportingHeadingTitle: supportingHeadingTitle,
         generatedImageURI: generatedImageURI,
+          firstName:firstName,
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
@@ -880,7 +884,7 @@ export class HeroPage extends React.Component {
                 }}
               >
                 <h3>
-                  Dont just take our word for it. See what our clients have to
+                  Dont just take our word for it. See what the clients have to
                   say.
                 </h3>
               </div>
@@ -939,10 +943,10 @@ export class HeroPage extends React.Component {
                         justifyContent: "center",
                       }}
                     >
-                      <p style={{ fontWeight: 600, margin: 0 }}>John Doe</p>
+                      <p style={{ fontWeight: 600, margin: 0 }}>John Ramond</p>
 
                       <p style={{ fontWeight: 600, margin: 0 }}>
-                        Title of Review
+                        Happy with my choice
                       </p>
                     </div>
                   </div>
@@ -955,9 +959,7 @@ export class HeroPage extends React.Component {
                     }}
                   >
                     <p>
-                      "I had the greatest experience with this contractor, they
-                      listened to all ym needs and took the time to understand
-                      what I needed done."
+                        {this.state.content.firstName||'This contractor'} provided me with an unparallaled experience; they carefully paid heed to each of my needs and dedicated time to grasp the nature of the work I wanted to have completed.
                     </p>
                   </div>
                 </div>
@@ -1001,10 +1003,10 @@ export class HeroPage extends React.Component {
                         justifyContent: "center",
                       }}
                     >
-                      <p style={{ fontWeight: 600, margin: 0 }}>John Doe</p>
+                      <p style={{ fontWeight: 600, margin: 0 }}>Mike Wyzcinski</p>
 
                       <p style={{ fontWeight: 600, margin: 0 }}>
-                        Title of Review
+                       Outstanding {this.state.content.serviceType}
                       </p>
                     </div>
                   </div>
@@ -1017,9 +1019,7 @@ export class HeroPage extends React.Component {
                     }}
                   >
                     <p>
-                      "I had the greatest experience with this contractor, they
-                      listened to all ym needs and took the time to understand
-                      what I needed done."
+                    The experience I had with {this.state.content.firstName||'this contractor'} was outstanding; they actively listened to all my needs and invested considerable time in comprehending the exact scope of the work I required.
                     </p>
                   </div>
                 </div>
@@ -1063,10 +1063,10 @@ export class HeroPage extends React.Component {
                         justifyContent: "center",
                       }}
                     >
-                      <p style={{ fontWeight: 600, margin: 0 }}>John Doe</p>
+                      <p style={{ fontWeight: 600, margin: 0 }}>Sarah May-Killip</p>
 
                       <p style={{ fontWeight: 600, margin: 0 }}>
-                        Title of Review
+                        Zero regrets with {this.state.content.firstName}
                       </p>
                     </div>
                   </div>
@@ -1079,9 +1079,7 @@ export class HeroPage extends React.Component {
                     }}
                   >
                     <p>
-                      "I had the greatest experience with this contractor, they
-                      listened to all ym needs and took the time to understand
-                      what I needed done."
+                        Oh my goodness, I can't believe how lucky I am to have found such an incredible ${this.state.serviceType||'personal trainer'}! With three little ones running around, finding time for myself seemed impossible, but this {this.state.content.serviceType} has been an absolute game-changer. They not only understand the chaos of motherhood but also tailor my workouts to fit my crazy schedule. Their enthusiasm is infectious, and they make each session so much fun that I actually look forward to working out (can you believe it?). Not only have I seen amazing progress in my fitness levels, but I also feel more energized to keep up with my kids. If you're a fellow mom trying to juggle it all, trust me, this personal trainer is the support you've been looking for!
                     </p>
                   </div>
                 </div>

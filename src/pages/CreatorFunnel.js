@@ -51,7 +51,7 @@ export const FacebookButton=(props)=>{
     }
 
     return (
-        <div style={{width:320,padding:12,backgroundColor:'#1877F2'}}
+        <div style={{width:320,padding:12,backgroundColor:'#1877F2',color:'#fff',cursor:'pointer'}}
              className="sign-up-button google-sign-up"
              onClick={handleClick}
         >
@@ -1074,6 +1074,8 @@ export const NavBar = (props)=>(
                              content.font = this.state.font.hex || '#a2a2a2';
                              content.firstName = this.state.firstName||''
                              content.generatedImageURI = this.state.generatedImageURI || ''
+                             content.serviceType = this.state.serviceType
+                             content.firstName = this.state.firstName
                              cookie.set('templateType', this.state.templateSelected)
                              console.log('SET:', splitCode, this.state.plainCode, ':', content);
                              const websiteHasEmptyRequiredFields =
