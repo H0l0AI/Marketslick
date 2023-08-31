@@ -709,7 +709,45 @@ export const NavBar = (props)=>(
         }
 
     }
+    generateContentFromPrefilledData = async()=>{
 
+            let content = this.state.content;
+            content.contactPhone = '';
+            content.contactAddress = '';
+            content.contactTypes = [];
+            content.location = {};
+            content.businessName = this.state.pageTitle;
+            content.titleBlurb = 'Hang on, we are coming up with a smooth tagline...'
+            let mapsCenter = {
+                lat: 59.95,
+                lng: 30.33
+            };
+            rootStore.pageStore.testRytrBlurb(this.state.firstName,this.state.serviceType,this.state.pageTitle).then(async (res)=>{
+                console.log('res222',res);
+                let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
+                let content=this.state.content;
+                await rootStore.pageStore.testRytrBlurb(this.state.firstName,`${this.state.serviceType} at ${this.state.pageTitle}`,rytrBlurb).then(async (res)=>{
+                    console.log('res,',res);
+                    let rytrBlurb = res.replace(/<[^>]*>?/gm, '');
+                    let content=this.state.content;
+                    content.titleBlurb=rytrBlurb;
+                    await this.getGeneratedPhoto(`${this.state.serviceType} at ${this.state.pageTitle}`,this.state.pageTitle)
+
+                    this.setState({rContent:'',content:content,loading:false});
+                })
+                content.titleContent=rytrBlurb;
+                this.setState({rContent:'',content:content,loading:false});
+                return rytrBlurb
+            });
+
+
+            this.setState({
+                selectedBusinessInfo: null,
+                content: content,
+                mapsCenter,
+                businessName: this.state.pageTitle,
+            })
+        }
     getRelevantBusinessInfo(placeInformation){
     this.setState({loading:true});
     const key = process&&process.env.REACT_APP_MAPS_KEY;
@@ -769,8 +807,9 @@ export const NavBar = (props)=>(
              case 'LinkPage':modalComponent=<div>
                  <h3 style={{textAlign:'center'}}>Create a page that serves as your social media entry point!</h3>
                  <p style={{textAlign:'center'}}>Your link tree will be easily accessible, both on your website and at webgun.ai/{this.state.code||cookie.get('code')}</p>
+                 {this.state.builderError&&<p style={{fontSize:12,color:'red',textAlign:'center'}}>{this.state.builderError}</p>}
                  <div style={{display:'flex',justifyContent:'center'}}> <input style={{width:'50%'}} placeholder={'The title to your link page'} type="text" className="templateInputH1" onChange={this.handleContentFormChange} value={this.state.content.linkTitle} name={'linkTitle'} /></div>
-                 <div style={{display:'flex',justifyContent:'center',margin:100,maxHeight:500,overflowY:'auto'}}>
+                 <div style={{display:'flex',justifyContent:'center',margin:100,maxHeight:500,flexWrap:'wrap'}}>
                      <input type="text" className="templateInputP" style={{width:300,color:'#0e1e46',border:'1px solid #0e1e46'}} value={this.state.addLinkName} onChange={(e)=>{this.changeLinkName(e)}} placeholder={'Enter name for your link, ie. Facebook'} />
                      <input type="text" className="templateInputP" style={{width:300,color:'#0e1e46',border:'1px solid #0e1e46'}} value={this.state.addLinkHref} onChange={(e)=>{this.changeLinkHref(e)}} placeholder={'Enter URL for your link, ie. https://www.mywebsite.com'} />
                      <div style={{display:'flex',justifyContent:'space-around'}}><div onClick={()=>{
@@ -851,6 +890,7 @@ export const NavBar = (props)=>(
                  <div>
                      <div>
                          <div style={{display: 'flex', justifyContent: 'center',paddingTop:20,flexWrap:'wrap',paddingBottom:30,marginBottom:20}}>
+                             {this.state.builderError&&<p style={{fontSize:14,color:'red',textAlign:'center'}}>{this.state.builderError}</p>}
 
                          </div>
                      </div>
@@ -864,10 +904,14 @@ export const NavBar = (props)=>(
                                                                       triggerAutoComplete={(data)=>{this.triggerAutoComplete(data)}}
                                                                       getRelevantBusinessInfo={(businessInfo)=>{this.getRelevantBusinessInfo(businessInfo)}}/>
                  </div>
+                     <div className='altButton whiteButton magOrange' onClick={()=>{
+                         //TODO fill out selectedBusinessInfo with stub that works
+                         this.generateContentFromPrefilledData()
+                         this.setState({noBusiness:true,businessName:pageTitle,selectedBusinessInfo:{}})}}>I don't have one</div>
 
                  <div style={{zIndex:8999,width:'100%'}}>
 
-                     {this.state.selectedBusinessInfo?<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
+                     {this.state.selectedBusinessInfo||this.state.noBusiness?<div style={{display:'flex',justifyContent:'center',paddingBottom:0}}>
                          <div style={{padding:30,minWidth:300,maxWidth:630,width:'100%',paddingTop:0,paddingLeft:10,paddingRight:0,textAlign:'center'}}>
                              <p style={{fontSize:20,marginLeft:0}} className="mb-4">
                                  <input type="text" className="templateInputP" onChange={this.handleContentFormChange} placeholder={'A summarized version of what you offer'} value={this.state.content.titleBlurb} name={'titleBlurb'} />
@@ -937,7 +981,7 @@ export const NavBar = (props)=>(
         switch(this.state.editModal){
             case 'frontPage': buttonContent = 'Next';break;
             case 'secondPage': buttonContent = 'Next';break;
-            case 'thirdPage': buttonContent='Next';break;
+            case 'thirdPage': buttonContent='Save and Show me';break;
             case 'fourthPage': buttonContent='Next';break;
             case 'fifthPage': buttonContent='Save and Show me';break;
             case 'Extra':buttonContent='Save and Show me'; break;
@@ -946,26 +990,7 @@ export const NavBar = (props)=>(
          return(<>
              <div style={{position:'relative',zIndex:999999,display:'flex',justifyContent:'center',padding:'7%'}}>
                  <div className={`templateMaker`} style={{width:'100%',margin:0,minHeight:'90.5vh',paddingBottom:100,position:'absolute',top:0,padding:'7%',backgroundColor:'#ff2019',color:'#0e1e46'}}>
-                    {/* <div style={{position:'relative',zIndex:9999}}>
-                         <div style={{display:'flex',flexDirection:'column',position:'absolute',border:'1px solid #fff',padding:10,borderRadius:0,borderLeft:'none',left:-20}}>
-                             <div onClick={()=>{
-                                 this.setState({editModal:'frontPage'})
-                             }} className={`${this.state.editModal==='frontPage'?'navEditActive':''} navEdit`}>Setup</div>
-                             <div onClick={()=>{
-                                 this.setState({editModal:'secondPage'})
-                             }} className={`${this.state.editModal==='secondPage'?'navEditActive':''} navEdit`}>Front Page</div>
-                             <div onClick={()=>{
-                                 this.setState({editModal:'fourthPage'})
-                             }} className={`${this.state.editModal==='fourthPage'?'navEditActive':''} navEdit`}>Contact </div>
-                             <div onClick={()=>{
-                                 this.setState({editModal:'LinkPage'})
-                             }} className={`${this.state.editModal==='LinkPage'?'navEditActive':''} navEdit`}>Links </div>
-                             <div onClick={()=>{
-                                 this.setState({editModal:'Extra'})
-                             }} className={`${this.state.editModal==='Extra'?'navEditActive':''} navEdit`}>Routes </div>
-                         </div>
 
-                     </div>*/}
                      <div>
                          {this.state.editModal==='frontPage'&&<>
                              <div style={{display:'flex',justifyContent:'center'}}>
@@ -1026,50 +1051,60 @@ export const NavBar = (props)=>(
                              this.setState({rContent:'',content:content,loading:false});
                          });
                      }
-                     if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'){
-                         let splitCode = this.state.code||cookie.get('code')||this.state.plainCode.toString();
-                         splitCode= splitCode.replace(/\s+/g, '-').toLowerCase();
-                         firebase.analytics().logEvent('template_init_wg',{code:splitCode});
-                         rootStore.pageStore.setCode(splitCode||this.state.plainCode);
-                         firebase.firestore().collection("templates").get().then((data)=>{
-                             console.log('data:',data.docs[0].data());
-                         });
-                         let content=this.state.content;
-                         content.pageTitle=this.state.pageTitle;
-                         content.imageURLArray=this.state.imageURLArray||[];
-                         content.routeItems=this.state.routeItems||[];
-                         content.routeItemsDefault=this.state.routeItemsDefault||[];
-                         content.logo=this.state.logo||'';
-                         content.templateType=this.state.templateSelected||'dm';
-                         content.linkArray=this.state.linkArray||[];
-                         content.businessInfo=this.state.selectedBusinessInfo||{name:''};
-                         content.backgroundType=this.state.backgroundType.hex||'#656565';
-                         content.class=this.state.class.hex||'#4264ea';
-                         content.font=this.state.font.hex||'#a2a2a2';
-                         content.generatedImageURI = this.state.generatedImageURI||''
-                         cookie.set('templateType',this.state.templateSelected)
-                         console.log('SET:',splitCode,this.state.plainCode,':',content);
-                         if(rootStore.pageStore.userId){
-                             firebase.firestore().collection("users").doc(`${rootStore.pageStore.userId}`).set({templateCode:`t-${splitCode||this.state.plainCode}`})
-                                 .then(() => {
-                                     console.log("Document successfully written for",rootStore.pageStore.userId,`t-${splitCode||this.state.plainCode}`);
-                                 }).catch((e)=>{console.log('doc failed on ',e)})
-                         }
-                         firebase.firestore().collection("templates").doc(`t-${splitCode||this.state.plainCode}`).set({content:content,author:rootStore.pageStore.userId||'Guest'})
-                             .then(() => {
-                                 console.log("Document successfully written!");
-                                 window.location.href='/pages'
-                                 if(this.state.linkArray) {
-                                     firebase.firestore().collection('links').doc(splitCode).set({links: this.state.linkArray}).then(() => {
-                                         console.log('Wrote link array', this.state.linkArray, splitCode)
-                                     });
-                                 }
-                             })
-                             .catch((error) => {
-                                 console.error("Error writing document: ", error,content,this.state.content);
+                     if(this.state.editModal==='fourthPage'||this.state.editModal==='Extra'||this.state.editModal==='LinkPage'||this.state.editModal==='thirdPage') {
+                         try {
+                             let splitCode = this.state.code || cookie.get('code') || this.state.plainCode.toString();
+                             splitCode = splitCode.replace(/\s+/g, '-').toLowerCase();
+                             firebase.analytics().logEvent('template_init_wg', {code: splitCode});
+                             rootStore.pageStore.setCode(splitCode || this.state.plainCode);
+                             firebase.firestore().collection("templates").get().then((data) => {
+                                 console.log('data:', data.docs[0].data());
                              });
-                         console.log('something may have happened');
+                             let content = this.state.content;
+                             content.pageTitle = this.state.pageTitle;
+                             content.imageURLArray = this.state.imageURLArray || [];
+                             content.routeItems = this.state.routeItems || [];
+                             content.routeItemsDefault = this.state.routeItemsDefault || [];
+                             content.logo = this.state.logo || '';
+                             content.templateType = this.state.templateSelected || 'dm';
+                             content.linkArray = this.state.linkArray || [];
+                             content.businessInfo = this.state.selectedBusinessInfo || {name: ''};
+                             content.backgroundType = this.state.backgroundType.hex || '#656565';
+                             content.class = this.state.class.hex || '#4264ea';
+                             content.font = this.state.font.hex || '#a2a2a2';
+                             content.generatedImageURI = this.state.generatedImageURI || ''
+                             cookie.set('templateType', this.state.templateSelected)
+                             console.log('SET:', splitCode, this.state.plainCode, ':', content);
+                             if (rootStore.pageStore.userId) {
+                                 firebase.firestore().collection("users").doc(`${rootStore.pageStore.userId}`).set({templateCode: `t-${splitCode || this.state.plainCode}`})
+                                     .then(() => {
+                                         console.log("Document successfully written for", rootStore.pageStore.userId, `t-${splitCode || this.state.plainCode}`);
+                                     }).catch((e) => {
+                                     console.log('doc failed on ', e)
+                                 })
+                             }
+                             firebase.firestore().collection("templates").doc(`t-${splitCode || this.state.plainCode}`).set({
+                                 content: content,
+                                 author: rootStore.pageStore.userId || 'Guest'
+                             })
+                                 .then(() => {
+                                     console.log("Document successfully written!");
+                                     window.location.href = '/pages'
+                                     if (this.state.linkArray) {
+                                         firebase.firestore().collection('links').doc(splitCode).set({links: this.state.linkArray}).then(() => {
+                                             console.log('Wrote link array', this.state.linkArray, splitCode)
+                                         });
+                                     }
+                                 })
+                                 .catch((error) => {
+                                     console.error("Error writing document: ", error, content, this.state.content);
+                                 });
+                             console.log('something may have happened');
 
+                         }catch(e){
+                             console.log('massive blunder',e)
+                             this.setState({builderError:`${e}`})
+                         }
                      }
                          this.setState({editModal:nextPage})}
                      } className="altButton whiteButton magOrange" >{buttonContent}</div>}
