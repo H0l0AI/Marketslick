@@ -21,6 +21,7 @@ import { MarketingHeroPageSuccess } from "./pages/MarketingHeroPageSuccess";
 import { HeroPageSuccess } from "./pages/HeroPageSuccess";
 import { LinkPageInside } from "./pages/LinkPageInside";
 import CreatorFunnel from "./pages/CreatorFunnel";
+import LandingPage from "./pages/LandingPage";
 
 const customHistory = createBrowserHistory();
 const TemplatedRouteComponent = <TemplatedRoute index={0} />;
@@ -68,31 +69,33 @@ class App extends React.Component {
       );
       cookie.set("referrer", query.referral);
     }
-      firebase.auth()
-          .getRedirectResult()
-          .then((result) => {
-              if (result.credential) {
-                  let credential = result.credential;
+    firebase
+      .auth()
+      .getRedirectResult()
+      .then((result) => {
+        if (result.credential) {
+          let credential = result.credential;
 
-                  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-                  let token = credential.accessToken;
-                  // ...
-              }
-              // The signed-in user info.
-              let user = result.user;
-              // IdP data available in result.additionalUserInfo.profile.
-              // ...
-              console.log('cred',result)
-          }).catch((error) => {
-              console.log('fb err',error)
-          // Handle Errors here.
-          let errorCode = error.code;
-          let errorMessage = error.message;
-          // The email of the user's account used.
-          let email = error.email;
-          // The firebase.auth.AuthCredential type that was used.
-          let credential = error.credential;
+          // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+          let token = credential.accessToken;
           // ...
+        }
+        // The signed-in user info.
+        let user = result.user;
+        // IdP data available in result.additionalUserInfo.profile.
+        // ...
+        console.log("cred", result);
+      })
+      .catch((error) => {
+        console.log("fb err", error);
+        // Handle Errors here.
+        let errorCode = error.code;
+        let errorMessage = error.message;
+        // The email of the user's account used.
+        let email = error.email;
+        // The firebase.auth.AuthCredential type that was used.
+        let credential = error.credential;
+        // ...
       });
     console.log(rootStore.pageStore.code, "load code MAIN");
 
@@ -110,6 +113,7 @@ class App extends React.Component {
     return (
       <Router history={customHistory}>
         <Switch>
+          <Route path="/" exact component={LandingPage} />
           <Route path="/marketingDemo" exact component={MarketingHeroPage} />
           <Route path="/builder" exact component={CreatorFunnel} />
           <Route

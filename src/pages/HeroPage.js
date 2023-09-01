@@ -2,7 +2,7 @@ import React from "react";
 import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
-import fiveStars from '../images/fiveStar.png'
+import fiveStars from "../images/fiveStar.png";
 import logo from "../images/sm3.png";
 import p2 from "../images/p2.png";
 import p1 from "../images/p1.png";
@@ -14,7 +14,7 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import avatarIcon from "../images/avatarIcon.png";
 
 import {
-    serviceType,
+  serviceType,
   mainButtonLink,
   mainButtonTitle,
   contactButtonTitle,
@@ -45,7 +45,7 @@ import {
   p3ContentPhoto,
   backgroundType,
   generatedImageURI,
-    firstName
+  firstName,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -228,7 +228,7 @@ export class HeroPage extends React.Component {
       mainArray: [image1, image2],
       includeMeta: false,
       content: {
-          serviceType:serviceType,
+        serviceType: serviceType,
         hasScroll: hasScroll,
         businessBlurb: businessBlurb,
         businessBlurbShort: businessBlurbShort,
@@ -247,7 +247,7 @@ export class HeroPage extends React.Component {
         supportingHeading: supportingHeading,
         supportingHeadingTitle: supportingHeadingTitle,
         generatedImageURI: generatedImageURI,
-          firstName:firstName,
+        firstName: firstName,
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
@@ -591,7 +591,8 @@ export class HeroPage extends React.Component {
                   }}
                   key={this.state.currentMainImage}
                   src={
-                      (this.state.content.imageURLArray&&this.state.content.imageURLArray[0]) ||
+                    (this.state.content.imageURLArray &&
+                      this.state.content.imageURLArray[0]) ||
                     this.state.content.generatedImageURI
                   }
                   className="fadedshort"
@@ -949,22 +950,26 @@ export class HeroPage extends React.Component {
                       <p style={{ fontWeight: 600, margin: 0 }}>
                         Happy with my choice
                       </p>
-                        <div>
-                            <img width={100} src={fiveStars} />
-                        </div>
+                      <div>
+                        <img width={100} src={fiveStars} />
+                      </div>
                     </div>
                   </div>
                   <div
                     className="review-body"
-                    style={{ overflow:'auto',
+                    style={{
+                      overflow: "auto",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-
-                      <p style={{    marginBottom:0}}>
-                        {this.state.content.firstName||'This contractor'} provided me with an unparalleled experience; they carefully paid heed to each of my needs and dedicated time to grasp the nature of the work I wanted to have completed.
+                    <p style={{ marginBottom: 0 }}>
+                      {this.state.content.firstName || "This contractor"}{" "}
+                      provided me with an unparalleled experience; they
+                      carefully paid heed to each of my needs and dedicated time
+                      to grasp the nature of the work I wanted to have
+                      completed.
                     </p>
                   </div>
                 </div>
@@ -1008,27 +1013,33 @@ export class HeroPage extends React.Component {
                         justifyContent: "center",
                       }}
                     >
-                      <p style={{ fontWeight: 600, margin: 0 }}>Mike Wyzcinski</p>
+                      <p style={{ fontWeight: 600, margin: 0 }}>
+                        Mike Wyzcinski
+                      </p>
 
                       <p style={{ fontWeight: 600, margin: 0 }}>
-                       Outstanding {this.state.content.serviceType}
+                        Outstanding {this.state.content.serviceType}
                       </p>
-                        <div>
-                            <img width={100} src={fiveStars} />
-                        </div>
+                      <div>
+                        <img width={100} src={fiveStars} />
+                      </div>
                     </div>
                   </div>
                   <div
                     className="review-body"
-                    style={{ overflow:'auto',
+                    style={{
+                      overflow: "auto",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-
-                      <p style={{    marginBottom:0}}>
-                    The experience I had with {this.state.content.firstName||'this contractor'} was outstanding; they actively listened to all my needs and invested considerable time in comprehending the exact scope of the work I required.
+                    <p style={{ marginBottom: 0 }}>
+                      The experience I had with{" "}
+                      {this.state.content.firstName || "this contractor"} was
+                      outstanding; they actively listened to all my needs and
+                      invested considerable time in comprehending the exact
+                      scope of the work I required.
                     </p>
                   </div>
                 </div>
@@ -1072,28 +1083,38 @@ export class HeroPage extends React.Component {
                         justifyContent: "center",
                       }}
                     >
-                      <p style={{ fontWeight: 600, margin: 0 }}>Sarah May-Killip</p>
+                      <p style={{ fontWeight: 600, margin: 0 }}>
+                        Sarah May-Killip
+                      </p>
 
                       <p style={{ fontWeight: 600, margin: 0 }}>
-                        Zero regrets with {this.state.content.firstName||'this contractor'}
+                        Zero regrets with{" "}
+                        {this.state.content.firstName || "this contractor"}
                       </p>
-                        <div>
-                            <img width={100} src={fiveStars} />
-                        </div>
+                      <div>
+                        <img width={100} src={fiveStars} />
+                      </div>
                     </div>
                   </div>
                   <div
                     className="review-body"
-                    style={{ overflow:'auto',
+                    style={{
+                      overflow: "auto",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
                     }}
                   >
-                    <p style={{    marginBottom:0}}>
-                        Oh my goodness, I can't believe how lucky I am to have found such an incredible {this.state.serviceType||'personal trainer'}! With three little ones running around, finding time for myself seemed impossible, but this {this.state.content.serviceType} has been an absolute game-changer in my life. Thank you very much.</p>
+                    <p style={{ marginBottom: 0 }}>
+                      Oh my goodness, I can't believe how lucky I am to have
+                      found such an incredible{" "}
+                      {this.state.serviceType || "personal trainer"}! With three
+                      little ones running around, finding time for myself seemed
+                      impossible, but this {this.state.content.serviceType} has
+                      been an absolute game-changer in my life. Thank you very
+                      much.
+                    </p>
                   </div>
-
                 </div>
               </div>
 
