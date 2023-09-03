@@ -117,13 +117,6 @@ class App extends React.Component {
           <Route path="/marketingDemo" exact component={MarketingHeroPage} />
           <Route path="/builder" exact component={CreatorFunnel} />
           <Route
-            path="/"
-            exact
-            component={() => {
-              window.location.href = "/builder";
-            }}
-          />
-          <Route
             path="/pages"
             exact
             component={
