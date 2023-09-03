@@ -58,6 +58,7 @@ import {
   renderPackagePhoto,
   renderStripeLink,
 } from "./MarketingHeroPage";
+import {BsInputCursorText} from "react-icons/bs";
 
 export const NavBar = (props) => (
   <nav
@@ -403,12 +404,17 @@ export class HeroPage extends React.Component {
   render() {
       const EditSection = (section)=>{
           return(
-              <div style={{textDecoration:'underline',color:'blue',textDecorationColor:'blue'}} onClick={()=>{
+              <div style={{textDecoration:'underline',color:'blue',textDecorationColor:'blue',
+                  position: 'absolute',
+                  fontSize:16,
+                  cursor:'pointer',
+                  right: 20,
+                  top: 0}} onClick={()=>{
                   rootStore.pageStore.setEditSection(section)
                   window.location.href = '/builder'
               }
               }>
-                  Edit
+                  Edit   <BsInputCursorText size={36} color={"#fff"} />
               </div>
           )
 
@@ -553,7 +559,6 @@ export class HeroPage extends React.Component {
 
                       <p style={{ fontSize: 20, marginLeft: 0 }} className="mb-4">
                       {this.state.content.titleBlurb}
-                        <EditSection section={'titleBlurb'} />
 
                     </p>
                     <div
@@ -578,7 +583,6 @@ export class HeroPage extends React.Component {
                           }}
                         >
                           {this.state.content.mainButtonTitle}
-                            <EditSection section={'mainButtonTitle'} />
 
                         </div>
                       </div>
@@ -600,7 +604,6 @@ export class HeroPage extends React.Component {
                       }}
                       src={this.state.content.logo || logo}
                     />
-                      <EditSection section={'logo'} />
                   </div>
                 </div>
               </div>
@@ -729,7 +732,6 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.secondaryContent}
-                        <EditSection section={'secondaryContent'} />
 
                     </p>
                   </div>
@@ -797,7 +799,6 @@ export class HeroPage extends React.Component {
                             }}
                           >
                             {this.state.content.supportingHeadingTitle}
-                              <EditSection section={'supportingHeadingTitle'} />
 
                           </h1>
                           <p
@@ -809,7 +810,6 @@ export class HeroPage extends React.Component {
                             }}
                           >
                             {this.state.content.supportingHeading}
-                              <EditSection section={'supportingHeading'} />
 
                           </p>
                         </p>
@@ -884,7 +884,6 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.p3Heading1}
-                        <EditSection section={'p3Heading1'} />
 
                     </h3>
                     <p

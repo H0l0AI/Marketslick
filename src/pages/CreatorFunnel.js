@@ -1441,7 +1441,20 @@ class CreatorFunnel extends React.Component {
                 }}
               />
             </div>
-            {this.state.selectedBusinessInfo ? null : (
+            {this.state.selectedBusinessInfo ?
+                <div
+                    className="altButton whiteButton magOrange"
+                    onClick={()=>{
+                  this.setState({
+                    selectedBusinessInfo: null,
+                    mapsCenter:null,
+                    businessName:null,
+                  })
+                }
+                }>
+                  Choose another business
+                </div>
+                : (
               <div
                 className="altButton whiteButton magOrange"
                 onClick={() => {
@@ -1457,6 +1470,7 @@ class CreatorFunnel extends React.Component {
                 I don't have one
               </div>
             )}
+
 
             <div style={{ zIndex: 8999, width: "100%" }}>
               {this.state.selectedBusinessInfo || this.state.noBusiness ? (
@@ -1499,13 +1513,13 @@ class CreatorFunnel extends React.Component {
                     />
 
                     <br />
-                    <div style={{ display: "flex", justifyContent: "center" }}>
+                    <div style={{ display: "flex", justifyContent: "center",flexWrap:'wrap'}}>
                       <input
                         type="text"
-                        style={{ width: "20%" }}
+                        style={{ width: "60%" }}
                         className="templateInputP"
                         onChange={this.handleContentFormChange}
-                        placeholder={"Call to Action 1"}
+                        placeholder={"Link button text"}
                         value={this.state.content.mainButtonTitle}
                         name={"mainButtonTitle"}
                       />
@@ -1515,7 +1529,7 @@ class CreatorFunnel extends React.Component {
                         className="templateInputP"
                         onChange={this.handleContentFormChange}
                         value={this.state.content.mainButtonLink}
-                        placeholder={"URL to link to"}
+                        placeholder={"URL the button links to"}
                         name={"mainButtonLink"}
                       />
                     </div>
