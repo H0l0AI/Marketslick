@@ -25,6 +25,7 @@ export default class PageStore {
     }
 
     @observable value = '';
+    @observable editSection = null;
     @observable mainPageContent = '';
     @observable secondaryContent = '';
     @observable autoCompletePlaces = [];
@@ -37,6 +38,9 @@ export default class PageStore {
         console.log('set:',codeToSet);
         cookie.set('code',codeToSet);
         this.code=codeToSet
+    }
+    @action.bound setEditSection(section){
+        this.editSection = section
     }
     @action.bound setUser(user){
         if(user) {

@@ -359,6 +359,9 @@ class CreatorFunnel extends React.Component {
     });
   }
   async componentDidMount() {
+
+
+
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
     const userSubmittedTemplated = await rootStore.pageStore.getTemplatesWithId(
@@ -367,8 +370,19 @@ class CreatorFunnel extends React.Component {
     console.log("from user", toJS(rootStore.pageStore.activeTemplate));
     console.log("EXISTING", cookie.get("code"), cookie.get("wasPurchased"));
     console.log("test test test ", userSubmittedTemplated);
+    if(rootStore.pageStore.editSection){
+      const frontPageForms = ['logo','secondaryTitle','titleContent','titleBlurb']
+      const isFrontPage = frontPageForms.contains(rootStore.pageStore.editSection)
+      this.setState({editModal:isFrontPage?'frontPage':'secondPage',editSection:rootStore.pageStore.editSection})
+
+    }
+    if(userSubmittedTemplated&&!rootStore.pageStore.editSection){
+      this.setState({editModal:'frontPage',editSection:'titleBlurb'})
+    }
+
 
     let code = cookie.get("code");
+    //todo update purchase edit mode
     if (code && cookie.get("wasPurchased")) {
       firebase
         .firestore()
@@ -400,12 +414,25 @@ class CreatorFunnel extends React.Component {
           }
         });
     } else {
+      //todo fix
+      console.log('i am editing',this.state.editSection)
       if (userSubmittedTemplated) {
         console.log("USER SUBMITTED:", userSubmittedTemplated);
         this.setState({
+          serviceTypeReady:true,
+          businessNameReady:true,
+          domainNameReady:true,
+          restOfFormReady:true,
+          linkArray:userSubmittedTemplated.content.linkArray,
           selectedBusinessInfo: userSubmittedTemplated.content.businessInfo,
           imageURLArray: userSubmittedTemplated.content.imageURLArray,
+          pageTitle:userSubmittedTemplated.content.pageTitle,
           logo: userSubmittedTemplated.content.logo,
+          serviceType:userSubmittedTemplated.content.serviceType,
+          firstName:userSubmittedTemplated.content.firstName,
+          generatedImageURI:userSubmittedTemplated.content.generatedImageURI,
+          class:{hex:userSubmittedTemplated.content.class},
+          font:{hex:userSubmittedTemplated.content.font},
           code: rootStore.pageStore.code || code,
           userContinued: true,
           editModal: "frontPage",
@@ -1785,9 +1812,9 @@ class CreatorFunnel extends React.Component {
                     </div>
                   )}
 
-                  {this.state.firstName &&
+                  {(this.state.firstName &&
                     this.state.serviceType &&
-                    this.state.domainNameReady && (
+                    this.state.domainNameReady) && (
                       <>
                         <div
                           style={{ display: "flex", justifyContent: "center" }}
@@ -1860,6 +1887,11 @@ class CreatorFunnel extends React.Component {
                         : "pointer",
                   }}
                   onClick={() => {
+                    //todo update edit page function
+                    if(this.state.editSection&&this.state.editModal==='frontPage'){
+                     return this.setState({ editModal: 'secondPage' })
+
+                    }
                     if (
                       !this.state.imageURLArray[0] &&
                       !this.state.generatedImageURI

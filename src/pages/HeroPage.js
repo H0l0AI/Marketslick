@@ -399,7 +399,20 @@ export class HeroPage extends React.Component {
       return { content };
     });
   };
+
   render() {
+      const EditSection = (section)=>{
+          return(
+              <div style={{textDecoration:'underline',color:'blue',textDecorationColor:'blue'}} onClick={()=>{
+                  rootStore.pageStore.setEditSection(section)
+                  window.location.href = '/builder'
+              }
+              }>
+                  Edit
+              </div>
+          )
+
+      }
     let customerHasPaid = cookie.get("hasPaid") === "true";
     console.log("test:", firebase.apps.length, toJS(rootStore.pageStore.code));
 
@@ -536,8 +549,12 @@ export class HeroPage extends React.Component {
                     }}
                   >
                     <h1>{this.state.content.titleContent}</h1>{" "}
-                    <p style={{ fontSize: 20, marginLeft: 0 }} className="mb-4">
+                      <EditSection section={'titleContent'} />
+
+                      <p style={{ fontSize: 20, marginLeft: 0 }} className="mb-4">
                       {this.state.content.titleBlurb}
+                        <EditSection section={'titleBlurb'} />
+
                     </p>
                     <div
                       style={{
@@ -561,6 +578,8 @@ export class HeroPage extends React.Component {
                           }}
                         >
                           {this.state.content.mainButtonTitle}
+                            <EditSection section={'mainButtonTitle'} />
+
                         </div>
                       </div>
                     </div>
@@ -581,6 +600,7 @@ export class HeroPage extends React.Component {
                       }}
                       src={this.state.content.logo || logo}
                     />
+                      <EditSection section={'logo'} />
                   </div>
                 </div>
               </div>
@@ -694,6 +714,8 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.secondaryContentTitle}
+                        <EditSection section={'secondaryContentTitle'} />
+
                     </h3>
                     <p
                       style={{
@@ -707,6 +729,8 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.secondaryContent}
+                        <EditSection section={'secondaryContent'} />
+
                     </p>
                   </div>
                 </div>
@@ -773,6 +797,8 @@ export class HeroPage extends React.Component {
                             }}
                           >
                             {this.state.content.supportingHeadingTitle}
+                              <EditSection section={'supportingHeadingTitle'} />
+
                           </h1>
                           <p
                             style={{
@@ -783,6 +809,8 @@ export class HeroPage extends React.Component {
                             }}
                           >
                             {this.state.content.supportingHeading}
+                              <EditSection section={'supportingHeading'} />
+
                           </p>
                         </p>
                       </div>
@@ -856,6 +884,8 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.p3Heading1}
+                        <EditSection section={'p3Heading1'} />
+
                     </h3>
                     <p
                       style={{
@@ -870,6 +900,7 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.p3Content1}
+
                     </p>
                   </div>
                 </div>
