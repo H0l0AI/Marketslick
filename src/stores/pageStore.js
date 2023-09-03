@@ -25,7 +25,6 @@ export default class PageStore {
     }
 
     @observable value = '';
-    @observable editSection = null;
     @observable mainPageContent = '';
     @observable secondaryContent = '';
     @observable autoCompletePlaces = [];
@@ -34,13 +33,17 @@ export default class PageStore {
     @persist @observable userId = '';
     @persist @observable userEmail = '';
     @persist @observable code = cookie.get('code');
+    @persist @observable editSection = cookie.get('editSection');
+
     @action.bound setCode(codeToSet){
         console.log('set:',codeToSet);
         cookie.set('code',codeToSet);
         this.code=codeToSet
     }
-    @action.bound setEditSection(section){
-        this.editSection = section
+    @action.bound async setEditSection(section){
+        console.log('SET EDIT :',section)
+        cookie.set('editSection',section);
+        return this.editSection = section
     }
     @action.bound setUser(user){
         if(user) {

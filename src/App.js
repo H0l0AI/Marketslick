@@ -7,7 +7,7 @@ import { inject, observer } from "mobx-react";
 import { Router, Route, Switch, useParams } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import firebase from "firebase/compat";
-import { HeroPage } from "./pages/HeroPage";
+import HeroPage  from "./pages/HeroPage";
 import { SecondaryPage } from "./pages/SecondaryPage";
 import { ThirdPage } from "./pages/ThirdPage";
 import { Contact } from "./pages/Contact";

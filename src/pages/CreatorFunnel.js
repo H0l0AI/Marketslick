@@ -359,6 +359,7 @@ class CreatorFunnel extends React.Component {
     });
   }
   async componentDidMount() {
+    console.log('Edit section key:',toJS(rootStore.pageStore.editSection))
 
 
 
@@ -369,10 +370,10 @@ class CreatorFunnel extends React.Component {
     );
     console.log("from user", toJS(rootStore.pageStore.activeTemplate));
     console.log("EXISTING", cookie.get("code"), cookie.get("wasPurchased"));
-    console.log("test test test ", userSubmittedTemplated);
+    console.log("test test test ", userSubmittedTemplated,'...',toJS(rootStore.pageStore.editSection));
     if(rootStore.pageStore.editSection){
       const frontPageForms = ['logo','secondaryTitle','titleContent','titleBlurb']
-      const isFrontPage = frontPageForms.contains(rootStore.pageStore.editSection)
+      const isFrontPage = frontPageForms.includes(rootStore.pageStore.editSection)
       this.setState({editModal:isFrontPage?'frontPage':'secondPage',editSection:rootStore.pageStore.editSection})
 
     }
@@ -435,7 +436,6 @@ class CreatorFunnel extends React.Component {
           font:{hex:userSubmittedTemplated.content.font},
           code: rootStore.pageStore.code || code,
           userContinued: true,
-          editModal: "frontPage",
           colorSelectorModal: false,
           content: userSubmittedTemplated.content,
           mainArray: [
@@ -1902,6 +1902,8 @@ class CreatorFunnel extends React.Component {
                   }}
                   onClick={() => {
                     //todo update edit page function
+                    rootStore.pageStore.setEditSection(null)
+
                     if(this.state.editSection&&this.state.editModal==='frontPage'){
                      return this.setState({ editModal: 'secondPage' })
 

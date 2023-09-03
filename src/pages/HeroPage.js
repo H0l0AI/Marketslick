@@ -59,6 +59,7 @@ import {
   renderStripeLink,
 } from "./MarketingHeroPage";
 import {BsInputCursorText} from "react-icons/bs";
+import {inject, observer} from "mobx-react";
 
 export const NavBar = (props) => (
   <nav
@@ -215,7 +216,9 @@ export const NavBar = (props) => (
   </nav>
 );
 
-export class HeroPage extends React.Component {
+@inject("rootStore")
+@observer
+class HeroPage extends React.Component {
   constructor(props) {
     super(props);
     this.contactRef = React.createRef();
@@ -402,19 +405,21 @@ export class HeroPage extends React.Component {
   };
 
   render() {
-      const EditSection = (section)=>{
+      const EditSection = (props)=>{
+
           return(
-              <div style={{textDecoration:'underline',color:'blue',textDecorationColor:'blue',
+              <div style={{border:'3px solid #fff',color:'#fff',fontWeight:700,borderRadius:8,padding:5,
+                  backgroundColor:'orange',
                   position: 'absolute',
                   fontSize:16,
                   cursor:'pointer',
                   right: 20,
-                  top: 0}} onClick={()=>{
-                  rootStore.pageStore.setEditSection(section)
-                  window.location.href = '/builder'
+                  top: 0}} onClick={async ()=>{
+                  await rootStore.pageStore.setEditSection(props.section)
+                  return window.location.href = '/builder'
               }
               }>
-                  Edit   <BsInputCursorText size={36} color={"#fff"} />
+                  Edit <BsInputCursorText size={36} color={"#fff"} />
               </div>
           )
 
@@ -1460,3 +1465,5 @@ export class HeroPage extends React.Component {
     );
   }
 }
+
+export default HeroPage
