@@ -279,6 +279,7 @@ export class HeroPage extends React.Component {
                       }}
                     >
                       <div
+                          style={{zIndex:999}}
                         className="altButtonOuter"
                         onClick={() => {
                           firebase.analytics().logEvent("view_contact_btn");
