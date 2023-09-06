@@ -427,9 +427,9 @@ export class HeroPage extends React.Component {
                         zIndex: 9999,
                       }}
                     >
-                        <div className="altButtonOuter" onClick={()=>{window.location.href=this.state.content.secondaryContentTitle}}>
+                        <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdJimJtpDNz2APIew3Tia1_lDXujcwU31gQ2Rnbo1SdNCiDZQ/viewform'}}>
                             <div className="altButton">
-                                {this.state.content.secondaryContent}</div>
+                                Sign up here </div>
                         </div>
                     </h3>
 
@@ -497,9 +497,9 @@ export class HeroPage extends React.Component {
                               textAlign: "center",
                             }}
                           >
-                              <div className="altButtonOuter" onClick={()=>{window.location.href=this.state.content.supportingHeadingTitle}}>
+                              <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdhHmr4Rsio8pbGPcjmIEivSJoIrQf05tK5N4u9is6uiE-Y4w/viewform'}}>
                                   <div className="altButton">
-                                      {this.state.content.supportingHeading}</div>
+                                      Sign up here</div>
                               </div>
                           </h1>
 
@@ -574,9 +574,9 @@ export class HeroPage extends React.Component {
                         textAlign: "center",
                       }}
                     >
-                        <div className="altButtonOuter" onClick={()=>{window.location.href=this.state.content.p3Content1}}>
+                        <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScKfc4POEI4Hu3J-zitPaGZtR_fPVOr1wBiiMTgsqeTDCOcIA/viewform'}}>
                             <div className="altButton">
-                            {this.state.content.p3Heading1}</div>
+                            Sign up here </div>
                         </div>
                     </h3>
                     <p
