@@ -427,21 +427,12 @@ export class HeroPage extends React.Component {
                         zIndex: 9999,
                       }}
                     >
-                      {this.state.content.secondaryContentTitle}
+                        <div className="altButtonOuter" onClick={()=>{window.location.href=this.state.content.secondaryContentTitle}}>
+                            <div className="altButton">
+                                {this.state.content.secondaryContent}</div>
+                        </div>
                     </h3>
-                    <p
-                      style={{
-                        fontSize: 18,
-                        paddingLeft: 15,
-                        paddingTop: 10,
-                        whiteSpace: "break-spaces",
-                        color: this.state.content.font,
-                        position: "relative",
-                        zIndex: 9999,
-                      }}
-                    >
-                      {this.state.content.secondaryContent}
-                    </p>
+
                   </div>
                 </div>
               </div>
@@ -506,18 +497,12 @@ export class HeroPage extends React.Component {
                               textAlign: "center",
                             }}
                           >
-                            {this.state.content.supportingHeadingTitle}
+                              <div className="altButtonOuter" onClick={()=>{window.location.href=this.state.content.supportingHeadingTitle}}>
+                                  <div className="altButton">
+                                      {this.state.content.supportingHeading}</div>
+                              </div>
                           </h1>
-                          <p
-                            style={{
-                              fontSize: 18,
 
-                              whiteSpace: "break-spaces",
-                              textAlign: "center",
-                            }}
-                          >
-                            {this.state.content.supportingHeading}
-                          </p>
                         </p>
                       </div>
                       <br />
@@ -589,7 +574,10 @@ export class HeroPage extends React.Component {
                         textAlign: "center",
                       }}
                     >
-                      {this.state.content.p3Heading1}
+                        <div className="altButtonOuter" onClick={()=>{window.location.href=this.state.content.p3Content1}}>
+                            <div className="altButton">
+                            {this.state.content.p3Heading1}</div>
+                        </div>
                     </h3>
                     <p
                       style={{
@@ -603,69 +591,15 @@ export class HeroPage extends React.Component {
                         textAlign: "center",
                       }}
                     >
-                      {this.state.content.p3Content1}
+
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* template example of where the review section may go. to be replaced */}
-              <div
-                className="reveiew-header"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  color: this.state.content.font,
-                  textAlign: "center",
-                }}
-              >
-                <h3>
-                  Dont just take our word for it. See what our clients have to
-                  say.
-                </h3>
+
               </div>
-              <div
-                className="review-section"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: this.state.content.class,
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  padding: 50,
-                  overflow: "scroll",
-                }}
-              >
-                <div
-                  className="review"
-                  style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
-                    borderRadius: 20,
-                  }}
-                ></div>
-                <div
-                  className="review"
-                  style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
-                    borderRadius: 20,
-                  }}
-                ></div>
-                <div
-                  className="review"
-                  style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
-                    borderRadius: 20,
-                  }}
-                ></div>
-              </div>
+              <div>
               {/* </div> */}
               <div ref={this.contactRef} style={{ marginTop: 40 }}>
                 <div
@@ -698,22 +632,7 @@ export class HeroPage extends React.Component {
                           {this.state.content.mainButtonTitle || "Apply Now"}
                         </div>
                       </div>
-                      <p
-                        style={{
-                          marginBottom: 30,
-                          paddingLeft: 15,
-                          paddingTop: 10,
-                          width: "60vw",
-                          minWidth: 300,
-                          textAlign: "center",
-                          whiteSpace: "break-spaces",
-                          color: this.state.content.font,
-                        }}
-                      >
-                        {this.state.content.contactBlurb}
-                        <br />
-                        <br />
-                      </p>
+
                       <div
                         style={{
                           display: "flex",
@@ -732,22 +651,7 @@ export class HeroPage extends React.Component {
                           </div>
                           <div style={{ marginLeft: 40 }}>
                             <b></b>
-                            {this.state.content.contactEmail}
-                          </div>
-                        </div>
-                        <br />
-                        <div style={{ padding: 10 }}>
-                          <div style={{ position: "relative" }}>
-                            <i
-                              style={{ position: "absolute", top: 0, left: 0 }}
-                              className="material-icons"
-                            >
-                              local_phone
-                            </i>{" "}
-                          </div>
-                          <div style={{ marginLeft: 40 }}>
-                            <b></b>
-                            {this.state.content.contactPhone}
+                            onpointbball@gmail.com
                           </div>
                         </div>
                         <br />
