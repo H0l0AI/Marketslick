@@ -609,63 +609,8 @@ export class HeroPage extends React.Component {
                 </div>
               </div>
 
-              {/* template example of where the review section may go. to be replaced */}
-              <div
-                className="reveiew-header"
-                style={{
-                  height: "100%",
-                  width: "100%",
-                  color: this.state.content.font,
-                  textAlign: "center",
-                }}
-              >
-                <h3>
-                  Dont just take our word for it. See what our clients have to
-                  say.
-                </h3>
-              </div>
-              <div
-                className="review-section"
-                style={{
-                  width: "100%",
-                  height: "100%",
-                  backgroundColor: this.state.content.class,
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  alignItems: "center",
-                  flexDirection: "row",
-                  padding: 50,
-                  overflow: "scroll",
-                }}
-              >
-                <div
-                  className="review"
-                  style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
-                    borderRadius: 20,
-                  }}
-                ></div>
-                <div
-                  className="review"
-                  style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
-                    borderRadius: 20,
-                  }}
-                ></div>
-                <div
-                  className="review"
-                  style={{
-                    height: "200px",
-                    width: "250px",
-                    backgroundColor: "#fff",
-                    borderRadius: 20,
-                  }}
-                ></div>
-              </div>
+
+              </div><div>
               {/* </div> */}
               <div ref={this.contactRef} style={{ marginTop: 40 }}>
                 <div
