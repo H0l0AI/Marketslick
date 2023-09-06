@@ -427,7 +427,7 @@ export class HeroPage extends React.Component {
                         zIndex: 9999,
                       }}
                     >
-                        <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdJimJtpDNz2APIew3Tia1_lDXujcwU31gQ2Rnbo1SdNCiDZQ/viewform'}}>
+                        <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdhHmr4Rsio8pbGPcjmIEivSJoIrQf05tK5N4u9is6uiE-Y4w/viewform'}}>
                             <div className="altButton">
                                 Sign up here </div>
                         </div>
@@ -499,7 +499,7 @@ export class HeroPage extends React.Component {
                                 justifyContent:'center'
                             }}
                           >
-                              <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdhHmr4Rsio8pbGPcjmIEivSJoIrQf05tK5N4u9is6uiE-Y4w/viewform'}}>
+                              <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdJimJtpDNz2APIew3Tia1_lDXujcwU31gQ2Rnbo1SdNCiDZQ/viewform'}}>
                                   <div className="altButton">
                                       Sign up here</div>
                               </div>
