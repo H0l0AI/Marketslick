@@ -495,6 +495,8 @@ export class HeroPage extends React.Component {
                               fontSize: "1.5rem",
                               whiteSpace: "break-spaces",
                               textAlign: "center",
+                                display:'flex',
+                                justifyContent:'center'
                             }}
                           >
                               <div className="altButtonOuter" onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdhHmr4Rsio8pbGPcjmIEivSJoIrQf05tK5N4u9is6uiE-Y4w/viewform'}}>
@@ -613,6 +615,37 @@ export class HeroPage extends React.Component {
                 >
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div>
+                        <div
+                            className="templateCTA"
+                            onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLSdhHmr4Rsio8pbGPcjmIEivSJoIrQf05tK5N4u9is6uiE-Y4w/viewform'}}
+
+                        >
+                            <div
+                                className="altButton"
+                                style={{
+                                    backgroundColor: this.state.content.class,
+                                    color: this.state.content.font,
+                                    textAlign:"center"
+                                }}
+                            > BOOK YR 7 - 8 THREE DAY CAMP
+                            </div>
+                        </div>
+
+                        <div
+                            className="templateCTA"
+                            onClick={()=>{window.location.href='https://docs.google.com/forms/d/e/1FAIpQLScKfc4POEI4Hu3J-zitPaGZtR_fPVOr1wBiiMTgsqeTDCOcIA/viewform'}}
+
+                        >
+                            <div
+                                className="altButton"
+                                style={{
+                                    backgroundColor: this.state.content.class,
+                                    color: this.state.content.font,
+                                    textAlign:"center"
+                                }}
+                            > BOOK YR 1 - 6 THREE DAY CAMP
+                            </div>
+                        </div>
                       <div
                         className="templateCTA"
                         onClick={() => {
@@ -629,7 +662,7 @@ export class HeroPage extends React.Component {
                               textAlign:"center"
                           }}
                         >
-                          {this.state.content.mainButtonTitle || "Apply Now"}
+                          BOOK YR 7 - 13 THREE DAY CAMP
                         </div>
                       </div>
 
