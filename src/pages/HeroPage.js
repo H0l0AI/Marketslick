@@ -1222,7 +1222,7 @@ class HeroPage extends React.Component {
                           </div>
                         </div>}
                         <br />
-                          {this.state.content.contactPhone&&this.staet.content.contactPhone!=='021 000 0000'&&<div style={{ padding: 10 }}>
+                          {this.state.content.contactPhone&&this.state.content.contactPhone!=='021 000 0000'&&<div style={{ padding: 10 }}>
                           <div style={{ position: "relative" }}>
                             <i
                               style={{ position: "absolute", top: 0, left: 0 }}
