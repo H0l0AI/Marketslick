@@ -1876,7 +1876,7 @@ class CreatorFunnel extends React.Component {
                               color: "#0e1e46",
                             }}
                           >
-                            .co.nz
+                            .webgun.ai
                           </span>
                         </div>
                       </>

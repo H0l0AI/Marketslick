@@ -3,6 +3,8 @@ import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
 import fiveStars from "../images/fiveStar.png";
+import webgunLogo from "../images/webgunLogo.jpg";
+
 import logo from "../images/sm3.png";
 import p2 from "../images/p2.png";
 import p1 from "../images/p1.png";
@@ -502,12 +504,9 @@ class HeroPage extends React.Component {
                       a premium website!
                     </h2>
                     <h4>
-                      It will take us a few days to get things up and running,
-                      but keep in touch! <br /> We will forward your details to
-                      you. <br />
-                      Order #{this.state.orderNumber}
+                      Your Webgun website will be available within minutes at {this.state.content.code}.webgun.ai
                     </h4>
-                    <img src={coffee} />
+                    <img src={webgunLogo} />
                   </div>
                 </div>
               </div>

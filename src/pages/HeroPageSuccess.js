@@ -47,6 +47,7 @@ import { toJS } from "mobx";
 import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
+import webgunLogo from "../images/webgunLogo.jpg";
 
 export const SuccessBanner = (props) => (
   <div style={{ display: "flex", justifyContent: "center", padding: 5 }}>
@@ -86,16 +87,14 @@ export const SuccessBanner = (props) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ padding: 60, paddingTop: 0, textAlign: "center " }}>
           <h2>
-            Congratulations! You will very soon be the proud owner of a premium
-            website{cookie.get("includesMeta") && " with branded social pages "}
-            !
+            Congratulations! You have successfully launched your business online!
           </h2>
-          <h4>
-            It will take us a few days to get things up and running, but keep in
-            touch! <br /> We will forward your details to you. <br />
-            Order #{props.orderNumber} | Website Code {cookie.get("pw")}
-          </h4>
-          <img width={400} src={coffee} />
+            <h4>
+                Your WebGun website will be available within a few minutes at <a href={`https://${this.state.content.code}.webgun.ai`}>{this.state.content.code}.webgun.ai</a> !
+                <br />
+            </h4>
+            <p> If you would like a custom domain please contact us so we can set this up for you.</p>
+            <img width={400} src={webgunLogo} />
           <br />
         </div>
       </div>
