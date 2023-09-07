@@ -6,6 +6,7 @@
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@usesuperflow/client": "^1.0.4",
     "customize-cra": "^1.0.0",
     "firebase": "^9.6.6",
     "firebase-tools": "^10.1.0",

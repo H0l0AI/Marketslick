@@ -15,6 +15,7 @@ import { TemplatedRoute } from "./pages/TemplatedRoute";
 import { MarketingHeroPage } from "./pages/MarketingHeroPage";
 import { LinkPage } from "./pages/LinkPage";
 import { pageTitle } from "./content";
+import { initSuperflow } from '@usesuperflow/client'
 
 const customHistory = createBrowserHistory();
 const TemplatedRouteComponent = <TemplatedRoute index={0} />;
@@ -42,6 +43,9 @@ class App extends React.Component {
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
+    initSuperflow('BYDunLFHioZGBupbPHgR', {
+      projectId: '302975321705588'
+    }).then((res)=>{console.log(res,'superflow init')});
 
     this.state = {
       routeItems: [],
