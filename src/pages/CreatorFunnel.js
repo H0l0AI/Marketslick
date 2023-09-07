@@ -912,7 +912,7 @@ class CreatorFunnel extends React.Component {
     const key = process && process.env.REACT_APP_MAPS_KEY;
     rootStore.pageStore.autoCompletePlacesAction(data, key).then((res) => {
       console.log("...FACES", res, key);
-      this.setState({ places: res && res.predictions, businessName: data });
+      this.setState({ places: res && res.predictions, businessName: data,userHasClickedResetOption:false });
     });
   }
 
@@ -1431,6 +1431,7 @@ class CreatorFunnel extends React.Component {
           >
             <div style={{ marginBottom: 20 }}>
               <GoogleMyBusinessForm
+                  userHasClickedResetOption={this.state.userHasClickedResetOption}
                 places={this.state.places}
                 selectedBusinessInfo={this.state.selectedBusinessInfo}
                 triggerAutoComplete={(data) => {
@@ -1449,6 +1450,7 @@ class CreatorFunnel extends React.Component {
                     selectedBusinessInfo: null,
                     mapsCenter:null,
                     businessName:null,
+                    userHasClickedResetOption:true
                   })
                 }
                 }>
@@ -1464,6 +1466,7 @@ class CreatorFunnel extends React.Component {
                     noBusiness: true,
                     businessName: pageTitle,
                     selectedBusinessInfo: {},
+
                   });
                 }}
               >
@@ -1946,16 +1949,22 @@ class CreatorFunnel extends React.Component {
                         )
                         .then((res) => {
                           let content = this.state.content;
+                          console.log('Content Raw Form: ',res)
                           let contentFormattedString = res.replace(
                             /<[^>]*>?/gm,
                             ""
                           );
-                          let contentFormatted = contentFormattedString
+                          console.log('Content Formatted Form: ',contentFormattedString)
+
+                          let contentFormatted = contentFormattedString.split("-")
                             .replace(/([A-Z])/g, " $1")
-                            .split("-");
+
+
+                          console.log('Content Formatted Text: ',contentFormatted)
+
                           content.supportingHeadingTitle = "Heading One";
                           content.supportingHeading =
-                            contentFormatted.toString() || "";
+                            contentFormatted[0] || "";
                           content.secondaryContent = contentFormatted[1] || "";
                           content.secondaryContentTitle = "Heading two";
                           content.p3Heading1 = "Heading Three";
