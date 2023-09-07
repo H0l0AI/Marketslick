@@ -10,3 +10,4 @@ firebase.json
 .env
 /src/.env
 package-lock.json
+node_modules
