@@ -106,7 +106,7 @@ async function ryte({ useCaseId, inputContexts }) {
             rootStore.pageStore.setMainPageContent(res.data.data[0]);
             const text = res.data.data[0].replace(/<\/?[^>]+(>|$)/g, "");
 
-            return text;
+            return {text:text,rawHtml:res.data.data[0]}
         }
         else{
             return 'Sorry we arent able to come up with anything right now';

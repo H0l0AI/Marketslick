@@ -26,6 +26,7 @@ export default class PageStore {
 
     @observable value = '';
     @observable mainPageContent = '';
+    @observable mainPageContentText = '';
     @observable secondaryContent = '';
     @observable autoCompletePlaces = [];
     @persist @observable user = {};
@@ -64,7 +65,8 @@ export default class PageStore {
 
     @action.bound setMainPageContent(templateContent){
         console.log('.....',templateContent);
-        this.mainPageContent = templateContent&&templateContent.text;
+        this.mainPageContent = templateContent
+        this.mainPageContentText = templateContent&&templateContent.text;
     }
     @action.bound setSecondaryContent(templateContent){
         this.secondaryContent = templateContent;

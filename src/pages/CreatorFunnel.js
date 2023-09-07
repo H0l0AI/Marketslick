@@ -205,6 +205,7 @@ class CreatorFunnel extends React.Component {
       routeItems: [],
       places: [],
       plainCode: 0,
+      generatedImageURIArray:[],
       imageURLArray: [],
       bgSelectorActive: false,
       classSelectorActive: false,
@@ -432,6 +433,7 @@ class CreatorFunnel extends React.Component {
           serviceType:userSubmittedTemplated.content.serviceType,
           firstName:userSubmittedTemplated.content.firstName,
           generatedImageURI:userSubmittedTemplated.content.generatedImageURI,
+          generatedImageURIArray:userSubmittedTemplated.content.generatedImageURIArray,
           class:{hex:userSubmittedTemplated.content.class},
           font:{hex:userSubmittedTemplated.content.font},
           code: rootStore.pageStore.code || code,
@@ -916,6 +918,74 @@ class CreatorFunnel extends React.Component {
     });
   }
 
+  getGeneratedPhotoWithPhrase = async (index, phrase) => {
+    try {
+      this.setState({ generatedImagesLoading: true });
+      const modelId = "26a1a203-3a46-42cb-8cfa-f4de075907d8";
+      const url =
+          process.env.REACT_APP_PROXY_URL +
+          `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
+      const options = {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "content-type": "application/json",
+          authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+        },
+        body: JSON.stringify({
+          prompt: `A clean and elegant photo for a website advertising ${phrase}`,
+          negativePrompt: "watermarks",
+          steps: 10,
+          width: 1024,
+          height: 600,
+          numberOfImages: 1,
+          promptStrength: 7,
+          seed: 4523184,
+        }),
+      };
+
+      const res = await fetch(url, options);
+      const r = await res.json();
+      console.log("response??", r);
+      const id = r.id;
+      setTimeout(async () => {
+        const urlSingle =
+            process.env.REACT_APP_PROXY_URL +
+            `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
+        const optionsSingle = {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+          },
+        };
+
+        const imageJson = await fetch(urlSingle, optionsSingle).then((res) =>
+            res.json()
+        );
+        console.log("FINAL IMAGE", imageJson);
+        if (imageJson.state !== "processing" || imageJson.state !== "failed") {
+          const generatedImages = this.state.generatedImageURIArray
+          const imageURLArray = this.state.imageURLArray
+          generatedImages[index] = imageJson.images[0].uri
+          //fallback only if images dont already exist
+          imageURLArray[index+1] =  imageURLArray[index+1]? imageURLArray[index+1] :imageJson.images[0].uri
+
+
+          this.setState({
+            imageURLArray:imageURLArray,
+            generatedImageURIArray: generatedImages,
+            generatedImagesLoading: false,
+          });
+        } else {
+          this.setState({ generatedImagesLoading: false });
+        }
+      }, 35000);
+    } catch (e) {
+      this.setState({ imageError: e.message });
+    }
+  };
+
   getGeneratedPhoto = async (types, business) => {
     try {
       this.setState({ generatedImageLoading: true });
@@ -993,9 +1063,9 @@ class CreatorFunnel extends React.Component {
         this.state.serviceType,
         this.state.pageTitle
       )
-      .then(async (res) => {
-        console.log("res222", res);
-        let rytrBlurb = res.replace(/<[^>]*>?/gm, "");
+      .then(async ({rawHtml}) => {
+        console.log("res222", rawHtml);
+        let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
         let content = this.state.content;
         await rootStore.pageStore
           .testRytrBlurb(
@@ -1003,9 +1073,9 @@ class CreatorFunnel extends React.Component {
             `${this.state.serviceType} at ${this.state.pageTitle}`,
             rytrBlurb
           )
-          .then(async (res) => {
-            console.log("res,", res);
-            let rytrBlurb = res.replace(/<[^>]*>?/gm, "");
+          .then(async ({rawHtml}) => {
+            console.log("res,", rawHtml);
+            let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
             let content = this.state.content;
             content.titleBlurb = rytrBlurb;
             await this.getGeneratedPhoto(
@@ -1060,9 +1130,9 @@ class CreatorFunnel extends React.Component {
               this.state.serviceType,
               info.types.join(" ")
             )
-            .then(async (res) => {
-              console.log("res,", res);
-              let rytrBlurb = res.replace(/<[^>]*>?/gm, "");
+            .then(async ({rawHtml}) => {
+              console.log("res,", {rawHtml});
+              let rytrBlurb = {rawHtml}.replace(/<[^>]*>?/gm, "");
               let content = this.state.content;
               await rootStore.pageStore
                 .testRytrBlurb(
@@ -1070,9 +1140,9 @@ class CreatorFunnel extends React.Component {
                   `${this.state.serviceType} at ${info.name}`,
                   rytrBlurb
                 )
-                .then(async (res) => {
-                  console.log("res,", res);
-                  let rytrBlurb = res.replace(/<[^>]*>?/gm, "");
+                .then(async ({rawHtml}) => {
+                  console.log("res,", rawHtml);
+                  let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
                   let content = this.state.content;
                   content.titleBlurb = rytrBlurb;
                   await this.getGeneratedPhoto(info.types, info.name);
@@ -1214,6 +1284,13 @@ class CreatorFunnel extends React.Component {
             <h3 style={{ textAlign: "center", fontWeight: 300 }}>
               Front Page Content
             </h3>{" "}
+            {this.state.generatedImagesLoading&&<div style={{width:'100%',color:'red',textAlign:'center'}}>Images loading</div>}
+            {this.state.generatedImageURIArray?<div>
+              {this.state.generatedImageURIArray[0]&&<img width={400} src={this.state.generatedImageURIArray[0]} />}
+            {this.state.generatedImageURIArray[0]&&<img width={400} src={this.state.generatedImageURIArray[1]} />}
+            {this.state.generatedImageURIArray[0]&&<img width={400} src={this.state.generatedImageURIArray[2]} />}
+                </div>:null}
+
             <div style={{ fontSize: 20, paddingBottom: 0 }}>
               <div>
                 <div
@@ -1229,7 +1306,7 @@ class CreatorFunnel extends React.Component {
                   <div>
                     <FileImporter
                       practiceLogoURL={logo}
-                      imageURL={this.state.imageURLArray[1]}
+                      imageURL={this.state.generatedImageURIArray&&this.state.generatedImageURIArray[0]||this.state.imageURLArray[1]}
                       index={1}
                       display={true}
                       routeItemsIndex={null}
@@ -1304,7 +1381,7 @@ class CreatorFunnel extends React.Component {
                     <div>
                       <FileImporter
                         practiceLogoURL={logo}
-                        imageURL={this.state.imageURLArray[2]}
+                        imageURL={this.state.generatedImageURIArray&&this.state.generatedImageURIArray[1]||this.state.imageURLArray[2]}
                         index={2}
                         display={true}
                         routeItemsIndex={null}
@@ -1338,7 +1415,7 @@ class CreatorFunnel extends React.Component {
                         <div>
                           <FileImporter
                             practiceLogoURL={logo}
-                            imageURL={this.state.imageURLArray[3]}
+                            imageURL={this.state.generatedImageURIArray&&this.state.generatedImageURIArray[2]||this.state.imageURLArray[3]}
                             index={3}
                             display={true}
                             routeItemsIndex={null}
@@ -1947,28 +2024,41 @@ class CreatorFunnel extends React.Component {
                           this.state.content.titleContent,
                           this.state.content.titleBlurb
                         )
-                        .then((res) => {
+                        .then(({rawHtml}) => {
                           let content = this.state.content;
-                          console.log('Content Raw Form: ',res)
-                          let contentFormattedString = res.replace(
+                          console.log('Content Raw Form: ',rawHtml)
+                          //todo make it smarter, split h2 into heading and p into body tags
+
+                          let el = document.createElement( 'html' );
+                          el.innerHTML = rawHtml
+                          const headings = el.getElementsByTagName( 'h3' );
+                          const paragraphs = el.getElementsByTagName( 'p' );
+
+                          console.log('headings',headings)
+                          console.log('paragraphs',paragraphs)
+
+
+                          let contentFormattedString = rawHtml.replace(
                             /<[^>]*>?/gm,
-                            ""
+                            " "
                           );
                           console.log('Content Formatted Form: ',contentFormattedString)
 
-                          let contentFormatted = contentFormattedString.split("-")
+                          let contentFormatted = contentFormattedString
                             .replace(/([A-Z])/g, " $1")
+                            .split("-");
+                          content.supportingHeadingTitle =  headings[0]&&headings[0].innerText;
+                          this.getGeneratedPhotoWithPhrase(0,headings[0].innerText)
+                          content.supportingHeading = paragraphs[0]&&paragraphs[0].innerText;
+                          content.secondaryContent = paragraphs[1]&&paragraphs[1].innerText;
+                          content.secondaryContentTitle = headings[1]&&headings[1].innerText;
+                          this.getGeneratedPhotoWithPhrase(1,headings[1].innerText)
 
+                          content.p3Heading1 = headings[2]&&headings[2].innerText;
+                          this.getGeneratedPhotoWithPhrase(2,headings[2].innerText)
 
-                          console.log('Content Formatted Text: ',contentFormatted)
+                          content.p3Content1 = paragraphs[2]&&paragraphs[2].innerText;
 
-                          content.supportingHeadingTitle = "Heading One";
-                          content.supportingHeading =
-                            contentFormatted[0] || "";
-                          content.secondaryContent = contentFormatted[1] || "";
-                          content.secondaryContentTitle = "Heading two";
-                          content.p3Heading1 = "Heading Three";
-                          content.p3Content1 = contentFormatted[2] || "...";
                           this.setState({
                             rContent: "",
                             content: content,
