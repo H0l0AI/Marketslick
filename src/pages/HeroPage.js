@@ -5,7 +5,7 @@ import home_icon from "../images/realtor-icon-4-dark.png";
 import fiveStars from "../images/fiveStar.png";
 import webgunLogo from "../images/webgunLogo.jpg";
 
-import logo from "../images/sm3.png";
+import logo from "../images/webgunLogo.jpg";
 import p2 from "../images/p2.png";
 import p1 from "../images/p1.png";
 import coffee from "../images/coffee.png";

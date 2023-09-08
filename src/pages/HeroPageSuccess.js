@@ -2,7 +2,7 @@ import React from "react";
 import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
-import logo from "../images/sm3.png";
+import logo from "../images/webgunLogo.jpg";
 import p2 from "../images/p2.png";
 import coffee from "../images/coffee.png";
 import firebase from "firebase/compat";
