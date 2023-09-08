@@ -268,9 +268,7 @@ export class HeroPage extends React.Component {
                     }}
                   >
                     <h1>{this.state.content.titleContent}</h1>{" "}
-                    <p style={{ fontSize: 20, marginLeft: 0 }} className="mb-4">
-                      {this.state.content.titleBlurb}
-                    </p>
+
                     <div
                       style={{
                         display: "flex",
