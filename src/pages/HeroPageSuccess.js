@@ -41,6 +41,7 @@ import {
   contactCTA,
   p3ContentPhoto,
   backgroundType,
+    firstName,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -243,6 +244,11 @@ export const NavBar = (props) => (
 
 export class HeroPageSuccess extends React.Component {
   constructor(props) {
+
+
+
+
+
     super(props);
     this.contactRef = React.createRef();
     console.log(businessBlurbShort, contactTitle, contactPhone, "????");
@@ -273,6 +279,8 @@ export class HeroPageSuccess extends React.Component {
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
+          firstName:firstName||'',
+          userEmail:userEmail||'',
         class: "one",
         imageURLArray: [],
         routeItems: [],
@@ -281,6 +289,17 @@ export class HeroPageSuccess extends React.Component {
         mainButtonTitle: "Apply Now",
       },
     };
+
+      document.addEventListener('DOMContentLoaded', function() {
+          const trustpilot_invitation = {
+              recipientEmail: userEmail,
+              recipientName: firstName,
+              referenceId: 'Order_123',
+              source: 'InvitationScript',
+              locationId: 'location_1',
+          };
+          tp||window.tp('createInvitation', trustpilot_invitation);
+      });
   }
   changeCode(e) {
     this.setState({ code: e.target.value });

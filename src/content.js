@@ -36,6 +36,7 @@ export const serviceType = content.serviceType
 export const businessBlurb = content.contact_subcontent
 export const contactTitle=content.contact_header;
 export const contactEmail = content.email;
+export const userEmail = content.userEmail;
 export const contactPhone = content.phone;
 export const contactBlurb = content.contact_blurb;
 
