@@ -1240,7 +1240,7 @@ class CreatorFunnel extends React.Component {
           return value === null || value === "";
         });
         if (websiteHasEmptyRequiredFields) {
-          console.log(websiteHasEmptyRequiredFields);
+          console.log(websiteHasEmptyRequiredFields,'empty required fields');
           this.setState({
             builderError: "Non empty fields detected",
           });
@@ -2222,14 +2222,14 @@ class CreatorFunnel extends React.Component {
                 >
                   {buttonContent}
                 </div>
-                  <div
+                  {this.state.editModal==="frontPage"&&<div
                       onClick={async()=>{
                         await editFrontSection()
                         await editSecondSection()
 
                       }}
                       className="altButton whiteButton magOrange">
-                  One touch create </div>
+                  One touch create </div>}
                   </>
               )}
               {cookie.get("wasPurchased") && (

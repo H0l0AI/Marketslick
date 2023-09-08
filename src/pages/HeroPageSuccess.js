@@ -12,37 +12,37 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import avatarIcon from "../images/avatarIcon.png";
 
 import {
-  mainButtonLink,
-  mainButtonTitle,
-  contactButtonTitle,
-  businessBlurb,
-  contactEmail,
-  contactPhone,
-  contactTitle,
-  mailChimpSource,
-  secondary,
-  secondaryContent,
-  secondaryContentTitle,
-  supportingBlurb,
-  supportingHeading,
-  supportingHeadingTitle,
-  titleBlurb,
-  titleContent,
-  RouteItems,
-  contactBlurb,
-  businessBlurbShort,
-  secondaryContent1,
-  p3Content1,
-  p3Heading1,
-  secondaryHeader,
-  secondaryHeading1,
-  generatedImageURI,
-  secondaryPhoto1,
-  contactCTA,
-  p3ContentPhoto,
-  backgroundType,
+    mainButtonLink,
+    mainButtonTitle,
+    contactButtonTitle,
+    businessBlurb,
+    contactEmail,
+    contactPhone,
+    contactTitle,
+    mailChimpSource,
+    secondary,
+    secondaryContent,
+    secondaryContentTitle,
+    supportingBlurb,
+    supportingHeading,
+    supportingHeadingTitle,
+    titleBlurb,
+    titleContent,
+    RouteItems,
+    contactBlurb,
+    businessBlurbShort,
+    secondaryContent1,
+    p3Content1,
+    p3Heading1,
+    secondaryHeader,
+    secondaryHeading1,
+    generatedImageURI,
+    secondaryPhoto1,
+    contactCTA,
+    p3ContentPhoto,
+    backgroundType,
     firstName,
-    userEmail,
+    userEmail, pageTitle,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -92,7 +92,7 @@ export const SuccessBanner = (props) => (
             Congratulations! You have successfully launched your business online!
           </h2>
             <h4>
-                Your WebGun website will be available within a few minutes at <a href={`https://${this.state.content.code}.webgun.ai`}>{this.state.content.code}.webgun.ai</a> !
+                Your website for {} will be available within a few minutes at <a href={`https://${props.code}.webgun.ai`}>{props.code}.webgun.ai</a> !
                 <br />
             </h4>
             <p> If you would like a custom domain please contact us so we can set this up for you.</p>
@@ -260,6 +260,7 @@ export class HeroPageSuccess extends React.Component {
       currentMainImage: 0,
       mainArray: [image1, image2],
       content: {
+          pageTitle:pageTitle,
         generatedImageURI: generatedImageURI,
         businessBlurb: businessBlurb,
         businessBlurbShort: businessBlurbShort,
@@ -447,6 +448,8 @@ export class HeroPageSuccess extends React.Component {
                 this.setState({ showSaleSuccess: false });
               }}
               orderNumber={this.state.orderNumber}
+              code={this.state.content.code}
+              pageTitle={this.state.content.pageTitle}
             />
           )}
           <div>
