@@ -92,7 +92,7 @@ export const SuccessBanner = (props) => (
             Congratulations! You have successfully launched your business online!
           </h2>
             <h4>
-                Your website for {} will be available within a few minutes at <a href={`https://${props.code}.webgun.ai`}>{props.code}.webgun.ai</a> !
+                Your website{props.pageTitle&&` for ${props.pageTitle}`} will be available within a few minutes at <a href={`https://${props.code}.webgun.ai`}>{props.code}.webgun.ai</a> !
                 <br />
             </h4>
             <p> If you would like a custom domain please contact us so we can set this up for you.</p>
@@ -448,7 +448,7 @@ export class HeroPageSuccess extends React.Component {
                 this.setState({ showSaleSuccess: false });
               }}
               orderNumber={this.state.orderNumber}
-              code={this.state.content.code}
+              code={rootStore.pageStore.code||this.state.content.code}
               pageTitle={this.state.content.pageTitle}
             />
           )}
