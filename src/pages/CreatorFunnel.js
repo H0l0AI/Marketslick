@@ -158,7 +158,10 @@ export const NavBar = (props) => (
               className="nav-item"
               style={{ cursor: "pointer" }}
               onClick={() => {
-                rootStore.pageStore.signOut();
+                rootStore.pageStore.signOut().then(()=>{
+                  return window.location.reload(true);
+
+                });
               }}
             >
               <a className="nav-link" aria-current="page">
@@ -1171,6 +1174,206 @@ class CreatorFunnel extends React.Component {
       });
   }
   renderEditModal(modalType) {
+    const editSecondSection = async()=>{
+      try {
+        let splitCode =
+            this.state.code ||
+            cookie.get("code") ||
+            this.state.plainCode.toString();
+        splitCode = splitCode
+            .replace(/\s+/g, "-")
+            .toLowerCase();
+        firebase
+            .analytics()
+            .logEvent("template_init_wg", { code: splitCode });
+        rootStore.pageStore.setCode(
+            splitCode || this.state.plainCode
+        );
+        firebase
+            .firestore()
+            .collection("templates")
+            .get()
+            .then((data) => {
+              console.log("data:", data.docs[0].data());
+            });
+        let content = this.state.content;
+        content.pageTitle = this.state.pageTitle;
+        content.imageURLArray = this.state.imageURLArray || [];
+        content.routeItems = this.state.routeItems || [];
+        content.routeItemsDefault =
+            this.state.routeItemsDefault || [];
+        content.logo = this.state.logo || "";
+        content.templateType =
+            this.state.templateSelected || "dm";
+        content.linkArray = this.state.linkArray || [];
+        content.businessInfo = this.state
+            .selectedBusinessInfo || { name: "" };
+        content.backgroundType =
+            this.state.backgroundType.hex || "#656565";
+        content.class = this.state.class.hex || "#4264ea";
+        content.font = this.state.font.hex || "#a2a2a2";
+        content.firstName = this.state.firstName || "";
+        content.generatedImageURI =
+            this.state.generatedImageURI || "";
+        content.serviceType = this.state.serviceType;
+        content.firstName = this.state.firstName;
+        cookie.set("templateType", this.state.templateSelected);
+        console.log(
+            "SET:",
+            splitCode,
+            this.state.plainCode,
+            ":",
+            content
+        );
+        const websiteHasEmptyRequiredFields = Object.entries(
+            content
+        ).some(([key, value]) => {
+          console.log("value", key, value);
+          if (
+              value === null ||
+              value === "" ||
+              typeof value === undefined
+          ) {
+            console.log("ERRROR", key, "in:", value);
+          }
+          return value === null || value === "";
+        });
+        if (websiteHasEmptyRequiredFields) {
+          console.log(websiteHasEmptyRequiredFields);
+          this.setState({
+            builderError: "Non empty fields detected",
+          });
+        }
+        if (rootStore.pageStore.userId) {
+          //TODO fix editing
+          firebase
+              .firestore()
+              .collection("users")
+              .doc(`${rootStore.pageStore.userId}`)
+              .set({
+                templateCode: `t-${
+                    splitCode || this.state.plainCode
+                }`,
+              })
+              .then(() => {
+                console.log(
+                    "Document successfully written for",
+                    rootStore.pageStore.userId,
+                    `t-${splitCode || this.state.plainCode}`
+                );
+              })
+              .catch((e) => {
+                console.log("doc failed on ", e);
+              });
+        }
+       return firebase
+            .firestore()
+            .collection("templates")
+            .doc(`t-${splitCode || this.state.plainCode}`)
+            .set({
+              content: content,
+              author: rootStore.pageStore.userId || "Guest",
+            })
+            .then(() => {
+              console.log("Document successfully written!");
+              window.location.href = "/pages";
+              if (this.state.linkArray) {
+                firebase
+                    .firestore()
+                    .collection("links")
+                    .doc(splitCode)
+                    .set({ links: this.state.linkArray })
+                    .then(() => {
+                      console.log(
+                          "Wrote link array",
+                          this.state.linkArray,
+                          splitCode
+                      );
+                    });
+              }
+            })
+            .catch((error) => {
+              console.error(
+                  "Error writing document: ",
+                  error,
+                  content,
+                  this.state.content
+              );
+            });
+        console.log("something may have happened");
+      } catch (e) {
+        console.log("massive blunder", e);
+        this.setState({ builderError: `${e}` });
+      }
+
+
+  }
+    const editFrontSection = async() =>{let content = this.state.content;
+      content.supportingHeading =
+          "Hold on tight, we are writing your supporting heading...";
+      content.secondaryContent =
+          "Just a moment, we are writing about you...";
+      this.setState({ content: content });
+      return rootStore.pageStore
+          .testRytrMain(
+              this.state.firstName,
+              this.state.serviceType,
+              this.state.businessName,
+              this.state.content.titleContent,
+              this.state.content.titleBlurb
+          )
+          .then(async ({rawHtml}) => {
+            let content = this.state.content;
+            console.log('Content Raw Form: ',rawHtml)
+            //todo make it smarter, split h2 into heading and p into body tags
+
+            let el = document.createElement( 'html' );
+            el.innerHTML = rawHtml
+            const headings = el.getElementsByTagName( 'h3' );
+            const paragraphs = el.getElementsByTagName( 'p' );
+
+            console.log('headings',headings)
+            console.log('paragraphs',paragraphs)
+
+
+            let contentFormattedString = rawHtml.replace(
+                /<[^>]*>?/gm,
+                " "
+            );
+            console.log('Content Formatted Form: ',contentFormattedString)
+
+            let contentFormatted = contentFormattedString
+                .replace(/([A-Z])/g, " $1")
+                .split("-");
+            if(headings[0]) {
+              content.supportingHeadingTitle = headings[0] && headings[0].innerText;
+              await this.getGeneratedPhotoWithPhrase(0, headings[0].innerText)
+              content.supportingHeading = paragraphs[0] && paragraphs[0].innerText;
+              content.secondaryContent = paragraphs[1] && paragraphs[1].innerText;
+              content.secondaryContentTitle = headings[1] && headings[1].innerText;
+              await this.getGeneratedPhotoWithPhrase(1, headings[1].innerText)
+
+              content.p3Heading1 = headings[2] && headings[2].innerText;
+              await this.getGeneratedPhotoWithPhrase(2, headings[2].innerText)
+
+              content.p3Content1 = paragraphs[2] && paragraphs[2].innerText;
+            }
+            else{
+              content.supportingHeadingTitle = 'Heading One'
+              content.supportingHeading = contentFormattedString;
+              content.secondaryContentTitle = 'Heading Two'
+              content.secondaryContent = ''
+              content.p3Heading1 = 'Heading Three'
+              content.p3Content1 = ''
+
+            }
+
+           return this.setState({
+              rContent: "",
+              content: content,
+              loading: false,
+            });
+          });}
     let modalComponent = null;
     switch (modalType) {
       case "LinkPage":
@@ -1683,7 +1886,7 @@ class CreatorFunnel extends React.Component {
                       <FileImporter
                         routeItemsIndex={null}
                         practiceLogoURL={logo}
-                        imageURL={this.state.imageURLArray[0]}
+                        imageURL={this.state.imageURLArray[0]||this.state.generatedImageURI||null}
                         index={0}
                         display={true}
                         uploadStatus={"success"}
@@ -1844,7 +2047,7 @@ class CreatorFunnel extends React.Component {
             <div>
               {this.state.editModal === "frontPage" && (
                 <>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ display: "flex", justifyContent: "space-around" }}>
                     <input
                       disabled={cookie.get("wasPurchased")}
                       className="templateInputP"
@@ -1970,7 +2173,7 @@ class CreatorFunnel extends React.Component {
             <div style={{ display: "flex", justifyContent: "center" }}>
               {!this.state.selectedBusinessInfo &&
               this.state.editModal === "frontPage" ? null : (
-                <div
+                  <><div
                   style={{
                     display: "flex",
                     justifyContent: "center",
@@ -2011,205 +2214,32 @@ class CreatorFunnel extends React.Component {
                         break;
                     }
                     if (this.state.editModal === "frontPage") {
-                      let content = this.state.content;
-                      content.supportingHeading =
-                        "Hold on tight, we are writing your supporting heading...";
-                      content.secondaryContent =
-                        "Just a moment, we are writing about you...";
-                      this.setState({ content: content });
-                      rootStore.pageStore
-                        .testRytrMain(
-                          this.state.firstName,
-                          this.state.serviceType,
-                          this.state.businessName,
-                          this.state.content.titleContent,
-                          this.state.content.titleBlurb
-                        )
-                        .then(({rawHtml}) => {
-                          let content = this.state.content;
-                          console.log('Content Raw Form: ',rawHtml)
-                          //todo make it smarter, split h2 into heading and p into body tags
+                      editFrontSection()
+                      return this.setState({ editModal: nextPage });
 
-                          let el = document.createElement( 'html' );
-                          el.innerHTML = rawHtml
-                          const headings = el.getElementsByTagName( 'h3' );
-                          const paragraphs = el.getElementsByTagName( 'p' );
-
-                          console.log('headings',headings)
-                          console.log('paragraphs',paragraphs)
-
-
-                          let contentFormattedString = rawHtml.replace(
-                            /<[^>]*>?/gm,
-                            " "
-                          );
-                          console.log('Content Formatted Form: ',contentFormattedString)
-
-                          let contentFormatted = contentFormattedString
-                            .replace(/([A-Z])/g, " $1")
-                            .split("-");
-                          content.supportingHeadingTitle =  headings[0]&&headings[0].innerText;
-                          this.getGeneratedPhotoWithPhrase(0,headings[0].innerText)
-                          content.supportingHeading = paragraphs[0]&&paragraphs[0].innerText;
-                          content.secondaryContent = paragraphs[1]&&paragraphs[1].innerText;
-                          content.secondaryContentTitle = headings[1]&&headings[1].innerText;
-                          this.getGeneratedPhotoWithPhrase(1,headings[1].innerText)
-
-                          content.p3Heading1 = headings[2]&&headings[2].innerText;
-                          this.getGeneratedPhotoWithPhrase(2,headings[2].innerText)
-
-                          content.p3Content1 = paragraphs[2]&&paragraphs[2].innerText;
-
-                          this.setState({
-                            rContent: "",
-                            content: content,
-                            loading: false,
-                          });
-                        });
-                    }
+                  }
                     if (
                       this.state.editModal === "fourthPage" ||
                       this.state.editModal === "Extra" ||
                       this.state.editModal === "LinkPage" ||
                       this.state.editModal === "thirdPage"
                     ) {
-                      try {
-                        let splitCode =
-                          this.state.code ||
-                          cookie.get("code") ||
-                          this.state.plainCode.toString();
-                        splitCode = splitCode
-                          .replace(/\s+/g, "-")
-                          .toLowerCase();
-                        firebase
-                          .analytics()
-                          .logEvent("template_init_wg", { code: splitCode });
-                        rootStore.pageStore.setCode(
-                          splitCode || this.state.plainCode
-                        );
-                        firebase
-                          .firestore()
-                          .collection("templates")
-                          .get()
-                          .then((data) => {
-                            console.log("data:", data.docs[0].data());
-                          });
-                        let content = this.state.content;
-                        content.pageTitle = this.state.pageTitle;
-                        content.imageURLArray = this.state.imageURLArray || [];
-                        content.routeItems = this.state.routeItems || [];
-                        content.routeItemsDefault =
-                          this.state.routeItemsDefault || [];
-                        content.logo = this.state.logo || "";
-                        content.templateType =
-                          this.state.templateSelected || "dm";
-                        content.linkArray = this.state.linkArray || [];
-                        content.businessInfo = this.state
-                          .selectedBusinessInfo || { name: "" };
-                        content.backgroundType =
-                          this.state.backgroundType.hex || "#656565";
-                        content.class = this.state.class.hex || "#4264ea";
-                        content.font = this.state.font.hex || "#a2a2a2";
-                        content.firstName = this.state.firstName || "";
-                        content.generatedImageURI =
-                          this.state.generatedImageURI || "";
-                        content.serviceType = this.state.serviceType;
-                        content.firstName = this.state.firstName;
-                        cookie.set("templateType", this.state.templateSelected);
-                        console.log(
-                          "SET:",
-                          splitCode,
-                          this.state.plainCode,
-                          ":",
-                          content
-                        );
-                        const websiteHasEmptyRequiredFields = Object.entries(
-                          content
-                        ).some(([key, value]) => {
-                          console.log("value", key, value);
-                          if (
-                            value === null ||
-                            value === "" ||
-                            typeof value === undefined
-                          ) {
-                            console.log("ERRROR", key, "in:", value);
-                          }
-                          return value === null || value === "";
-                        });
-                        if (websiteHasEmptyRequiredFields) {
-                          console.log(websiteHasEmptyRequiredFields);
-                          this.setState({
-                            builderError: "Non empty fields detected",
-                          });
-                        }
-                        if (rootStore.pageStore.userId) {
-                          //TODO fix editing
-                          firebase
-                            .firestore()
-                            .collection("users")
-                            .doc(`${rootStore.pageStore.userId}`)
-                            .set({
-                              templateCode: `t-${
-                                splitCode || this.state.plainCode
-                              }`,
-                            })
-                            .then(() => {
-                              console.log(
-                                "Document successfully written for",
-                                rootStore.pageStore.userId,
-                                `t-${splitCode || this.state.plainCode}`
-                              );
-                            })
-                            .catch((e) => {
-                              console.log("doc failed on ", e);
-                            });
-                        }
-                        firebase
-                          .firestore()
-                          .collection("templates")
-                          .doc(`t-${splitCode || this.state.plainCode}`)
-                          .set({
-                            content: content,
-                            author: rootStore.pageStore.userId || "Guest",
-                          })
-                          .then(() => {
-                            console.log("Document successfully written!");
-                            window.location.href = "/pages";
-                            if (this.state.linkArray) {
-                              firebase
-                                .firestore()
-                                .collection("links")
-                                .doc(splitCode)
-                                .set({ links: this.state.linkArray })
-                                .then(() => {
-                                  console.log(
-                                    "Wrote link array",
-                                    this.state.linkArray,
-                                    splitCode
-                                  );
-                                });
-                            }
-                          })
-                          .catch((error) => {
-                            console.error(
-                              "Error writing document: ",
-                              error,
-                              content,
-                              this.state.content
-                            );
-                          });
-                        console.log("something may have happened");
-                      } catch (e) {
-                        console.log("massive blunder", e);
-                        this.setState({ builderError: `${e}` });
-                      }
-                    }
-                    this.setState({ editModal: nextPage });
+                      editSecondSection()
+                      return this.setState({ editModal: nextPage });}
                   }}
                   className="altButton whiteButton magOrange"
                 >
                   {buttonContent}
                 </div>
+                  <div
+                      onClick={async()=>{
+                        await editFrontSection()
+                        await editSecondSection()
+
+                      }}
+                      className="altButton whiteButton magOrange">
+                  One touch create </div>
+                  </>
               )}
               {cookie.get("wasPurchased") && (
                 <div
