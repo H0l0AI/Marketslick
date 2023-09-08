@@ -267,7 +267,7 @@ export class HeroPage extends React.Component {
                       textAlign: "center",
                     }}
                   >
-                    <h1>{this.state.content.titleContent}</h1>{" "}
+                    <h1>{this.state.content.titleContent}</h1>
 
                     <div
                       style={{
