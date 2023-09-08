@@ -185,6 +185,7 @@ class CreatorFunnel extends React.Component {
 
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.contactRef = React.createRef();
+
     this.state = {
       accessibleWidth: 390,
       accessibleHeight: 390,

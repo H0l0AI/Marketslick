@@ -22,7 +22,6 @@ import { HeroPageSuccess } from "./pages/HeroPageSuccess";
 import { LinkPageInside } from "./pages/LinkPageInside";
 import CreatorFunnel from "./pages/CreatorFunnel";
 import LandingPage from "./pages/LandingPage";
-import { initSuperflow } from '@usesuperflow/client'
 
 
 const customHistory = createBrowserHistory();
@@ -48,10 +47,6 @@ class App extends React.Component {
       appId: "1:1097891059053:web:3673712cf36c09aac3b664",
       measurementId: "G-8PXLDDQZGL",
     };
-
-    initSuperflow('BYDunLFHioZGBupbPHgR', {
-      projectId: '302975321705588'
-    }).then((res)=>{console.log(res,'superflow init')});
 
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
