@@ -2210,7 +2210,7 @@ class CreatorFunnel extends React.Component {
 
                   }
                     if (
-                      this.state.editModal === "secondPage" ||
+                      //todo this.state.editModal === "secondPage" ||
                       this.state.editModal === "fourthPage" ||
                       this.state.editModal === "Extra" ||
                       this.state.editModal === "LinkPage" ||
