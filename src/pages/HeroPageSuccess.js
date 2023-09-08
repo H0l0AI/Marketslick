@@ -42,6 +42,7 @@ import {
   p3ContentPhoto,
   backgroundType,
     firstName,
+    userEmail,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -298,7 +299,7 @@ export class HeroPageSuccess extends React.Component {
               source: 'InvitationScript',
               locationId: 'location_1',
           };
-          tp||window.tp('createInvitation', trustpilot_invitation);
+          if(window.tp){window.tp('createInvitation', trustpilot_invitation)}
       });
   }
   changeCode(e) {
