@@ -72,7 +72,7 @@ const LandingPage = () => {
             borderRadius: "30px",
             background: "transparent",
             cursor: "pointer",
-            fontSize: "23px",
+            fontSize: "1.3rem",
             fontWeight: "bold",
             transition: "background 0.3s ease",
           }}

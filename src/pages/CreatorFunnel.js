@@ -1777,16 +1777,6 @@ class CreatorFunnel extends React.Component {
                       textAlign: "center",
                     }}
                   >
-                    <p style={{ fontSize: 20, marginLeft: 0 }} className="mb-4">
-                      <input
-                        type="text"
-                        className="templateInputP"
-                        onChange={this.handleContentFormChange}
-                        placeholder={"A summarized version of what you offer"}
-                        value={this.state.content.titleBlurb}
-                        name={"titleBlurb"}
-                      />
-                    </p>
                     <input
                       type="text"
                       className="templateInputH1"
