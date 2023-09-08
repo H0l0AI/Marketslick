@@ -2175,7 +2175,7 @@ class CreatorFunnel extends React.Component {
                         ? "wait"
                         : "pointer",
                   }}
-                  onClick={() => {
+                  onClick={async () => {
                     //todo update edit page function
                     rootStore.pageStore.setEditSection(null)
 
@@ -2205,17 +2205,18 @@ class CreatorFunnel extends React.Component {
                         break;
                     }
                     if (this.state.editModal === "frontPage") {
-                      editFrontSection()
+                     await editFrontSection()
                       return this.setState({ editModal: nextPage });
 
                   }
                     if (
+                      this.state.editModal === "secondPage" ||
                       this.state.editModal === "fourthPage" ||
                       this.state.editModal === "Extra" ||
                       this.state.editModal === "LinkPage" ||
                       this.state.editModal === "thirdPage"
                     ) {
-                      editSecondSection()
+                    await  editSecondSection()
                       return this.setState({ editModal: nextPage });}
                   }}
                   className="altButton whiteButton magOrange"
