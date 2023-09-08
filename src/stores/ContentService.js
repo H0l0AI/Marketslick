@@ -82,6 +82,19 @@ async function caseDetailById(useCaseId) {
     return null;
 }
 
+async function getBusinessReviews (locationId){
+        try {
+            return axios({
+                method: "post",
+                url: PROXY_URL + `https://mybusiness.googleapis.com/v4/accounts/010A61-9DF40E-734340/locations/${locationId}/reviews`,
+            }).then((res)=>{
+                console.log('GMB REVIEWS:',res)
+            })
+        }
+        catch(e){
+        console.log('GMB',e)
+        }
+}
 // ryte
 async function ryte({ useCaseId, inputContexts }) {
     try {
