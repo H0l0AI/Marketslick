@@ -1002,7 +1002,7 @@ class CreatorFunnel extends React.Component {
           authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
         },
         body: JSON.stringify({
-          prompt: `A clean and elegant ${types[0]}, ${business} slightly out of focus`,
+          prompt: `A clean and elegant ${typeof types === 'string'?types:types[0]}, ${business} slightly out of focus`,
           negativePrompt: "watermarks",
           steps: 10,
           width: 1024,
