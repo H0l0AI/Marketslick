@@ -60,8 +60,8 @@ import {
   renderPackagePhoto,
   renderStripeLink,
 } from "./MarketingHeroPage";
-import {BsInputCursorText} from "react-icons/bs";
-import {inject, observer} from "mobx-react";
+import { BsInputCursorText } from "react-icons/bs";
+import { inject, observer } from "mobx-react";
 
 export const NavBar = (props) => (
   <nav
@@ -407,25 +407,31 @@ class HeroPage extends React.Component {
   };
 
   render() {
-      const EditSection = (props)=>{
-
-          return(
-              <div style={{border:'3px solid #fff',color:'#fff',fontWeight:700,borderRadius:8,padding:5,
-                  backgroundColor:'orange',
-                  position: 'absolute',
-                  fontSize:16,
-                  cursor:'pointer',
-                  right: 20,
-                  top: 0}} onClick={async ()=>{
-                  await rootStore.pageStore.setEditSection(props.section)
-                  return window.location.href = '/builder'
-              }
-              }>
-                  Edit <BsInputCursorText size={36} color={"#fff"} />
-              </div>
-          )
-
-      }
+    const EditSection = (props) => {
+      return (
+        <div
+          style={{
+            border: "3px solid #fff",
+            color: "#fff",
+            fontWeight: 700,
+            borderRadius: 8,
+            padding: 5,
+            backgroundColor: "orange",
+            position: "absolute",
+            fontSize: 16,
+            cursor: "pointer",
+            right: 20,
+            top: 0,
+          }}
+          onClick={async () => {
+            await rootStore.pageStore.setEditSection(props.section);
+            return (window.location.href = "/builder");
+          }}
+        >
+          Edit <BsInputCursorText size={36} color={"#fff"} />
+        </div>
+      );
+    };
     let customerHasPaid = cookie.get("hasPaid") === "true";
     console.log("test:", firebase.apps.length, toJS(rootStore.pageStore.code));
 
@@ -504,7 +510,8 @@ class HeroPage extends React.Component {
                       a premium website!
                     </h2>
                     <h4>
-                      Your Webgun website will be available within minutes at {this.state.content.code}.webgun.ai
+                      Your Webgun website will be available within minutes at{" "}
+                      {this.state.content.code}.webgun.ai
                     </h4>
                     <img src={webgunLogo} />
                   </div>
@@ -520,7 +527,7 @@ class HeroPage extends React.Component {
                   zIndex: 8999,
                   width: "100%",
                   marginTop: "100px",
-                  height: isMobile ? "11%" : "12.7%",
+                  height: "630px",
                   overflow: "hidden",
                 }}
               >
@@ -559,8 +566,7 @@ class HeroPage extends React.Component {
                     }}
                   >
                     <h1>{this.state.content.titleContent}</h1>{" "}
-                      <EditSection section={'titleContent'} />
-
+                    <EditSection section={"titleContent"} />
                     <div
                       style={{
                         display: "flex",
@@ -583,7 +589,6 @@ class HeroPage extends React.Component {
                           }}
                         >
                           {this.state.content.mainButtonTitle}
-
                         </div>
                       </div>
                     </div>
@@ -686,6 +691,8 @@ class HeroPage extends React.Component {
                         position: "relative",
                         zIndex: 9999,
                         borderRadius: 20,
+                        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                        maxHeight: "500px",
                       }}
                       src={
                         (this.state.content.imageURLArray &&
@@ -717,8 +724,7 @@ class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.secondaryContentTitle}
-                        <EditSection section={'secondaryContentTitle'} />
-
+                      <EditSection section={"secondaryContentTitle"} />
                     </h3>
                     <p
                       style={{
@@ -732,7 +738,6 @@ class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.secondaryContent}
-
                     </p>
                   </div>
                 </div>
@@ -750,7 +755,7 @@ class HeroPage extends React.Component {
                   <div
                     className={`scrollContainer`}
                     style={{
-                      borderRadius: 12,
+                      borderRadius: 100,
                       backgroundImage: isMobile
                         ? ` ${this.state.content.class}`
                         : `linear-gradient(
@@ -779,6 +784,8 @@ class HeroPage extends React.Component {
                             position: "relative",
                             zIndex: 9999,
                             borderRadius: 20,
+                            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                            maxHeight: "500px",
                           }}
                           src={
                             (this.state.content.imageURLArray &&
@@ -799,7 +806,6 @@ class HeroPage extends React.Component {
                             }}
                           >
                             {this.state.content.supportingHeadingTitle}
-
                           </h1>
                           <p
                             style={{
@@ -810,7 +816,6 @@ class HeroPage extends React.Component {
                             }}
                           >
                             {this.state.content.supportingHeading}
-
                           </p>
                         </p>
                       </div>
@@ -861,6 +866,8 @@ class HeroPage extends React.Component {
                         position: "relative",
                         zIndex: 9999,
                         borderRadius: 20,
+                        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                        maxHeight: "500px",
                       }}
                       src={
                         (this.state.content.imageURLArray &&
@@ -884,7 +891,6 @@ class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.p3Heading1}
-
                     </h3>
                     <p
                       style={{
@@ -899,7 +905,6 @@ class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.p3Content1}
-
                     </p>
                   </div>
                 </div>
@@ -1203,35 +1208,51 @@ class HeroPage extends React.Component {
                           flexWrap: "wrap",
                         }}
                       >
-                          {this.state.content.contactEmail&&this.state.content.contactEmail!=='enter your email address'&&<div style={{ padding: 10 }}>
-                          <div style={{ position: "relative" }}>
-                            <i
-                              style={{ position: "absolute", top: 0, left: 0 }}
-                              className="material-icons"
-                            >
-                              mail
-                            </i>{" "}
-                          </div>
-                          <div style={{ marginLeft: 40 }}>
-                            <b></b>
-                            {this.state.content.contactEmail}
-                          </div>
-                        </div>}
+                        {this.state.content.contactEmail &&
+                          this.state.content.contactEmail !==
+                            "enter your email address" && (
+                            <div style={{ padding: 10 }}>
+                              <div style={{ position: "relative" }}>
+                                <i
+                                  style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                  }}
+                                  className="material-icons"
+                                >
+                                  mail
+                                </i>{" "}
+                              </div>
+                              <div style={{ marginLeft: 40 }}>
+                                <b></b>
+                                {this.state.content.contactEmail}
+                              </div>
+                            </div>
+                          )}
                         <br />
-                          {this.state.content.contactPhone&&this.state.content.contactPhone!=='021 000 0000'&&<div style={{ padding: 10 }}>
-                          <div style={{ position: "relative" }}>
-                            <i
-                              style={{ position: "absolute", top: 0, left: 0 }}
-                              className="material-icons"
-                            >
-                              local_phone
-                            </i>{" "}
-                          </div>
-                          <div style={{ marginLeft: 40 }}>
-                            <b></b>
-                            {this.state.content.contactPhone}
-                          </div>
-                        </div>}
+                        {this.state.content.contactPhone &&
+                          this.state.content.contactPhone !==
+                            "021 000 0000" && (
+                            <div style={{ padding: 10 }}>
+                              <div style={{ position: "relative" }}>
+                                <i
+                                  style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                  }}
+                                  className="material-icons"
+                                >
+                                  local_phone
+                                </i>{" "}
+                              </div>
+                              <div style={{ marginLeft: 40 }}>
+                                <b></b>
+                                {this.state.content.contactPhone}
+                              </div>
+                            </div>
+                          )}
                         <br />
                       </div>
                       <div></div>
@@ -1461,4 +1482,4 @@ class HeroPage extends React.Component {
   }
 }
 
-export default HeroPage
+export default HeroPage;

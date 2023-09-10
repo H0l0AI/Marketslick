@@ -12,37 +12,38 @@ import useWindowSize from "react-use/lib/useWindowSize";
 import avatarIcon from "../images/avatarIcon.png";
 
 import {
-    mainButtonLink,
-    mainButtonTitle,
-    contactButtonTitle,
-    businessBlurb,
-    contactEmail,
-    contactPhone,
-    contactTitle,
-    mailChimpSource,
-    secondary,
-    secondaryContent,
-    secondaryContentTitle,
-    supportingBlurb,
-    supportingHeading,
-    supportingHeadingTitle,
-    titleBlurb,
-    titleContent,
-    RouteItems,
-    contactBlurb,
-    businessBlurbShort,
-    secondaryContent1,
-    p3Content1,
-    p3Heading1,
-    secondaryHeader,
-    secondaryHeading1,
-    generatedImageURI,
-    secondaryPhoto1,
-    contactCTA,
-    p3ContentPhoto,
-    backgroundType,
-    firstName,
-    userEmail, pageTitle,
+  mainButtonLink,
+  mainButtonTitle,
+  contactButtonTitle,
+  businessBlurb,
+  contactEmail,
+  contactPhone,
+  contactTitle,
+  mailChimpSource,
+  secondary,
+  secondaryContent,
+  secondaryContentTitle,
+  supportingBlurb,
+  supportingHeading,
+  supportingHeadingTitle,
+  titleBlurb,
+  titleContent,
+  RouteItems,
+  contactBlurb,
+  businessBlurbShort,
+  secondaryContent1,
+  p3Content1,
+  p3Heading1,
+  secondaryHeader,
+  secondaryHeading1,
+  generatedImageURI,
+  secondaryPhoto1,
+  contactCTA,
+  p3ContentPhoto,
+  backgroundType,
+  firstName,
+  userEmail,
+  pageTitle,
 } from "../content";
 import { rootStore } from "../stores/Store";
 import { toJS } from "mobx";
@@ -89,14 +90,24 @@ export const SuccessBanner = (props) => (
       <div style={{ display: "flex", justifyContent: "center" }}>
         <div style={{ padding: 60, paddingTop: 0, textAlign: "center " }}>
           <h2>
-            Congratulations! You have successfully launched your business online!
+            Congratulations! You have successfully launched your business
+            online!
           </h2>
-            <h4>
-                Your website{props.pageTitle&&` for ${props.pageTitle}`} will be available within a few minutes at <a href={`https://${props.code}.webgun.ai`}>{props.code}.webgun.ai</a> !
-                <br />
-            </h4>
-            <p> If you would like a custom domain please contact us so we can set this up for you.</p>
-            <img width={400} src={webgunLogo} />
+          <h4>
+            Your website{props.pageTitle && ` for ${props.pageTitle}`} will be
+            available within a few minutes at{" "}
+            <a href={`https://${props.code}.webgun.ai`}>
+              {props.code}.webgun.ai
+            </a>{" "}
+            !
+            <br />
+          </h4>
+          <p>
+            {" "}
+            If you would like a custom domain please contact us so we can set
+            this up for you.
+          </p>
+          <img width={400} src={webgunLogo} />
           <br />
         </div>
       </div>
@@ -245,11 +256,6 @@ export const NavBar = (props) => (
 
 export class HeroPageSuccess extends React.Component {
   constructor(props) {
-
-
-
-
-
     super(props);
     this.contactRef = React.createRef();
     console.log(businessBlurbShort, contactTitle, contactPhone, "????");
@@ -260,7 +266,7 @@ export class HeroPageSuccess extends React.Component {
       currentMainImage: 0,
       mainArray: [image1, image2],
       content: {
-          pageTitle:pageTitle,
+        pageTitle: pageTitle,
         generatedImageURI: generatedImageURI,
         businessBlurb: businessBlurb,
         businessBlurbShort: businessBlurbShort,
@@ -281,8 +287,8 @@ export class HeroPageSuccess extends React.Component {
         titleBlurb: titleBlurb,
         titleContent: titleContent,
         backgroundType: backgroundType,
-          firstName:firstName||'',
-          userEmail:userEmail||'',
+        firstName: firstName || "",
+        userEmail: userEmail || "",
         class: "one",
         imageURLArray: [],
         routeItems: [],
@@ -292,16 +298,18 @@ export class HeroPageSuccess extends React.Component {
       },
     };
 
-      document.addEventListener('DOMContentLoaded', function() {
-          const trustpilot_invitation = {
-              recipientEmail: userEmail,
-              recipientName: firstName,
-              referenceId: 'Order_123',
-              source: 'InvitationScript',
-              locationId: 'location_1',
-          };
-          if(window.tp){window.tp('createInvitation', trustpilot_invitation)}
-      });
+    document.addEventListener("DOMContentLoaded", function () {
+      const trustpilot_invitation = {
+        recipientEmail: userEmail,
+        recipientName: firstName,
+        referenceId: "Order_123",
+        source: "InvitationScript",
+        locationId: "location_1",
+      };
+      if (window.tp) {
+        window.tp("createInvitation", trustpilot_invitation);
+      }
+    });
   }
   changeCode(e) {
     this.setState({ code: e.target.value });
@@ -448,7 +456,7 @@ export class HeroPageSuccess extends React.Component {
                 this.setState({ showSaleSuccess: false });
               }}
               orderNumber={this.state.orderNumber}
-              code={rootStore.pageStore.code||this.state.content.code}
+              code={rootStore.pageStore.code || this.state.content.code}
               pageTitle={this.state.content.pageTitle}
             />
           )}
@@ -461,7 +469,7 @@ export class HeroPageSuccess extends React.Component {
                     zIndex: 8999,
                     width: "100%",
                     marginTop: "100px",
-                    height: isMobile ? "11%" : "12.7%",
+                    height: "630px ",
                     overflow: "hidden",
                   }}
                 >
@@ -500,7 +508,6 @@ export class HeroPageSuccess extends React.Component {
                       }}
                     >
                       <h1>{this.state.content.titleContent}</h1>{" "}
-
                       <div
                         style={{
                           display: "flex",
@@ -619,6 +626,8 @@ export class HeroPageSuccess extends React.Component {
                           position: "relative",
                           zIndex: 9999,
                           borderRadius: 20,
+                          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                          maxHeight: "500px",
                         }}
                         src={
                           (this.state.content.imageURLArray &&
@@ -680,7 +689,7 @@ export class HeroPageSuccess extends React.Component {
                     <div
                       className={`scrollContainer`}
                       style={{
-                        borderRadius: 12,
+                        borderRadius: 100,
                         backgroundImage: isMobile
                           ? ` ${this.state.content.class}`
                           : `linear-gradient(
@@ -709,6 +718,8 @@ export class HeroPageSuccess extends React.Component {
                               position: "relative",
                               zIndex: 9999,
                               borderRadius: 20,
+                              boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                              maxHeight: "500px",
                             }}
                             src={
                               (this.state.content.imageURLArray &&
@@ -789,6 +800,8 @@ export class HeroPageSuccess extends React.Component {
                           position: "relative",
                           zIndex: 9999,
                           borderRadius: 20,
+                          boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                          maxHeight: "500px",
                         }}
                         src={
                           (this.state.content.imageURLArray &&
@@ -831,10 +844,8 @@ export class HeroPageSuccess extends React.Component {
                   </div>
                 </div>
                 {/* template example of where the review section may go. to be replaced */}
-
-
-                </div>
-                <div>
+              </div>
+              <div>
                 <div ref={this.contactRef} style={{ marginTop: 40 }}>
                   <div
                     className={`supportingColor secondaryBackgroundColor`}
