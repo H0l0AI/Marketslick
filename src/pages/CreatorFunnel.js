@@ -45,6 +45,8 @@ import cookie from "js-cookie";
 import { useHistory } from "react-router";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
+import {Widget} from "@typeform/embed-react";
+import {GetAllResponses} from "../stores/PageService";
 export const FacebookButton = (props) => {
   const history = useHistory();
 
@@ -190,6 +192,7 @@ class CreatorFunnel extends React.Component {
     this.contactRef = React.createRef();
 
     this.state = {
+      continueModal:true,
       accessibleWidth: 390,
       accessibleHeight: 390,
       code: cookie.get("code"),
@@ -2305,7 +2308,7 @@ class CreatorFunnel extends React.Component {
     );
     return (
       <div>
-        <NavBar
+        {this.state.editModal?null:<NavBar
           userEmail={rootStore.pageStore.userEmail}
           resetFrontPage={() => {
             this.resetFrontPage();
@@ -2322,7 +2325,7 @@ class CreatorFunnel extends React.Component {
             this.switchBackgroundType();
           }}
           backgroundType={"bg20"}
-        />
+        />}
 
         <div
           style={{ position: "absolute", zIndex: 9999, right: -45, top: 20 }}
@@ -2625,82 +2628,6 @@ class CreatorFunnel extends React.Component {
                       </>
                     )}
                   </div>
-                  {rootStore.pageStore.userEmail ? (
-                    <div
-                      className="fadedshort"
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                        marginTop: 40,
-                        flexWrap: "wrap",
-                      }}
-                    >
-                      <div
-                        style={{
-                          position: "relative",
-                          cursor: "pointer",
-                          marginTop: 40,
-                        }}
-                        onClick={() => {
-                          this.setState({
-                            templateSelected: "pm",
-                            continueModal: true,
-                          });
-                        }}
-                      >
-                        <div style={{ top: -36, position: "absolute" }}>
-                          <p style={{ fontSize: 18, marginBottom: 10 }}>
-                            Advertising a service?
-                          </p>
-                        </div>
-                        <img
-                          className="templateClass"
-                          style={{
-                            borderRadius: 4,
-                            opacity: 0.7,
-                            marginTop: 15,
-                            maxWidth: 370,
-                            maxHeight: 370,
-                          }}
-                          width={"100%"}
-                          src={service}
-                        />
-                      </div>
-                      <div
-                        style={{
-                          position: "relative",
-                          cursor: "not-allowed",
-                          marginTop: 40,
-                        }}
-                        onClick={() => {
-                          return false;
-                          this.setState({
-                            templateSelected: "pm",
-                            continueModal: true,
-                          });
-                        }}
-                      >
-                        <div style={{ top: -36, position: "absolute" }}>
-                          <p style={{ fontSize: 18, marginBottom: 10 }}>
-                            Selling a product? (coming soon)
-                          </p>
-                        </div>
-
-                        <img
-                          className="templateClass"
-                          style={{
-                            borderRadius: 4,
-                            opacity: 0.7,
-                            marginTop: 15,
-                            maxWidth: 370,
-                            maxHeight: 370,
-                          }}
-                          width={"100%"}
-                          src={product}
-                        />
-                      </div>
-                    </div>
-                  ) : null}
                   <div
                     style={{
                       display: "flex",
@@ -2713,14 +2640,24 @@ class CreatorFunnel extends React.Component {
             </div>
           </div>
         )}
-        {this.state.editModal && this.renderEditModal(this.state.editModal)}
+        {this.state.editModal &&
+            <Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
+              console.log('response',e)
+              const data = await GetAllResponses("SrEXIkzQ","lndcahf3dknrifqz9lndca0dej6zg4g4")
+              //use data to fill state content
+              //edit front section
+              //edit second section
+              //done
+              return data
+            }}
+                                                id="SrEXIkzQ" style={{ width: '100vw', height:'100vh' }} className="my-form" />}
         <div
           style={{
             height: "100%",
             position: "relative",
             opacity:
               this.state.editModal || this.state.colorSelectorModal ? 0.1 : 1,
-            paddingBottom: 100,
+            paddingBottom: 0,
           }}
         >
           <div>

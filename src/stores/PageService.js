@@ -5,6 +5,11 @@ import {rootStore} from './Store';
 const {
     v4: uuidv4,
 } = require('uuid');
+
+export function transformFormData(data){
+    //transform the form data into document data required to complete the form and upload the images, think 1 touch website style
+    return data
+}
 export async function getTemplatesWithId(id){
     console.log('with id',id);
     return firebase.firestore().collection("templates").get().then((data)=>{
@@ -17,6 +22,8 @@ export async function getTemplatesWithId(id){
                 return dataToLoad.data();
             }
         }
+        return transformFormData(data)
+
     }).catch((e)=>{console.log('e',e)})
 
 }
@@ -307,7 +314,31 @@ export async function getRelevantBusinessInfo(placeInformation, key) {
         console.log('GMB error',e);
     }
 }
+export async function GetAllResponses(form_id,response_id){
+    try {
+        setTimeout(async () => {
+            const PROXY_URL = 'https://cors-anywhere-ac13-cb57dba8a340.herokuapp.com/';
+            const url = `https://api.typeform.com/forms/${form_id}/responses`;
+            const res = await axios({
+                method: 'get',
+                url: PROXY_URL + url,
+                headers: {
+                    'authorization': `bearer ${process.env.REACT_APP_FORMS_PAT}`,
+                }
 
+            });
+            console.log('response from typeform api: ', res)
+            const form = res.data.items.find((form)=>{
+                return form.response_id === response_id
+            })
+            console.log('form:',form)
+        }, 1000)
+    }catch(e){
+        console.log('error',e)
+    }
+
+
+}
 export async function autoCompletePlacesAction(data,key){
     const PROXY_URL = 'https://cors-anywhere-ac13-cb57dba8a340.herokuapp.com/';
     //TODO set this CORS up again...
