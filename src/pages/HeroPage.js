@@ -311,7 +311,7 @@ export class HeroPage extends React.Component {
                         marginTop: isMobile ? "-70px" : "-180px",
                         position: isMobile ? "relative" : "absolute",
                       }}
-                      src={this.state.content.logo || logo}
+                      src={this.state.content.logo || null}
                     />
                   </div>
                 </div>
@@ -398,8 +398,7 @@ export class HeroPage extends React.Component {
                       }}
                       src={
                         (this.state.content.imageURLArray &&
-                          this.state.content.imageURLArray[1]) ||
-                        logo
+                          this.state.content.imageURLArray[1]) ||null
                       }
                       alt=""
                       width="50%"
@@ -488,8 +487,7 @@ export class HeroPage extends React.Component {
                           }}
                           src={
                             (this.state.content.imageURLArray &&
-                              this.state.content.imageURLArray[2]) ||
-                            logo
+                              this.state.content.imageURLArray[2]) ||null
                           }
                           alt=""
                           width="50%"
@@ -569,7 +567,7 @@ export class HeroPage extends React.Component {
                       src={
                         (this.state.content.imageURLArray &&
                           this.state.content.imageURLArray[3]) ||
-                        logo
+                        null
                       }
                       alt=""
                       width="50%"
