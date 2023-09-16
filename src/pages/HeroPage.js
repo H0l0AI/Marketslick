@@ -1185,22 +1185,7 @@ class HeroPage extends React.Component {
                           {this.state.content.mainButtonTitle || "Apply Now"}
                         </div>
                       </div>
-                      <p
-                        style={{
-                          marginBottom: 30,
-                          paddingLeft: 15,
-                          paddingTop: 10,
-                          width: "60vw",
-                          minWidth: 300,
-                          textAlign: "center",
-                          whiteSpace: "break-spaces",
-                          color: this.state.content.font,
-                        }}
-                      >
-                        {this.state.content.contactBlurb}
-                        <br />
-                        <br />
-                      </p>
+
                       <div
                         style={{
                           display: "flex",

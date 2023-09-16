@@ -56,7 +56,7 @@ export const SuccessBanner = (props) => (
   <div style={{ display: "flex", justifyContent: "center", padding: 5 }}>
     <div
       style={{
-        width: "80%",
+       maxWidth:'95vw',
         top: 150,
         zIndex: 9998,
         backgroundColor: "#fff",
@@ -88,7 +88,7 @@ export const SuccessBanner = (props) => (
         </i>{" "}
       </div>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <div style={{ padding: 60, paddingTop: 0, textAlign: "center " }}>
+        <div style={{ padding: 5, paddingTop: 0, textAlign: "center " }}>
           <h2>
             Congratulations! You have successfully launched your business
             online!
@@ -107,8 +107,7 @@ export const SuccessBanner = (props) => (
             If you would like a custom domain please contact us so we can set
             this up for you.
           </p>
-          <img width={400} src={webgunLogo} />
-          <br />
+
         </div>
       </div>
     </div>
@@ -877,21 +876,7 @@ export class HeroPageSuccess extends React.Component {
                             {this.state.content.mainButtonTitle || "Apply Now"}
                           </div>
                         </div>
-                        <p
-                          style={{
-                            marginBottom: 30,
-                            paddingLeft: 15,
-                            paddingTop: 10,
-                            width: "60vw",
-                            minWidth: 300,
-                            textAlign: "center",
-                            whiteSpace: "break-spaces",
-                          }}
-                        >
-                          {this.state.content.contactBlurb}
-                          <br />
-                          <br />
-                        </p>
+
                         <div
                           style={{
                             display: "flex",
@@ -899,7 +884,9 @@ export class HeroPageSuccess extends React.Component {
                             flexWrap: "wrap",
                           }}
                         >
-                          <div style={{ padding: 10 }}>
+                            {this.state.content.contactEmail &&
+                                this.state.content.contactEmail !==
+                                "enter your email address" && (<div style={{ padding: 10 }}>
                             <div style={{ position: "relative" }}>
                               <i
                                 style={{
@@ -916,9 +903,11 @@ export class HeroPageSuccess extends React.Component {
                               <b></b>
                               {this.state.content.contactEmail}
                             </div>
-                          </div>
+                          </div>)}
                           <br />
-                          <div style={{ padding: 10 }}>
+                            {this.state.content.contactPhone &&
+                                this.state.content.contactPhone !==
+                                "021 000 0000" &&(<div style={{ padding: 10 }}>
                             <div style={{ position: "relative" }}>
                               <i
                                 style={{
@@ -935,7 +924,7 @@ export class HeroPageSuccess extends React.Component {
                               <b></b>
                               {this.state.content.contactPhone}
                             </div>
-                          </div>
+                          </div>)}
                           <br />
                         </div>
                         <div></div>
