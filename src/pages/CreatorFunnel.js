@@ -959,7 +959,7 @@ class CreatorFunnel extends React.Component {
           headers: {
             accept: "application/json",
             "content-type": "application/json",
-            authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+            authorization: `Bearer ${process.env.REACT_APP_LEAP_KEY}`,
           },
           body: JSON.stringify({
             prompt: `A clean and elegant photo for a website advertising ${phrase}`,
@@ -985,7 +985,7 @@ class CreatorFunnel extends React.Component {
             method: "GET",
             headers: {
               accept: "application/json",
-              authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+              authorization: `Bearer ${process.env.REACT_APP_LEAP_KEY}`,
             },
           };
 
@@ -993,10 +993,10 @@ class CreatorFunnel extends React.Component {
               res.json()
           );
           console.log("FINAL IMAGE", imageJson);
-          if (imageJson.state !== "processing" || imageJson.state !== "failed") {
+          if (imageJson.state !== "processing" || imageJson.state !== "failed"|| imageJson.state !== "queued") {
             const generatedImages = this.state.generatedImageURIArray
             const imageURLArray = this.state.imageURLArray
-            generatedImages[index] = imageJson.images[0].uri
+            generatedImages[index] = imageJson.images&&imageJson.images[0].uri
             //fallback only if images dont already exist
             imageURLArray[index + 1] = imageURLArray[index + 1] ? imageURLArray[index + 1] : imageJson.images[0].uri
 
@@ -1010,7 +1010,7 @@ class CreatorFunnel extends React.Component {
           } else {
             this.setState({generatedImagesLoading: false});
           }
-        }, 35000);
+        }, 60000);
       } catch (e) {
         this.setState({imageError: e.message});
         reject(e.message)
@@ -1032,7 +1032,7 @@ class CreatorFunnel extends React.Component {
           headers: {
             accept: "application/json",
             "content-type": "application/json",
-            authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+            authorization: `Bearer ${process.env.REACT_APP_LEAP_KEY}`,
           },
           body: JSON.stringify({
             prompt: `A clean and elegant ${typeof types === 'string' ? types : types[0]}, ${business} slightly out of focus`,
@@ -1058,7 +1058,7 @@ class CreatorFunnel extends React.Component {
             method: "GET",
             headers: {
               accept: "application/json",
-              authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+              authorization: `Bearer ${process.env.REACT_APP_LEAP_KEY}`,
             },
           };
 
@@ -1066,16 +1066,16 @@ class CreatorFunnel extends React.Component {
               res.json()
           );
           console.log("FINAL IMAGE", imageJson);
-          if (imageJson.state !== "processing" || imageJson.state !== "failed") {
+          if (imageJson.state !== "processing" || imageJson.state !== "failed" || imageJson.state !== "queued") {
 
             this.setState({
-              generatedImageURI: imageJson.images[0].uri,
+              generatedImageURI: imageJson.images?imageJson.images[0].uri:null,
               generatedImageLoading: false,
             },()=>resolve());
           } else {
             this.setState({generatedImageLoading: false});
           }
-        }, 35000);
+        }, 60000);
       } catch (e) {
         reject(e.message);
         this.setState({imageError: e.message});
