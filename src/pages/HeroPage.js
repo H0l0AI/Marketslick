@@ -60,7 +60,8 @@ import {
   renderPackagePhoto,
   renderStripeLink,
 } from "./MarketingHeroPage";
-import { BsInputCursorText } from "react-icons/bs";
+import { BsPencilSquare } from "react-icons/bs";
+
 import { inject, observer } from "mobx-react";
 
 export const NavBar = (props) => (
@@ -422,13 +423,14 @@ class HeroPage extends React.Component {
             cursor: "pointer",
             right: 20,
             top: 0,
+              opacity:0.4
           }}
           onClick={async () => {
             await rootStore.pageStore.setEditSection(props.section);
             return (window.location.href = "/builder");
           }}
         >
-          Edit <BsInputCursorText size={36} color={"#fff"} />
+          Edit <BsPencilSquare size={36} color={"#fff"} />
         </div>
       );
     };

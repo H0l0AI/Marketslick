@@ -5,6 +5,7 @@ import { BsInputCursorText } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { BsCartCheck } from "react-icons/bs";
 
+
 const LandingPage = () => {
   const isMobile = window.innerWidth <= 768;
   return (

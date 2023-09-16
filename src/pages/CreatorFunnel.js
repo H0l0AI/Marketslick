@@ -2676,8 +2676,8 @@ class CreatorFunnel extends React.Component {
         )}
 
         {this.state.editModal &&
-        //!this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)?
-            false?<Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
+        !this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)?
+            <Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
               console.log('response',e)
               this.setState({formSubmitted:true,pageOneLoading:true})
               setTimeout(async()=>{
