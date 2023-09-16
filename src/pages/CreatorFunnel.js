@@ -192,7 +192,7 @@ class CreatorFunnel extends React.Component {
     this.contactRef = React.createRef();
 
     this.state = {
-      continueModal: true,
+      continueModal: false,
       accessibleWidth: 390,
       accessibleHeight: 390,
       code: cookie.get("code"),
@@ -1313,16 +1313,13 @@ class CreatorFunnel extends React.Component {
               .split("-");
           if (headings[0]) {
             content.supportingHeadingTitle = headings[0] && headings[0].innerText;
-            await this.getGeneratedPhotoWithPhrase(0, headings[0].innerText)
             content.supportingHeading = paragraphs[0] && paragraphs[0].innerText;
             content.secondaryContent = paragraphs[1] && paragraphs[1].innerText;
             content.secondaryContentTitle = headings[1] && headings[1].innerText;
-            await this.getGeneratedPhotoWithPhrase(1, headings[1].innerText)
-
             content.p3Heading1 = headings[2] && headings[2].innerText;
-            await this.getGeneratedPhotoWithPhrase(2, headings[2].innerText)
-
             content.p3Content1 = paragraphs[2] && paragraphs[2].innerText;
+            await Promise.all([this.getGeneratedPhotoWithPhrase(0, headings[0].innerText),this.getGeneratedPhotoWithPhrase(1, headings[1].innerText),this.getGeneratedPhotoWithPhrase(2, headings[2].innerText)])
+
           } else {
             content.supportingHeadingTitle = 'Heading One'
             content.supportingHeading = contentFormattedString;
@@ -1337,6 +1334,7 @@ class CreatorFunnel extends React.Component {
             rContent: "",
             content: content,
             loading: false,
+            pageOneLoading:false,
           });
         });
   }
@@ -2392,7 +2390,7 @@ class CreatorFunnel extends React.Component {
                 color: "#0e1e46",
               }}
             >
-              {this.state.continueModal ? (
+              {this.state.continueModal||rootStore.pageStore.userEmail ? (
                 <div className="fadedshort">
                   <p
                     style={{
@@ -2678,9 +2676,9 @@ class CreatorFunnel extends React.Component {
         )}
 
         {this.state.editModal &&
-        !this.state.editSection&&!this.state.formSubmitted?<Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
+        !this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)?<Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
               console.log('response',e)
-              this.setState({formSubmitted:true})
+              this.setState({formSubmitted:true,pageOneLoading:true})
               setTimeout(async()=>{
               const res = await GetAllResponses(e.formId,e.responseId)
               const form = res.data.items.find((form)=>{
@@ -2725,7 +2723,7 @@ class CreatorFunnel extends React.Component {
 
                                                 id={process.env.REACT_APP_FORM_ID}
                     style={{ width: '100vw', height:'100vh' }} className="my-form" />
-            :<div style={{textAlign:'center',padding:'20%'}}><h3>Great, we're building your website. Sit back, this will only take a moment.</h3></div>}
+            :this.state.editSection?this.renderEditModal(this.state.editModal,this.editFrontSection,this.editSecondSection):<div style={{textAlign:'center',padding:'20%'}}><h3>Great, we're building your website. Sit back, this will only take a moment.</h3></div>}
         <div
           style={{
             height: "100%",
