@@ -7,7 +7,7 @@ import { BsCartCheck } from "react-icons/bs";
 
 
 const LandingPage = () => {
-    console.log('netlify env',process.env.NETLIFY_VAR)
+    console.log('netlify env',process.env.REACT_APP_NETLIFY_VAR)
   const isMobile = window.innerWidth <= 768;
   return (
     <div
