@@ -648,7 +648,7 @@ export class HeroPage extends React.Component {
                           flexWrap: "wrap",
                         }}
                       >
-                        <div style={{ padding: 10 }}>
+                          {this.state.content.contactEmail&&this.state.content.contactEmail!=='your email address'&&<div style={{ padding: 10 }}>
                           <div style={{ position: "relative" }}>
                             <i
                               style={{ position: "absolute", top: 0, left: 0 }}
@@ -661,9 +661,9 @@ export class HeroPage extends React.Component {
                             <b></b>
                             {this.state.content.contactEmail}
                           </div>
-                        </div>
+                        </div>}
                         <br />
-                        <div style={{ padding: 10 }}>
+                          {this.state.content.contactPhone&&this.state.content.contactPhone!=='021 000 0000'} <div style={{ padding: 10 }}>
                           <div style={{ position: "relative" }}>
                             <i
                               style={{ position: "absolute", top: 0, left: 0 }}
