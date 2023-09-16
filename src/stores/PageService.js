@@ -316,23 +316,19 @@ export async function getRelevantBusinessInfo(placeInformation, key) {
 }
 export async function GetAllResponses(form_id,response_id){
     try {
-        setTimeout(async () => {
+
             const PROXY_URL = 'https://cors-anywhere-ac13-cb57dba8a340.herokuapp.com/';
             const url = `https://api.typeform.com/forms/${form_id}/responses`;
-            const res = await axios({
+            return await axios({
                 method: 'get',
                 url: PROXY_URL + url,
                 headers: {
-                    'authorization': `bearer ${process.env.REACT_APP_FORMS_PAT}`,
+                    'authorization': `bearer ${process.env.REACT_APP_FORMS_PAT+process.env.REACT_APP_FORMS_PAT2}`,
                 }
 
             });
-            console.log('response from typeform api: ', res)
-            const form = res.data.items.find((form)=>{
-                return form.response_id === response_id
-            })
-            console.log('form:',form)
-        }, 1000)
+
+
     }catch(e){
         console.log('error',e)
     }

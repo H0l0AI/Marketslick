@@ -192,7 +192,7 @@ class CreatorFunnel extends React.Component {
     this.contactRef = React.createRef();
 
     this.state = {
-      continueModal:true,
+      continueModal: true,
       accessibleWidth: 390,
       accessibleHeight: 390,
       code: cookie.get("code"),
@@ -212,7 +212,7 @@ class CreatorFunnel extends React.Component {
       routeItems: [],
       places: [],
       plainCode: 0,
-      generatedImageURIArray:[],
+      generatedImageURIArray: [],
       imageURLArray: [],
       bgSelectorActive: false,
       classSelectorActive: false,
@@ -265,7 +265,7 @@ class CreatorFunnel extends React.Component {
         "fifteen",
         "sixteen",
       ],
-      class: { hex: "#3f51b5" },
+      class: {hex: "#3f51b5"},
       classIndex: 0,
       backgroundArray: [
         "one",
@@ -315,8 +315,8 @@ class CreatorFunnel extends React.Component {
         "bg43",
         "bg44",
       ],
-      backgroundType: { hex: "#4264ea" },
-      font: { hex: "#fff" },
+      backgroundType: {hex: "#4264ea"},
+      font: {hex: "#fff"},
       backgroundIndex: 0,
       content: {
         pageTitle: "",
@@ -345,11 +345,13 @@ class CreatorFunnel extends React.Component {
       },
     };
   }
+
   shiftCurrentImage() {
     setInterval(() => {
       this.nextImage();
     }, 5000);
   }
+
   nextImage() {
     this.setState({
       currentMainImage: this.state.currentMainImage + 1,
@@ -366,99 +368,105 @@ class CreatorFunnel extends React.Component {
       accessibleHeight: window.innerHeight,
     });
   }
-  async componentDidMount() {
-    console.log('Edit section key:',toJS(rootStore.pageStore.editSection))
 
+  async componentDidMount() {
+    console.log('Edit section key:', toJS(rootStore.pageStore.editSection))
 
 
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
     const userSubmittedTemplated = await rootStore.pageStore.getTemplatesWithId(
-      rootStore.pageStore.userId
+        rootStore.pageStore.userId
     );
     console.log("from user", toJS(rootStore.pageStore.activeTemplate));
     console.log("EXISTING", cookie.get("code"), cookie.get("wasPurchased"));
-    console.log("test test test ", userSubmittedTemplated,'...',toJS(rootStore.pageStore.editSection));
-    if(rootStore.pageStore.editSection){
-      const frontPageForms = ['logo','secondaryTitle','titleContent','titleBlurb']
+    console.log("test test test ", userSubmittedTemplated, '...', toJS(rootStore.pageStore.editSection));
+
+    if (rootStore.pageStore.editSection) {
+      const frontPageForms = ['logo', 'secondaryTitle', 'titleContent', 'titleBlurb']
       const isFrontPage = frontPageForms.includes(rootStore.pageStore.editSection)
-      this.setState({editModal:isFrontPage?'frontPage':'secondPage',editSection:rootStore.pageStore.editSection})
+      this.setState({editModal: isFrontPage ? 'frontPage' : 'secondPage', editSection: rootStore.pageStore.editSection})
 
     }
-    if(userSubmittedTemplated&&!rootStore.pageStore.editSection){
-      this.setState({editModal:'frontPage',editSection:'titleBlurb'})
+    if(!cookie.get("code")&&!rootStore.pageStore.editSection){
+      this.setState({editSection:undefined})
     }
+    else if (userSubmittedTemplated &&cookie.get("code")&& !rootStore.pageStore.editSection) {
+      this.setState({editModal: 'frontPage', editSection: 'titleBlurb'})
+    }
+
 
 
     let code = cookie.get("code");
     //todo update purchase edit mode
     if (code && cookie.get("wasPurchased")) {
       firebase
-        .firestore()
-        .collection("templates")
-        .get()
-        .then((data) => {
-          const dataToLoad = data.docs.find(
-            (doc) =>
-              doc.id ===
-              (rootStore.pageStore.code
-                ? `t-${rootStore.pageStore.code}`
-                : "live")
-          );
-          if (dataToLoad && dataToLoad.data()) {
-            console.log(dataToLoad.data(), "LOAD");
-            this.setState({
-              selectedBusinessInfo: dataToLoad.data().content.businessInfo,
-              logo: dataToLoad.data().content.logo,
-              imageURLArray: dataToLoad.data().content.imageURLArray,
-              code: rootStore.pageStore.code || code,
-              content: dataToLoad.data().content,
-              mainArray: [
-                dataToLoad.data().content.imageURLArray
-                  ? dataToLoad.data().content.imageURLArray[0]
-                  : null,
-              ],
-            });
-            return console.log("images:", this.state.imageURLArray);
-          }
-        });
+          .firestore()
+          .collection("templates")
+          .get()
+          .then((data) => {
+            const dataToLoad = data.docs.find(
+                (doc) =>
+                    doc.id ===
+                    (rootStore.pageStore.code
+                        ? `t-${rootStore.pageStore.code}`
+                        : "live")
+            );
+            if (dataToLoad && dataToLoad.data()) {
+              console.log(dataToLoad.data(), "LOAD");
+              this.setState({
+                selectedBusinessInfo: dataToLoad.data().content.businessInfo,
+                logo: dataToLoad.data().content.logo,
+                imageURLArray: dataToLoad.data().content.imageURLArray,
+                code: rootStore.pageStore.code || code,
+                content: dataToLoad.data().content,
+                mainArray: [
+                  dataToLoad.data().content.imageURLArray
+                      ? dataToLoad.data().content.imageURLArray[0]
+                      : null,
+                ],
+              });
+              return console.log("images:", this.state.imageURLArray);
+            }
+          });
     } else {
       //todo fix
-      console.log('i am editing',this.state.editSection)
-      if (userSubmittedTemplated) {
+      console.log('i am editing', this.state.editSection)
+      if (userSubmittedTemplated.content) {
         console.log("USER SUBMITTED:", userSubmittedTemplated);
         this.setState({
-          serviceTypeReady:true,
-          businessNameReady:true,
-          domainNameReady:true,
-          restOfFormReady:true,
-          linkArray:userSubmittedTemplated.content.linkArray,
+          serviceTypeReady: true,
+          businessNameReady: true,
+          domainNameReady: true,
+          restOfFormReady: true,
+          linkArray: userSubmittedTemplated.content.linkArray,
           selectedBusinessInfo: userSubmittedTemplated.content.businessInfo,
           imageURLArray: userSubmittedTemplated.content.imageURLArray,
-          pageTitle:userSubmittedTemplated.content.pageTitle,
+          pageTitle: userSubmittedTemplated.content.pageTitle,
           logo: userSubmittedTemplated.content.logo,
-          serviceType:userSubmittedTemplated.content.serviceType,
-          firstName:userSubmittedTemplated.content.firstName,
-          generatedImageURI:userSubmittedTemplated.content.generatedImageURI,
-          generatedImageURIArray:userSubmittedTemplated.content.generatedImageURIArray,
-          class:{hex:userSubmittedTemplated.content.class},
-          font:{hex:userSubmittedTemplated.content.font},
+          serviceType: userSubmittedTemplated.content.serviceType,
+          firstName: userSubmittedTemplated.content.firstName,
+          generatedImageURI: userSubmittedTemplated.content.generatedImageURI,
+          generatedImageURIArray: userSubmittedTemplated.content.generatedImageURIArray,
+          class: {hex: userSubmittedTemplated.content.class},
+          font: {hex: userSubmittedTemplated.content.font},
           code: rootStore.pageStore.code || code,
           userContinued: true,
           colorSelectorModal: false,
           content: userSubmittedTemplated.content,
           mainArray: [
             userSubmittedTemplated.content.imageURLArray
-              ? userSubmittedTemplated.content.imageURLArray[0]
-              : null,
+                ? userSubmittedTemplated.content.imageURLArray[0]
+                : null,
           ],
         });
       }
       code = Math.floor(Math.random() * 10000);
       cookie.set("pw", code);
-      return this.setState({ plainCode: code });
+      return this.setState({plainCode: code});
     }
   }
+
   switchBackgroundType() {
     let index = this.state.backgroundIndex;
     if (index < this.state.backgroundArray.length - 1) {
@@ -474,25 +482,27 @@ class CreatorFunnel extends React.Component {
       content: content,
     });
   }
+
   handleContentFormChange = (event) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     this.setState((prevState) => {
-      const { content } = prevState;
+      const {content} = prevState;
       content[name] = value;
-      return { content };
+      return {content};
     });
   };
   handleAdditionalFormChange = (event, index) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     const routeItems = this.state.routeItems;
     routeItems[index][`${name}`] = value;
     console.log(
-      this.state.routeItems[index],
-      this.state.routeItems[index][`${name}`],
-      value
+        this.state.routeItems[index],
+        this.state.routeItems[index][`${name}`],
+        value
     );
-    this.setState({ routeItems: routeItems });
+    this.setState({routeItems: routeItems});
   };
+
   renderBGSelector(shouldRender) {
     this.setState({
       bgSelectorActive: !this.state.bgSelectorActive,
@@ -500,6 +510,7 @@ class CreatorFunnel extends React.Component {
       fontSelectorActive: false,
     });
   }
+
   renderClassSelector(shouldRender) {
     this.setState({
       classSelectorActive: !this.state.classSelectorActive,
@@ -507,6 +518,7 @@ class CreatorFunnel extends React.Component {
       fontSelectorActive: false,
     });
   }
+
   renderFontSelector(shouldRender) {
     this.setState({
       classSelectorActive: false,
@@ -519,49 +531,49 @@ class CreatorFunnel extends React.Component {
     let file;
     try {
       if (!fileInput) {
-        this.setState({ filename: e.target.files[0].name, uploading: true });
+        this.setState({filename: e.target.files[0].name, uploading: true});
         const files = Array.from(e.target.files);
         file = files[0];
       } else {
-        this.setState({ filename: fileInput.name, uploading: true });
+        this.setState({filename: fileInput.name, uploading: true});
         file = fileInput;
       }
       const formData = new FormData();
       let storageRef = firebase.storage().ref();
       // @ts-ignore
       let practiceImageRef = storageRef.child(
-        `images/${this.state.code}/${index}`
+          `images/${this.state.code}/${index}`
       );
       // @ts-ignore
       let uploadTask = practiceImageRef.put(file);
       // @ts-ignore
       uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          var progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
-        (error) => {
-          console.log("ERROR writefile", error);
-          let imageUrlArray = this.state.imageURLArray;
-          imageUrlArray[index] = null;
-          this.setState({
-            imageURLArray: imageUrlArray,
-            filename: null,
-            uploading: false,
-          });
-        },
-        () => {
-          // Upload completed successfully, now we can get the download URL
-          // @ts-ignore
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          },
+          (error) => {
+            console.log("ERROR writefile", error);
             let imageUrlArray = this.state.imageURLArray;
-            imageUrlArray[index] = downloadURL;
-            this.setState({ uploading: false, imageURLArray: imageUrlArray });
+            imageUrlArray[index] = null;
+            this.setState({
+              imageURLArray: imageUrlArray,
+              filename: null,
+              uploading: false,
+            });
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
             // @ts-ignore
-          });
-        }
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              let imageUrlArray = this.state.imageURLArray;
+              imageUrlArray[index] = downloadURL;
+              this.setState({uploading: false, imageURLArray: imageUrlArray});
+              // @ts-ignore
+            });
+          }
       );
     } catch (e) {
       console.log("ERROR catchblock", e);
@@ -575,15 +587,15 @@ class CreatorFunnel extends React.Component {
     }
   };
   uploadLogoImage = async (e, fileInput, index) => {
-    this.setState({ loadingLogo: true });
+    this.setState({loadingLogo: true});
     let file;
     try {
       if (!fileInput) {
-        this.setState({ filename: e.target.files[0].name, uploading: true });
+        this.setState({filename: e.target.files[0].name, uploading: true});
         const files = Array.from(e.target.files);
         file = files[0];
       } else {
-        this.setState({ filename: fileInput.name, uploading: true });
+        this.setState({filename: fileInput.name, uploading: true});
         file = fileInput;
       }
       const formData = new FormData();
@@ -597,22 +609,22 @@ class CreatorFunnel extends React.Component {
             }*/
 
       const response = await fetch(
-        process.env.REACT_APP_PROXY_URL +
+          process.env.REACT_APP_PROXY_URL +
           "https://techhk.aoscdn.com/api/tasks/visual/segmentation",
-        {
-          method: "POST",
-          headers: { "X-API-KEY": process.env.REACT_APP_SEGMENTATION_K },
-          body: formData,
-        }
+          {
+            method: "POST",
+            headers: {"X-API-KEY": process.env.REACT_APP_SEGMENTATION_K},
+            body: formData,
+          }
       );
       const r = await response.json();
       console.log("res", r.data.task_id);
       const responseImage = await fetch(
-        `${process.env.REACT_APP_PROXY_URL}https://techhk.aoscdn.com/api/tasks/visual/segmentation/${r.data.task_id}`,
-        {
-          method: "GET",
-          headers: { "X-API-KEY": process.env.REACT_APP_SEGMENTATION_K },
-        }
+          `${process.env.REACT_APP_PROXY_URL}https://techhk.aoscdn.com/api/tasks/visual/segmentation/${r.data.task_id}`,
+          {
+            method: "GET",
+            headers: {"X-API-KEY": process.env.REACT_APP_SEGMENTATION_K},
+          }
       );
       const image = await responseImage.json();
       const base64image = "data:image/png;base64," + image.data.image;
@@ -624,54 +636,54 @@ class CreatorFunnel extends React.Component {
       let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
       // @ts-ignore
       let uploadTask = practiceImageRef.putString(
-        base64image.split(",")[1],
-        "base64",
-        { contentType: "image/png" }
+          base64image.split(",")[1],
+          "base64",
+          {contentType: "image/png"}
       );
       if (!image.data || !r.data) {
         uploadTask = practiceImageRef.put(file);
       }
       // @ts-ignore
       uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          var progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
-        (error) => {
-          console.log("ERROR writefile", error);
-          let logo = this.state.logo;
-          logo = null;
-          this.setState({
-            logo: logo,
-            filename: null,
-            uploading: false,
-            loadingLogo: false,
-            imageError: e.message,
-          });
-        },
-        () => {
-          // Upload completed successfully, now we can get the download URL
-          // @ts-ignore
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          },
+          (error) => {
+            console.log("ERROR writefile", error);
             let logo = this.state.logo;
-            logo = downloadURL;
-            this.setState({ uploading: false, logo: logo });
+            logo = null;
+            this.setState({
+              logo: logo,
+              filename: null,
+              uploading: false,
+              loadingLogo: false,
+              imageError: e.message,
+            });
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
             // @ts-ignore
-          });
-        }
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              let logo = this.state.logo;
+              logo = downloadURL;
+              this.setState({uploading: false, logo: logo});
+              // @ts-ignore
+            });
+          }
       );
     } catch (e) {
       console.log("ERROR catchblock", e);
       let logo = this.state.logo;
       logo = null;
       if (!fileInput) {
-        this.setState({ filename: e.target.files[0].name, uploading: true });
+        this.setState({filename: e.target.files[0].name, uploading: true});
         const files = Array.from(e.target.files);
         file = files[0];
       } else {
-        this.setState({ filename: fileInput.name, uploading: true });
+        this.setState({filename: fileInput.name, uploading: true});
         file = fileInput;
       }
       let storageRef = firebase.storage().ref();
@@ -681,37 +693,37 @@ class CreatorFunnel extends React.Component {
       let uploadTask = practiceImageRef.put(file);
       // @ts-ignore
       uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          var progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
-        (error) => {
-          console.log("ERROR writefile", error);
-          let logo = this.state.logo;
-          logo = null;
-          this.setState({
-            logo: logo,
-            filename: null,
-            uploading: false,
-            loadingLogo: false,
-            imageError: e.message,
-          });
-        },
-        () => {
-          // Upload completed successfully, now we can get the download URL
-          // @ts-ignore
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          },
+          (error) => {
+            console.log("ERROR writefile", error);
             let logo = this.state.logo;
-            logo = downloadURL;
-            this.setState({ uploading: false, logo: logo });
+            logo = null;
+            this.setState({
+              logo: logo,
+              filename: null,
+              uploading: false,
+              loadingLogo: false,
+              imageError: e.message,
+            });
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
             // @ts-ignore
-          });
-        }
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              let logo = this.state.logo;
+              logo = downloadURL;
+              this.setState({uploading: false, logo: logo});
+              // @ts-ignore
+            });
+          }
       );
     } finally {
-      this.setState({ imageError: null });
+      this.setState({imageError: null});
     }
   };
 
@@ -720,51 +732,51 @@ class CreatorFunnel extends React.Component {
     let file;
     try {
       if (!fileInput) {
-        this.setState({ filename: e.target.files[0].name, uploading: true });
+        this.setState({filename: e.target.files[0].name, uploading: true});
         const files = Array.from(e.target.files);
         file = files[0];
       } else {
-        this.setState({ filename: fileInput.name, uploading: true });
+        this.setState({filename: fileInput.name, uploading: true});
         file = fileInput;
       }
       const formData = new FormData();
       let storageRef = firebase.storage().ref();
       // @ts-ignore
       let practiceImageRef = storageRef.child(
-        `images/${this.state.code}/${routeItemsIndex}-${index}`
+          `images/${this.state.code}/${routeItemsIndex}-${index}`
       );
       // @ts-ignore
       let uploadTask = practiceImageRef.put(file);
       // @ts-ignore
       uploadTask.on(
-        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        (snapshot) => {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          var progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        },
-        (error) => {
-          console.log("ERROR writefile", error);
-          let imageUrlArray =
-            this.state.routeItems[routeItemsIndex].imageURLArray;
-          imageUrlArray[index] = null;
-          const routeItems = this.state.routeItems;
-          routeItems[routeItemsIndex].imageURLArray = imageUrlArray;
-          this.setState({ uploading: false, routeItems: routeItems });
-        },
-        () => {
-          // Upload completed successfully, now we can get the download URL
-          // @ts-ignore
-          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+          (snapshot) => {
+            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+            var progress =
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          },
+          (error) => {
+            console.log("ERROR writefile", error);
             let imageUrlArray =
-              this.state.routeItems[routeItemsIndex].imageURLArray;
-            imageUrlArray[index] = downloadURL;
+                this.state.routeItems[routeItemsIndex].imageURLArray;
+            imageUrlArray[index] = null;
             const routeItems = this.state.routeItems;
             routeItems[routeItemsIndex].imageURLArray = imageUrlArray;
-            this.setState({ uploading: false, routeItems: routeItems });
+            this.setState({uploading: false, routeItems: routeItems});
+          },
+          () => {
+            // Upload completed successfully, now we can get the download URL
             // @ts-ignore
-          });
-        }
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              let imageUrlArray =
+                  this.state.routeItems[routeItemsIndex].imageURLArray;
+              imageUrlArray[index] = downloadURL;
+              const routeItems = this.state.routeItems;
+              routeItems[routeItemsIndex].imageURLArray = imageUrlArray;
+              this.setState({uploading: false, routeItems: routeItems});
+              // @ts-ignore
+            });
+          }
       );
     } catch (e) {
       console.log("ERROR catchblock", e);
@@ -772,116 +784,121 @@ class CreatorFunnel extends React.Component {
       imageUrlArray[index] = null;
       const routeItems = this.state.routeItems;
       routeItems[routeItemsIndex].imageURLArray = imageUrlArray;
-      this.setState({ uploading: false, routeItems: routeItems });
+      this.setState({uploading: false, routeItems: routeItems});
     }
   };
+
   handleChangeComplete(color) {
-    this.setState({ backgroundType: color });
+    this.setState({backgroundType: color});
   }
+
   handleChangeCompleteClass(color) {
-    this.setState({ class: color });
+    this.setState({class: color});
   }
+
   handleChangeCompleteFont(color) {
-    this.setState({ font: color });
+    this.setState({font: color});
   }
+
   BGSelector = () => {
     return (
-      <div
-        style={{
-          margin: 40,
-          marginBottom: 0,
-          borderRadius: 12,
-          width: 400,
-          backgroundColor: "#fff",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          alignContent: "center",
-        }}
-      >
-        <SwatchesPicker
-          color={this.state.backgroundType}
-          onChangeComplete={this.handleChangeComplete.bind(this)}
-        />
-      </div>
+        <div
+            style={{
+              margin: 40,
+              marginBottom: 0,
+              borderRadius: 12,
+              width: 400,
+              backgroundColor: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              alignContent: "center",
+            }}
+        >
+          <SwatchesPicker
+              color={this.state.backgroundType}
+              onChangeComplete={this.handleChangeComplete.bind(this)}
+          />
+        </div>
     );
   };
   ClassSelector = () => {
     return (
-      <div
-        style={{
-          margin: 40,
-          marginBottom: 0,
-          borderRadius: 12,
-          width: 400,
-          backgroundColor: "#fff",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          alignContent: "center",
-        }}
-      >
-        <SwatchesPicker
-          color={this.state.class}
-          onChangeComplete={this.handleChangeCompleteClass.bind(this)}
-        />
-      </div>
+        <div
+            style={{
+              margin: 40,
+              marginBottom: 0,
+              borderRadius: 12,
+              width: 400,
+              backgroundColor: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              alignContent: "center",
+            }}
+        >
+          <SwatchesPicker
+              color={this.state.class}
+              onChangeComplete={this.handleChangeCompleteClass.bind(this)}
+          />
+        </div>
     );
   };
   FontSelector = () => {
     return (
-      <div
-        style={{
-          margin: 40,
-          marginBottom: 0,
-          borderRadius: 12,
-          width: 400,
-          backgroundColor: "#fff",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          alignContent: "center",
-        }}
-      >
-        <SwatchesPicker
-          color={this.state.font}
-          onChangeComplete={this.handleChangeCompleteFont.bind(this)}
-        />
-      </div>
+        <div
+            style={{
+              margin: 40,
+              marginBottom: 0,
+              borderRadius: 12,
+              width: 400,
+              backgroundColor: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              alignContent: "center",
+            }}
+        >
+          <SwatchesPicker
+              color={this.state.font}
+              onChangeComplete={this.handleChangeCompleteFont.bind(this)}
+          />
+        </div>
     );
   };
   fontSelector = () => {
     return (
-      <div
-        style={{
-          margin: 40,
-          marginBottom: 0,
-          borderRadius: 12,
-          width: 400,
-          backgroundColor: "#fff",
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          alignContent: "center",
-        }}
-      >
-        <SwatchesPicker
-          color={this.state.font}
-          onChangeComplete={this.handleChangeCompleteFont.bind(this)}
-        />
-      </div>
+        <div
+            style={{
+              margin: 40,
+              marginBottom: 0,
+              borderRadius: 12,
+              width: 400,
+              backgroundColor: "#fff",
+              display: "flex",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              alignContent: "center",
+            }}
+        >
+          <SwatchesPicker
+              color={this.state.font}
+              onChangeComplete={this.handleChangeCompleteFont.bind(this)}
+          />
+        </div>
     );
   };
+
   changeRouteNameInput(e) {
-    this.setState({ routeNameInput: e.target.value });
+    this.setState({routeNameInput: e.target.value});
   }
 
   handleEmailFormChange = (event) => {
-    const { name, value } = event.target;
+    const {name, value} = event.target;
     this.setState((prevState) => {
-      const { emailFormFields } = prevState;
+      const {emailFormFields} = prevState;
       emailFormFields[name] = value;
-      return { emailFormFields };
+      return {emailFormFields};
     });
   };
 
@@ -890,220 +907,440 @@ class CreatorFunnel extends React.Component {
       name: name,
       type: "standard",
       href: `/pages/additional${
-        this.state.routeItems ? this.state.routeItems.length : 0
+          this.state.routeItems ? this.state.routeItems.length : 0
       }`,
       routeTag: `view_additional${
-        this.state.routeItems ? this.state.routeItems.length : 0
+          this.state.routeItems ? this.state.routeItems.length : 0
       }_nav`,
       secondaryHeader: name,
       imageURLArray: [],
     });
     let content = this.state.content;
 
-    this.setState({ content: content, routeNameInput: "" });
+    this.setState({content: content, routeNameInput: ""});
   }
+
   resetFrontPage() {
-    return this.setState({ editModal: null, colorSelectorModal: true });
+    return this.setState({editModal: null, colorSelectorModal: true});
   }
+
   changeLinkName(e) {
-    return this.setState({ addLinkName: e.target.value });
+    return this.setState({addLinkName: e.target.value});
   }
+
   changeLinkHref(e) {
-    return this.setState({ addLinkHref: e.target.value });
+    return this.setState({addLinkHref: e.target.value});
   }
+
   addLink(name, href) {
     let newArray = this.state.linkArray || [];
-    newArray.push({ name: name, link: href });
-    return this.setState({ linkArray: newArray });
+    newArray.push({name: name, link: href});
+    return this.setState({linkArray: newArray});
   }
 
   triggerAutoComplete(data) {
     const key = process && process.env.REACT_APP_MAPS_KEY;
     rootStore.pageStore.autoCompletePlacesAction(data, key).then((res) => {
       console.log("...FACES", res, key);
-      this.setState({ places: res && res.predictions, businessName: data,userHasClickedResetOption:false });
+      this.setState({places: res && res.predictions, businessName: data, userHasClickedResetOption: false});
     });
   }
 
   getGeneratedPhotoWithPhrase = async (index, phrase) => {
-    try {
-      this.setState({ generatedImagesLoading: true });
-      const modelId = "26a1a203-3a46-42cb-8cfa-f4de075907d8";
-      const url =
-          process.env.REACT_APP_PROXY_URL +
-          `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
-      const options = {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
-        },
-        body: JSON.stringify({
-          prompt: `A clean and elegant photo for a website advertising ${phrase}`,
-          negativePrompt: "watermarks or people",
-          steps: 10,
-          width: 1024,
-          height: 600,
-          numberOfImages: 1,
-          promptStrength: 7,
-          seed: 4523184,
-        }),
-      };
-
-      const res = await fetch(url, options);
-      const r = await res.json();
-      console.log("response??", r);
-      const id = r.id;
-      setTimeout(async () => {
-        const urlSingle =
+    return new Promise(async (resolve, reject) => {
+      try {
+        this.setState({generatedImagesLoading: true});
+        const modelId = "26a1a203-3a46-42cb-8cfa-f4de075907d8";
+        const url =
             process.env.REACT_APP_PROXY_URL +
-            `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
-        const optionsSingle = {
-          method: "GET",
+            `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
+        const options = {
+          method: "POST",
           headers: {
             accept: "application/json",
+            "content-type": "application/json",
             authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
           },
+          body: JSON.stringify({
+            prompt: `A clean and elegant photo for a website advertising ${phrase}`,
+            negativePrompt: "watermarks or people",
+            steps: 10,
+            width: 1024,
+            height: 600,
+            numberOfImages: 1,
+            promptStrength: 7,
+            seed: 4523184,
+          }),
         };
 
-        const imageJson = await fetch(urlSingle, optionsSingle).then((res) =>
-            res.json()
-        );
-        console.log("FINAL IMAGE", imageJson);
-        if (imageJson.state !== "processing" || imageJson.state !== "failed") {
-          const generatedImages = this.state.generatedImageURIArray
-          const imageURLArray = this.state.imageURLArray
-          generatedImages[index] = imageJson.images[0].uri
-          //fallback only if images dont already exist
-          imageURLArray[index+1] =  imageURLArray[index+1]? imageURLArray[index+1] :imageJson.images[0].uri
+        const res = await fetch(url, options);
+        const r = await res.json();
+        console.log("response??", r);
+        const id = r.id;
+        setTimeout(async () => {
+          const urlSingle =
+              process.env.REACT_APP_PROXY_URL +
+              `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
+          const optionsSingle = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+            },
+          };
+
+          const imageJson = await fetch(urlSingle, optionsSingle).then((res) =>
+              res.json()
+          );
+          console.log("FINAL IMAGE", imageJson);
+          if (imageJson.state !== "processing" || imageJson.state !== "failed") {
+            const generatedImages = this.state.generatedImageURIArray
+            const imageURLArray = this.state.imageURLArray
+            generatedImages[index] = imageJson.images[0].uri
+            //fallback only if images dont already exist
+            imageURLArray[index + 1] = imageURLArray[index + 1] ? imageURLArray[index + 1] : imageJson.images[0].uri
 
 
-          this.setState({
-            imageURLArray:imageURLArray,
-            generatedImageURIArray: generatedImages,
-            generatedImagesLoading: false,
-          });
-        } else {
-          this.setState({ generatedImagesLoading: false });
-        }
-      }, 35000);
-    } catch (e) {
-      this.setState({ imageError: e.message });
-    }
+            this.setState({
+              imageURLArray: imageURLArray,
+              generatedImageURIArray: generatedImages,
+              generatedImagesLoading: false,
+            },()=>  resolve(generatedImages));
+
+          } else {
+            this.setState({generatedImagesLoading: false});
+          }
+        }, 35000);
+      } catch (e) {
+        this.setState({imageError: e.message});
+        reject(e.message)
+      }
+    })
   };
 
   getGeneratedPhoto = async (types, business) => {
-    try {
-      this.setState({ generatedImageLoading: true });
-      const modelId = "26a1a203-3a46-42cb-8cfa-f4de075907d8";
-      const url =
-        process.env.REACT_APP_PROXY_URL +
-        `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
-      const options = {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
-        },
-        body: JSON.stringify({
-          prompt: `A clean and elegant ${typeof types === 'string'?types:types[0]}, ${business} slightly out of focus`,
-          negativePrompt: "watermarks or people",
-          steps: 10,
-          width: 1024,
-          height: 600,
-          numberOfImages: 1,
-          promptStrength: 7,
-          seed: 4523184,
-        }),
-      };
+    return new Promise(async (resolve, reject) => {
 
-      const res = await fetch(url, options);
-      const r = await res.json();
-      console.log("response??", r);
-      const id = r.id;
-      setTimeout(async () => {
-        const urlSingle =
-          process.env.REACT_APP_PROXY_URL +
-          `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
-        const optionsSingle = {
-          method: "GET",
+      try {
+        this.setState({generatedImageLoading: true});
+        const modelId = "26a1a203-3a46-42cb-8cfa-f4de075907d8";
+        const url =
+            process.env.REACT_APP_PROXY_URL +
+            `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences`;
+        const options = {
+          method: "POST",
           headers: {
             accept: "application/json",
+            "content-type": "application/json",
             authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
           },
+          body: JSON.stringify({
+            prompt: `A clean and elegant ${typeof types === 'string' ? types : types[0]}, ${business} slightly out of focus`,
+            negativePrompt: "watermarks or people",
+            steps: 10,
+            width: 1024,
+            height: 600,
+            numberOfImages: 1,
+            promptStrength: 7,
+            seed: 4523184,
+          }),
         };
 
-        const imageJson = await fetch(urlSingle, optionsSingle).then((res) =>
-          res.json()
-        );
-        console.log("FINAL IMAGE", imageJson);
-        if (imageJson.state !== "processing" || imageJson.state !== "failed") {
-          this.setState({
-            generatedImageURI: imageJson.images[0].uri,
-            generatedImageLoading: false,
-          });
-        } else {
-          this.setState({ generatedImageLoading: false });
-        }
-      }, 35000);
-    } catch (e) {
-      this.setState({ imageError: e.message });
-    }
+        const res = await fetch(url, options);
+        const r = await res.json();
+        console.log("response??", r);
+        const id = r.id;
+        setTimeout(async () => {
+          const urlSingle =
+              process.env.REACT_APP_PROXY_URL +
+              `https://api.tryleap.ai/api/v1/images/models/${modelId}/inferences/${id}`;
+          const optionsSingle = {
+            method: "GET",
+            headers: {
+              accept: "application/json",
+              authorization: "Bearer e745915f-b295-4b2c-b08a-10e466921520",
+            },
+          };
+
+          const imageJson = await fetch(urlSingle, optionsSingle).then((res) =>
+              res.json()
+          );
+          console.log("FINAL IMAGE", imageJson);
+          if (imageJson.state !== "processing" || imageJson.state !== "failed") {
+
+            this.setState({
+              generatedImageURI: imageJson.images[0].uri,
+              generatedImageLoading: false,
+            },()=>resolve());
+          } else {
+            this.setState({generatedImageLoading: false});
+          }
+        }, 35000);
+      } catch (e) {
+        reject(e.message);
+        this.setState({imageError: e.message});
+      }
+    })
   };
+
   generateContentFromPrefilledData = async () => {
     let content = this.state.content;
     content.contactPhone = "";
     content.contactAddress = "";
     content.contactTypes = [];
     content.location = {};
-    content.businessName = this.state.pageTitle;
+    content.businessName = this.state.businessName;
     content.titleBlurb = "Hang on, we are coming up with a smooth tagline...";
     let mapsCenter = {
       lat: 59.95,
       lng: 30.33,
     };
     rootStore.pageStore
-      .testRytrBlurb(
-        this.state.firstName,
-        this.state.serviceType,
-        this.state.pageTitle
-      )
-      .then(async ({rawHtml}) => {
-        console.log("res222", rawHtml);
-        let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
-        let content = this.state.content;
-        await rootStore.pageStore
-          .testRytrBlurb(
+        .testRytrBlurb(
             this.state.firstName,
-            `${this.state.serviceType} at ${this.state.pageTitle}`,
-            rytrBlurb
-          )
-          .then(async ({rawHtml}) => {
-            console.log("res,", rawHtml);
-            let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
-            let content = this.state.content;
-            content.titleBlurb = rytrBlurb;
-            await this.getGeneratedPhoto(
-              `${this.state.serviceType} at ${this.state.pageTitle}`,
-              this.state.pageTitle
-            );
+            this.state.serviceType,
+            this.state.pageTitle
+        )
+        .then(async ({rawHtml}) => {
+          console.log("res222", rawHtml);
+          let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
+          let content = this.state.content;
+          await rootStore.pageStore
+              .testRytrBlurb(
+                  this.state.firstName,
+                  `${this.state.serviceType} at ${this.state.pageTitle}`,
+                  rytrBlurb
+              )
+              .then(async ({rawHtml}) => {
+                console.log("res,", rawHtml);
+                let rytrBlurb = rawHtml.replace(/<[^>]*>?/gm, "");
+                let content = this.state.content;
+                content.titleBlurb = rytrBlurb;
+                content.titleContent = rytrBlurb
+                const photo = await this.getGeneratedPhoto(
+                    `${this.state.serviceType} at ${this.state.pageTitle}`,
+                    this.state.pageTitle
+                );
+                console.log('I should have photo from prefill',photo)
 
-            this.setState({ rContent: "", content: content, loading: false });
-          });
-        content.titleContent = rytrBlurb;
-        this.setState({ rContent: "", content: content, loading: false });
-        return rytrBlurb;
-      });
+                this.setState({rContent: "", content: content, loading: false});
+              });
+          content.titleContent = rytrBlurb;
+          this.setState({rContent: "", content: content, loading: false});
+          return rytrBlurb;
+        });
 
     this.setState({
       selectedBusinessInfo: null,
       content: content,
       mapsCenter,
       businessName: this.state.pageTitle,
+      formSubmitted:false,
     });
   };
+  editSecondSection = async () => {
+    try {
+      let splitCode =
+          this.state.code ||
+          cookie.get("code") ||
+          this.state.plainCode.toString();
+      splitCode = splitCode
+          .replace(/\s+/g, "-")
+          .toLowerCase();
+      firebase
+          .analytics()
+          .logEvent("template_init_wg", {code: splitCode});
+      rootStore.pageStore.setCode(
+          splitCode || this.state.plainCode
+      );
+      firebase
+          .firestore()
+          .collection("templates")
+          .get()
+          .then((data) => {
+            console.log("data:", data.docs[0].data());
+          });
+      let content = this.state.content;
+      content.pageTitle = this.state.pageTitle;
+      content.imageURLArray = this.state.imageURLArray || [];
+      content.routeItems = this.state.routeItems || [];
+      content.routeItemsDefault =
+          this.state.routeItemsDefault || [];
+      content.logo = this.state.logo || "";
+      content.templateType =
+          this.state.templateSelected || "dm";
+      content.linkArray = this.state.linkArray || [];
+      content.businessInfo = this.state
+          .selectedBusinessInfo || {name: ""};
+      content.backgroundType =
+          this.state.backgroundType.hex || "#656565";
+      content.class = this.state.class.hex || "#4264ea";
+      content.font = this.state.font.hex || "#a2a2a2";
+      content.firstName = this.state.firstName || "";
+      content.userEmail = rootStore.pageStore.userEmail;
+      content.generatedImageURI =
+          this.state.generatedImageURI || "";
+      content.serviceType = this.state.serviceType;
+      content.firstName = this.state.firstName;
+      cookie.set("templateType", this.state.templateSelected);
+      console.log(
+          "SET:",
+          splitCode,
+          this.state.plainCode,
+          ":",
+          content
+      );
+      const websiteHasEmptyRequiredFields = Object.entries(
+          content
+      ).some(([key, value]) => {
+        console.log("value", key, value);
+        if (
+            value === null ||
+            value === "" ||
+            typeof value === undefined
+        ) {
+          console.log("ERRROR", key, "in:", value);
+        }
+        return value === null || value === "";
+      });
+      if (websiteHasEmptyRequiredFields) {
+        console.log(websiteHasEmptyRequiredFields, 'empty required fields');
+        this.setState({
+          builderError: "Non empty fields detected",
+        });
+      }
+      if (rootStore.pageStore.userId) {
+        //TODO fix editing
+        firebase
+            .firestore()
+            .collection("users")
+            .doc(`${rootStore.pageStore.userId}`)
+            .set({
+              templateCode: `t-${
+                  splitCode || this.state.plainCode
+              }`,
+            })
+            .then(() => {
+              console.log(
+                  "Document successfully written for",
+                  rootStore.pageStore.userId,
+                  `t-${splitCode || this.state.plainCode}`
+              );
+            })
+            .catch((e) => {
+              console.log("doc failed on ", e);
+            });
+      }
+      return firebase
+          .firestore()
+          .collection("templates")
+          .doc(`t-${splitCode || this.state.plainCode}`)
+          .set({
+            content: content,
+            author: rootStore.pageStore.userId || "Guest",
+          })
+          .then(() => {
+            console.log("Document successfully written!");
+            window.location.href = "/pages";
+            if (this.state.linkArray) {
+              firebase
+                  .firestore()
+                  .collection("links")
+                  .doc(splitCode)
+                  .set({links: this.state.linkArray})
+                  .then(() => {
+                    console.log(
+                        "Wrote link array",
+                        this.state.linkArray,
+                        splitCode
+                    );
+                  });
+            }
+          })
+          .catch((error) => {
+            console.error(
+                "Error writing document: ",
+                error,
+                content,
+                this.state.content
+            );
+          });
+      console.log("something may have happened");
+    } catch (e) {
+      console.log("massive blunder", e);
+      this.setState({builderError: `${e}`});
+    }
+
+
+  }
+  editFrontSection = async () => {
+    let content = this.state.content;
+    content.supportingHeading =
+        "Hold on tight, we are writing your supporting heading...";
+    content.secondaryContent =
+        "Just a moment, we are writing about you...";
+    this.setState({content: content});
+    return rootStore.pageStore
+        .testRytrMain(
+            this.state.firstName,
+            this.state.serviceType,
+            this.state.businessName,
+            this.state.content.titleContent,
+            this.state.content.titleBlurb
+        )
+        .then(async ({rawHtml}) => {
+          let content = this.state.content;
+          console.log('Content Raw Form: ', rawHtml)
+          //todo make it smarter, split h2 into heading and p into body tags
+
+          let el = document.createElement('html');
+          el.innerHTML = rawHtml
+          const headings = el.getElementsByTagName('h3');
+          const paragraphs = el.getElementsByTagName('p');
+
+          console.log('headings', headings)
+          console.log('paragraphs', paragraphs)
+
+
+          let contentFormattedString = rawHtml.replace(
+              /<[^>]*>?/gm,
+              " "
+          );
+          console.log('Content Formatted Form: ', contentFormattedString)
+
+          let contentFormatted = contentFormattedString
+              .replace(/([A-Z])/g, " $1")
+              .split("-");
+          if (headings[0]) {
+            content.supportingHeadingTitle = headings[0] && headings[0].innerText;
+            await this.getGeneratedPhotoWithPhrase(0, headings[0].innerText)
+            content.supportingHeading = paragraphs[0] && paragraphs[0].innerText;
+            content.secondaryContent = paragraphs[1] && paragraphs[1].innerText;
+            content.secondaryContentTitle = headings[1] && headings[1].innerText;
+            await this.getGeneratedPhotoWithPhrase(1, headings[1].innerText)
+
+            content.p3Heading1 = headings[2] && headings[2].innerText;
+            await this.getGeneratedPhotoWithPhrase(2, headings[2].innerText)
+
+            content.p3Content1 = paragraphs[2] && paragraphs[2].innerText;
+          } else {
+            content.supportingHeadingTitle = 'Heading One'
+            content.supportingHeading = contentFormattedString;
+            content.secondaryContentTitle = 'Heading Two'
+            content.secondaryContent = ''
+            content.p3Heading1 = 'Heading Three'
+            content.p3Content1 = ''
+
+          }
+
+          return this.setState({
+            rContent: "",
+            content: content,
+            loading: false,
+          });
+        });
+  }
+
   getRelevantBusinessInfo(placeInformation) {
     this.setState({ loading: true });
     const key = process && process.env.REACT_APP_MAPS_KEY;
@@ -1176,208 +1413,7 @@ class CreatorFunnel extends React.Component {
         }
       });
   }
-  renderEditModal(modalType) {
-    const editSecondSection = async()=>{
-      try {
-        let splitCode =
-            this.state.code ||
-            cookie.get("code") ||
-            this.state.plainCode.toString();
-        splitCode = splitCode
-            .replace(/\s+/g, "-")
-            .toLowerCase();
-        firebase
-            .analytics()
-            .logEvent("template_init_wg", { code: splitCode });
-        rootStore.pageStore.setCode(
-            splitCode || this.state.plainCode
-        );
-        firebase
-            .firestore()
-            .collection("templates")
-            .get()
-            .then((data) => {
-              console.log("data:", data.docs[0].data());
-            });
-        let content = this.state.content;
-        content.pageTitle = this.state.pageTitle;
-        content.imageURLArray = this.state.imageURLArray || [];
-        content.routeItems = this.state.routeItems || [];
-        content.routeItemsDefault =
-            this.state.routeItemsDefault || [];
-        content.logo = this.state.logo || "";
-        content.templateType =
-            this.state.templateSelected || "dm";
-        content.linkArray = this.state.linkArray || [];
-        content.businessInfo = this.state
-            .selectedBusinessInfo || { name: "" };
-        content.backgroundType =
-            this.state.backgroundType.hex || "#656565";
-        content.class = this.state.class.hex || "#4264ea";
-        content.font = this.state.font.hex || "#a2a2a2";
-        content.firstName = this.state.firstName || "";
-        content.userEmail = rootStore.pageStore.userEmail;
-        content.generatedImageURI =
-            this.state.generatedImageURI || "";
-        content.serviceType = this.state.serviceType;
-        content.firstName = this.state.firstName;
-        cookie.set("templateType", this.state.templateSelected);
-        console.log(
-            "SET:",
-            splitCode,
-            this.state.plainCode,
-            ":",
-            content
-        );
-        const websiteHasEmptyRequiredFields = Object.entries(
-            content
-        ).some(([key, value]) => {
-          console.log("value", key, value);
-          if (
-              value === null ||
-              value === "" ||
-              typeof value === undefined
-          ) {
-            console.log("ERRROR", key, "in:", value);
-          }
-          return value === null || value === "";
-        });
-        if (websiteHasEmptyRequiredFields) {
-          console.log(websiteHasEmptyRequiredFields,'empty required fields');
-          this.setState({
-            builderError: "Non empty fields detected",
-          });
-        }
-        if (rootStore.pageStore.userId) {
-          //TODO fix editing
-          firebase
-              .firestore()
-              .collection("users")
-              .doc(`${rootStore.pageStore.userId}`)
-              .set({
-                templateCode: `t-${
-                    splitCode || this.state.plainCode
-                }`,
-              })
-              .then(() => {
-                console.log(
-                    "Document successfully written for",
-                    rootStore.pageStore.userId,
-                    `t-${splitCode || this.state.plainCode}`
-                );
-              })
-              .catch((e) => {
-                console.log("doc failed on ", e);
-              });
-        }
-       return firebase
-            .firestore()
-            .collection("templates")
-            .doc(`t-${splitCode || this.state.plainCode}`)
-            .set({
-              content: content,
-              author: rootStore.pageStore.userId || "Guest",
-            })
-            .then(() => {
-              console.log("Document successfully written!");
-              window.location.href = "/pages";
-              if (this.state.linkArray) {
-                firebase
-                    .firestore()
-                    .collection("links")
-                    .doc(splitCode)
-                    .set({ links: this.state.linkArray })
-                    .then(() => {
-                      console.log(
-                          "Wrote link array",
-                          this.state.linkArray,
-                          splitCode
-                      );
-                    });
-              }
-            })
-            .catch((error) => {
-              console.error(
-                  "Error writing document: ",
-                  error,
-                  content,
-                  this.state.content
-              );
-            });
-        console.log("something may have happened");
-      } catch (e) {
-        console.log("massive blunder", e);
-        this.setState({ builderError: `${e}` });
-      }
-
-
-  }
-    const editFrontSection = async() =>{let content = this.state.content;
-      content.supportingHeading =
-          "Hold on tight, we are writing your supporting heading...";
-      content.secondaryContent =
-          "Just a moment, we are writing about you...";
-      this.setState({ content: content });
-      return rootStore.pageStore
-          .testRytrMain(
-              this.state.firstName,
-              this.state.serviceType,
-              this.state.businessName,
-              this.state.content.titleContent,
-              this.state.content.titleBlurb
-          )
-          .then(async ({rawHtml}) => {
-            let content = this.state.content;
-            console.log('Content Raw Form: ',rawHtml)
-            //todo make it smarter, split h2 into heading and p into body tags
-
-            let el = document.createElement( 'html' );
-            el.innerHTML = rawHtml
-            const headings = el.getElementsByTagName( 'h3' );
-            const paragraphs = el.getElementsByTagName( 'p' );
-
-            console.log('headings',headings)
-            console.log('paragraphs',paragraphs)
-
-
-            let contentFormattedString = rawHtml.replace(
-                /<[^>]*>?/gm,
-                " "
-            );
-            console.log('Content Formatted Form: ',contentFormattedString)
-
-            let contentFormatted = contentFormattedString
-                .replace(/([A-Z])/g, " $1")
-                .split("-");
-            if(headings[0]) {
-              content.supportingHeadingTitle = headings[0] && headings[0].innerText;
-              await this.getGeneratedPhotoWithPhrase(0, headings[0].innerText)
-              content.supportingHeading = paragraphs[0] && paragraphs[0].innerText;
-              content.secondaryContent = paragraphs[1] && paragraphs[1].innerText;
-              content.secondaryContentTitle = headings[1] && headings[1].innerText;
-              await this.getGeneratedPhotoWithPhrase(1, headings[1].innerText)
-
-              content.p3Heading1 = headings[2] && headings[2].innerText;
-              await this.getGeneratedPhotoWithPhrase(2, headings[2].innerText)
-
-              content.p3Content1 = paragraphs[2] && paragraphs[2].innerText;
-            }
-            else{
-              content.supportingHeadingTitle = 'Heading One'
-              content.supportingHeading = contentFormattedString;
-              content.secondaryContentTitle = 'Heading Two'
-              content.secondaryContent = ''
-              content.p3Heading1 = 'Heading Three'
-              content.p3Content1 = ''
-
-            }
-
-           return this.setState({
-              rContent: "",
-              content: content,
-              loading: false,
-            });
-          });}
+  renderEditModal(modalType,editFrontSection,editSecondSection) {
     let modalComponent = null;
     switch (modalType) {
       case "LinkPage":
@@ -2640,17 +2676,56 @@ class CreatorFunnel extends React.Component {
             </div>
           </div>
         )}
+
         {this.state.editModal &&
-            <Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
+        !this.state.editSection&&!this.state.formSubmitted?<Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
               console.log('response',e)
-              const data = await GetAllResponses("SrEXIkzQ","lndcahf3dknrifqz9lndca0dej6zg4g4")
+              this.setState({formSubmitted:true})
+              setTimeout(async()=>{
+              const res = await GetAllResponses(e.formId,e.responseId)
+              const form = res.data.items.find((form)=>{
+                return form.response_id === e.responseId
+              })
+              console.log('form:',form)
+              const data = form.answers
               //use data to fill state content
+              console.log('response data ',data)
+
+              if(data) {
+                const content = this.state.content
+                content.mainButtonTitle= data.find((field) => field.field.ref === 'mainButtonTitle').text;
+                content.mainButtonLink=data.find((field) => field.field.ref === 'mainButtonLink').text;
+                this.setState({
+                  firstName: data.find((field) => field.field.ref === 'firstName').text,
+                  serviceType: data.find((field) => field.field.ref === 'serviceType').text,
+                  businessName: data.find((field) => field.field.ref === 'businessName').text,
+                  pageTitle:data.find((field) => field.field.ref === 'businessName').text,
+                  code: data.find((field) => field.field.ref === 'code').text,
+
+                  noBusiness: true,
+                  selectedBusinessInfo: {},
+                  content
+                })
+                this.generateContentFromPrefilledData().then(async () => {
+                  this.editFrontSection().then((res)=>{
+                    console.log('I should have photos...',res)
+                    this.editSecondSection()
+
+                  })
+                })
+              }else{
+                console.log('no data',form,data)
+              }
               //edit front section
               //edit second section
               //done
               return data
+              },1000)
             }}
-                                                id="SrEXIkzQ" style={{ width: '100vw', height:'100vh' }} className="my-form" />}
+
+                                                id={process.env.REACT_APP_FORM_ID}
+                    style={{ width: '100vw', height:'100vh' }} className="my-form" />
+            :<div style={{textAlign:'center',padding:'20%'}}><h3>Great, we're building your website. Sit back, this will only take a moment.</h3></div>}
         <div
           style={{
             height: "100%",
