@@ -394,6 +394,28 @@ h6,
   font-family: "DM Serif Display", serif !important;
   color: #ff2019 !important;
 }
+
+.bar {
+  border: 1px solid #666;
+  height: 20px;
+  width: 100%;
+
+
+}
+.in {
+  animation: fill 60s linear 1;
+  height: 100%;
+  background-color: rbga(225,102,0,0.23)
+}
+
+@keyframes fill {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
 .bg-cover {
   -webkit-background-size: cover !important;
   -moz-background-size: cover !important;
