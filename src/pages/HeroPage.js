@@ -20,7 +20,7 @@ import {
   contactTitle,
   mailChimpSource,
   secondary,
-    generatedImageURI,
+  generatedImageURI,
   imageURLArray,
   secondaryContent,
   secondaryContentTitle,
@@ -142,7 +142,7 @@ export class HeroPage extends React.Component {
         mainButtonTitle: mainButtonTitle,
         mainButtonLink: mainButtonLink,
         font: font,
-          generatedImageURI:generatedImageURI,
+        generatedImageURI: generatedImageURI,
 
         secondaryContent: secondaryContent,
         secondaryContent1: secondaryContent1,
@@ -231,6 +231,8 @@ export class HeroPage extends React.Component {
                   zIndex: 8999,
                   width: "100%",
                   marginTop: "100px",
+                  height: "630px ",
+                  overflow: "hidden",
                 }}
               >
                 {/* <div
@@ -290,26 +292,26 @@ export class HeroPage extends React.Component {
                             color: this.state.content.font,
                           }}
                         >
-                            {this.state.content.mainButtonTitle}
+                          {this.state.content.mainButtonTitle}
                         </div>
                       </div>
                     </div>
                   </div>
                   <div
                     style={{
-                      paddingTop: 40,
+                      // paddingTop: 40,
                       marginBottom: 0,
                       display: "flex",
                       justifyContent: isMobile ? "center" : "flex-end",
                       width: "100%",
-                      overflow: "hidden",
+                      // overflow: "hidden",
                     }}
                   >
                     <img
                       style={{
-                        maxWidth: isMobile ? 515 : 710,
-                        marginTop: isMobile ? "-70px" : "-180px",
-                        position: isMobile ? "relative" : "absolute",
+                        maxWidth: isMobile ? 600 : 710,
+                        // marginTop: isMobile ? "-70px" : "-180px",
+                        position: "absolute",
                       }}
                       src={this.state.content.logo || null}
                     />
@@ -395,10 +397,13 @@ export class HeroPage extends React.Component {
                         position: "relative",
                         zIndex: 9999,
                         borderRadius: 20,
+                        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                        maxHeight: "500px",
                       }}
                       src={
                         (this.state.content.imageURLArray &&
-                          this.state.content.imageURLArray[1]) ||null
+                          this.state.content.imageURLArray[1]) ||
+                        null
                       }
                       alt=""
                       width="50%"
@@ -484,10 +489,13 @@ export class HeroPage extends React.Component {
                             position: "relative",
                             zIndex: 9999,
                             borderRadius: 20,
+                            boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                            maxHeight: "500px",
                           }}
                           src={
                             (this.state.content.imageURLArray &&
-                              this.state.content.imageURLArray[2]) ||null
+                              this.state.content.imageURLArray[2]) ||
+                            null
                           }
                           alt=""
                           width="50%"
@@ -563,6 +571,8 @@ export class HeroPage extends React.Component {
                         position: "relative",
                         zIndex: 9999,
                         borderRadius: 20,
+                        boxShadow: "0px 0px 10px 0px rgba(0,0,0,0.75)",
+                        maxHeight: "500px",
                       }}
                       src={
                         (this.state.content.imageURLArray &&
@@ -604,9 +614,8 @@ export class HeroPage extends React.Component {
                   </div>
                 </div>
               </div>
-
-
-              </div><div>
+            </div>
+            <div>
               {/* </div> */}
               <div ref={this.contactRef} style={{ marginTop: 40 }}>
                 <div
@@ -633,7 +642,7 @@ export class HeroPage extends React.Component {
                           style={{
                             backgroundColor: this.state.content.class,
                             color: this.state.content.font,
-                              textAlign:"center"
+                            textAlign: "center",
                           }}
                         >
                           {this.state.content.mainButtonTitle || "Apply Now"}
@@ -646,22 +655,33 @@ export class HeroPage extends React.Component {
                           flexWrap: "wrap",
                         }}
                       >
-                          {this.state.content.contactEmail&&this.state.content.contactEmail!=='your email address'&&<div style={{ padding: 10 }}>
-                          <div style={{ position: "relative" }}>
-                            <i
-                              style={{ position: "absolute", top: 0, left: 0 }}
-                              className="material-icons"
-                            >
-                              mail
-                            </i>{" "}
-                          </div>
-                          <div style={{ marginLeft: 40 }}>
-                            <b></b>
-                            {this.state.content.contactEmail}
-                          </div>
-                        </div>}
+                        {this.state.content.contactEmail &&
+                          this.state.content.contactEmail !==
+                            "your email address" && (
+                            <div style={{ padding: 10 }}>
+                              <div style={{ position: "relative" }}>
+                                <i
+                                  style={{
+                                    position: "absolute",
+                                    top: 0,
+                                    left: 0,
+                                  }}
+                                  className="material-icons"
+                                >
+                                  mail
+                                </i>{" "}
+                              </div>
+                              <div style={{ marginLeft: 40 }}>
+                                <b></b>
+                                {this.state.content.contactEmail}
+                              </div>
+                            </div>
+                          )}
                         <br />
-                          {this.state.content.contactPhone&&this.state.content.contactPhone!=='021 000 0000'} <div style={{ padding: 10 }}>
+                        {this.state.content.contactPhone &&
+                          this.state.content.contactPhone !==
+                            "021 000 0000"}{" "}
+                        <div style={{ padding: 10 }}>
                           <div style={{ position: "relative" }}>
                             <i
                               style={{ position: "absolute", top: 0, left: 0 }}
