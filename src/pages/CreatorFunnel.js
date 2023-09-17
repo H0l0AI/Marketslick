@@ -435,6 +435,8 @@ class CreatorFunnel extends React.Component {
       if (userSubmittedTemplated.content) {
         console.log("USER SUBMITTED:", userSubmittedTemplated);
         this.setState({
+          editModal:'frontPage',
+          editSection:'titleBlurb',
           serviceTypeReady: true,
           businessNameReady: true,
           domainNameReady: true,
@@ -1308,9 +1310,7 @@ class CreatorFunnel extends React.Component {
           );
           console.log('Content Formatted Form: ', contentFormattedString)
 
-          let contentFormatted = contentFormattedString
-              .replace(/([A-Z])/g, " $1")
-              .split("-");
+
           if (headings[0]) {
             content.supportingHeadingTitle = headings[0] && headings[0].innerText;
             content.supportingHeading = paragraphs[0] && paragraphs[0].innerText;
@@ -1321,12 +1321,20 @@ class CreatorFunnel extends React.Component {
             await Promise.all([this.getGeneratedPhotoWithPhrase(0, headings[0].innerText),this.getGeneratedPhotoWithPhrase(1, headings[1].innerText),this.getGeneratedPhotoWithPhrase(2, headings[2].innerText)])
 
           } else {
+            let contentFormatted = contentFormattedString
+                .replace(/([A-Z])/g, " $1")
+                .split("-");
             content.supportingHeadingTitle = 'Heading One'
             content.supportingHeading = contentFormattedString;
             content.secondaryContentTitle = 'Heading Two'
-            content.secondaryContent = ''
+            content.secondaryContent = 'Empty section, please edit to update.'
             content.p3Heading1 = 'Heading Three'
-            content.p3Content1 = ''
+            content.p3Content1 = 'Empty section, please edit to update.'
+            await Promise.all([this.getGeneratedPhotoWithPhrase(0, contentFormatted[0]),
+              this.getGeneratedPhotoWithPhrase(1, contentFormatted[1]),
+              this.getGeneratedPhotoWithPhrase(2, contentFormatted[2])
+            ])
+
 
           }
 
@@ -2470,6 +2478,10 @@ class CreatorFunnel extends React.Component {
                             this.setState({
                               colorSelectorModal: false,
                               editModal: "frontPage",
+                              bgSelectorActive:false,
+                              classSelectorActive: false,
+                              fontSelectorActive: false,
+
                             });
                           }}
                           className="altButton whiteButton magOrange"

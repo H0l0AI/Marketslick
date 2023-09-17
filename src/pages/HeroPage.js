@@ -595,23 +595,25 @@ class HeroPage extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div
-                    style={{
-                      marginBottom: 0,
-                      display: "flex",
-                      justifyContent: isMobile ? "center" : "flex-end",
-                      width: "100%",
-                    }}
-                  >
-                    <img
-                      style={{
-                        maxWidth: isMobile ? 600 : 710,
-                        // marginTop: isMobile ? "-70px" : "-180px",
-                        position: "absolute",
-                      }}
-                      src={this.state.content.logo || logo}
-                    />
-                  </div>
+                    <div
+                        style={{
+                            // paddingTop: 40,
+                            marginBottom: 0,
+                            display: "flex",
+                            justifyContent: isMobile ? "center" : "flex-end",
+                            width: "100%",
+                            // overflow: "hidden",
+                        }}
+                    >
+                        <img
+                            style={{
+                                maxWidth: isMobile ? 600 : 710,
+                                // marginTop: isMobile ? "-70px" : "-180px",
+                                position: "absolute",
+                            }}
+                            src={this.state.content.logo || null}
+                        />
+                    </div>
                 </div>
               </div>
               <div className="myDIV" style={{ minHeight: 900 }}>

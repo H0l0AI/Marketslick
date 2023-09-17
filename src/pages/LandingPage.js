@@ -7,7 +7,6 @@ import { BsCartCheck } from "react-icons/bs";
 
 
 const LandingPage = () => {
-    console.log('netlify env',process.env.REACT_APP_NETLIFY_VAR)
   const isMobile = window.innerWidth <= 768;
   return (
     <div
@@ -69,7 +68,7 @@ const LandingPage = () => {
           style={{
             marginTop: "40px",
             border: "2px solid #ff6600",
-            width: isMobile ? "70%" : "35%",
+            width: '15rem',
             height: "50px",
             borderRadius: "30px",
             background: "transparent",
