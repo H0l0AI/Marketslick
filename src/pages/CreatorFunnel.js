@@ -2554,8 +2554,8 @@ class CreatorFunnel extends React.Component {
               },1000)
             }}
 
-                                                id={process.env.REACT_APP_FORM_ID}
-                    style={{ width: '100vw', height:'100vh' }} className="my-form" />
+            id={process.env.REACT_APP_FORM_ID}
+                    style={{ width: '100vw', height:'100vh' }} className="tf-form" />
             :this.state.editSection?this.renderEditModal(this.state.editModal,this.editFrontSection,this.editSecondSection):<div style={{textAlign:'center',padding:'20%'}}><h3>Great, we're building your website. Sit back, this will only take a moment.</h3>
         <div style={{display:'flex',justifyContent:'center'}}>
           <div className="bar">
