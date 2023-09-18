@@ -81,13 +81,31 @@ export function initializeFirebase(){
     });
 }
 
+export async function signUpUsingEmailButDontLogin(fields){
+    cookie.set('isEmailLogin',true);
+    return firebase.auth().createUserWithEmailAndPassword(fields.email, fields.password).catch((error) => {
+    }).then((res)=>{
+        console.log('ive got result: for user:',res)
+        return res
 
-export async function signUpUsingEmail(fields) {
+    });
+}
+export async function loginUsingEmail(fields){
+    console.log('login..')
+    firebase.auth().signInWithEmailAndPassword(fields.email,fields.password).catch((e)=>{
+        console.log(e)
+        cookie.set('isEmailLogin',false);
+        return window.location.href='/pages'
+
+    })
+}
+export async function signUpUsingEmail(fields,callback) {
     cookie.set('isEmailLogin',true);
     return firebase.auth().createUserWithEmailAndPassword(fields.email, fields.password).catch((error) => {
         firebase.auth().signInWithEmailAndPassword(fields.email,fields.password).catch((e)=>{
             console.log(e)
             cookie.set('isEmailLogin',false);
+            return callback()
 
         })
        console.log('...',error);

@@ -22,6 +22,7 @@ import { HeroPageSuccess } from "./pages/HeroPageSuccess";
 import { LinkPageInside } from "./pages/LinkPageInside";
 import CreatorFunnel from "./pages/CreatorFunnel";
 import LandingPage from "./pages/LandingPage";
+import LoginPage from './pages/LoginPage'
 
 
 const customHistory = createBrowserHistory();
@@ -114,6 +115,7 @@ class App extends React.Component {
     return (
       <Router history={customHistory}>
         <Switch>
+          <Route path="/login" exact component={LoginPage} />
           <Route path="/" exact component={LandingPage} />
           <Route path="/marketingDemo" exact component={MarketingHeroPage} />
           <Route path="/builder" exact component={CreatorFunnel} />

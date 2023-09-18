@@ -46,7 +46,7 @@ import { useHistory } from "react-router";
 import { inject, observer } from "mobx-react";
 import { toJS } from "mobx";
 import {Widget} from "@typeform/embed-react";
-import {GetAllResponses} from "../stores/PageService";
+import {GetAllResponses, signUpUsingEmail} from "../stores/PageService";
 export const FacebookButton = (props) => {
   const history = useHistory();
 
@@ -206,7 +206,7 @@ class CreatorFunnel extends React.Component {
       linkArray: [],
       loadState: null,
       colorSelectorModal: true,
-      editModal: null,
+      editModal: 'frontPage',
       logo: null,
       routeItemsDefault: RouteItems,
       routeItems: [],
@@ -1211,12 +1211,21 @@ class CreatorFunnel extends React.Component {
           builderError: "Non empty fields detected",
         });
       }
-      if (rootStore.pageStore.userId) {
+
+      //
+
+      const user = await rootStore.pageStore.signUpUsingEmailButDontLogin({email:this.state.emailAddress,password:this.state.password},(res)=>{
+        console.log('signed up...',res)
+        //todo create the website now
+        window.location.href = "/pages";
+      })
+      let documentUserId = rootStore.pageStore.userId || user&&user.id
+      if (documentUserId) {
         //TODO fix editing
         firebase
             .firestore()
             .collection("users")
-            .doc(`${rootStore.pageStore.userId}`)
+            .doc(`${documentUserId}`)
             .set({
               templateCode: `t-${
                   splitCode || this.state.plainCode
@@ -1225,9 +1234,10 @@ class CreatorFunnel extends React.Component {
             .then(() => {
               console.log(
                   "Document successfully written for",
-                  rootStore.pageStore.userId,
+                  documentUserId,
                   `t-${splitCode || this.state.plainCode}`
               );
+              window.location.href='/pages'
             })
             .catch((e) => {
               console.log("doc failed on ", e);
@@ -1239,11 +1249,12 @@ class CreatorFunnel extends React.Component {
           .doc(`t-${splitCode || this.state.plainCode}`)
           .set({
             content: content,
-            author: rootStore.pageStore.userId || "Guest",
+            author: documentUserId || "Guest",
           })
-          .then(() => {
+          .then(async () => {
             console.log("Document successfully written!");
-            window.location.href = "/pages";
+
+
             if (this.state.linkArray) {
               firebase
                   .firestore()
@@ -2206,10 +2217,18 @@ class CreatorFunnel extends React.Component {
               {modalComponent}
             </div>
 
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", justifyContent: "space-evenly" }}>
               {!this.state.selectedBusinessInfo &&
               this.state.editModal === "frontPage" ? null : (
-                  <><div
+                  <>
+                    {this.state.editModal==="frontPage"&&<div
+                        onClick={async()=>{
+                          await this.editSecondSection()
+
+                        }}
+                        className="altButton whiteButton magOrange">
+                      Preview </div>}
+                    <div
                   style={{
                     display: "flex",
                     justifyContent: "center",
@@ -2228,12 +2247,7 @@ class CreatorFunnel extends React.Component {
                      return this.setState({ editModal: 'secondPage' })
 
                     }
-                    if (
-                      !this.state.imageURLArray[0] &&
-                      !this.state.generatedImageURI
-                    ) {
-                      return false;
-                    }
+
                     let nextPage = "";
                     switch (this.state.editModal) {
                       case "frontPage":
@@ -2268,14 +2282,7 @@ class CreatorFunnel extends React.Component {
                 >
                   {buttonContent}
                 </div>
-                  {this.state.editModal==="frontPage"&&<div
-                      onClick={async()=>{
-                        await editFrontSection()
-                        await editSecondSection()
 
-                      }}
-                      className="altButton whiteButton magOrange">
-                  One touch create </div>}
                   </>
               )}
               {cookie.get("wasPurchased") && (
@@ -2340,6 +2347,15 @@ class CreatorFunnel extends React.Component {
       </>
     );
   }
+  buildWebsite(){
+    console.log('now i am building!',rootStore.pageStore.user)
+    this.generateContentFromPrefilledData().then(async () => {
+      this.editFrontSection().then((res)=>{
+        console.log('I should have photos...',res)
+        this.editSecondSection()
+      })
+    })
+  }
   render() {
     console.log(
       "firebase:",
@@ -2376,321 +2392,129 @@ class CreatorFunnel extends React.Component {
           {this.state.classSelectorActive && this.ClassSelector()}
           {this.state.fontSelectorActive && this.FontSelector()}
         </div>
-        {this.state.colorSelectorModal && (
-          <div
-            style={{
-              position: "relative",
-              zIndex: 9998,
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <div
-              className={"templateMaker"}
-              style={{
-                width: "100%",
-                margin: 0,
-                height: 1200,
-                position: "absolute",
-                top: 0,
-                padding: "7%",
-                backgroundColor: "#ff2019",
-                color: "#0e1e46",
-              }}
-            >
-              {this.state.continueModal||rootStore.pageStore.userEmail ? (
-                <div className="fadedshort">
-                  <p
-                    style={{
-                      textAlign: "center",
-                      fontWeight: 300,
-                      fontSize: 24,
-                    }}
-                  >
-                    Select your background and primary color theme by clicking
-                    on the element you want to change.
-                  </p>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <div>
-                      <div
-                        onClick={() => {
-                          this.renderBGSelector(true);
-                        }}
-                        style={{
-                          cursor: "pointer",
-                          margin: 30,
-                          padding: 20,
-                          backgroundColor: this.state.backgroundType.hex,
-                        }}
-                      >
-                        <div
-                          style={{
-                            width: 250,
-                            height: 200,
-                            display: "flex",
-                            justifyContent: "center",
-                            borderRadius: 4,
-                          }}
-                        >
-                          <div
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              this.renderClassSelector(true);
-                            }}
-                            style={{
-                              cursor: "pointer",
-                              width: 200,
-                              height: 100,
-                              padding: 25,
-                              marginTop: 40,
-                              borderRadius: 4,
-                              backgroundColor: this.state.class.hex,
-                            }}
-                          >
-                            <p
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                this.renderFontSelector(true);
-                              }}
-                              style={{
-                                fontSize: 12,
-                                width: "50%",
-                                color: this.state.font.hex,
-                                fontWeight: 700,
-                                cursor: "pointer",
-                              }}
-                            >
-                              Example text
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <p style={{ textAlign: "center" }}>Ready to move on?</p>
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                          marginTop: 10,
-                        }}
-                      >
-                        <div
-                          onClick={() => {
-                            this.setState({
-                              colorSelectorModal: false,
-                              editModal: "frontPage",
-                              bgSelectorActive:false,
-                              classSelectorActive: false,
-                              fontSelectorActive: false,
+        {/*{this.state.colorSelectorModal && (*/}
+        {/*  <div*/}
+        {/*    style={{*/}
+        {/*      position: "relative",*/}
+        {/*      zIndex: 9998,*/}
+        {/*      display: "flex",*/}
+        {/*      justifyContent: "center",*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    <div*/}
+        {/*      className={"templateMaker"}*/}
+        {/*      style={{*/}
+        {/*        width: "100%",*/}
+        {/*        margin: 0,*/}
+        {/*        height: 1200,*/}
+        {/*        position: "absolute",*/}
+        {/*        top: 0,*/}
+        {/*        padding: "7%",*/}
+        {/*        backgroundColor: "#ff2019",*/}
+        {/*        color: "#0e1e46",*/}
+        {/*      }}*/}
+        {/*    >*/}
+        {/*      {this.state.continueModal||rootStore.pageStore.userEmail ? (*/}
+        {/*        <div className="fadedshort">*/}
+        {/*          <p*/}
+        {/*            style={{*/}
+        {/*              textAlign: "center",*/}
+        {/*              fontWeight: 300,*/}
+        {/*              fontSize: 24,*/}
+        {/*            }}*/}
+        {/*          >*/}
+        {/*            Select your background and primary color theme by clicking*/}
+        {/*            on the element you want to change.*/}
+        {/*          </p>*/}
+        {/*          <div style={{ display: "flex", justifyContent: "center" }}>*/}
+        {/*            <div>*/}
+        {/*              <div*/}
+        {/*                onClick={() => {*/}
+        {/*                  this.renderBGSelector(true);*/}
+        {/*                }}*/}
+        {/*                style={{*/}
+        {/*                  cursor: "pointer",*/}
+        {/*                  margin: 30,*/}
+        {/*                  padding: 20,*/}
+        {/*                  backgroundColor: this.state.backgroundType.hex,*/}
+        {/*                }}*/}
+        {/*              >*/}
+        {/*                <div*/}
+        {/*                  style={{*/}
+        {/*                    width: 250,*/}
+        {/*                    height: 200,*/}
+        {/*                    display: "flex",*/}
+        {/*                    justifyContent: "center",*/}
+        {/*                    borderRadius: 4,*/}
+        {/*                  }}*/}
+        {/*                >*/}
+        {/*                  <div*/}
+        {/*                    onClick={(e) => {*/}
+        {/*                      e.stopPropagation();*/}
+        {/*                      this.renderClassSelector(true);*/}
+        {/*                    }}*/}
+        {/*                    style={{*/}
+        {/*                      cursor: "pointer",*/}
+        {/*                      width: 200,*/}
+        {/*                      height: 100,*/}
+        {/*                      padding: 25,*/}
+        {/*                      marginTop: 40,*/}
+        {/*                      borderRadius: 4,*/}
+        {/*                      backgroundColor: this.state.class.hex,*/}
+        {/*                    }}*/}
+        {/*                  >*/}
+        {/*                    <p*/}
+        {/*                      onClick={(e) => {*/}
+        {/*                        e.stopPropagation();*/}
+        {/*                        this.renderFontSelector(true);*/}
+        {/*                      }}*/}
+        {/*                      style={{*/}
+        {/*                        fontSize: 12,*/}
+        {/*                        width: "50%",*/}
+        {/*                        color: this.state.font.hex,*/}
+        {/*                        fontWeight: 700,*/}
+        {/*                        cursor: "pointer",*/}
+        {/*                      }}*/}
+        {/*                    >*/}
+        {/*                      Example text*/}
+        {/*                    </p>*/}
+        {/*                  </div>*/}
+        {/*                </div>*/}
+        {/*              </div>*/}
+        {/*              <p style={{ textAlign: "center" }}>Ready to move on?</p>*/}
+        {/*              <div*/}
+        {/*                style={{*/}
+        {/*                  display: "flex",*/}
+        {/*                  justifyContent: "center",*/}
+        {/*                  marginTop: 10,*/}
+        {/*                }}*/}
+        {/*              >*/}
+        {/*                <div*/}
+        {/*                  onClick={() => {*/}
+        {/*                    this.setState({*/}
+        {/*                      colorSelectorModal: false,*/}
+        {/*                      editModal: "frontPage",*/}
+        {/*                      bgSelectorActive:false,*/}
+        {/*                      classSelectorActive: false,*/}
+        {/*                      fontSelectorActive: false,*/}
 
-                            });
-                          }}
-                          className="altButton whiteButton magOrange"
-                        >
-                          Let's go!
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <p style={{ textAlign: "center", fontSize: 36 }}>
-                    Become more established with a website, build one with us in
-                    minutes.
-                  </p>
-                  <p style={{ fontSize: 22, textAlign: "center" }}>
-                    Let our intelligent website builder design and create a
-                    valuable customer/client touch point, bespoke to your needs.
-                    <br />
-                    Just select a template to get started.
-                  </p>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      marginTop: 40,
-                      marginBottom: 50,
-                      fontWeight: 300,
-                    }}
-                  >
-                    {rootStore.pageStore.userEmail ? (
-                      <p></p>
-                    ) : (
-                      <>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "center",
-                            minHeight: 120,
-                            flexWrap: "wrap",
-                          }}
-                        >
-                          <div>
-                            <div style={{ position: "relative" }}>
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  fontSize: 12,
-                                  fontWeight: 700,
-                                  paddingTop: 15,
-                                  width: 80,
-                                  marginLeft: 18,
-                                }}
-                              >
-                                Your email
-                              </div>
-                            </div>
-                            <input
-                              style={{
-                                width: 250,
-                                border: "1px solid #C3C4C9",
-                                borderRadius: 4,
-                              }}
-                              type="text"
-                              name="email"
-                              id="email"
-                              value={this.state.emailFormFields.email}
-                              onChange={this.handleEmailFormChange}
-                              placeholder=""
-                              className="signup-form-short"
-                              onKeyPress={(event) => {
-                                if (event.key === "Enter") {
-                                  event.preventDefault();
-                                  event.stopPropagation();
-                                }
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <div style={{ position: "relative" }}>
-                              <div
-                                style={{
-                                  position: "absolute",
-                                  fontSize: 12,
-                                  fontWeight: 700,
-                                  paddingTop: 15,
-                                  marginLeft: 18,
-                                }}
-                              >
-                                Password
-                              </div>
-                            </div>
-                            <input
-                              style={{
-                                border: "1px solid #C3C4C9",
-                                borderRadius: 4,
-                                width: 250,
-                              }}
-                              type="password"
-                              name="password"
-                              id="password"
-                              value={this.state.emailFormFields.password}
-                              onChange={this.handleEmailFormChange}
-                              placeholder=""
-                              className="signup-form"
-                              onKeyPress={(event) => {
-                                if (event.key === "Enter") {
-                                  event.preventDefault();
-                                  event.stopPropagation();
-                                  rootStore.pageStore.signUpUsingEmail(
-                                    this.state.emailFormFields
-                                  );
-                                }
-                              }}
-                            />
-                          </div>
-                        </div>
-                        <br />
-                        <div
-                          style={{ display: "flex", justifyContent: "center" }}
-                        >
-                          <div
-                            style={{
-                              width: 250,
-                              height: 50,
-                              lineHeight: "44px",
-                              cursor: "pointer",
-                            }}
-                            className="sign-up-button google-sign-up"
-                            onClick={() => {
-                              rootStore.pageStore.signUpUsingEmail(
-                                this.state.emailFormFields
-                              );
-                            }}
-                          >
-                            Continue
-                          </div>
-                        </div>
-                        <div
-                          className="separator"
-                          style={{ marginLeft: 100, marginRight: 100 }}
-                        >
-                          <span
-                            className="separator-text"
-                            style={{ backgroundColor: "#f5f4fa" }}
-                          >
-                            Or sign up with
-                          </span>
-                        </div>
-                        <div
-                          style={{
-                            display: "flex",
-                            justifyContent: "space-evenly",
-                            flexWrap: "wrap",
-                          }}
-                        >
-                          <div style={{ margin: 10 }}>
-                            <GoogleButton
-                              signUpHandler={signUpUsingSocial.bind(this)}
-                            />
-                          </div>
-                          <div style={{ margin: 10 }}>
-                            <FacebookButton
-                              signUpHandler={signUpUsingFacebook.bind(this)}
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <div
-                            class="trustpilot-widget"
-                            data-locale="en-US"
-                            data-template-id="5419b6a8b0d04a076446a9ad"
-                            data-businessunit-id="64efcc40835da6f72d05bf6f"
-                            data-style-height="24px"
-                            data-style-width="100%"
-                            data-theme="light"
-                            data-min-review-count="10"
-                            data-without-reviews-preferred-string-id="1"
-                            data-style-alignment="center"
-                          >
-                            <a
-                              href="https://www.trustpilot.com/review/webgun.ai"
-                              target="_blank"
-                              rel="noopener"
-                            >
-                              Trustpilot
-                            </a>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: 30,
-                    }}
-                  ></div>
-                </>
-              )}
-            </div>
-          </div>
-        )}
+        {/*                    });*/}
+        {/*                  }}*/}
+        {/*                  className="altButton whiteButton magOrange"*/}
+        {/*                >*/}
+        {/*                  Let's go!*/}
+        {/*                </div>*/}
+        {/*              </div>*/}
+        {/*            </div>*/}
+        {/*          </div>*/}
+        {/*        </div>*/}
+
 
         {this.state.editModal &&
         !this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)?
             <Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
               console.log('response',e)
+
               this.setState({formSubmitted:true,pageOneLoading:true})
               setTimeout(async()=>{
               const res = await GetAllResponses(e.formId,e.responseId)
@@ -2704,26 +2528,22 @@ class CreatorFunnel extends React.Component {
 
               if(data) {
                 const content = this.state.content
-                content.mainButtonTitle= data.find((field) => field.field.ref === 'mainButtonTitle').text;
-                content.mainButtonLink=data.find((field) => field.field.ref === 'mainButtonLink').text;
+                // content.mainButtonTitle= data.find((field) => field.field.ref === 'mainButtonTitle').text;
+                // content.mainButtonLink=data.find((field) => field.field.ref === 'mainButtonLink').text;
                 this.setState({
                   firstName: data.find((field) => field.field.ref === 'firstName').text,
                   serviceType: data.find((field) => field.field.ref === 'serviceType').text,
                   businessName: data.find((field) => field.field.ref === 'businessName').text,
                   pageTitle:data.find((field) => field.field.ref === 'businessName').text,
                   code: data.find((field) => field.field.ref === 'code').text,
+                  emailAddress:data.find((field) => field.field.ref === 'emailAddress').text,
+                  password:data.find((field) => field.field.ref === 'firstName').text+'123@',
 
                   noBusiness: true,
                   selectedBusinessInfo: {},
                   content
                 })
-                this.generateContentFromPrefilledData().then(async () => {
-                  this.editFrontSection().then((res)=>{
-                    console.log('I should have photos...',res)
-                    this.editSecondSection()
-
-                  })
-                })
+                this.buildWebsite()
               }else{
                 console.log('no data',form,data)
               }

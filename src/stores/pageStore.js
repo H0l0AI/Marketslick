@@ -3,7 +3,19 @@ import {
 } from 'mobx';
 import {persist} from "mobx-persist";
 import cookie from 'js-cookie';
-import {createWebsite,signUpUsingSocial,signUpUsingEmail,signUpUsingFacebook,handleSignOut,initializeAuthentication,getTemplatesWithId,autoCompletePlacesAction,getRelevantBusinessInfo} from "./PageService";
+import {
+    signUpUsingEmailButDontLogin,
+    createWebsite,
+    signUpUsingSocial,
+    signUpUsingEmail,
+    signUpUsingFacebook,
+    handleSignOut,
+    initializeAuthentication,
+    getTemplatesWithId,
+    autoCompletePlacesAction,
+    getRelevantBusinessInfo,
+    loginUsingEmail
+} from "./PageService";
 import {testRytrBlurb, testRytrMain, testRytrAbout, testRytrLanding} from './ContentService';
 export default class PageStore {
 
@@ -12,6 +24,8 @@ export default class PageStore {
         this.createWebsite = createWebsite;
         this.signUpUsingGoogle=signUpUsingSocial;
         this.signUpUsingEmail=signUpUsingEmail;
+        this.loginUsingEmail=loginUsingEmail
+        this.signUpUsingEmailButDontLogin=signUpUsingEmailButDontLogin;
         this.signOut=handleSignOut;
         this.initializeAuthentication=initializeAuthentication;
         this.getTemplatesWithId=getTemplatesWithId;
@@ -52,6 +66,7 @@ export default class PageStore {
             console.log('....', '...', user.email);
             this.userId = user.uid;
             this.userEmail = user.email;
+
         }
     }
     @persist @observable isPotentialCustomer = false;

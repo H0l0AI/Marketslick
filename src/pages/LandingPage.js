@@ -6,7 +6,7 @@ import { CgWebsite } from "react-icons/cg";
 import { BsCartCheck } from "react-icons/bs";
 
 
-const LandingPage = () => {
+const LoginPage = () => {
   const isMobile = window.innerWidth <= 768;
   return (
     <div
@@ -176,4 +176,4 @@ const LandingPage = () => {
   );
 };
 
-export default LandingPage;
+export default LoginPage;
