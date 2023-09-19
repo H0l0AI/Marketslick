@@ -48,6 +48,7 @@ import {
   igT,
   mapsCenter,
   businessName,
+    emailAddress,
   font,
 } from "../content";
 import { rootStore } from "../stores/Store";
@@ -126,6 +127,7 @@ export class HeroPage extends React.Component {
       currentMainImage: 0,
       mainArray: [image1, image2],
       content: {
+          emailAddress:emailAddress,
         scrollCTA: scrollCTA || false,
         isFunnel: isFunnel || false,
         mapsCenter: mapsCenter,
@@ -655,8 +657,8 @@ export class HeroPage extends React.Component {
                           flexWrap: "wrap",
                         }}
                       >
-                        {this.state.content.contactEmail &&
-                          this.state.content.contactEmail !==
+                        {this.state.content.emailAddress &&
+                          this.state.content.emailAddress !==
                             "your email address" && (
                             <div style={{ padding: 10 }}>
                               <div style={{ position: "relative" }}>
@@ -673,7 +675,7 @@ export class HeroPage extends React.Component {
                               </div>
                               <div style={{ marginLeft: 40 }}>
                                 <b></b>
-                                {this.state.content.contactEmail}
+                                {this.state.content.emailAddress}
                               </div>
                             </div>
                           )}

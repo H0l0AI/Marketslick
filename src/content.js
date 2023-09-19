@@ -18,7 +18,7 @@ export const mainButtonLink = content.mainButtonLink;
 export const contactButtonTitle = "Contact Us";
 export const generatedImageURI = content.generatedImageURI
 export const pageTitle = content.pageTitle
-
+export const emailAddress = content.emailAddress;
 export const titleContent = content.titleContent;
 export const titleBlurb = content.titleBlurb;
 export const supportingHeading = content.supportingHeading;
