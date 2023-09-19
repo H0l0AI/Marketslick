@@ -179,6 +179,8 @@ export const NavBar = (props) => (
         ) : null}
       </div>
     </div>
+
+
   </nav>
 );
 
@@ -1555,9 +1557,101 @@ class CreatorFunnel extends React.Component {
       case "secondPage":
         modalComponent = (
           <>
-            {" "}
+            <div
+                onClick={(e)=>{
+                  e.preventDefault();
+                  e.stopPropagation();
+                  this.renderBGSelector(false);
+                  this.renderFontSelector(false);
+                  this.renderClassSelector(false)
+                }}
+                style={{ position: "absolute", zIndex: 9999, right: -45, top: 20 }}
+            >
+              {this.state.bgSelectorActive && this.BGSelector()}
+              {this.state.classSelectorActive && this.ClassSelector()}
+              {this.state.fontSelectorActive && this.FontSelector()}
+            </div>
             <h3 style={{ textAlign: "center", fontWeight: 300 }}>
-              Front Page Content
+              <div
+                  style={{
+                    zIndex: 9998,
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+              >
+                <div
+                    className={"templateMaker"}
+                    style={{
+
+                      margin: 0,
+                      height: 180,
+
+                      top: 0,
+
+                      backgroundColor: "#ff2019",
+                      color: "#0e1e46",
+                    }}
+                >
+                  <div className="fadedshort">
+                    <p style={{fontSize:16}}>Modify theme by clicking the content you want to change color</p>
+                    <div
+                        onClick={() => {
+                          this.renderBGSelector(true);
+                        }}
+                        style={{
+                          cursor: "pointer",
+                          margin: 30,
+                          width:290,
+                          padding: 20,
+                          backgroundColor: this.state.backgroundType.hex,
+                        }}
+                    >
+                      <div
+                          style={{
+
+                            display: "flex",
+
+                            borderRadius: 4,
+                          }}
+                      >
+                        <div
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              this.renderClassSelector(true);
+                            }}
+                            style={{
+                              cursor: "pointer",
+                              width: 200,
+                              height: 100,
+                              padding: 25,
+                              marginTop: 40,
+                              borderRadius: 4,
+                              backgroundColor: this.state.class.hex,
+                            }}
+                        >
+                          <p
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                this.renderFontSelector(true);
+                              }}
+                              style={{
+                                fontSize: 12,
+                                width: "50%",
+                                color: this.state.font.hex,
+                                fontWeight: 700,
+                                cursor: "pointer",
+                              }}
+                          >
+                            Example text
+                          </p>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
             </h3>{" "}
             {this.state.generatedImagesLoading&&<div style={{width:'100%',color:'red',textAlign:'center'}}>Images loading</div>}
             {this.state.generatedImageURIArray?<div>
@@ -1566,7 +1660,14 @@ class CreatorFunnel extends React.Component {
             {this.state.generatedImageURIArray[0]&&<img width={400} src={this.state.generatedImageURIArray[2]} />}
                 </div>:null}
 
-            <div style={{ fontSize: 20, paddingBottom: 0 }}>
+            <div onClick={(e)=>{
+              e.preventDefault();
+              e.stopPropagation();
+              this.renderBGSelector(false);
+              this.renderFontSelector(false);
+              this.renderClassSelector(false)
+
+            }} style={{ fontSize: 20, paddingBottom: 0 }}>
               <div>
                 <div
                   style={{
@@ -2107,7 +2208,16 @@ class CreatorFunnel extends React.Component {
           >
             <div>
               {this.state.editModal === "frontPage" && (
-                <>
+                <> <p
+                    className="fadedshort"
+                    style={{
+                      fontSize: 26,
+                      fontWeight: 100,
+                      textAlign: "center",
+                    }}
+                >
+                  Welcome, {this.state.firstName}.
+                </p>
                   <div style={{ display: "flex", justifyContent: "space-around" }}>
                     <input
                       disabled={cookie.get("wasPurchased")}
@@ -2178,20 +2288,7 @@ class CreatorFunnel extends React.Component {
                         <div
                           style={{ display: "flex", justifyContent: "center" }}
                         >
-                          <p
-                            className="fadedshort"
-                            style={{
-                              fontSize: 26,
-                              fontWeight: 100,
-                              textAlign: "center",
-                            }}
-                          >
-                            Welcome, {this.state.firstName}. <br />
-                            {cookie.get("code")
-                              ? "Your"
-                              : "Please choose a"}{" "}
-                            domain name
-                          </p>
+
                         </div>
                         <div
                           style={{ display: "flex", justifyContent: "center" }}
@@ -2378,13 +2475,16 @@ class CreatorFunnel extends React.Component {
       this.state.class,
       "/?///"
     );
+    const formReady = !this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)
     return (
       <div>
-        {this.state.editModal?null:<NavBar
+        {false&&<NavBar
           userEmail={rootStore.pageStore.userEmail}
           resetFrontPage={() => {
             this.resetFrontPage();
           }}
+          colorSelectorModal={this.state.colorSelectorModal}
+
           classSelectorActive={this.state.classSelectorActive}
           bgSelectorActive={this.state.bgSelectorActive}
           renderClassSelector={() => {
@@ -2396,136 +2496,17 @@ class CreatorFunnel extends React.Component {
           switchBackgroundType={() => {
             this.switchBackgroundType();
           }}
-          backgroundType={"bg20"}
+          backgroundType={this.state.backgroundType||"bg20"}
+          class={this.state.class}
+          font={this.state.font}
         />}
 
-        <div
-          style={{ position: "absolute", zIndex: 9999, right: -45, top: 20 }}
-        >
-          {this.state.bgSelectorActive && this.BGSelector()}
-          {this.state.classSelectorActive && this.ClassSelector()}
-          {this.state.fontSelectorActive && this.FontSelector()}
-        </div>
-        {/*{this.state.colorSelectorModal && (*/}
-        {/*  <div*/}
-        {/*    style={{*/}
-        {/*      position: "relative",*/}
-        {/*      zIndex: 9998,*/}
-        {/*      display: "flex",*/}
-        {/*      justifyContent: "center",*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    <div*/}
-        {/*      className={"templateMaker"}*/}
-        {/*      style={{*/}
-        {/*        width: "100%",*/}
-        {/*        margin: 0,*/}
-        {/*        height: 1200,*/}
-        {/*        position: "absolute",*/}
-        {/*        top: 0,*/}
-        {/*        padding: "7%",*/}
-        {/*        backgroundColor: "#ff2019",*/}
-        {/*        color: "#0e1e46",*/}
-        {/*      }}*/}
-        {/*    >*/}
-        {/*      {this.state.continueModal||rootStore.pageStore.userEmail ? (*/}
-        {/*        <div className="fadedshort">*/}
-        {/*          <p*/}
-        {/*            style={{*/}
-        {/*              textAlign: "center",*/}
-        {/*              fontWeight: 300,*/}
-        {/*              fontSize: 24,*/}
-        {/*            }}*/}
-        {/*          >*/}
-        {/*            Select your background and primary color theme by clicking*/}
-        {/*            on the element you want to change.*/}
-        {/*          </p>*/}
-        {/*          <div style={{ display: "flex", justifyContent: "center" }}>*/}
-        {/*            <div>*/}
-        {/*              <div*/}
-        {/*                onClick={() => {*/}
-        {/*                  this.renderBGSelector(true);*/}
-        {/*                }}*/}
-        {/*                style={{*/}
-        {/*                  cursor: "pointer",*/}
-        {/*                  margin: 30,*/}
-        {/*                  padding: 20,*/}
-        {/*                  backgroundColor: this.state.backgroundType.hex,*/}
-        {/*                }}*/}
-        {/*              >*/}
-        {/*                <div*/}
-        {/*                  style={{*/}
-        {/*                    width: 250,*/}
-        {/*                    height: 200,*/}
-        {/*                    display: "flex",*/}
-        {/*                    justifyContent: "center",*/}
-        {/*                    borderRadius: 4,*/}
-        {/*                  }}*/}
-        {/*                >*/}
-        {/*                  <div*/}
-        {/*                    onClick={(e) => {*/}
-        {/*                      e.stopPropagation();*/}
-        {/*                      this.renderClassSelector(true);*/}
-        {/*                    }}*/}
-        {/*                    style={{*/}
-        {/*                      cursor: "pointer",*/}
-        {/*                      width: 200,*/}
-        {/*                      height: 100,*/}
-        {/*                      padding: 25,*/}
-        {/*                      marginTop: 40,*/}
-        {/*                      borderRadius: 4,*/}
-        {/*                      backgroundColor: this.state.class.hex,*/}
-        {/*                    }}*/}
-        {/*                  >*/}
-        {/*                    <p*/}
-        {/*                      onClick={(e) => {*/}
-        {/*                        e.stopPropagation();*/}
-        {/*                        this.renderFontSelector(true);*/}
-        {/*                      }}*/}
-        {/*                      style={{*/}
-        {/*                        fontSize: 12,*/}
-        {/*                        width: "50%",*/}
-        {/*                        color: this.state.font.hex,*/}
-        {/*                        fontWeight: 700,*/}
-        {/*                        cursor: "pointer",*/}
-        {/*                      }}*/}
-        {/*                    >*/}
-        {/*                      Example text*/}
-        {/*                    </p>*/}
-        {/*                  </div>*/}
-        {/*                </div>*/}
-        {/*              </div>*/}
-        {/*              <p style={{ textAlign: "center" }}>Ready to move on?</p>*/}
-        {/*              <div*/}
-        {/*                style={{*/}
-        {/*                  display: "flex",*/}
-        {/*                  justifyContent: "center",*/}
-        {/*                  marginTop: 10,*/}
-        {/*                }}*/}
-        {/*              >*/}
-        {/*                <div*/}
-        {/*                  onClick={() => {*/}
-        {/*                    this.setState({*/}
-        {/*                      colorSelectorModal: false,*/}
-        {/*                      editModal: "frontPage",*/}
-        {/*                      bgSelectorActive:false,*/}
-        {/*                      classSelectorActive: false,*/}
-        {/*                      fontSelectorActive: false,*/}
 
-        {/*                    });*/}
-        {/*                  }}*/}
-        {/*                  className="altButton whiteButton magOrange"*/}
-        {/*                >*/}
-        {/*                  Let's go!*/}
-        {/*                </div>*/}
-        {/*              </div>*/}
-        {/*            </div>*/}
-        {/*          </div>*/}
-        {/*        </div>*/}
+
 
 
         {this.state.editModal &&
-        !this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)?
+        formReady?
             <Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
               console.log('response',e)
 
