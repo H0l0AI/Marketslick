@@ -422,7 +422,7 @@ class HeroPage extends React.Component {
             fontSize: 16,
             cursor: "pointer",
             right: 20,
-            top: 0,
+            top: -50,
               opacity:0.4
           }}
           onClick={async () => {
