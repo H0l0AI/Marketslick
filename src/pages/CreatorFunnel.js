@@ -995,22 +995,29 @@ class CreatorFunnel extends React.Component {
               res.json()
           );
           console.log("FINAL IMAGE", imageJson);
+          try {
           if (imageJson.state !== "processing" || imageJson.state !== "failed"|| imageJson.state !== "queued") {
-            const generatedImages = this.state.generatedImageURIArray
-            const imageURLArray = this.state.imageURLArray
-            generatedImages[index] = imageJson.images&&imageJson.images[0].uri
-            //fallback only if images dont already exist
-            imageURLArray[index + 1] = imageURLArray[index + 1] ? imageURLArray[index + 1] : imageJson.images[0].uri
+
+              const generatedImages = this.state.generatedImageURIArray
+              const imageURLArray = this.state.imageURLArray
+              generatedImages[index] = imageJson.images && imageJson.images[0].uri
+              //fallback only if images dont already exist
+              imageURLArray[index + 1] = imageURLArray[index + 1] ? imageURLArray[index + 1] : imageJson.images[0].uri
 
 
-            this.setState({
-              imageURLArray: imageURLArray,
-              generatedImageURIArray: generatedImages,
-              generatedImagesLoading: false,
-            },()=>  resolve(generatedImages));
+              this.setState({
+                imageURLArray: imageURLArray,
+                generatedImageURIArray: generatedImages,
+                generatedImagesLoading: false,
+              }, () => resolve(generatedImages));
 
-          } else {
-            this.setState({generatedImagesLoading: false});
+            }
+          else
+            {
+              this.setState({generatedImagesLoading: false});
+            }
+          }catch(e){
+            this.setState({generatedImagesLoading: false,generatedImageURIArray:[]});
           }
         }, 60000);
       } catch (e) {
@@ -1068,14 +1075,21 @@ class CreatorFunnel extends React.Component {
               res.json()
           );
           console.log("FINAL IMAGE", imageJson);
-          if (imageJson.state !== "processing" || imageJson.state !== "failed" || imageJson.state !== "queued") {
+          try {
+            if (imageJson.state !== "processing" || imageJson.state !== "failed" || imageJson.state !== "queued") {
 
+              this.setState({
+                generatedImageURI: imageJson.images ? imageJson.images[0].uri : null,
+                generatedImageLoading: false,
+              }, () => resolve());
+            } else {
+              this.setState({generatedImageLoading: false});
+            }
+          }catch(e){
             this.setState({
-              generatedImageURI: imageJson.images?imageJson.images[0].uri:null,
+              generatedImageURI:null,
               generatedImageLoading: false,
-            },()=>resolve());
-          } else {
-            this.setState({generatedImageLoading: false});
+            }, () => resolve());
           }
         }, 60000);
       } catch (e) {
