@@ -965,7 +965,7 @@ class CreatorFunnel extends React.Component {
           },
           body: JSON.stringify({
             prompt: `A clean and elegant photo for a website advertising ${phrase}`,
-            negativePrompt: "watermarks or people",
+            negativePrompt: `${process.env.REACT_APP_NEGATIVE_PROMPT}`,
             steps: 10,
             width: 1024,
             height: 600,
@@ -1038,7 +1038,7 @@ class CreatorFunnel extends React.Component {
           },
           body: JSON.stringify({
             prompt: `A clean and elegant ${typeof types === 'string' ? types : types[0]}, ${business} slightly out of focus`,
-            negativePrompt: "watermarks or people",
+            negativePrompt: `${process.env.REACT_APP_NEGATIVE_PROMPT}`,
             steps: 10,
             width: 1024,
             height: 600,
