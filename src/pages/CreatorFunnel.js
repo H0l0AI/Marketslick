@@ -1196,7 +1196,8 @@ class CreatorFunnel extends React.Component {
       content.font = this.state.font.hex || "#a2a2a2";
       content.firstName = this.state.firstName || "";
       content.userEmail = rootStore.pageStore.userEmail;
-      content.emaiLAddress=this.state.emailAddress
+      content.emailAddress=this.state.emailAddress
+      content.pageTitle = this.state.pageTitle
       content.generatedImageURI =
           this.state.generatedImageURI || "";
       content.serviceType = this.state.serviceType;
