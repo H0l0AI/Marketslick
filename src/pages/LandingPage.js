@@ -66,6 +66,7 @@ const LoginPage = () => {
         </p>
         <button
           style={{
+              color:'black',
             marginTop: "40px",
             border: "2px solid #ff6600",
             width: '15rem',

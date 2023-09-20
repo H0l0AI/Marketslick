@@ -50,7 +50,7 @@ export function initializeAuthentication(){
                         .then((r) => {
                             cookie.remove('isEmailLogin');
                             console.log("Google Document successfully written for user!", r);
-                            window.location.reload();
+                            //window.location.reload();
                         }).catch((e) => {
                             cookie.remove('isEmailLogin');
                             cookie.remove('userHasLoggedIn');

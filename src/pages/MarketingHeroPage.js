@@ -68,6 +68,7 @@ export const renderStripeLink = (ref)=>{
     }
 }
 export const renderPackagePhoto = (ref) => {
+  return null
   if (!ref) {
     return (
       <div className="myDIV2 pricing29">
@@ -815,14 +816,10 @@ export class MarketingHeroPage extends React.Component {
                         "https://buy.stripe.com/dR617taCTf567cYeUY";
                     }}
                     style={{ margin: 10 }}
-                    className="altButton redButton magOrange"
+                    className="webgunStyleButton orange"
                   >
                     Get it now
-                    <div style={{ position: "relative" }}>
-                      <div style={{ position: "absolute", top: -25, right: 0 }}>
-                        <i className="material-icons">keyboard_arrow_right</i>
-                      </div>
-                    </div>
+
                   </div>
                 </div>{" "}
               </>
@@ -915,18 +912,10 @@ export class MarketingHeroPage extends React.Component {
                           //https://buy.stripe.com/00gcQb4evf5654Q001
                         }}
                         style={{ margin: 10 }}
-                        className="altButton redButton magOrange"
+                        className="webgunStyleButton orange"
                       >
                         Get it now
-                        <div style={{ position: "relative" }}>
-                          <div
-                            style={{ position: "absolute", top: -25, right: 0 }}
-                          >
-                            <i className="material-icons">
-                              keyboard_arrow_right
-                            </i>
-                          </div>
-                        </div>
+
                       </div>
                     </div>
                     {renderPackagePhoto(cookie.get("referrer"))}

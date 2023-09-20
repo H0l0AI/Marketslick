@@ -1235,7 +1235,7 @@ class CreatorFunnel extends React.Component {
       const user = await rootStore.pageStore.signUpUsingEmailButDontLogin({email:this.state.emailAddress,password:this.state.password},(res)=>{
         console.log('signed up...',res)
         //todo create the website now
-        window.location.href = "/pages";
+
       })
       let documentUserId = rootStore.pageStore.userId || user&&user.id
       if (documentUserId) {
@@ -1255,7 +1255,7 @@ class CreatorFunnel extends React.Component {
                   documentUserId,
                   `t-${splitCode || this.state.plainCode}`
               );
-              window.location.href='/pages'
+              window.location.href = "/pages";
             })
             .catch((e) => {
               console.log("doc failed on ", e);
@@ -1589,9 +1589,6 @@ class CreatorFunnel extends React.Component {
                       height: 180,
 
                       top: 0,
-
-                      backgroundColor: "#ff2019",
-                      color: "#0e1e46",
                     }}
                 >
                   <div className="fadedshort">
@@ -1897,9 +1894,9 @@ class CreatorFunnel extends React.Component {
                 }}
               />
             </div>
-            {this.state.selectedBusinessInfo ?
+            <div style={{display:'flex',justifyContent:'center'}}>{this.state.selectedBusinessInfo ?
                 <div
-                    className="altButton whiteButton magOrange"
+                    className="webgunStyleButton"
                     onClick={()=>{
                   this.setState({
                     selectedBusinessInfo: null,
@@ -1913,7 +1910,7 @@ class CreatorFunnel extends React.Component {
                 </div>
                 : (
               <div
-                className="altButton whiteButton magOrange"
+                  className="webgunStyleButton"
                 onClick={() => {
                   //TODO fill out selectedBusinessInfo with stub that works
                   this.generateContentFromPrefilledData();
@@ -1927,7 +1924,7 @@ class CreatorFunnel extends React.Component {
               >
                 I don't have one
               </div>
-            )}
+                )}</div>
 
 
             <div style={{ zIndex: 8999, width: "100%" }}>
@@ -2339,7 +2336,7 @@ class CreatorFunnel extends React.Component {
                           await this.editSecondSection()
 
                         }}
-                        className="altButton whiteButton magOrange">
+                        className="webgunStyleButton">
                       Preview </div>}
                     <div
                   style={{
@@ -2391,7 +2388,7 @@ class CreatorFunnel extends React.Component {
                     await  editSecondSection()
                       return this.setState({ editModal: nextPage });}
                   }}
-                  className="altButton whiteButton magOrange"
+                  className="webgunStyleButton"
                 >
                   {buttonContent}
                 </div>
@@ -2509,7 +2506,8 @@ class CreatorFunnel extends React.Component {
 
         {this.state.editModal &&
         formReady?
-            <Widget onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
+            <Widget  style={{ width: '100vw', height:'100vh' }} inlineOnMobile={true} className="tf-form"
+                     onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
               console.log('response',e)
 
               this.setState({formSubmitted:true,pageOneLoading:true})
@@ -2552,7 +2550,7 @@ class CreatorFunnel extends React.Component {
             }}
 
             id={process.env.REACT_APP_FORM_ID}
-                    style={{ width: '100vw', height:'100vh' }} className="tf-form" />
+                   />
             :this.state.editSection?this.renderEditModal(this.state.editModal,this.editFrontSection,this.editSecondSection):<div style={{textAlign:'center',padding:'20%'}}><h3>Great, we're building your website. Sit back, this will only take a moment.</h3>
         <div style={{display:'flex',justifyContent:'center'}}>
           <div className="bar">

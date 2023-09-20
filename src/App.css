@@ -214,7 +214,7 @@ py-6 {
   border-color: #333 !important;
 }
 body.dark-blue .border-dark {
-  border-color: #0e1e46 !important;
+  border-color: #fff !important;
 }
 .bg-dark {
   background: #000 !important;
@@ -1406,7 +1406,7 @@ body.dark-discord .border-dark {
   background-color: #4f4f4f !important;
 }
 .two {
-  background-color: #0e1e46 !important;
+  background-color: #fff !important;
 }
 .three {
   background-color: #3f4a44 !important;

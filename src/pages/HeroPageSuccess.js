@@ -956,7 +956,7 @@ export class HeroPageSuccess extends React.Component {
             style={{ zIndex: 999, paddingTop: 0 }}
           >
             <div style={{ backgroundColor: "#fff" }}>
-              {customerHasPaid ? (
+              {true ? (
                 <>
                   <h2
                     className="magOrange"
@@ -979,16 +979,10 @@ export class HeroPageSuccess extends React.Component {
                           "https://buy.stripe.com/dR617taCTf567cYeUY";
                       }}
                       style={{ margin: 10 }}
-                      className="altButton redButton magOrange"
+                      className="webgunStyleButton orange"
                     >
-                      Get it now
-                      <div style={{ position: "relative" }}>
-                        <div
-                          style={{ position: "absolute", top: -25, right: 0 }}
-                        >
-                          <i className="material-icons">keyboard_arrow_right</i>
-                        </div>
-                      </div>
+                      Yes, help me out
+
                     </div>
                   </div>{" "}
                 </>

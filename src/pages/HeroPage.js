@@ -76,7 +76,7 @@ export const NavBar = (props) => (
           onClick={() => {
             window.location.href = "/";
           }}
-          src={props.content.logo || logo}
+          src={props.content.logo}
           alt=""
           width="100"
         />
@@ -264,7 +264,7 @@ class HeroPage extends React.Component {
         routeItemsDefault: RouteItems,
         mainButtonLink: mainButtonLink,
         mainButtonTitle: "Apply Now",
-        logo: logo,
+        logo: null,
       },
     };
   }
@@ -703,7 +703,7 @@ class HeroPage extends React.Component {
                       src={
                         (this.state.content.imageURLArray &&
                           this.state.content.imageURLArray[1]) ||
-                        logo
+                        null
                       }
                       alt=""
                       width="50%"
@@ -796,7 +796,7 @@ class HeroPage extends React.Component {
                           src={
                             (this.state.content.imageURLArray &&
                               this.state.content.imageURLArray[2]) ||
-                            logo
+                            null
                           }
                           alt=""
                           width="50%"
@@ -878,7 +878,7 @@ class HeroPage extends React.Component {
                       src={
                         (this.state.content.imageURLArray &&
                           this.state.content.imageURLArray[3]) ||
-                        logo
+                        null
                       }
                       alt=""
                       width="50%"
@@ -1323,16 +1323,9 @@ class HeroPage extends React.Component {
                           "https://buy.stripe.com/dR617taCTf567cYeUY";
                       }}
                       style={{ margin: 10 }}
-                      className="altButton redButton magOrange"
+                      className="webgunStyleButton orange"
                     >
                       Get it now
-                      <div style={{ position: "relative" }}>
-                        <div
-                          style={{ position: "absolute", top: -25, right: 0 }}
-                        >
-                          <i className="material-icons">keyboard_arrow_right</i>
-                        </div>
-                      </div>
                     </div>
                   </div>{" "}
                 </>
@@ -1425,29 +1418,17 @@ class HeroPage extends React.Component {
                             //https://buy.stripe.com/00gcQb4evf5654Q001
                           }}
                           style={{ margin: 10 }}
-                          className="altButton redButton magOrange"
+                          className="webgunStyleButton orange"
                         >
                           Get it now
-                          <div style={{ position: "relative" }}>
-                            <div
-                              style={{
-                                position: "absolute",
-                                top: -25,
-                                right: 0,
-                              }}
-                            >
-                              <i className="material-icons">
-                                keyboard_arrow_right
-                              </i>
-                            </div>
-                          </div>
+
                         </div>
                         <div
                           onClick={() => {
                             window.location.href = "/builder";
                           }}
                           style={{ margin: 10 }}
-                          className="altButton greyButton"
+                          className="webgunStyleButton orange"
                         >
                           I want to start over.
                         </div>

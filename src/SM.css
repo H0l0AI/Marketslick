@@ -253,8 +253,8 @@ body.dark-discord .border-dark {
   height: 5px !important;
 }
 .templateMaker {
-  background-color: #f5f4fa !important;
-  color: #0e1e46 !important;
+  background-color: #ff6600 !important;
+  color: #fff !important;
 }
 *::-webkit-scrollbar-track {
   width: 9px;
@@ -410,6 +410,23 @@ h2 {
 }
 .magOrange {
   color: #404040 !important;
+}
+.orange{
+  background-color: orange !important;
+}
+.webgunStyleButton{
+  text-align: center;
+  font-size: 12px !important;
+  border: 2px solid #fff;
+  width: 15rem;
+  color: #fff !important;
+  line-height: 3rem;
+  height: 50px;
+  border-radius: 30px;
+  background: transparent;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease 0s;
 }
 .magBlue {
   font-family: "DM Serif Display", serif !important;
@@ -2099,44 +2116,52 @@ body.dark-discord .border-dark {
 .templateInputP {
   margin: 10px;
   border: 1px solid transparent;
-  border-bottom: 1px solid #455570 !important;
+  border-bottom: 1px solid #fe805b !important;
   font-size: 14px;
-  color: #0e1e46 !important;
+  color: #fff !important;
   background-color: transparent;
   border-radius: 0px;
   width: 100%;
   padding: 10px;
-}
+}:focus{
+   border-bottom: 1px solid #c04317 !important;
+ }
 .templateInputP::placeholder {
   /* Most modern browsers support this now. */
-  color: #adadad !important;
+  color: #ffcfcf !important;
 }
 .templateInputPTextArea {
   margin: 10px;
   border: 1px solid transparent;
-  border: 1px solid #455570 !important;
+  border: 1px solid #fe805b !important;
   font-size: 14px;
-  color: #172853 !important;
+  color: #fff !important;
   background-color: transparent;
   border-radius: 0px;
   width: 100%;
   padding: 10px;
-}
+}:focus{
+   border-bottom: 1px solid #c04317 !important;
+ }
 ::placeholder {
-  color: #1f2029 !important;
+  color: #ffcfcf !important;
 }
 .templateInputH1 {
   margin: 10px;
   border: 0px solid transparent;
-  border-bottom: 1px solid #455570 !important;
+  border-bottom: 1px solid #fe805b !important;
   font-size: 14px;
-  color: #0e1e46 !important;
+  color: #fff !important;
   background-color: transparent;
   border-radius: 0px;
   width: 100%;
   padding: 10px;
+}:focus{
+   border-bottom: 1px solid #c04317 !important;
+ }
+::placeholder {
+  color: #ffcfcf !important;
 }
-
 .done {
   border-style: solid !important;
 }
@@ -2144,16 +2169,16 @@ body.dark-discord .border-dark {
   border: none !important;
 }
 .uploadedImageContainer {
-  color: #455570;
+  color: #fe805b;
   border-radius: 10%;
-  border: 2px dashed #455570;
+  border: 2px dashed #fe805b;
   cursor: pointer !important;
   background-color: transparent;
 }
 .uploadedImageContainerBanner {
-  color: #455570;
+  color: #fe805b;
   border-radius: 10%;
-  border: 2px dashed #455570;
+  border: 2px dashed #fe805b;
   cursor: pointer !important;
   background-color: transparent;
 }
