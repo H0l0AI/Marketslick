@@ -1201,6 +1201,7 @@ class CreatorFunnel extends React.Component {
           this.state.generatedImageURI || "";
       content.serviceType = this.state.serviceType;
       content.firstName = this.state.firstName;
+      content.emailAddress = this.state.userEmail||this.state.emailAddress
       cookie.set("templateType", this.state.templateSelected);
       console.log(
           "SET:",
