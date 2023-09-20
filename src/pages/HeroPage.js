@@ -680,23 +680,6 @@ export class HeroPage extends React.Component {
                             </div>
                           )}
                         <br />
-                        {this.state.content.contactPhone &&
-                          this.state.content.contactPhone !==
-                            "021 000 0000"}{" "}
-                        <div style={{ padding: 10 }}>
-                          <div style={{ position: "relative" }}>
-                            <i
-                              style={{ position: "absolute", top: 0, left: 0 }}
-                              className="material-icons"
-                            >
-                              local_phone
-                            </i>{" "}
-                          </div>
-                          <div style={{ marginLeft: 40 }}>
-                            <b></b>
-                            {this.state.content.contactPhone}
-                          </div>
-                        </div>
                         <br />
                       </div>
                       <div></div>
