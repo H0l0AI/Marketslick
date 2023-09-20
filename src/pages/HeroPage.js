@@ -253,7 +253,7 @@ class HeroPage extends React.Component {
         secondaryHeading1: secondaryHeading1,
         supportingHeading: supportingHeading,
         supportingHeadingTitle: supportingHeadingTitle,
-        generatedImageURI: generatedImageURI,
+        generatedImageURI: null,
         firstName: firstName,
         titleBlurb: titleBlurb,
         titleContent: titleContent,
