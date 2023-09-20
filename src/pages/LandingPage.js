@@ -55,8 +55,8 @@ const LandingPage = () => {
             margin: 0,
           }}
         >
-          Get your business online for {isMobile ? " " : <br />} only
-          $9 per week
+          Get your business online for {isMobile ? " " : <br />} only $9 per
+          week
         </h1>
         <p style={{ fontSize: "22px", textAlign: "center", marginTop: "40px" }}>
           Take your business to the lext level. Simply input your information
@@ -67,7 +67,7 @@ const LandingPage = () => {
           style={{
             marginTop: "40px",
             border: "2px solid #ff6600",
-            width: isMobile ? "70%" : "35%",
+            width: isMobile ? "85%" : "35%",
             height: "50px",
             borderRadius: "30px",
             background: "transparent",
@@ -158,8 +158,8 @@ const LandingPage = () => {
             <BsCartCheck size={60} color={"#cb5b43"} />
             <h3>3. Revise and Subscribe.</h3>
             <p>
-              Finally subscribe to our affordable $9/week plan and watch
-              your business thrive online.
+              Finally subscribe to our affordable $9/week plan and watch your
+              business thrive online.
             </p>
           </div>
         </div>
