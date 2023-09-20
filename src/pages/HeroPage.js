@@ -48,7 +48,7 @@ import {
   igT,
   mapsCenter,
   businessName,
-    emailAddress,
+  emailAddress,
   font,
 } from "../content";
 import { rootStore } from "../stores/Store";
@@ -127,7 +127,7 @@ export class HeroPage extends React.Component {
       currentMainImage: 0,
       mainArray: [image1, image2],
       content: {
-          emailAddress:emailAddress,
+        emailAddress: emailAddress,
         scrollCTA: scrollCTA || false,
         isFunnel: isFunnel || false,
         mapsCenter: mapsCenter,
@@ -233,7 +233,7 @@ export class HeroPage extends React.Component {
                   zIndex: 8999,
                   width: "100%",
                   marginTop: "100px",
-                  height: "630px ",
+                  height: "690px ",
                   overflow: "hidden",
                 }}
               >
@@ -423,7 +423,7 @@ export class HeroPage extends React.Component {
                   >
                     <h3
                       style={{
-                        paddingLeft: 15,
+                        padding: 10,
                         marginBottom: 0,
                         whiteSpace: "break-spaces",
                         color: this.state.content.font,
@@ -436,8 +436,7 @@ export class HeroPage extends React.Component {
                     <p
                       style={{
                         fontSize: 18,
-                        paddingLeft: 15,
-                        paddingTop: 10,
+                        padding: 20,
                         whiteSpace: "break-spaces",
                         color: this.state.content.font,
                         position: "relative",
@@ -588,7 +587,7 @@ export class HeroPage extends React.Component {
                   <div style={{ minWith: "99vw", minWidth: 300 }}>
                     <h3
                       style={{
-                        paddingLeft: 15,
+                        padding: 10,
                         marginBottom: 0,
                         whiteSpace: "break-spaces",
                         color: this.state.content.font,
@@ -602,8 +601,7 @@ export class HeroPage extends React.Component {
                     <p
                       style={{
                         fontSize: 18,
-                        paddingLeft: 15,
-                        paddingTop: 10,
+                        padding: 20,
                         whiteSpace: "break-spaces",
                         color: this.state.content.font,
                         position: "relative",
