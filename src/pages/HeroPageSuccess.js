@@ -814,7 +814,7 @@ export class HeroPageSuccess extends React.Component {
                         width="50%"
                       />
                     </div>
-                    <div style={{ minWith: "99vw", minWidth: 300 }}>
+                    <div style={{  minWidth: 300,width:'90%',display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center' }}>
                       <h3
                         style={{
                           paddingLeft: 15,

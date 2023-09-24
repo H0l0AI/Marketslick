@@ -580,7 +580,6 @@ class HeroPage extends React.Component {
                     }}
                   >
                     <h1>{this.state.content.titleContent}</h1>{" "}
-                    <EditSection section={"titleContent"} />
                       {this.state.content.mainButtonLink &&
                           this.state.content.mainButtonLink !==
                           "https://google.com" &&<div
@@ -723,7 +722,7 @@ class HeroPage extends React.Component {
                   </div>
                   <div
                     style={{
-                      minWith: "99vw",
+                        width:'80%',
                       minWidth: 300,
                       display: "flex",
                       alignItems: "center",
@@ -742,7 +741,6 @@ class HeroPage extends React.Component {
                       }}
                     >
                       {this.state.content.secondaryContentTitle}
-                      <EditSection section={"secondaryContentTitle"} />
                     </h3>
                     <p
                       style={{
@@ -896,7 +894,7 @@ class HeroPage extends React.Component {
                       width="50%"
                     />
                   </div>
-                  <div style={{ minWith: "99vw", minWidth: 300 }}>
+                  <div style={{  minWidth: 300,width:'90%',display:'flex',flexDirection:'column',alignItems:'center',textAlign:'center' }}>
                     <h3
                       style={{
                         paddingLeft: 15,
