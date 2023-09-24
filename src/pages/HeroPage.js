@@ -413,7 +413,7 @@ export class HeroPage extends React.Component {
                   </div>
                   <div
                     style={{
-                      minWith: "99vw",
+                        width:'80%',
                       minWidth: 300,
                       display: "flex",
                       alignItems: "center",
@@ -585,7 +585,14 @@ export class HeroPage extends React.Component {
                       width="50%"
                     />
                   </div>
-                  <div style={{ minWith: "99vw", minWidth: 300 }}>
+                  <div   style={{
+                      width:'80%',
+                      minWidth: 300,
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      textAlign: "center",
+                  }}>
                     <h3
                       style={{
                         paddingLeft: 15,
