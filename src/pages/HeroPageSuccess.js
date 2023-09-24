@@ -642,7 +642,7 @@ export class HeroPageSuccess extends React.Component {
                     </div>
                     <div
                       style={{
-                        minWith: "99vw",
+                          width:'80%',
                         minWidth: 300,
                         display: "flex",
                         alignItems: "center",
