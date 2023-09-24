@@ -143,6 +143,8 @@ class App extends React.Component {
               window.location.href = `https://${redirectTarget}.webgun.ai`;
             }}
           />
+          <Route path="/cashies" exact component={()=>window.location.href="https://www.cashies.io"} />
+
           <Route path="/MarketingMagnet" exact component={MarketingHeroPage} />
           <Route path="/pages/our-staff" exact component={SecondaryPage} />
           <Route path="/pages/project-management" exact component={ThirdPage} />
