@@ -590,15 +590,29 @@ class CreatorFunnel extends React.Component {
       });
     }
   };
-  uploadLogoImage = async (e, fileInput, index) => {
+  uploadLogoImage = async (e, fileInput, index,hasURL) => {
+    console.log(hasURL)
     this.setState({loadingLogo: true});
     let file;
     try {
-      if (!fileInput) {
+      if(hasURL){
+        console.log('blobbing it up ',hasURL)
+
+        let blob = await fetch(process.env.REACT_APP_PROXY_URL+hasURL,{
+          headers: {
+            'authorization': `bearer ${process.env.REACT_APP_FORMS_PAT+process.env.REACT_APP_FORMS_PAT2}`,
+          }
+        }).then(r => r.blob());
+        blob.lastModifiedDate = new Date();
+        blob.name = 'imageLogo';
+        file = blob;
+        console.log('blobbed it up ',file)
+      }
+      if (!fileInput && !hasURL) {
         this.setState({filename: e.target.files[0].name, uploading: true});
         const files = Array.from(e.target.files);
         file = files[0];
-      } else {
+      } else if (!hasURL) {
         this.setState({filename: fileInput.name, uploading: true});
         file = fileInput;
       }
@@ -679,13 +693,28 @@ class CreatorFunnel extends React.Component {
           }
       );
     } catch (e) {
+      //todo fix
       console.log("ERROR catchblock", e);
       let logo = this.state.logo;
       logo = null;
-      if (!fileInput) {
-        this.setState({filename: e.target.files[0].name, uploading: true});
-        const files = Array.from(e.target.files);
-        file = files[0];
+      if(hasURL){
+        console.log('doing it with no apis...',file,hasURL)
+        let storageRef = firebase.storage().ref();
+        // @ts-ignore
+        let practiceImageRef = storageRef.child(`images/${this.state.code}/logo`);
+       return  practiceImageRef.put(file).then((snapshot) => {
+          snapshot.ref.getDownloadURL().then((downloadURL) => {
+            let logo = this.state.logo;
+            logo = downloadURL;
+            return this.setState({uploading: false, logo: logo});
+            // @ts-ignore
+          })
+        });
+      }
+      else if (!fileInput&&!hasURL) {
+        // this.setState({filename: e.target.files[0].name, uploading: true});
+        // const files = Array.from(e.target.files);
+        // file = files[0];
       } else {
         this.setState({filename: fileInput.name, uploading: true});
         file = fileInput;
@@ -1191,9 +1220,9 @@ class CreatorFunnel extends React.Component {
       content.businessInfo = this.state
           .selectedBusinessInfo || {name: ""};
       content.backgroundType =
-          this.state.backgroundType.hex || "#656565";
-      content.class = this.state.class.hex || "#4264ea";
-      content.font = this.state.font.hex || "#a2a2a2";
+          this.state.themeBackground|| this.state.backgroundType.hex || "#656565";
+      content.class = this.state.themeClass||this.state.class.hex || "#4264ea";
+      content.font = this.state.themeFont||this.state.font.hex || "#a2a2a2";
       content.firstName = this.state.firstName || "";
       content.userEmail = rootStore.pageStore.userEmail;
       content.emailAddress=this.state.emailAddress;
@@ -2461,7 +2490,9 @@ class CreatorFunnel extends React.Component {
   buildWebsite(){
     console.log('now i am building!',rootStore.pageStore.user)
     this.generateContentFromPrefilledData().then(async () => {
+      await this.uploadLogoImage(null,null,0,this.state.imageUpload)
       this.editFrontSection().then((res)=>{
+
         console.log('I should have photos...',res)
         this.editSecondSection()
       })
@@ -2475,6 +2506,49 @@ class CreatorFunnel extends React.Component {
       this.state.class,
       "/?///"
     );
+    const getTheme = (label)=>{
+      switch(label){
+
+        case 'Cobalt': return {
+         background: '#f8bbd0', text :'#fff', container: '#4264ea'
+      }
+      case 'Blush': return {
+        background: '#ffcdd2', text :'#fff', container: '#f44336'
+      }
+
+        case 'Rose': return {
+          background: '#c8e6c9', text :'#fff', container: '#009688'
+        }
+        case'Sunburst': return {
+          background: '#ffe0b2', text :'#000', container: '#fbc02d'
+        }
+
+        case 'Aqua': return{
+          background: '#b3e5fc', text :'#fff', container: '#90a4ae'
+        }
+
+        case 'Mocha': return{
+          background: '#d7ccc8', text :'#fff', container: '#a1887f'
+        }
+
+        case 'Slate': return{
+          background: '#cfd8dc', text :'#fff', container: '#607d8b'
+        }
+        case 'Gunmetal':return{
+          background: '#cfd8dc', text :'#fff', container: '#525252'
+        }
+        case 'Midnight':return{
+          background: '#000', text :'#fff', container: '#969696'
+        }
+        case 'Lilac':return{
+          background: '#f8bbd0', text :'#fff', container: '#ba68c8'
+        }
+        default: return{
+          background: '#cfd8dc', text :'#fff', container: '#607d8b'
+        }
+        }
+
+      }
     const formReady = !this.state.editSection&&(!this.state.formSubmitted&&!this.state.pageOneLoading)
     return (
       <div>
@@ -2521,30 +2595,45 @@ class CreatorFunnel extends React.Component {
               const data = form.answers
               //use data to fill state content
               console.log('response data ',data)
-
-              if(data) {
+            try {
+              if (data) {
                 const content = this.state.content
                 // content.mainButtonTitle= data.find((field) => field.field.ref === 'mainButtonTitle').text;
                 // content.mainButtonLink=data.find((field) => field.field.ref === 'mainButtonLink').text;
+                const theme = getTheme(data.find((field) => field.field.ref === 'theme').choice.label)
+                content.backgroundType = theme.background
+                content.class = theme.container
+                content.font = theme.text
+                const logo = data.find((field) => field.field.ref === 'imageUpload').file_url
+                console.log('data', data,logo)
                 this.setState({
+                  themeClass:theme.container,
+                  themeFont:theme.text,
+                  themeBackground: theme.background,
                   firstName: data.find((field) => field.field.ref === 'firstName').text,
                   serviceType: data.find((field) => field.field.ref === 'serviceType').text,
                   businessName: data.find((field) => field.field.ref === 'businessName').text,
-                  pageTitle:data.find((field) => field.field.ref === 'businessName').text,
+                  pageTitle: data.find((field) => field.field.ref === 'businessName').text,
                   code: data.find((field) => field.field.ref === 'code').text,
-                  emailAddress:data.find((field) => field.field.ref === 'emailAddress').text,
-                  password:data.find((field) => field.field.ref === 'firstName').text+'123@',
+                  emailAddress: data.find((field) => field.field.ref === 'emailAddress').text,
+                  password: data.find((field) => field.field.ref === 'firstName').text + '123@',
+
+                  imageUpload: logo,
+                  backgroundType: theme.background,
+
 
                   noBusiness: true,
                   selectedBusinessInfo: {},
-                  //themeSelection
-                  //A === 'background: #f8bbd0, text :#fff, container: ???'
+
                   content
                 })
                 this.buildWebsite()
-              }else{
-                console.log('no data',form,data)
+              } else {
+                console.log('no data', form, data)
               }
+            }catch(e){
+                console.log('e',e)
+            }
               //edit front section
               //edit second section
               //done
