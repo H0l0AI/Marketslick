@@ -140,7 +140,7 @@ class App extends React.Component {
             path="/r/:redirectTarget"
             component={(props) => {
               let { redirectTarget } = useParams();
-              window.location.href = `https://${redirectTarget}.webgun.ai`;
+              window.location.href = `https://${redirectTarget}.cashies.io`;
             }}
           />
           <Route path="/MarketingMagnet" exact component={MarketingHeroPage} />

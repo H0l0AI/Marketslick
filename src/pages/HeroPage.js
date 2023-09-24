@@ -3,9 +3,9 @@ import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
 import fiveStars from "../images/fiveStar.png";
-import webgunLogo from "../images/webgunLogo.jpg";
+import webgunLogo from "../images/webgunLogo.png";
 
-import logo from "../images/webgunLogo.jpg";
+import logo from "../images/webgunLogo.png";
 import p2 from "../images/p2.png";
 import p1 from "../images/p1.png";
 import coffee from "../images/coffee.png";
@@ -408,6 +408,18 @@ class HeroPage extends React.Component {
   };
 
   render() {
+      const EditBanner = (props) => {
+          return (
+              <div className="webgunStyleButton orange bannerbutton" onClick={async () => {
+                  await rootStore.pageStore.setEditSection(props.section);
+                  return (window.location.href = "/builder");
+              }} style={{cursor:'pointer',width:'100%',height:'60px',borderRadius:0,margin:0,padding:0}}>
+
+                  Click Here To Edit Website <BsPencilSquare size={36} color={"#fff"} />
+              </div>
+
+          );
+      };
     const EditSection = (props) => {
       return (
         <div
@@ -440,6 +452,7 @@ class HeroPage extends React.Component {
     const isMobile = window.innerWidth <= 768;
     return (
       <div>
+          <EditBanner section={"titleContent"} />
         {this.state.showSaleSuccess && (
           <div style={{ overflow: "hidden", maxWidth: "99vw" }}>
             <Confetti recycle={true} numberOfPieces={500} />
@@ -512,8 +525,8 @@ class HeroPage extends React.Component {
                       a premium website!
                     </h2>
                     <h4>
-                      Your Webgun website will be available within minutes at{" "}
-                      {this.state.content.code}.webgun.ai
+                      Your Cashies website will be available within minutes at{" "}
+                      {this.state.content.code}.cashies.io
                     </h4>
                     <img src={webgunLogo} />
                   </div>

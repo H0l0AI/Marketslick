@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import webgunLogo from "../images/webgunLogo.jpg";
+import webgunLogo from "../images/webgunLogo.png";
 import { BsInputCursorText } from "react-icons/bs";
 import { CgWebsite } from "react-icons/cg";
 import { BsCartCheck } from "react-icons/bs";
@@ -45,9 +45,9 @@ const LoginPage = () => {
         >
           <img
             src={webgunLogo}
-            style={{ width: isMobile ? "20%" : "7%", borderRadius: "50%" }}
+            style={{ width: isMobile ? "20%" : "7%", borderRadius: "30%" }}
           />
-          <h1 style={{ fontSize: isMobile ? "25px" : "40px" }}>WebGun</h1>
+          <h1 style={{ fontSize: isMobile ? "25px" : "40px" }}>Cashies</h1>
         </div>
         <h1
           style={{
@@ -62,7 +62,7 @@ const LoginPage = () => {
         <p style={{ fontSize: "22px", textAlign: "center", marginTop: "40px" }}>
           Take your business to the lext level. Simply input your information
           and in less than a minute <br />
-          your website is complete!
+          your website is complete! Choice!
         </p>
         <button
           style={{
@@ -91,7 +91,7 @@ const LoginPage = () => {
           style={{
             width: isMobile ? "50%" : "20%",
             margin: "50px",
-            borderRadius: "50%",
+            borderRadius: "30%",
           }}
         />
         <div

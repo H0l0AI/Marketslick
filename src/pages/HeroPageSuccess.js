@@ -2,7 +2,7 @@ import React from "react";
 import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
-import logo from "../images/webgunLogo.jpg";
+import logo from "../images/webgunLogo.png";
 import p2 from "../images/p2.png";
 import coffee from "../images/coffee.png";
 import firebase from "firebase/compat";
@@ -50,7 +50,7 @@ import { toJS } from "mobx";
 import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
-import webgunLogo from "../images/webgunLogo.jpg";
+import webgunLogo from "../images/webgunLogo.png";
 
 export const SuccessBanner = (props) => (
   <div style={{ display: "flex", justifyContent: "center", padding: 5 }}>
@@ -96,8 +96,8 @@ export const SuccessBanner = (props) => (
           <h4>
             Your website{props.pageTitle && ` for ${props.pageTitle}`} will be
             available within a few minutes at{" "}
-            <a href={`https://${props.code}.webgun.ai`}>
-              {props.code}.webgun.ai
+            <a href={`https://${props.code}.cashies.io`}>
+              {props.code}.cashies.io
             </a>{" "}
             !
             <br />

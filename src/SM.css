@@ -414,9 +414,13 @@ h2 {
 .orange{
   background-color: orange !important;
 }
+.bannerbutton{
+  font-size:26px !important;
+  padding-top: 5px !important;
+}
 .webgunStyleButton{
   text-align: center;
-  font-size: 12px !important;
+  font-size: 12px ;
   border: 2px solid #fff;
   width: 15rem;
   color: #fff !important;

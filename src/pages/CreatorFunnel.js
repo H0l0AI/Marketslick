@@ -966,7 +966,7 @@ class CreatorFunnel extends React.Component {
             authorization: `Bearer ${process.env.REACT_APP_LEAP_KEY}`,
           },
           body: JSON.stringify({
-            prompt: `A clean and elegant photo for a website advertising ${phrase}`,
+            prompt: `A clean and elegant photo advertising ${phrase}`,
             negativePrompt: `${process.env.REACT_APP_NEGATIVE_PROMPT}`,
             steps: 10,
             width: 1024,
@@ -1459,7 +1459,7 @@ class CreatorFunnel extends React.Component {
             </h3>
             <p style={{ textAlign: "center" }}>
               Your link tree will be easily accessible, both on your website and
-              at webgun.ai/{this.state.code || cookie.get("code")}
+              at cashies.io/{this.state.code || cookie.get("code")}
             </p>
             {this.state.builderError && (
               <p style={{ fontSize: 12, color: "red", textAlign: "center" }}>
@@ -2101,6 +2101,7 @@ class CreatorFunnel extends React.Component {
                             style={{
                               position: "relative",
                               width: 640,
+                              overflow:'auto',
                               maxWidth: this.state.accessibleWidth,
                               marginBottom: 20,
                             }}
@@ -2296,7 +2297,7 @@ class CreatorFunnel extends React.Component {
                             onBlur={() => {
                               this.setState({ restOfFormReady: true });
                             }}
-                            disabled={cookie.get("wasPurchased")}
+                            disabled={true}
                             className="templateInputP"
                             style={{ width: 430 }}
                             type="text"
@@ -2314,10 +2315,10 @@ class CreatorFunnel extends React.Component {
                               paddingTop: 15,
                               fontSize: 22,
                               fontWeight: 600,
-                              color: "#0e1e46",
+                              color: "#fff",
                             }}
                           >
-                            .webgun.ai
+                            .cashies.io
                           </span>
                         </div>
                       </>
