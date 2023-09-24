@@ -2490,7 +2490,9 @@ class CreatorFunnel extends React.Component {
   buildWebsite(){
     console.log('now i am building!',rootStore.pageStore.user)
     this.generateContentFromPrefilledData().then(async () => {
-      await this.uploadLogoImage(null,null,0,this.state.imageUpload)
+      if(this.state.imageUpload) {
+        await this.uploadLogoImage(null, null, 0, this.state.imageUpload)
+      }
       this.editFrontSection().then((res)=>{
 
         console.log('I should have photos...',res)
@@ -2604,7 +2606,7 @@ class CreatorFunnel extends React.Component {
                 content.backgroundType = theme.background
                 content.class = theme.container
                 content.font = theme.text
-                const logo = data.find((field) => field.field.ref === 'imageUpload').file_url
+                const logo = data.find((field) => field.field.ref === 'imageUpload')?data.find((field) => field.field.ref === 'imageUpload').file_url:null
                 console.log('data', data,logo)
                 this.setState({
                   themeClass:theme.container,
