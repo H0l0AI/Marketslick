@@ -541,7 +541,7 @@ class HeroPage extends React.Component {
                   zIndex: 8999,
                   width: "100%",
                   marginTop: "100px",
-                  height: "630px",
+                  height: "690px",
                   overflow: "hidden",
                 }}
               >
@@ -1161,7 +1161,7 @@ class HeroPage extends React.Component {
                     <p style={{ marginBottom: 0 }}>
                       Oh my goodness, I can't believe how lucky I am to have
                       found such an incredible{" "}
-                      {this.state.serviceType || "personal trainer"}! With three
+                      {this.state.content.serviceType || "personal trainer"}! With three
                       little ones running around, finding time for myself seemed
                       impossible, but this {this.state.content.serviceType} has
                       been an absolute game-changer in my life. Thank you very

@@ -468,7 +468,7 @@ export class HeroPageSuccess extends React.Component {
                     zIndex: 8999,
                     width: "100%",
                     marginTop: "100px",
-                    height: "630px ",
+                    height: "690px ",
                     overflow: "hidden",
                   }}
                 >
