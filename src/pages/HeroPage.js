@@ -54,7 +54,6 @@ import { toJS } from "mobx";
 import builder from "../images/builder.png";
 import content from "../contents";
 import SimpleMap from "./SimpleMap";
-import web from "../images/bg/11.png";
 import {
   renderPackageName,
   renderPackagePhoto,

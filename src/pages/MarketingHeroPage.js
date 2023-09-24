@@ -3,7 +3,6 @@ import image1 from "../images/house2.jpg";
 import image2 from "../images/house3.jpg";
 import home_icon from "../images/realtor-icon-4-dark.png";
 import logo from "../images/sm3.png";
-import web from "../images/bg/11.png";
 import p2 from "../images/p2.png";
 import coffee from "../images/coffee.png";
 import firebase from "firebase/compat";
@@ -72,19 +71,16 @@ export const renderPackagePhoto = (ref) => {
   if (!ref) {
     return (
       <div className="myDIV2 pricing29">
-        <img src={web} className="rounded-4" width="350" height={280} />
       </div>
     );
   } else if (ref === "SM") {
     return (
       <div className={`myDIV2 pricing59`}>
-        <img src={p2} className="rounded-4" width="350" height={280} />
       </div>
     );
   } else {
     return (
       <div className="myDIV2 pricing29">
-        <img src={web} className="rounded-4" width="350" height={280} />
       </div>
     );
   }
