@@ -74,7 +74,7 @@ const LoginPage = () => {
             borderRadius: "30px",
             background: "transparent",
             cursor: "pointer",
-            fontSize: "1.3rem",
+            fontSize: "1rem",
             fontWeight: "bold",
             transition: "background 0.3s ease",
           }}
