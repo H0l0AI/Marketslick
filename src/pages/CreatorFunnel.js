@@ -1155,7 +1155,7 @@ class CreatorFunnel extends React.Component {
           await rootStore.pageStore
               .testRytrBlurb(
                   this.state.firstName,
-                  `${this.state.serviceType} at ${this.state.pageTitle}`,
+                  `${this.state.serviceType} at ${this.state.businessName}`,
                   rytrBlurb
               )
               .then(async ({rawHtml}) => {
@@ -1165,8 +1165,8 @@ class CreatorFunnel extends React.Component {
                 content.titleBlurb = rytrBlurb;
                 content.titleContent = rytrBlurb
                 const photo = await this.getGeneratedPhoto(
-                    `${this.state.serviceType} at ${this.state.pageTitle}`,
-                    this.state.pageTitle
+                    `${this.state.serviceType} at ${this.state.businessName}`,
+                    this.state.businessName
                 );
                 console.log('I should have photo from prefill',photo)
 

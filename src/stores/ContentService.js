@@ -200,8 +200,7 @@ export async function testRytrMain(firstName,serviceType,businessName,businessBl
     console.log('desc',useCaseProduct);
 
     let inputContexts = {
-        [useCaseProduct.data.data.contextInputs[0].keyLabel]: firstName,
-        [useCaseProduct.data.data.contextInputs[0].keyLabel]: serviceType,
+        [useCaseProduct.data.data.contextInputs[0].keyLabel]: `${firstName} is a ${serviceType} at ${businessName}`,
         [useCaseProduct.data.data.contextInputs[0].outputMaximumCharacters]: 160
     };
     console.log('inut',inputContexts);
