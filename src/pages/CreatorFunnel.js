@@ -454,6 +454,7 @@ class CreatorFunnel extends React.Component {
           generatedImageURIArray: userSubmittedTemplated.content.generatedImageURIArray,
           class: {hex: userSubmittedTemplated.content.class},
           font: {hex: userSubmittedTemplated.content.font},
+          backgroundType:{hex:userSubmittedTemplated.content.backgroundType},
           code: rootStore.pageStore.code || code,
           userContinued: true,
           colorSelectorModal: false,
@@ -2612,6 +2613,7 @@ class CreatorFunnel extends React.Component {
                   themeClass:theme.container,
                   themeFont:theme.text,
                   themeBackground: theme.background,
+                  backgroundType:theme.background,
                   firstName: data.find((field) => field.field.ref === 'firstName').text,
                   serviceType: data.find((field) => field.field.ref === 'serviceType').text,
                   businessName: data.find((field) => field.field.ref === 'businessName').text,
@@ -2621,9 +2623,6 @@ class CreatorFunnel extends React.Component {
                   password: data.find((field) => field.field.ref === 'firstName').text + '123@',
 
                   imageUpload: logo,
-                  backgroundType: theme.background,
-
-
                   noBusiness: true,
                   selectedBusinessInfo: {},
 
