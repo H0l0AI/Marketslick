@@ -2584,8 +2584,10 @@ class CreatorFunnel extends React.Component {
 
         {this.state.editModal &&
         formReady?
+            cookie.get('formSubmitted')?
             <Widget  style={{ width: '100vw', height:'100vh' }} inlineOnMobile={true} className="tf-form"
                      onReady={()=>{console.log('ready')}} onSubmit={async (e)=>{
+              cookie.set('formSubmitted','true')
               console.log('response',e)
 
               this.setState({formSubmitted:true,pageOneLoading:true})
@@ -2643,7 +2645,7 @@ class CreatorFunnel extends React.Component {
             }}
 
             id={process.env.REACT_APP_FORM_ID}
-                   />
+                   />:null
             :this.state.editSection?this.renderEditModal(this.state.editModal,this.editFrontSection,this.editSecondSection):<div style={{textAlign:'center',padding:'20%'}}><h3>Great, we're building your website. Sit back, this will only take a moment.</h3>
         <div style={{display:'flex',justifyContent:'center'}}>
           <div className="bar">
