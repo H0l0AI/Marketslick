@@ -636,7 +636,7 @@ export class HeroPage extends React.Component {
                 >
                   <div style={{ display: "flex", justifyContent: "center" }}>
                     <div>
-                      <div
+                        {this.state.content.mainButtonLink&&this.state.content.mainButtonLink!=='/'&&<div
                         className="templateCTA"
                         onClick={() => {
                           firebase.analytics().logEvent("view_range_btn");
@@ -654,7 +654,7 @@ export class HeroPage extends React.Component {
                         >
                           {this.state.content.mainButtonTitle || "Apply Now"}
                         </div>
-                      </div>
+                      </div>}
                       <div
                         style={{
                           display: "flex",
