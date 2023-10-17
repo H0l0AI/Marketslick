@@ -7,7 +7,7 @@ import { inject, observer } from "mobx-react";
 import { Router, Route, Switch, useParams } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import firebase from "firebase/compat";
-import HeroPage  from "./pages/HeroPage";
+import HeroPage from "./pages/HeroPage";
 import { SecondaryPage } from "./pages/SecondaryPage";
 import { ThirdPage } from "./pages/ThirdPage";
 import { Contact } from "./pages/Contact";
@@ -22,8 +22,11 @@ import { HeroPageSuccess } from "./pages/HeroPageSuccess";
 import { LinkPageInside } from "./pages/LinkPageInside";
 import CreatorFunnel from "./pages/CreatorFunnel";
 import LandingPage from "./pages/LandingPage";
-import LoginPage from './pages/LoginPage'
-
+import LoginPage from "./pages/LoginPage";
+import FDNavbar from "../src/FitDirect/components/NavBar";
+import FDFooter from "../src/FitDirect/components/Footer";
+import FDHomePage from "../src/FitDirect/pages/HomePage";
+import FDBrowse from "../src/FitDirect/pages/Browse";
 
 const customHistory = createBrowserHistory();
 const TemplatedRouteComponent = <TemplatedRoute index={0} />;
@@ -183,6 +186,28 @@ class App extends React.Component {
                 <TemplatedRoute index={3} />
               </div>
             )}
+          />
+
+          {/* FitDirect Routes */}
+          {/* <Route
+            path="../src/FitDirect/components/NavBar"
+            exact
+            component={FDNavbar}
+          />
+          <Route
+            path="../src/FitDirect/components/Footer"
+            exact
+            component={FDFooter}
+          /> */}
+          <Route
+            path="../src/FitDirect/pages/HomePage"
+            exact
+            component={FDHomePage}
+          />
+          <Route
+            path="../src/FitDirect/pages/Browse"
+            exact
+            component={FDBrowse}
           />
         </Switch>
       </Router>
