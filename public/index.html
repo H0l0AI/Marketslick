@@ -20,7 +20,7 @@
     <script>
         if (!!navigator.platform && /iP(?:hone|ad|od)/.test(navigator.platform)) {
             document.querySelector(`link[rel="manifest"]`).setAttribute(`rel`, `no-ios`);
-            document.title = `AppName`; // default app name | simulate short_name
+            document.title = `Website`; // default app name | simulate short_name
             if (`standalone` in window.navigator && window.navigator.standalone && sessionStorage.getItem(`iOS-redirect`) === null) {
                 sessionStorage.setItem(`iOS-redirect`, ``);
                 window.location = `/`; // simulate start_url

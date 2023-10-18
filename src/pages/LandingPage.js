@@ -60,7 +60,7 @@ const LoginPage = () => {
           $9 per week
         </h1>
         <p style={{ fontSize: "22px", textAlign: "center", marginTop: "40px" }}>
-          Take your business to the lext level. Simply input your information
+          Take your business to the next level. Simply input your information
           and in less than a minute <br />
           your website is complete! Choice!
         </p>
