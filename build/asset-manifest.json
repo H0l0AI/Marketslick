@@ -1,33 +1,21 @@
 {
   "files": {
-    "main.css": "/static/css/main.3ce65f2f.chunk.css",
-    "main.js": "/static/js/main.477cad6e.chunk.js",
-    "main.js.map": "/static/js/main.477cad6e.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.5fe52f7e.js",
-    "runtime-main.js.map": "/static/js/runtime-main.5fe52f7e.js.map",
-    "static/js/2.a8a5507d.chunk.js": "/static/js/2.a8a5507d.chunk.js",
-    "static/js/2.a8a5507d.chunk.js.map": "/static/js/2.a8a5507d.chunk.js.map",
-    "static/js/3.163fa29c.chunk.js": "/static/js/3.163fa29c.chunk.js",
-    "static/js/3.163fa29c.chunk.js.map": "/static/js/3.163fa29c.chunk.js.map",
+    "main.css": "/static/css/main.698fc276.css",
+    "main.js": "/static/js/main.1e03e250.js",
+    "static/js/787.7cfc1922.chunk.js": "/static/js/787.7cfc1922.chunk.js",
+    "static/media/Book.png": "/static/media/Book.71b135263ac0d921243a.png",
+    "static/media/reviewImage.png": "/static/media/reviewImage.1a1e9e86704717de9bad.png",
+    "static/media/avi.png": "/static/media/avi.0582e856c30613a560cc.png",
+    "static/media/searchImage.png": "/static/media/searchImage.bf832b5eabc542a0f292.png",
+    "static/media/bookingImage.png": "/static/media/bookingImage.483ce8731d0ae62a161c.png",
+    "static/media/FDLogo.png": "/static/media/FDLogo.6062432b8e6b63f8adfd.png",
     "index.html": "/index.html",
-    "static/css/main.3ce65f2f.chunk.css.map": "/static/css/main.3ce65f2f.chunk.css.map",
-    "static/js/2.a8a5507d.chunk.js.LICENSE.txt": "/static/js/2.a8a5507d.chunk.js.LICENSE.txt",
-    "static/media/App.css": "/static/media/sm_bg.e7bd0ab1.png",
-    "static/media/builder.7e3c8699.png": "/static/media/builder.7e3c8699.png",
-    "static/media/coffee.cfb08af0.png": "/static/media/coffee.cfb08af0.png",
-    "static/media/house1.d2b113bd.jpg": "/static/media/house1.d2b113bd.jpg",
-    "static/media/house2.16f2c606.jpg": "/static/media/house2.16f2c606.jpg",
-    "static/media/house3.49d27db1.jpg": "/static/media/house3.49d27db1.jpg",
-    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg",
-    "static/media/p1.266570b8.png": "/static/media/p1.266570b8.png",
-    "static/media/p2.9185a28c.png": "/static/media/p2.9185a28c.png",
-    "static/media/sm3.c1202b46.png": "/static/media/sm3.c1202b46.png",
-    "static/media/smicon.90417904.png": "/static/media/smicon.90417904.png"
+    "main.698fc276.css.map": "/static/css/main.698fc276.css.map",
+    "main.1e03e250.js.map": "/static/js/main.1e03e250.js.map",
+    "787.7cfc1922.chunk.js.map": "/static/js/787.7cfc1922.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.5fe52f7e.js",
-    "static/js/2.a8a5507d.chunk.js",
-    "static/css/main.3ce65f2f.chunk.css",
-    "static/js/main.477cad6e.chunk.js"
+    "static/css/main.698fc276.css",
+    "static/js/main.1e03e250.js"
   ]
 }
