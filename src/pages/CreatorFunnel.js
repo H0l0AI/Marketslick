@@ -1690,8 +1690,6 @@ class CreatorFunnel extends React.Component {
                 </div>:null}
 
             <div onClick={(e)=>{
-              e.preventDefault();
-              e.stopPropagation();
               this.renderBGSelector(false);
               this.renderFontSelector(false);
               this.renderClassSelector(false)
