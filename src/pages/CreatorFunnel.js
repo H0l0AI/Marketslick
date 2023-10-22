@@ -2440,6 +2440,7 @@ class CreatorFunnel extends React.Component {
                     content.routeItemsDefault = this.state.routeItemsDefault;
                     content.logo = this.state.logo;
                     content.templateType = this.state.templateSelected;
+                    content.code = this.state.plainCode
                     console.log(
                       "SET:",
                       cookie.get("wasPurchased"),

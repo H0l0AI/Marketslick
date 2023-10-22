@@ -19,6 +19,7 @@ export async function getTemplatesWithId(id){
             if (dataToLoad) {
                 console.log(dataToLoad.data(), 'LOAD with ID', id);
                 rootStore.pageStore.setActiveTemplate(dataToLoad.data());
+                rootStore.pageStore.setCode(dataToLoad.data().content.code)
                 return dataToLoad.data();
             }
         }
