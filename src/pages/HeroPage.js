@@ -280,7 +280,7 @@ export class HeroPage extends React.Component {
                         width: "100%",
                       }}
                     >
-                      <div
+                        {this.state.content.mainButtonLink&&this.state.content.mainButtonLink!=='/'&&   <div
                         className="altButtonOuter"
                         onClick={() => {
                           firebase.analytics().logEvent("view_contact_btn");
@@ -296,7 +296,7 @@ export class HeroPage extends React.Component {
                         >
                           {this.state.content.mainButtonTitle}
                         </div>
-                      </div>
+                      </div>}
                     </div>
                   </div>
                   <div
