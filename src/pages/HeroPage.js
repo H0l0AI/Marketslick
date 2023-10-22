@@ -6,7 +6,11 @@ import p2 from "../images/p2.png";
 import coffee from "../images/coffee.png";
 import firebase from "firebase/compat";
 import cookie from "js-cookie";
-import logo from "../images/sm3.png";
+import ss1 from "../images/ss1.png";
+import ss2 from "../images/ss2.png";
+import clinton from "../images/clinton.png"
+import bgg from '../images/bgg.png'
+
 
 import {
   scrollCTA,
@@ -271,33 +275,9 @@ export class HeroPage extends React.Component {
                       textAlign: "center",
                     }}
                   >
-                    <h1>{this.state.content.titleContent}</h1>
 
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        width: "100%",
-                      }}
-                    >
-                      <div
-                        className="altButtonOuter"
-                        onClick={() => {
-                          firebase.analytics().logEvent("view_contact_btn");
-                          this.contactRef.current.scrollIntoView();
-                        }}
-                      >
-                        <div
-                          className="altButton"
-                          style={{
-                            backgroundColor: this.state.content.class,
-                            color: this.state.content.font,
-                          }}
-                        >
-                          {this.state.content.mainButtonTitle}
-                        </div>
-                      </div>
-                    </div>
+
+
                   </div>
                   <div
                     style={{
@@ -309,14 +289,14 @@ export class HeroPage extends React.Component {
                       // overflow: "hidden",
                     }}
                   >
-                    <img
+                 {/*   <img
                       style={{
                         maxWidth: isMobile ? 600 : 710,
                         // marginTop: isMobile ? "-70px" : "-180px",
                         position: "absolute",
                       }}
                       src={this.state.content.logo || null}
-                    />
+                    />*/}
                   </div>
                 </div>
               </div>
@@ -327,13 +307,12 @@ export class HeroPage extends React.Component {
                   }}
                   key={this.state.currentMainImage}
                   src={
-                    this.state.content.imageURLArray[0] ||
-                    this.state.content.generatedImageURI
+                    bgg
                   }
                   className="fadedshort"
                   style={{
                     width: "100%",
-                    height: 790,
+                    height: 650,
                     objectFit: "cover",
                     borderBottom: "2px solid #000",
                   }}
@@ -403,9 +382,7 @@ export class HeroPage extends React.Component {
                         maxHeight: "500px",
                       }}
                       src={
-                        (this.state.content.imageURLArray &&
-                          this.state.content.imageURLArray[1]) ||
-                        null
+                       ss1
                       }
                       alt=""
                       width="50%"
@@ -494,9 +471,7 @@ export class HeroPage extends React.Component {
                             maxHeight: "500px",
                           }}
                           src={
-                            (this.state.content.imageURLArray &&
-                              this.state.content.imageURLArray[2]) ||
-                            null
+                              clinton
                           }
                           alt=""
                           width="50%"
@@ -576,9 +551,7 @@ export class HeroPage extends React.Component {
                         maxHeight: "500px",
                       }}
                       src={
-                        (this.state.content.imageURLArray &&
-                          this.state.content.imageURLArray[3]) ||
-                        null
+                    ss2
                       }
                       alt=""
                       width="50%"
