@@ -465,7 +465,7 @@ export class MarketingHeroPageSuccess extends React.Component {
                                 firebase.analytics().logEvent('sales_init_mm')
                                 rootStore.pageStore.setIsPotentialCustomer('revision');
                                 //todo revision $5 link stripe.
-                                window.location.href='https://buy.stripe.com/dR617taCTf567cYeUY'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
+                                window.location.href='https://buy.stripe.com/14keYjh1h9KM8h25kp'}} style={{margin:10}} className="altButton redButton magOrange">Get it now<div style={{position:'relative'}}><div style={{position:'absolute',top:-25,right:0}}><i className="material-icons">keyboard_arrow_right</i></div></div></div>
 
 
                             </div> </>

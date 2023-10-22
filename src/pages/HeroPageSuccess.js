@@ -976,7 +976,7 @@ export class HeroPageSuccess extends React.Component {
                         rootStore.pageStore.setIsPotentialCustomer("revision");
                         //todo revision $5 link stripe.
                         window.location.href =
-                          "https://buy.stripe.com/dR617taCTf567cYeUY";
+                          "https://buy.stripe.com/14keYjh1h9KM8h25kp";
                       }}
                       style={{ margin: 10 }}
                       className="webgunStyleButton orange"
