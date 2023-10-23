@@ -607,7 +607,8 @@ export class HeroPage extends React.Component {
                     backgroundColor: this.state.content.class,
                   }}
                 >
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ textAlign:'center', justifyContent: "center" }}>
+                      <h3>Get in touch today!</h3>
                     <div>
                         {this.state.content.mainButtonLink&&this.state.content.mainButtonLink!=='/'&&<div
                         className="templateCTA"
@@ -635,32 +636,31 @@ export class HeroPage extends React.Component {
                           flexWrap: "wrap",
                         }}
                       >
-                        {this.state.content.emailAddress &&
-                          this.state.content.emailAddress !==
-                            "your email address" && (
+
+
                             <div style={{ padding: 10 }}>
                               <div style={{ position: "relative" }}>
                                 <i
                                   style={{
                                     position: "absolute",
-                                    top: 0,
+                                    top: 10,
                                     left: 0,
+                                      fontSize:36
                                   }}
                                   className="material-icons"
                                 >
-                                  mail
+                                  phone
                                 </i>{" "}
                               </div>
-                              <div style={{ marginLeft: 40 }}>
+                              <div style={{ marginLeft: 40,fontSize:36 }}>
                                 <b></b>
-                                {this.state.content.emailAddress}
+                                027 317 0151
                               </div>
                             </div>
-                          )}
+
                         <br />
                         <br />
                       </div>
-                      <div></div>
                       <div
                         style={{ display: "flex", justifyContent: "center" }}
                       >
